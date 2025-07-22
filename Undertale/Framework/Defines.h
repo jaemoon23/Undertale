@@ -35,3 +35,12 @@ enum class Sides
 	Right,
 	None,
 };
+
+enum class ButtonState
+{
+	None,
+	Fight,
+	Act,
+	Item,
+	Mercy
+};

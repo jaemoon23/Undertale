@@ -1,23 +1,33 @@
 #pragma once
 #include "GameObject.h"
+#include "HitBox.h"
 
-class Soul;
+class SceneBattle;
 
-class BattleButton : public GameObject
+class Soul : public GameObject
 {
 protected:
 	sf::Sprite sprite;
+	HitBox hitBox;
 
-	std::string offTexId;
-	std::string onTexId;
+	int hp = 20;
+	int maxHp = 20;
 
-	Soul* soul;
+	float moveSpeed = 50.f;
+
+	SceneBattle* scene;
+	int* btIndex;
+
+	sf::Vector2f size = { 640.f, 480.f };
+	int minX;
+	int maxX;
+	int minY;
+	int maxY;
 
 public:
-	BattleButton(const std::string& name = "");
-	virtual ~BattleButton() = default;
 
-	void SetTexIds(std::string offId, std::string onId) { offTexId = offId; onTexId = onId; }
+	Soul(const std::string& name = "");
+	virtual ~Soul() = default;
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;
@@ -25,12 +35,12 @@ public:
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
 
+	sf::FloatRect GetGlobalBounds() const override { return sprite.getGlobalBounds(); }
+
 	void Init() override;
 	void Release() override;
 	void Reset() override;
 	void Update(float dt) override;
-	void UpdateTexture();
-
 	void Draw(sf::RenderWindow& window) override;
 };
 

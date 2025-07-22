@@ -8,8 +8,8 @@ SceneBattle::SceneBattle()
 
 void SceneBattle::Init()
 {
-	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF() * 0.5f;
-
+	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
+	
 	texIds.push_back("graphics/spr_battlebg_0.png");
 	texIds.push_back("graphics/spr_froggit_2.png");
 	texIds.push_back("graphics/spr_dialogueBox.png");
@@ -21,6 +21,7 @@ void SceneBattle::Init()
 	texIds.push_back("graphics/spr_itembt_1.png");
 	texIds.push_back("graphics/spr_sparebt_0.png");
 	texIds.push_back("graphics/spr_sparebt_1.png");
+	texIds.push_back("graphics/spr_heart_battle_pl_0.png");
 
 	describeBox.setSize({ windowSize.x * 0.95f, windowSize.y * 0.25f });
 	Utils::SetOrigin(describeBox, Origins::TC);
@@ -49,12 +50,14 @@ void SceneBattle::Init()
 	mercyButton->SetTexIds("graphics/spr_sparebt_0.png", "graphics/spr_sparebt_1.png");
 	mercyButton->SetPosition({ windowSize.x * 0.8f, windowSize.y * 0.9f });
 
+	soul = (Soul*)AddGameObject(new Soul());
+
 	Scene::Init();
 }
 
 void SceneBattle::Enter()
 {
-	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF() * 0.5f;
+	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 	worldView.setSize(windowSize);
 	worldView.setCenter(windowSize * 0.5f);
 
@@ -80,13 +83,42 @@ void SceneBattle::Exit()
 void SceneBattle::Update(float dt)
 {
 	Scene::Update(dt);
+
+	if (btState == ButtonState::None)
+	{
+		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+		{
+			switch (btIndex)
+			{
+				case 0:
+					btState = ButtonState::Fight;
+					break;
+				case 1:
+					btState = ButtonState::Act;
+					break;
+				case 2:
+					btState = ButtonState::Item;
+					break;
+				case 3:
+					btState = ButtonState::Mercy;
+					break;
+			}
+		}
+		else
+		{
+			fightButton->UpdateTexture();
+			actButton->UpdateTexture();
+			itemButton->UpdateTexture();
+			mercyButton->UpdateTexture();
+		}
+	}
 }
 
 void SceneBattle::Draw(sf::RenderWindow& window)
 {
 	window.draw(background);
-	window.draw(dialogueBox);
-	Scene::Draw(window);
 	window.draw(monster);
+	window.draw(dialogueBox);
 	window.draw(describeBox);
+	Scene::Draw(window);
 }

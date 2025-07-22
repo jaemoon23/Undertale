@@ -1,21 +1,10 @@
 #include "stdafx.h"
 #include "BattleButton.h"
+#include "SceneBattle.h"
 
 BattleButton::BattleButton(const std::string& name)
 	: GameObject(name)
 {
-}
-
-void BattleButton::SetTexture()
-{
-	if (!isOn)
-	{
-		sprite.setTexture(TEXTURE_MGR.Get(offTexId));
-	}
-	else
-	{
-		sprite.setTexture(TEXTURE_MGR.Get(onTexId));
-	}
 }
 
 void BattleButton::SetPosition(const sf::Vector2f& pos)
@@ -53,6 +42,8 @@ void BattleButton::SetOrigin(Origins preset)
 
 void BattleButton::Init()
 {
+	sortingLayer = SortingLayers::Foreground;
+	sortingOrder = 0;
 }
 
 void BattleButton::Release()
@@ -61,11 +52,25 @@ void BattleButton::Release()
 
 void BattleButton::Reset()
 {
-	SetTexture();
+	soul = ((SceneBattle*)SCENE_MGR.GetCurrentScene())->GetSoul();
+	sprite.setTexture(TEXTURE_MGR.Get(offTexId));
 }
 
 void BattleButton::Update(float dt)
 {
+	
+}
+
+void BattleButton::UpdateTexture()
+{
+	if (sprite.getGlobalBounds().intersects(soul->GetGlobalBounds()))
+	{
+		sprite.setTexture(TEXTURE_MGR.Get(onTexId));
+	}
+	else
+	{
+		sprite.setTexture(TEXTURE_MGR.Get(offTexId));
+	}
 }
 
 void BattleButton::Draw(sf::RenderWindow& window)

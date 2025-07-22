@@ -3,6 +3,7 @@
 #include "Animator.h"
 #include "BattleButton.h"
 #include "StatusInBattleUI.h"
+#include "Soul.h"
 
 // 640, 480
 
@@ -18,7 +19,7 @@ protected:
 	// 플레이어 스테이터스 UI
 	// 버튼들
 	sf::Sprite background;
-	sf::Sprite soul;
+	Soul* soul;
 	sf::Sprite monster;
 	sf::Sprite dialogueBox;
 
@@ -41,6 +42,9 @@ protected:
 	Animator animator;
 
 public:
+	ButtonState btState = ButtonState::None;
+	int btIndex = 0;
+
 	SceneBattle();
 	~SceneBattle() override = default;
 
@@ -49,4 +53,6 @@ public:
 	void Exit() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	Soul* GetSoul() { return soul; }
 };

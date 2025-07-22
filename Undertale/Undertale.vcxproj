@@ -150,6 +150,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneBattle.cpp" />
     <ClCompile Include="Scenes\SceneDev1.cpp" />
+    <ClCompile Include="Soul.cpp" />
     <ClCompile Include="StatusInBattleUI.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -178,6 +179,7 @@
     <ClInclude Include="Framework\Variables.h" />
     <ClInclude Include="SceneBattle.h" />
     <ClInclude Include="Scenes\SceneDev1.h" />
+    <ClInclude Include="Soul.h" />
     <ClInclude Include="StatusInBattleUI.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
