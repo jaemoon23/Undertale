@@ -2,10 +2,12 @@
 #include "Scene.h"
 
 class Player;
+class Sans;
 class SceneTest : public Scene
 {
 protected:
 	Player* player;
+	Sans* sans;
 public:
 	SceneTest();
 	~SceneTest() override = default;

@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "Sans.h"
+
 Player::Player(const std::string& name)
 	: GameObject(name)
 {
@@ -58,11 +60,12 @@ void Player::Reset()
 	body.setScale(2.f, 2.f);
 	body.setRotation(0.f);
 
+	//animator.Play("Animation/downwalk.csv");
+
 	direction = { 0.f, 0.f };
 	//look = { 1.f, 0.f };
-
 	SetOrigin(Origins::MC);
-	
+
 }
 
 void Player::Update(float dt)
@@ -71,9 +74,23 @@ void Player::Update(float dt)
 	direction.y = InputMgr::GetAxis(Axis::Vertical);
 	Utils::Normalize(direction);
 	SetPosition(GetPosition() + direction * speed * dt);
+
+	hitBox.UpdateTransform(body, body.getLocalBounds());
+	animator.Update(dt);
+
+	if (sans)
+	{
+		if (Utils::CheckCollision(hitBox.rect, sans->GetHitBox()))
+		{
+			std::cout << "Ãæµ¹" << std::endl;
+		}
+	}
+	SetPosition(position);
 }
+
 
 void Player::Draw(sf::RenderWindow& window)
 {
 	window.draw(body);
+	hitBox.Draw(window);
 }

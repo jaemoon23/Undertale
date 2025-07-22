@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "SceneTest.h"
 #include "Player.h"
+#include "Sans.h"
 
 SceneTest::SceneTest()
 	:Scene(SceneIds::Test)
@@ -21,13 +22,19 @@ void SceneTest::Init()
 
 
 	texIds.push_back("Sprites/spr_f_maincharad_0.png");
+	texIds.push_back("Sprites/spr_sans_sleep_0.png");
 
 
 	player = new Player("player");
+	sans = new Sans("sans");
+
+
+
+	player->SetSans(sans);
 
 
 	AddGameObject(player);
-
+	AddGameObject(sans);
 
 
 	Scene::Init();
@@ -55,6 +62,7 @@ void SceneTest::Update(float dt)
 	worldView.setCenter(player->GetPosition().x, player->GetPosition().y);
 	//std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl; 잘모르겠으면 좌표 찍어보자 
 	player->Update(dt);
+	sans->Update(dt);
 	Scene::Update(dt);
 }
 void SceneTest::Draw(sf::RenderWindow& window)

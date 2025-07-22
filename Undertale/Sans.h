@@ -1,27 +1,16 @@
 #pragma once
 #include "GameObject.h"
-#include "Animator.h"
 #include "HitBox.h"
-
-class Sans;
-class Player : public GameObject
+class Sans : public GameObject
 {
 protected:
-	sf::Sprite body;
-	std::string texIds = "Sprites/spr_f_maincharad_0.png";
+	sf::Sprite sans;
+	std::string sanstexIds = "Sprites/spr_sans_sleep_0.png";
 
-	Sans* sans;
-
-	float speed = 200.f;
-	sf::Vector2f direction;
-	//sf::Vector2f look;
-
-	Animator animator;
-	HitBox hitBox;
-
+	HitBox hitBox;	
 public:
-	Player(const std::string& name = "");
-	virtual ~Player() = default;
+	Sans(const std::string& name = "");
+	virtual ~Sans() = default;
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;
@@ -35,7 +24,6 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void SetSans(Sans* s) { sans = s; }
-
+	const sf::RectangleShape& GetHitBox() const;
 };
 
