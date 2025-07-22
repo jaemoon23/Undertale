@@ -72,6 +72,12 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="BattleButton.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="StatusInBattleUI.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AniPlayer.h">
@@ -138,6 +144,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleButton.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusInBattleUI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

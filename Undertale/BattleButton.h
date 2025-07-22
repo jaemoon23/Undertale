@@ -1,21 +1,21 @@
 #pragma once
 #include "GameObject.h"
-#include "Animator.h"
-
-class Enemy : public GameObject
+class BattleButton : public GameObject
 {
 protected:
 	sf::Sprite sprite;
-	Animator animator;
 
-	int hp;
-
-	// 총알 공격 패턴
-	// 몬스터 대사 모음
+	std::string offTexId;
+	std::string onTexId;
 
 public:
-	Enemy(const std::string& name = "");
-	virtual ~Enemy() = default;
+	bool isOn = false;
+
+	BattleButton(const std::string& name = "");
+	virtual ~BattleButton() = default;
+
+	void SetTexIds(std::string offId, std::string onId) { offTexId = offId; onTexId = onId; }
+	void SetTexture();
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;

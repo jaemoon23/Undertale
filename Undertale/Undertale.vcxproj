@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AniPlayer.cpp" />
+    <ClCompile Include="BattleButton.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Framework\AnimationClip.cpp" />
     <ClCompile Include="Framework\Animator.cpp" />
@@ -149,12 +150,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneBattle.cpp" />
     <ClCompile Include="Scenes\SceneDev1.cpp" />
+    <ClCompile Include="StatusInBattleUI.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AniPlayer.h" />
+    <ClInclude Include="BattleButton.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Framework\AnimationClip.h" />
     <ClInclude Include="Framework\Animator.h" />
@@ -175,6 +178,7 @@
     <ClInclude Include="Framework\Variables.h" />
     <ClInclude Include="SceneBattle.h" />
     <ClInclude Include="Scenes\SceneDev1.h" />
+    <ClInclude Include="StatusInBattleUI.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

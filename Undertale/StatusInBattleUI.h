@@ -1,21 +1,20 @@
 #pragma once
 #include "GameObject.h"
-#include "Animator.h"
-
-class Enemy : public GameObject
+class StatusInBattleUI : public GameObject
 {
 protected:
-	sf::Sprite sprite;
-	Animator animator;
+	sf::Text statusText;
+	sf::Text hpText;
+	sf::RectangleShape hpBar;
 
-	int hp;
-
-	// 총알 공격 패턴
-	// 몬스터 대사 모음
+	std::string playerName = "Frisk";
+	int level = 1;
+	int playerMaxHp = 20;
+	int playerCurrentHp = 20;
 
 public:
-	Enemy(const std::string& name = "");
-	virtual ~Enemy() = default;
+	StatusInBattleUI(const std::string& name = "");
+	virtual ~StatusInBattleUI() = default;
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;
