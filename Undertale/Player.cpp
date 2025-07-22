@@ -46,20 +46,6 @@ void Player::Init()
 	sortingOrder = 1;
 
 	animator.SetTarget(&body);
-
-	animator.AddEvent("Idle", 0,
-		[]()
-		{
-			std::cout << "!!" << std::endl;
-		}
-	);
-
-	animator.AddEvent("Idle", 0,
-		[]()
-		{
-			std::cout << "??" << std::endl;
-		}
-	);
 }
 
 void Player::Release()
@@ -74,7 +60,7 @@ void Player::Reset()
 	animator.Play("Animation/idle.csv");
 
 	direction = { 0.f, 0.f };
-	
+
 	//look = { 1.f, 0.f };
 	SetOrigin(Origins::MC);
 
@@ -88,7 +74,7 @@ void Player::Update(float dt)
 	SetPosition(GetPosition() + direction * speed * dt);
 
 	hitBox.UpdateTransform(body, body.getLocalBounds());
-	
+
 
 	if (sans)
 	{
@@ -102,34 +88,22 @@ void Player::Update(float dt)
 	{
 		animator.Play("Animation/rightwalking.csv");
 	}
-	if (InputMgr::GetKeyUp(sf::Keyboard::Right))
-	{
-		animator.Play("Animation/idle.csv");
-	}
-
 	if (InputMgr::GetKeyDown(sf::Keyboard::Left))
 	{
 		animator.Play("Animation/leftwalking.csv");
 	}
-	if (InputMgr::GetKeyUp(sf::Keyboard::Left))
-	{
-		animator.Play("Animation/idle.csv");
-	}
-
-	if (InputMgr::GetKeyDown(sf::Keyboard::Down))
-	{
-		animator.Play("Animation/downwalking.csv");
-	}
-	if (InputMgr::GetKeyUp(sf::Keyboard::Down))
-	{
-		animator.Play("Animation/idle.csv");
-	}
-
 	if (InputMgr::GetKeyDown(sf::Keyboard::Up))
 	{
 		animator.Play("Animation/upwalking.csv");
 	}
-	if (InputMgr::GetKeyUp(sf::Keyboard::Up))
+	if (InputMgr::GetKeyDown(sf::Keyboard::Down))
+	{
+		animator.Play("Animation/downwalking.csv");
+	}
+	if (InputMgr::GetKey(sf::Keyboard::Up) == 0 &&
+		InputMgr::GetKey(sf::Keyboard::Down) == 0 &&
+		InputMgr::GetKey(sf::Keyboard::Left) == 0 &&
+		InputMgr::GetKey(sf::Keyboard::Right) == 0)
 	{
 		animator.Play("Animation/idle.csv");
 	}
