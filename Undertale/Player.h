@@ -2,13 +2,18 @@
 #include "GameObject.h"
 
 class HitBox;
+class SceneTest;
 class Player : public GameObject
 {
 protected:
 	sf::Sprite body;
 	std::string texIds = "Sprites/spr_f_maincharad_0.png";
+	float speed;
+	sf::Vector2f direction;
+	sf::Vector2f look;
 
 	HitBox* hitBox;
+	SceneTest* sceneTest = nullptr;
 
 public:
 	Player(const std::string& name = "");

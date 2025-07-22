@@ -53,13 +53,22 @@ void Player::Reset()
 	body.setTexture(TEXTURE_MGR.Get(texIds), true);
 	body.setPosition(0.f, 0.f);
 	body.setScale(2.f, 2.f);
+	body.setRotation(0.f);
+
+	direction = { 0.f, 0.f };
+	look = { 1.f, 0.f };
+	speed = 200.f;
+
 	SetOrigin(Origins::MC);
 	
 }
 
 void Player::Update(float dt)
 {
-
+	direction.x = InputMgr::GetAxis(Axis::Horizontal);
+	direction.y = InputMgr::GetAxis(Axis::Vertical);
+	Utils::Normalize(direction);
+	SetPosition(GetPosition() + direction * speed * dt);
 }
 
 void Player::Draw(sf::RenderWindow& window)
