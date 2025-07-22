@@ -7,53 +7,69 @@ SceneBattle::SceneBattle()
 }
 
 void SceneBattle::Init()
-{	
+{
+	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF() * 0.5f;
+
 	texIds.push_back("graphics/spr_battlebg_0.png");
 	texIds.push_back("graphics/spr_froggit_2.png");
 	texIds.push_back("graphics/spr_dialogueBox.png");
-	texIds.push_back("graphics/spr_actbt_off.png");
-	texIds.push_back("graphics/spr_actbt_on.png");
+	texIds.push_back("graphics/spr_fightbt_0.png");
+	texIds.push_back("graphics/spr_fightbt_1.png");
+	texIds.push_back("graphics/spr_actbt_0.png");
+	texIds.push_back("graphics/spr_actbt_1.png");
+	texIds.push_back("graphics/spr_itembt_0.png");
+	texIds.push_back("graphics/spr_itembt_1.png");
+	texIds.push_back("graphics/spr_sparebt_0.png");
+	texIds.push_back("graphics/spr_sparebt_1.png");
 
-	describeBox.setSize({ 880.f, 275.f });
+	describeBox.setSize({ windowSize.x * 0.95f, windowSize.y * 0.25f });
+	Utils::SetOrigin(describeBox, Origins::TC);
 	describeBox.setFillColor(sf::Color::Black);
 	describeBox.setOutlineColor(sf::Color::White);
-	describeBox.setOutlineThickness(10.f);
-	describeBox.setPosition({ 200.f, 400.f });
+	describeBox.setOutlineThickness(5.f);
+	describeBox.setPosition({ windowSize.x * 0.5f, windowSize.y * 0.53f });
 
 	dialogue.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 
 	describe1.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 
 	statusUI = (StatusInBattleUI*)AddGameObject(new StatusInBattleUI());
-	statusUI->SetPosition({ 200.f, 700.f });
+	statusUI->SetPosition({ windowSize.x * 0.02f, windowSize.y * 0.8f });
 
-	attackButton = (BattleButton*)AddGameObject(new BattleButton());
-	attackButton->SetTexIds("graphics/spr_actbt_off.png", "graphics/spr_actbt_on.png");
-	attackButton->SetScale({ 1.5f,1.5f });
-	attackButton->SetPosition({ 450.f, 800.f });
+	fightButton = (BattleButton*)AddGameObject(new BattleButton());
+	fightButton->SetTexIds("graphics/spr_fightbt_0.png", "graphics/spr_fightbt_1.png");
+	fightButton->SetPosition({ windowSize.x * 0.02f, windowSize.y * 0.9f });
+	actButton = (BattleButton*)AddGameObject(new BattleButton());
+	actButton->SetTexIds("graphics/spr_actbt_0.png", "graphics/spr_actbt_1.png");
+	actButton->SetPosition({ windowSize.x * 0.28f, windowSize.y * 0.9f });
+	itemButton = (BattleButton*)AddGameObject(new BattleButton());
+	itemButton->SetTexIds("graphics/spr_itembt_0.png", "graphics/spr_itembt_1.png");
+	itemButton->SetPosition({ windowSize.x * 0.54f, windowSize.y * 0.9f });
+	mercyButton = (BattleButton*)AddGameObject(new BattleButton());
+	mercyButton->SetTexIds("graphics/spr_sparebt_0.png", "graphics/spr_sparebt_1.png");
+	mercyButton->SetPosition({ windowSize.x * 0.8f, windowSize.y * 0.9f });
 
 	Scene::Init();
 }
 
 void SceneBattle::Enter()
 {
-	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
+	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF() * 0.5f;
 	worldView.setSize(windowSize);
 	worldView.setCenter(windowSize * 0.5f);
 
 	Scene::Enter();
 
 	background.setTexture(TEXTURE_MGR.Get("graphics/spr_battlebg_0.png"));
-	background.setScale({ 1.5f,1.5f });
 	Utils::SetOrigin(background, Origins::TC);
-	background.setPosition({ windowSize.x * 0.5f,20.f });
+	background.setPosition({ windowSize.x * 0.5f,10.f });
 
 	dialogueBox.setTexture(TEXTURE_MGR.Get("graphics/spr_dialogueBox.png"));
-	dialogueBox.setPosition({ 700.f,250.f });
+	dialogueBox.setPosition({ windowSize.x * 0.55f, windowSize.y * 0.3f });
 
 	monster.setTexture(TEXTURE_MGR.Get("graphics/spr_froggit_2.png"));
 	Utils::SetOrigin(monster, Origins::MC);
-	monster.setPosition({ windowSize.x * 0.5f, 300.f });
+	monster.setPosition({ windowSize.x * 0.45f, windowSize.y * 0.4f });
 }
 
 void SceneBattle::Exit()

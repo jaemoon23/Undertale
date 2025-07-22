@@ -10,8 +10,9 @@ void StatusInBattleUI::SetPosition(const sf::Vector2f& pos)
 {
 	GameObject::SetPosition(pos);
 	statusText.setPosition(pos);
-	hpText.setPosition(pos + sf::Vector2f(300.f,0.f));
-	hpBar.setPosition(pos + sf::Vector2f(300.f, 0.f));
+	hpBar.setPosition(pos + sf::Vector2f(265.f, 8.f));
+	sf::FloatRect hpbarRect = hpBar.getGlobalBounds();
+	hpText.setPosition({hpbarRect.left + hpbarRect.width + 55.f, hpbarRect.top - 8.f});
 }
 
 void StatusInBattleUI::SetRotation(float rot)
@@ -52,13 +53,15 @@ void StatusInBattleUI::SetOrigin(Origins preset)
 void StatusInBattleUI::Init()
 {
 	statusText.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
-	statusText.setCharacterSize(50.f);
+	statusText.setString(playerName + "   LV" + std::to_string(level) + "    HP");
+	statusText.setCharacterSize(30.f);
 
 	hpText.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
-	hpText.setCharacterSize(50.f);
+	hpText.setString(std::to_string(playerCurrentHp) + "/" + std::to_string(playerMaxHp));
+	hpText.setCharacterSize(30.f);
 
 	hpBar.setFillColor(sf::Color::Yellow);
-	hpBar.setSize({ 3.f * playerMaxHp, 50.f });
+	hpBar.setSize({ 2.f * playerMaxHp, 30.f });
 }
 
 void StatusInBattleUI::Release()

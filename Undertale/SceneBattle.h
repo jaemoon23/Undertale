@@ -4,7 +4,7 @@
 #include "BattleButton.h"
 #include "StatusInBattleUI.h"
 
-// 1280, 960
+// 640, 480
 
 class SceneBattle : public Scene
 {
@@ -33,7 +33,10 @@ protected:
 	sf::RectangleShape describeBox;
 
 	StatusInBattleUI* statusUI;
-	BattleButton* attackButton;
+	BattleButton* fightButton;
+	BattleButton* actButton;
+	BattleButton* itemButton;
+	BattleButton* mercyButton;
 
 	Animator animator;
 
