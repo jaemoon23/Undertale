@@ -9,12 +9,13 @@ class Player : public GameObject
 protected:
 	sf::Sprite body;
 
-	Sans* sans;
+	int hp = 100;
+	std::string name = "Player";
 
 	float speed = 200.f;
 	sf::Vector2f direction;
-	//sf::Vector2f look;
 
+	Sans* sans;
 	Animator animator;
 	HitBox hitBox;
 
@@ -33,6 +34,13 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void SetHp(int h) { hp = h; }
+	int GetHp() const { return hp; }
+
+	void SetName(const std::string& n) { name = n; }
+	const std::string& GetName() { return name; }
+
 
 	void SetSans(Sans* s) { sans = s; }
 
