@@ -76,13 +76,19 @@ void Player::Update(float dt)
 	hitBox.UpdateTransform(body, body.getLocalBounds());
 
 
+
 	if (sans)
 	{
 		if (Utils::CheckCollision(hitBox.rect, sans->GetHitBox()))
 		{
-			std::cout << "충돌" << std::endl;
+			//std::cout << "충돌!" << std::endl;
+			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+			{
+				std::cout << "상호작용!" << std::endl;
+			}
 		}
 	}
+
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Right))
 	{
@@ -110,7 +116,6 @@ void Player::Update(float dt)
 
 
 	animator.Update(dt);
-	SetPosition(position);
 }
 
 

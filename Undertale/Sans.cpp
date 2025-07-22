@@ -57,6 +57,7 @@ void Sans::Reset()
 
 	sans.setTexture(TEXTURE_MGR.Get(sanstexIds));
 	sans.setPosition(100.f, 100.f);
+	SetOrigin(Origins::MC);
 }
 
 void Sans::Update(float dt)
