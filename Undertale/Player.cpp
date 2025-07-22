@@ -50,14 +50,16 @@ void Player::Release()
 
 void Player::Reset()
 {
+	sortingLayer = SortingLayers::Foreground;
+	sortingOrder = 1;
+
 	body.setTexture(TEXTURE_MGR.Get(texIds), true);
 	body.setPosition(0.f, 0.f);
 	body.setScale(2.f, 2.f);
 	body.setRotation(0.f);
 
 	direction = { 0.f, 0.f };
-	look = { 1.f, 0.f };
-	speed = 200.f;
+	//look = { 1.f, 0.f };
 
 	SetOrigin(Origins::MC);
 	
