@@ -74,6 +74,7 @@ void Player::Reset()
 	animator.Play("Animation/idle.csv");
 
 	direction = { 0.f, 0.f };
+	
 	//look = { 1.f, 0.f };
 	SetOrigin(Origins::MC);
 
@@ -132,9 +133,6 @@ void Player::Update(float dt)
 	{
 		animator.Play("Animation/idle.csv");
 	}
-
-
-
 
 
 	animator.Update(dt);

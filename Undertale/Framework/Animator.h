@@ -42,7 +42,7 @@ protected:
 
 	float frameDuration = 0.f;
 	float accumTime = 0.f;
-	float speed = 1.f;
+	float speed = 0.5f;
 
 public:
 	Animator() = default;
