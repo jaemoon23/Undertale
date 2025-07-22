@@ -2,7 +2,8 @@
 
 int main()
 {
-    FRAMEWORK.Init(1920, 1080, "JumpKing!!");
+    FRAMEWORK.SetWindowSize(640, 480);
+    FRAMEWORK.Init();
     FRAMEWORK.Do();
     FRAMEWORK.Release();
 

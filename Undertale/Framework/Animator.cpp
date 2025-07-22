@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Animator.h"
 
+
 const std::string Animator::emptyString = "";
 
 void Animator::AddEvent(const std::string& id, int frame, std::function<void()> action)

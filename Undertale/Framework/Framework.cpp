@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include "Framework.h"
 
-void Framework::Init(int w, int h, const std::string& t)
-{
-	window.create(sf::VideoMode(w, h), t);
 
+void Framework::Init()
+{
 	TEXTURE_MGR.Load(texIds);
 	FONT_MGR.Load(fontIds);
 	SOUNDBUFFER_MGR.Load(soundIds);
@@ -64,4 +63,9 @@ void Framework::Release()
 	SOUNDBUFFER_MGR.Unload(soundIds);
 	FONT_MGR.Unload(fontIds);
 	TEXTURE_MGR.Unload(texIds);
+}
+
+void Framework::SetWindowSize(int width, int height)
+{
+    window.create(sf::VideoMode(width, height), "UndetTale");
 }
