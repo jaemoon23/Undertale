@@ -1,15 +1,14 @@
 #include "stdafx.h"
 #include "SceneMgr.h"
 #include "SceneDev1.h"
-//#include "SceneDev2.h"
+#include "SceneBattle.h"
 
 
 void SceneMgr::Init()
 {
 	scenes.insert({ SceneIds::Dev1 ,new SceneDev1() });
-	//scenes.insert({ SceneIds::Title ,new SceneDev2() });
+	scenes.insert({ SceneIds::Battle ,new SceneBattle() });
 	
-
 	for (auto scene : scenes)
 	{
 		scene.second->Init();

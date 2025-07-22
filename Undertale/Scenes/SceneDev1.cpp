@@ -21,7 +21,7 @@ SceneDev1::~SceneDev1()
 
 void SceneDev1::Init()
 {
-	fontIds.push_back("fonts/DS-DIGIT.ttf");
+	fontIds.push_back("fonts/DungGeunMo.ttf");
 
 	// 첫 번째 사각형 (키보드로 회전)
 	rect1 = new sf::RectangleShape(sf::Vector2f(100.f, 150.f));
