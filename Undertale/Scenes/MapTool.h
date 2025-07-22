@@ -7,7 +7,11 @@ class MapTool :
     public Scene
 {
 protected:
+    std::vector<Button*> buttons;
+
     Button* b1;
+    Button* b2;
+
     
 public:
     MapTool();

@@ -18,7 +18,17 @@ void test::Enter()
 
 void test::Update(float dt)
 {
+	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::MapTool);
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::BackSpace))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::Dev1);
+	}
 }
+	
+
 
 void test::Draw(sf::RenderWindow& window)
 {

@@ -47,6 +47,10 @@ void Button::SetSize(const sf::Vector2f& size)
 {
 	body.setSize(size);
 }
+void Button::setCallback(std::function<void()> func)
+{
+	onClick = func;
+}
 void Button::Init()
 {
 }
@@ -75,10 +79,10 @@ void Button::Update(float dt)
 
 	if (bounds.contains(worldPos))
 	{
-		std::cout << "올라감" << std::endl;
+		//std::cout << "올라감" << std::endl;
 		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
 		{
-			
+			onClick();
 		}
 	}
 	else

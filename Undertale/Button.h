@@ -28,6 +28,7 @@ public:
 
 	void SetColor(const sf::Color& color1, const sf::Color& color2);
 	void SetSize(const sf::Vector2f& size);
+	void setCallback(std::function<void()> func);
 
 	void Init() override;
 	void Release() override;
