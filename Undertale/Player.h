@@ -8,7 +8,6 @@ class Player : public GameObject
 {
 protected:
 	sf::Sprite body;
-	std::string texIds = "Sprites/spr_f_maincharad_0.png";
 
 	Sans* sans;
 

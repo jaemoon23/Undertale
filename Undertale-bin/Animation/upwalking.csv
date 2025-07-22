@@ -1,0 +1,8 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)",,,
+Run,10,1,,,
+,,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
+Sprites/upwalking.png,0,0,19,29,0
+Sprites/upwalking.png,19,0,19,29,0
+Sprites/upwalking.png,38,0,19,29,0
+Sprites/upwalking.png,57,0,19,29,0

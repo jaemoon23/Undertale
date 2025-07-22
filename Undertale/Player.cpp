@@ -44,6 +44,22 @@ void Player::Init()
 {
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = 1;
+
+	animator.SetTarget(&body);
+
+	animator.AddEvent("Idle", 0,
+		[]()
+		{
+			std::cout << "!!" << std::endl;
+		}
+	);
+
+	animator.AddEvent("Idle", 0,
+		[]()
+		{
+			std::cout << "??" << std::endl;
+		}
+	);
 }
 
 void Player::Release()
@@ -55,12 +71,7 @@ void Player::Reset()
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = 1;
 
-	body.setTexture(TEXTURE_MGR.Get(texIds), true);
-	body.setPosition(0.f, 0.f);
-	body.setScale(2.f, 2.f);
-	body.setRotation(0.f);
-
-	//animator.Play("Animation/downwalk.csv");
+	animator.Play("Animation/idle.csv");
 
 	direction = { 0.f, 0.f };
 	//look = { 1.f, 0.f };
@@ -76,7 +87,7 @@ void Player::Update(float dt)
 	SetPosition(GetPosition() + direction * speed * dt);
 
 	hitBox.UpdateTransform(body, body.getLocalBounds());
-	animator.Update(dt);
+	
 
 	if (sans)
 	{
@@ -85,6 +96,48 @@ void Player::Update(float dt)
 			std::cout << "Ãæµ¹" << std::endl;
 		}
 	}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Right))
+	{
+		animator.Play("Animation/rightwalking.csv");
+	}
+	if (InputMgr::GetKeyUp(sf::Keyboard::Right))
+	{
+		animator.Play("Animation/idle.csv");
+	}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Left))
+	{
+		animator.Play("Animation/leftwalking.csv");
+	}
+	if (InputMgr::GetKeyUp(sf::Keyboard::Left))
+	{
+		animator.Play("Animation/idle.csv");
+	}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Down))
+	{
+		animator.Play("Animation/downwalking.csv");
+	}
+	if (InputMgr::GetKeyUp(sf::Keyboard::Down))
+	{
+		animator.Play("Animation/idle.csv");
+	}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Up))
+	{
+		animator.Play("Animation/upwalking.csv");
+	}
+	if (InputMgr::GetKeyUp(sf::Keyboard::Up))
+	{
+		animator.Play("Animation/idle.csv");
+	}
+
+
+
+
+
+	animator.Update(dt);
 	SetPosition(position);
 }
 

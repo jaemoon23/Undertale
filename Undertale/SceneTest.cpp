@@ -21,9 +21,21 @@ void SceneTest::Init()
 	worldView.setCenter(center);
 
 
-	texIds.push_back("Sprites/spr_f_maincharad_0.png");
 	texIds.push_back("Sprites/spr_sans_sleep_0.png");
 
+	texIds.push_back("Sprites/idle.png");
+	texIds.push_back("Sprites/downwalking.png");
+	texIds.push_back("Sprites/upwalking.png");
+	texIds.push_back("Sprites/leftwalking.png");
+	texIds.push_back("Sprites/rightwalking.png");
+	
+
+	ANI_CLIP_MGR.Load("Animation/idle.csv");
+	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
+	ANI_CLIP_MGR.Load("Animation/upwalking.csv");
+	ANI_CLIP_MGR.Load("Animation/leftwalking.csv");
+	ANI_CLIP_MGR.Load("Animation/rightwalking.csv");
+	
 
 	player = new Player("player");
 	sans = new Sans("sans");

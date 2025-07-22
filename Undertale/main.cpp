@@ -2,7 +2,7 @@
 
 int main()
 {
-    FRAMEWORK.Init(1280, 960, "JumpKing!!");
+    FRAMEWORK.Init(640, 480, "Undertale");
     FRAMEWORK.Do();
     FRAMEWORK.Release();
 

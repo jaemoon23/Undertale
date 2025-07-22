@@ -3,6 +3,7 @@
 
 struct AnimationEvent
 {
+	
 	std::string id;
 	int frame = 0;
 

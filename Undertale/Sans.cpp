@@ -57,7 +57,6 @@ void Sans::Reset()
 
 	sans.setTexture(TEXTURE_MGR.Get(sanstexIds));
 	sans.setPosition(100.f, 100.f);
-	sans.setScale(2.f, 2.f);
 }
 
 void Sans::Update(float dt)
