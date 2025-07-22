@@ -146,7 +146,9 @@
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="Framework\Variables.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scenes\SceneDev1.cpp" />
+    <ClCompile Include="SceneTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -170,7 +172,9 @@
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="Framework\Variables.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Scenes\SceneDev1.h" />
+    <ClInclude Include="SceneTest.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
