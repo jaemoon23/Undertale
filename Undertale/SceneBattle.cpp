@@ -1,7 +1,10 @@
 #include "stdafx.h"
+#include <fstream>
 #include "SceneBattle.h"
 #include "dialogueBox.h"
 #include "BattleBox.h"
+#include "json.hpp"
+using json = nlohmann::json;
 
 SceneBattle::SceneBattle()
 	: Scene(SceneIds::Battle)
@@ -44,7 +47,6 @@ void SceneBattle::Init()
 	soul = (Soul*)AddGameObject(new Soul());
 
 	dialBox = (dialogueBox*)AddGameObject(new dialogueBox());
-	dialBox->SetString(L"개굴 ~");
 
 	btBox = (BattleBox*)AddGameObject(new BattleBox());
 
@@ -53,6 +55,20 @@ void SceneBattle::Init()
 
 void SceneBattle::Enter()
 {
+	// JSON 파일 불러오기
+	std::ifstream file("jsons/frog.json");
+	if (!file.is_open())
+	{
+		std::cerr << "파일 열기 실패\n";
+	}
+	json data;
+	file >> data;
+
+	dialBox->SetString(data["lines"][0]);
+
+	btBox->startStr = data["startDescribe"];
+
+	//
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 	worldView.setSize(windowSize);
 	worldView.setCenter(windowSize * 0.5f);

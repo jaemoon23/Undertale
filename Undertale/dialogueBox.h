@@ -18,7 +18,11 @@ public:
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
 
-	void SetString(std::wstring s) { text.setString(s); }
+	void SetString(std::string s) 
+	{
+		std::wstring ws = utf8_to_wstring(s);
+		text.setString(ws);
+	}
 
 	void Init() override;
 	void Release() override;

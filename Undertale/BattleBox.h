@@ -14,9 +14,9 @@ protected:
 
 	sf::Vector2f size = { 640.f,480.f };
 
-	std::wstring startStr = L"* 프로깃이 당신을 공격했다!";
-
 public:
+	std::string startStr;
+
 	BattleBox(const std::string& name = "");
 	virtual ~BattleBox() = default;
 

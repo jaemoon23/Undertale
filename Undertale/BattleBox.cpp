@@ -62,7 +62,8 @@ void BattleBox::Reset()
 	SetOrigin(Origins::MC);
 	SetPosition({ size.x * 0.51f, size.y * 0.67f });
 
-	startDescribe.setString(startStr);
+	std::wstring ws = utf8_to_wstring(startStr);
+	startDescribe.setString(ws);
 }
 
 void BattleBox::Update(float dt)
