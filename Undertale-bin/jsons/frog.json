@@ -1,6 +1,7 @@
 {  
   "name": "프로깃",
-  "hp": 30,
+  "texId" : "graphics/spr_froggit_2.png",
+  "hp": 100,
   "lines" : [
     "개굴 ~",
     "멍 때리는 중"
@@ -54,7 +55,7 @@
         },        
         {
           "texId" : "graphics/spr_gun_bullet_.png", "PosX" : 100.0, "PosY" : 350.0, "DirX" : 1.0, "DirY" : 0.0,
-          "speed" : 300.0, "delay" : 2.6, "damage" : 4
+          "speed" : 300.0, "delay" : 2.3, "damage" : 4
         }
       ]
     }

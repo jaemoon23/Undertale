@@ -15,17 +15,11 @@ class BattleBox;
 class SceneBattle : public Scene
 {
 protected:
-	// 소울 스프라이트 ( 피하기, 메뉴 선택 )
-	// json에서 데이터 가져오기
-	// 에너미 클래스
-	// 플레이어 클래스
-	// 몬스터 대사창
-	// 상황 묘사 UI
-	// 플레이어 스테이터스 UI
-	// 버튼들
 	sf::Sprite background;
 	Soul* soul;
+
 	sf::Sprite monster;
+	std::string monsterTexId;
 
 	dialogueBox* dialBox;
 
@@ -50,7 +44,7 @@ protected:
 
 	json data;
 
-	int PatternIndex = 1;
+	int PatternIndex = 0;
 	int patternCount = 0;
 	std::vector<Bullet*> bulletTemp;
 

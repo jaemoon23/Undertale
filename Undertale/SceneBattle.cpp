@@ -78,6 +78,9 @@ void SceneBattle::Enter()
 	lineIndex = ++lineIndex % lineCount;
 	btBox->startStr = data["startDescribe"];
 	patternCount = data["attackPattern"].size();
+	monsterTexId = data["texId"];
+	monsterMaxHp = data["hp"];
+	monsterHp = monsterMaxHp;
 
 	//
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
@@ -90,7 +93,7 @@ void SceneBattle::Enter()
 	Utils::SetOrigin(background, Origins::TC);
 	background.setPosition({ windowSize.x * 0.5f,10.f });
 
-	monster.setTexture(TEXTURE_MGR.Get("graphics/spr_froggit_2.png"));
+	monster.setTexture(TEXTURE_MGR.Get(monsterTexId));
 	Utils::SetOrigin(monster, Origins::MC);
 	monster.setPosition({ windowSize.x * 0.45f, windowSize.y * 0.4f });
 }
