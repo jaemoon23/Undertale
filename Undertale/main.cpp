@@ -2,8 +2,7 @@
 
 int main()
 {
-    FRAMEWORK.SetWindowSize(640, 480);
-    FRAMEWORK.Init();
+    FRAMEWORK.Init(640, 480, "UnderTale");
     FRAMEWORK.Do();
     FRAMEWORK.Release();
 

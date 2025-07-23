@@ -2,8 +2,9 @@
 #include "Framework.h"
 
 
-void Framework::Init()
+void Framework::Init(int width, int height, std::string name)
 {
+    window.create(sf::VideoMode(width, height), name);
 	TEXTURE_MGR.Load(texIds);
 	FONT_MGR.Load(fontIds);
 	SOUNDBUFFER_MGR.Load(soundIds);
@@ -67,5 +68,5 @@ void Framework::Release()
 
 void Framework::SetWindowSize(int width, int height)
 {
-    window.create(sf::VideoMode(width, height), "UndetTale");
+    window.setSize(sf::Vector2u(width, height));
 }

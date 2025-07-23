@@ -42,6 +42,7 @@ void Button::SetColor(const sf::Color& color1, const sf::Color& color2)
 {
 	body.setFillColor(color1);
 	body.setOutlineColor(color2);
+	body.setOutlineThickness(1.f);
 }
 void Button::SetSize(const sf::Vector2f& size)
 {
@@ -63,8 +64,6 @@ void Button::Reset()
 {
 	
 	body.setFillColor(sf::Color::White);
-	body.setSize({ 500.f, 500.f });
-	
 	text.setOrigin(body.getLocalBounds().width * 0.5f, body.getLocalBounds().height * 0.5f);
 }
 
@@ -84,10 +83,6 @@ void Button::Update(float dt)
 		{
 			onClick();
 		}
-	}
-	else
-	{
-
 	}
 }
 

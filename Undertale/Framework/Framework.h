@@ -42,7 +42,7 @@ public:
 	float GetRealTime() const { return realTime; }
 	float GetRealDeltaTime() const { return realDeltaTime; }
 
-	virtual void Init();
+	virtual void Init(int width, int height, std::string name = "sf");
 	virtual void Do();
 	virtual void Release();
 
