@@ -6,6 +6,8 @@
 #include "Soul.h"
 
 // 640, 480
+class dialogueBox;
+class BattleBox;
 
 class SceneBattle : public Scene
 {
@@ -21,19 +23,13 @@ protected:
 	sf::Sprite background;
 	Soul* soul;
 	sf::Sprite monster;
-	sf::Sprite dialogueBox;
 
-	sf::Text dialogue;
+	dialogueBox* dialBox;
 
-	sf::Text describe1;
-	sf::Text describe2;
-	sf::Text describe3;
-	sf::Text describe4;
-	sf::Text describe5;
-
-	sf::RectangleShape describeBox;
+	BattleBox* btBox;
 
 	StatusInBattleUI* statusUI;
+
 	BattleButton* fightButton;
 	BattleButton* actButton;
 	BattleButton* itemButton;

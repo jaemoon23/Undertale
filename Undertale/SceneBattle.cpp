@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "SceneBattle.h"
+#include "dialogueBox.h"
+#include "BattleBox.h"
 
 SceneBattle::SceneBattle()
 	: Scene(SceneIds::Battle)
@@ -23,17 +25,6 @@ void SceneBattle::Init()
 	texIds.push_back("graphics/spr_sparebt_1.png");
 	texIds.push_back("graphics/spr_heart_battle_pl_0.png");
 
-	describeBox.setSize({ windowSize.x * 0.95f, windowSize.y * 0.25f });
-	Utils::SetOrigin(describeBox, Origins::TC);
-	describeBox.setFillColor(sf::Color::Black);
-	describeBox.setOutlineColor(sf::Color::White);
-	describeBox.setOutlineThickness(5.f);
-	describeBox.setPosition({ windowSize.x * 0.5f, windowSize.y * 0.53f });
-
-	dialogue.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
-
-	describe1.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
-
 	statusUI = (StatusInBattleUI*)AddGameObject(new StatusInBattleUI());
 	statusUI->SetPosition({ windowSize.x * 0.02f, windowSize.y * 0.8f });
 
@@ -52,6 +43,11 @@ void SceneBattle::Init()
 
 	soul = (Soul*)AddGameObject(new Soul());
 
+	dialBox = (dialogueBox*)AddGameObject(new dialogueBox());
+	dialBox->SetString(L"°³±¼ ~");
+
+	btBox = (BattleBox*)AddGameObject(new BattleBox());
+
 	Scene::Init();
 }
 
@@ -66,9 +62,6 @@ void SceneBattle::Enter()
 	background.setTexture(TEXTURE_MGR.Get("graphics/spr_battlebg_0.png"));
 	Utils::SetOrigin(background, Origins::TC);
 	background.setPosition({ windowSize.x * 0.5f,10.f });
-
-	dialogueBox.setTexture(TEXTURE_MGR.Get("graphics/spr_dialogueBox.png"));
-	dialogueBox.setPosition({ windowSize.x * 0.55f, windowSize.y * 0.3f });
 
 	monster.setTexture(TEXTURE_MGR.Get("graphics/spr_froggit_2.png"));
 	Utils::SetOrigin(monster, Origins::MC);
@@ -118,7 +111,5 @@ void SceneBattle::Draw(sf::RenderWindow& window)
 {
 	window.draw(background);
 	window.draw(monster);
-	window.draw(dialogueBox);
-	window.draw(describeBox);
 	Scene::Draw(window);
 }
