@@ -6,6 +6,8 @@ protected:
 	bool isActive = false;
 	sf::Sprite backgroundUi;
 	std::string bguitexIds = "Sprites/backgroundui.png";
+
+	sf::RectangleShape Square;
 public:
 	BackGroundUi(const std::string& name = "");
 	virtual ~BackGroundUi() = default;

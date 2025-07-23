@@ -6,6 +6,7 @@ class Sans;
 class BackGroundUi;
 class TestBackGround;
 class HpUi;
+class NameUi;
 
 class SceneTest : public Scene
 {
@@ -15,6 +16,7 @@ protected:
 	BackGroundUi* backgroundui;
 	TestBackGround* testbackground;
 	HpUi* hpui;
+	NameUi* nameui;
 public:
 	SceneTest();
 	~SceneTest() override = default;

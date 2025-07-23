@@ -19,7 +19,7 @@ void HpUi::Reset()
 	SetOrigin(Origins::MC);
 	SetCharacterSize(25);
 	SetFillColor(sf::Color::White);
-	SetPosition({ 490.f, 50.f });
+	SetPosition({ 330.f, 100.f });
 
 	TextGo::Reset();
 }
@@ -45,5 +45,5 @@ void HpUi::SetHp(int hp, int maxHp)
 {
 	this->hp = hp;
 	this->maxHp = maxHp;
-	SetString("HP: " + std::to_string(this->hp) + " / " + std::to_string(this->maxHp));
+	SetString("HP: " + std::to_string(this->hp) + "/" + std::to_string(this->maxHp));
 }

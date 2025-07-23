@@ -52,10 +52,15 @@ void BackGroundUi::Release()
 void BackGroundUi::Reset()
 {
 	backgroundUi.setTexture(TEXTURE_MGR.Get(bguitexIds));
-	backgroundUi.setPosition(640.f, 0.f);
-	backgroundUi.setScale(0.7f, 1.5f);
+	backgroundUi.setPosition(420.f, 230.f);
+	backgroundUi.setScale(0.6f, 0.8f);
 	SetOrigin(Origins::MC);
 
+	Square.setSize({ 374.f, 374.f });
+	Square.setFillColor(sf::Color::Transparent);
+	Square.setPosition({ backgroundUi.getPosition().x - 187.f ,backgroundUi.getPosition().y - 187.f });
+	Square.setOutlineColor(sf::Color::White);
+	Square.setOutlineThickness(5.f);
 }
 
 void BackGroundUi::Update(float dt)
@@ -72,5 +77,6 @@ void BackGroundUi::Draw(sf::RenderWindow& window)
 	if (isActive)
 	{
 		window.draw(backgroundUi);
+		window.draw(Square);
 	}
 }

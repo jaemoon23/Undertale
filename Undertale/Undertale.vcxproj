@@ -148,6 +148,7 @@
     <ClCompile Include="Framework\Variables.cpp" />
     <ClCompile Include="HpUi.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NameUi.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sans.cpp" />
     <ClCompile Include="Scenes\SceneDev1.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="Framework\Variables.h" />
     <ClInclude Include="HpUi.h" />
+    <ClInclude Include="NameUi.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Sans.h" />
     <ClInclude Include="Scenes\SceneDev1.h" />

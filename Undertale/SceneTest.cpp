@@ -5,6 +5,7 @@
 #include "BackGroundUi.h"
 #include "TestBackGround.h"
 #include "HpUi.h"
+#include "NameUi.h"
 
 SceneTest::SceneTest()
 	:Scene(SceneIds::Test)
@@ -46,7 +47,9 @@ void SceneTest::Init()
 	testbackground = new TestBackGround("testbackground ");
 	backgroundui = new BackGroundUi("backgroundui");
 	hpui = new HpUi("hpui");
+	nameui = new NameUi("nameui");
 
+	nameui->SetName("Chara");
 	hpui->SetHp(20, 20);
 	player->SetSans(sans);
 	player->SetHpUi(hpui);
@@ -57,6 +60,7 @@ void SceneTest::Init()
 	AddGameObject(sans);
 	AddGameObject(backgroundui);
 	AddGameObject(hpui);
+	AddGameObject(nameui);
 
 	Scene::Init();
 }
