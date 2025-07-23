@@ -4,7 +4,7 @@ class Player;
 class DialogueBox : public GameObject
 {
 protected:
-	bool isActive = false;
+	//bool isActive = false;
 
 	sf::Sprite dialogueBox;
 	std::string dialogueboxtexIds = "Sprites/backgroundui.png";
@@ -26,5 +26,8 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void SetBox(sf::Sprite d, sf::RectangleShape l) { dialogueBox = d, line = l; }
+	void SetPlayer(Player* p) { player = p; }
 };
 

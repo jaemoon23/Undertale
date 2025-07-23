@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Sans.h"
 #include "HpUi.h"
+#include "DialogueBox.h"
 
 Player::Player(const std::string& name)
 	: GameObject(name)
@@ -93,17 +94,10 @@ void Player::Update(float dt)
 		{
 			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 			{
+				Interact();
 				std::cout << "상호작용!" << std::endl;
 			}
 		}
-		//if (Utils::CheckCollision(hitBox.rect, sans->GetHitBox()))
-		//{
-		//	//std::cout << "충돌!" << std::endl;
-		//	if (InputMgr::GetKeyDown(sf::Keyboard::Z))
-		//	{
-		//		std::cout << "상호작용!" << std::endl;
-		//	}
-		//}
 	}
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Right))
@@ -122,14 +116,14 @@ void Player::Update(float dt)
 	{
 		animator.Play("Animation/downwalking.csv");
 	}
-	if (InputMgr::GetKey(sf::Keyboard::Up) == 0 &&
-		InputMgr::GetKey(sf::Keyboard::Down) == 0 &&
-		InputMgr::GetKey(sf::Keyboard::Left) == 0 &&
-		InputMgr::GetKey(sf::Keyboard::Right) == 0)
-	{
-		animator.Play("Animation/idle.csv");
-	}
 
+	//if (InputMgr::GetKey(sf::Keyboard::Up) == 0 &&
+	//	InputMgr::GetKey(sf::Keyboard::Down) == 0 &&
+	//	InputMgr::GetKey(sf::Keyboard::Left) == 0 &&
+	//	InputMgr::GetKey(sf::Keyboard::Right) == 0)
+	//{
+	//	animator.Play("Animation/idle.csv");
+	//}
 
 	animator.Update(dt);
 }
@@ -141,10 +135,16 @@ void Player::Draw(sf::RenderWindow& window)
 	hitBox.Draw(window);
 }
 
+void Player::Interact()
+{
+	dialoguebox->SetActive(true); 
+}
+
 void Player::SetHpUi(HpUi* hpui)
 {
 	this->hpui = hpui;
 }
+
 void Player::SetHp(int h, int maxh)
 {
 	hp = h;

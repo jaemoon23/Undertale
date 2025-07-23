@@ -63,21 +63,20 @@ void DialogueBox::Reset()
 	line.setOutlineColor(sf::Color::White);
 	line.setPosition({dialogueBox.getPosition().x - 252.f, dialogueBox.getPosition().y - 51.f});
 	line.setOutlineThickness(5.f);
+
+	SetActive(false);
 }
 
 void DialogueBox::Update(float dt)
 {
-	if (InputMgr::GetKeyDown(sf::Keyboard::Z))
-	{
-		isActive = true;	
-	}
+	//if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+	//{
+	//	isActive = true;	
+	//}
 }
 
 void DialogueBox::Draw(sf::RenderWindow& window)
 {
-	if (isActive)
-	{
 		window.draw(dialogueBox);
 		window.draw(line);
-	}
 }

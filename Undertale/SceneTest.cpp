@@ -57,6 +57,8 @@ void SceneTest::Init()
 	hpui->SetHp(20, 20);
 	player->SetSans(sans);
 	player->SetHpUi(hpui);
+	player->SetBox(dialoguebox);
+	dialoguebox->SetPlayer(player);
 	
 	AddGameObject(testbackground);
 	AddGameObject(player);

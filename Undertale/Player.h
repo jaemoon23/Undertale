@@ -5,6 +5,7 @@
 
 class HpUi;
 class Sans;
+class DialogueBox;
 class Player : public GameObject
 {
 protected:
@@ -19,10 +20,13 @@ protected:
 	float speed = 50.f;
 	sf::Vector2f direction;
 
-	Sans* sans;
-	HpUi* hpui;
 	Animator animator;
 	HitBox hitBox;
+
+	Sans* sans;
+	HpUi* hpui;
+	DialogueBox* dialoguebox;
+	
 
 public:
 	Player(const std::string& name = "");
@@ -41,17 +45,15 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetHp(int h, int maxh);
-	int GetHp() const { return hp; }
 	void SetAtt(int a) { att = a; }
-	int GetAtt() const { return att; }
 	void SetDef(int d) { def = d; }
-	int GetDef() const { return def; }
-
 	void SetName(const std::string& n) { name = n; }
-	const std::string& GetName() { return name; }
+
+	void Interact();
 
 	void SetHpUi(HpUi* hpui);
 	void SetSans(Sans* s) { sans = s; }
-
+	void SetBox(DialogueBox* dbox) { dialoguebox = dbox; }
+	
 };
 
