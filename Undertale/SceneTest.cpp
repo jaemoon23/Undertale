@@ -4,6 +4,7 @@
 #include "Sans.h"
 #include "BackGroundUi.h"
 #include "TestBackGround.h"
+#include "HpUi.h"
 
 SceneTest::SceneTest()
 	:Scene(SceneIds::Test)
@@ -15,6 +16,8 @@ void SceneTest::Init()
 {
 	auto size = FRAMEWORK.GetWindowSizeF()* 0.5f;
 	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
+
+	fontIds.push_back("fonts/DungGeunMo.ttf");
 
 	uiView.setSize(size);
 	uiView.setCenter(center);
@@ -42,15 +45,19 @@ void SceneTest::Init()
 	sans = new Sans("sans");
 	testbackground = new TestBackGround("testbackground ");
 	backgroundui = new BackGroundUi("backgroundui");
+	hpui = new HpUi("hpui");
 
-
+	hpui->SetHp(20, 20);
 	player->SetSans(sans);
+	player->SetHpUi(hpui);
+
 
 	AddGameObject(testbackground);
 	AddGameObject(player);
 	AddGameObject(sans);
 	AddGameObject(backgroundui);
-	
+	AddGameObject(hpui);
+
 	Scene::Init();
 }
 

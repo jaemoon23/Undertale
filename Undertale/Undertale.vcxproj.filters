@@ -81,6 +81,9 @@
     <ClCompile Include="TestBackGround.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="HpUi.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AniPlayer.h">
@@ -156,6 +159,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="TestBackGround.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="HpUi.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

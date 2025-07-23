@@ -3,6 +3,7 @@
 class BackGroundUi : public GameObject
 {
 protected:
+	bool isActive = false;
 	sf::Sprite backgroundUi;
 	std::string bguitexIds = "Sprites/backgroundui.png";
 public:

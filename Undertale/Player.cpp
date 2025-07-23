@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "Sans.h"
+#include "HpUi.h"
 
 Player::Player(const std::string& name)
 	: GameObject(name)
@@ -60,6 +61,8 @@ void Player::Reset()
 	animator.Play("Animation/idle.csv");
 
 	direction = { 0.f, 0.f };
+	maxHp = 20;
+	hp = 20;
 
 	//look = { 1.f, 0.f };
 	SetOrigin(Origins::MC);
@@ -123,4 +126,18 @@ void Player::Draw(sf::RenderWindow& window)
 {
 	window.draw(body);
 	hitBox.Draw(window);
+}
+
+void Player::SetHpUi(HpUi* hpui)
+{
+	this->hpui = hpui;
+}
+void Player::SetHp(int h, int maxh)
+{
+	hp = h;
+	maxHp = maxh;
+	if (hpui)
+	{
+		hpui->SetHp(hp, maxHp); // µø±‚»≠ 
+	}
 }
