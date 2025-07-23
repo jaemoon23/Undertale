@@ -80,3 +80,9 @@ void BackGroundUi::Draw(sf::RenderWindow& window)
 		window.draw(Square);
 	}
 }
+
+void BackGroundUi::SetRect()
+{
+	isActive = false;
+	this->Square = Square;
+}

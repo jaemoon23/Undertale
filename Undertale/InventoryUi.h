@@ -1,16 +1,24 @@
 #pragma once
 #include "GameObject.h"
-class BackGroundUi : public GameObject
+
+class InventoryUi : public GameObject
 {
 protected:
 	bool isActive = false;
-	sf::Sprite backgroundUi;
-	std::string bguitexIds = "Sprites/backgroundui.png";
+	sf::Sprite inventory;
+	sf::Font fonts;
+	std::string fonttexIds = "fonts/DungGeunMo.ttf";
+	std::string inventorytexIds ="Sprites/backgroundui.png";
 
-	sf::RectangleShape Square;
+	sf::RectangleShape square;
+	sf::RectangleShape line;
+
+	sf::Text inventext;
+	sf::Text boxtext;
+	sf::Text text;
 public:
-	BackGroundUi(const std::string& name = "");
-	virtual ~BackGroundUi() = default;
+	InventoryUi(const std::string& name = "");
+	virtual ~InventoryUi() = default;
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;
@@ -23,6 +31,5 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
-	void SetRect();
 };
 
