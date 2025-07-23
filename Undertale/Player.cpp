@@ -98,6 +98,11 @@ void Player::Update(float dt)
 				std::cout << "상호작용!" << std::endl;
 			}
 		}
+		if (InputMgr::GetKeyDown(sf::Keyboard::C))
+		{
+			dialoguebox->SetActive(false);
+			std::cout << "대화나가기" << std::endl;
+		}
 	}
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Right))
