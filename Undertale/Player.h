@@ -10,7 +10,9 @@ protected:
 	sf::Sprite body;
 
 	int hp = 100;
-	std::string name = "Player";
+	int att = 10;
+	int def = 10;
+	std::string name = "Chara";
 
 	float speed = 200.f;
 	sf::Vector2f direction;
@@ -37,6 +39,10 @@ public:
 
 	void SetHp(int h) { hp = h; }
 	int GetHp() const { return hp; }
+	void SetAtt(int a) { att = a; }
+	int GetAtt() const { return att; }
+	void SetDef(int d) { def = d; }
+	int GetDef() const { return def; }
 
 	void SetName(const std::string& n) { name = n; }
 	const std::string& GetName() { return name; }

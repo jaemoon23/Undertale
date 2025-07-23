@@ -43,7 +43,7 @@ void Sans::SetOrigin(Origins preset)
 void Sans::Init()
 {
 	sortingLayer = SortingLayers::Foreground;
-	sortingOrder = 1;
+	sortingOrder = 0;
 }
 
 void Sans::Release()
@@ -53,10 +53,10 @@ void Sans::Release()
 void Sans::Reset()
 {
 	sortingLayer = SortingLayers::Foreground;
-	sortingOrder = 1;
+	sortingOrder = 0;
 
 	sans.setTexture(TEXTURE_MGR.Get(sanstexIds));
-	sans.setPosition(100.f, 100.f);
+	sans.setPosition(0.f, 0.f);
 	SetOrigin(Origins::MC);
 }
 

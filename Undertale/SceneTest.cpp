@@ -2,6 +2,8 @@
 #include "SceneTest.h"
 #include "Player.h"
 #include "Sans.h"
+#include "BackGroundUi.h"
+#include "TestBackGround.h"
 
 SceneTest::SceneTest()
 	:Scene(SceneIds::Test)
@@ -20,15 +22,14 @@ void SceneTest::Init()
 	worldView.setSize(size);
 	worldView.setCenter(center);
 
-
-	texIds.push_back("Sprites/spr_sans_sleep_0.png");
-
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("Sprites/downwalking.png");
 	texIds.push_back("Sprites/upwalking.png");
 	texIds.push_back("Sprites/leftwalking.png");
 	texIds.push_back("Sprites/rightwalking.png");
-	
+	texIds.push_back("Sprites/backgroundui.png");
+	texIds.push_back("Sprites/bg_asgore_livingroom_0.png");
+	texIds.push_back("Sprites/spr_sans_sleep_0.png");
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
@@ -39,16 +40,17 @@ void SceneTest::Init()
 
 	player = new Player("player");
 	sans = new Sans("sans");
-
+	testbackground = new TestBackGround("testbackground ");
+	backgroundui = new BackGroundUi("backgroundui");
 
 
 	player->SetSans(sans);
 
-
+	AddGameObject(testbackground);
 	AddGameObject(player);
 	AddGameObject(sans);
-
-
+	AddGameObject(backgroundui);
+	
 	Scene::Init();
 }
 

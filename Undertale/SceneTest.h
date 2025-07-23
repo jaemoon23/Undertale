@@ -3,11 +3,16 @@
 
 class Player;
 class Sans;
+class BackGroundUi;
+class TestBackGround;
+
 class SceneTest : public Scene
 {
 protected:
 	Player* player;
 	Sans* sans;
+	BackGroundUi* backgroundui;
+	TestBackGround* testbackground;
 public:
 	SceneTest();
 	~SceneTest() override = default;
