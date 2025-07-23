@@ -22,10 +22,6 @@ void test::Update(float dt)
 	{
 		SCENE_MGR.ChangeScene(SceneIds::MapTool);
 	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::BackSpace))
-	{
-		SCENE_MGR.ChangeScene(SceneIds::Dev1);
-	}
 }
 	
 

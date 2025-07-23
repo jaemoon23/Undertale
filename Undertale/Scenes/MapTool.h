@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "Button.h"
+#include "InputText.h"
 
 
 class MapTool :
@@ -12,6 +13,14 @@ protected:
     Button* b1;
     Button* b2;
 
+    InputText* t1;
+
+    int test = 0;
+
+    sf::RectangleShape backSheets;
+    sf::RectangleShape objectSheets;
+
+   
     
 public:
     MapTool();
@@ -19,6 +28,7 @@ public:
     
     void Init() override;
     void Enter() override;
+    void Exit() override;
     void Update(float dt) override;
     void Draw(sf::RenderWindow& window) override;
 };
