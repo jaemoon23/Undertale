@@ -16,7 +16,7 @@ protected:
 	int def = 10;
 	std::string name = "Chara";
 
-	float speed = 100.f;
+	float speed = 50.f;
 	sf::Vector2f direction;
 
 	Sans* sans;
