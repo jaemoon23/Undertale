@@ -92,11 +92,15 @@ void Player::Update(float dt)
 
 		if (distance <= interactDistance)
 		{
-			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+			if (InputMgr::GetKeyDown(sf::Keyboard::X) && !dialoguebox->GetActive())
 			{
 				Interact();
-				std::cout << "상호작용!" << std::endl;
 			}
+			else if (InputMgr::GetKeyDown(sf::Keyboard::Z) && dialoguebox->GetActive())
+			{
+				dialoguebox->NextLine();
+			}
+
 		}
 		if (InputMgr::GetKeyDown(sf::Keyboard::C))
 		{
@@ -142,7 +146,8 @@ void Player::Draw(sf::RenderWindow& window)
 
 void Player::Interact()
 {
-	dialoguebox->SetActive(true); 
+	std::vector<std::string> testDialogues = { "Hi",  "Good" };
+	dialoguebox->StartDialogue(testDialogues);
 }
 
 void Player::SetHpUi(HpUi* hpui)

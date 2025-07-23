@@ -45,6 +45,7 @@ void DialogueBox::Init()
 {
 	sortingLayer = SortingLayers::UI;
 	sortingOrder = 1;
+
 }
 
 void DialogueBox::Release()
@@ -64,6 +65,12 @@ void DialogueBox::Reset()
 	line.setPosition({dialogueBox.getPosition().x - 252.f, dialogueBox.getPosition().y - 51.f});
 	line.setOutlineThickness(5.f);
 
+	font.loadFromFile("fonts/DungGeunMo.ttf");
+	dialogueText.setFont(font);
+	dialogueText.setCharacterSize(24);
+	dialogueText.setFillColor(sf::Color::White);
+	dialogueText.setPosition({ dialogueBox.getPosition().x - 240.f, dialogueBox.getPosition().y - 40.f });
+
 	SetActive(false);
 }
 
@@ -77,6 +84,36 @@ void DialogueBox::Update(float dt)
 
 void DialogueBox::Draw(sf::RenderWindow& window)
 {
+	if (!GetActive()) return;
+	{
 		window.draw(dialogueBox);
 		window.draw(line);
+		window.draw(dialogueText);
+	}
+
 }
+
+void DialogueBox::StartDialogue(const std::vector<std::string>& lines)
+{
+	this->dialogueLines = lines;
+	currentLineIndex = 0;
+
+	if (!dialogueLines.empty())
+		dialogueText.setString(dialogueLines[currentLineIndex]);
+
+	SetActive(true);
+}
+
+void DialogueBox::NextLine()
+{
+	if (currentLineIndex + 1 < dialogueLines.size())
+	{
+		currentLineIndex++;
+		dialogueText.setString(dialogueLines[currentLineIndex]);
+	}
+	else
+	{
+		SetActive(false);
+	}
+}
+

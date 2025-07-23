@@ -10,6 +10,12 @@ protected:
 	std::string dialogueboxtexIds = "Sprites/backgroundui.png";
 	sf::RectangleShape line;
 
+	sf::Text dialogueText;
+	sf::Font font;
+	
+	std::vector<std::string> dialogueLines;
+	size_t currentLineIndex = 0;
+
 	Player* player; 
 public:
 	DialogueBox(const std::string& name = "");
@@ -26,6 +32,9 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void StartDialogue(const std::vector<std::string>& lines);
+	void NextLine();
 
 	void SetBox(sf::Sprite d, sf::RectangleShape l) { dialogueBox = d, line = l; }
 	void SetPlayer(Player* p) { player = p; }
