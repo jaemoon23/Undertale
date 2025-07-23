@@ -20,7 +20,10 @@ protected:
     sf::RectangleShape backSheets;
     sf::RectangleShape objectSheets;
 
-   
+    sf::VertexArray grid;
+    const int gridWidth = 640;
+    const int gridHeight = 480;
+    int cellSize = 32;
     
 public:
     MapTool();

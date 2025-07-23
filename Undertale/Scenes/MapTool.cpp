@@ -2,7 +2,7 @@
 #include "MapTool.h"
 #include "Button.h"
 #include "InputText.h"
-MapTool::MapTool() : Scene(SceneIds::MapTool)
+MapTool::MapTool() : Scene(SceneIds::MapTool), grid(sf::Lines)
 {
 	
 }
@@ -24,8 +24,7 @@ void MapTool::Enter()
 	worldView.setSize(windowSize);
 	worldView.setCenter(windowSize.x * 0.5f, windowSize.y * 0.5f);
 
-	uiView.setSize(windowSize);
-	uiView.setCenter(windowSize * 0.5f);
+	
 
 	for (int i = 0; i < buttons.size(); ++i)
 	{
@@ -33,7 +32,7 @@ void MapTool::Enter()
 
 		btn->SetSize({ 100.f, 100.f });
 		btn->SetColor(sf::Color::Red, sf::Color::Red);
-		btn->SetPosition({ 150.f * (i + 1), 100.f });
+		btn->SetPosition({ 300.f * (i + 1), 100.f });
 		btn->SetSize({ 100.f, 100.f });
 		btn->SetOrigin({ btn->GetLocalBounds().width * 0.5f, btn->GetLocalBounds().height * 0.5f });
 		btn->setCallback([&, i]() {
@@ -45,11 +44,19 @@ void MapTool::Enter()
 			std::cout << "입력 후 test 값: " << test << std::endl;
 			});
 	}
-	
-		
-	
-	
+	// 가로줄
+	for (int y = 0; y <= gridHeight; y += cellSize)
+	{
+		grid.append(sf::Vertex(sf::Vector2f(0, y), sf::Color::Green));       // 왼쪽
+		grid.append(sf::Vertex(sf::Vector2f(gridWidth, y), sf::Color::Green)); // 오른쪽
+	}
 
+	// 세로줄
+	for (int x = 0; x <= gridWidth; x += cellSize)
+	{
+		grid.append(sf::Vertex(sf::Vector2f(x, 0), sf::Color::White));       // 위쪽
+		grid.append(sf::Vertex(sf::Vector2f(x, gridHeight), sf::Color::White)); // 아래쪽
+	}
 }
 
 void MapTool::Exit()
@@ -59,7 +66,12 @@ void MapTool::Exit()
 
 void MapTool::Update(float dt)
 {
-	
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
+	{
+		sf::Mouse mo;
+		sf::Vector2i pos = mo.getPosition();
+		std::cout << pos.x << ", " << pos.y << std::endl;
+	}
 	/*if (InputMgr::GetKeyDown(sf::Keyboard::Return))
 	{
 		SCENE_MGR.ChangeScene(SceneIds::test);
@@ -69,5 +81,6 @@ void MapTool::Update(float dt)
 
 void MapTool::Draw(sf::RenderWindow& window)
 {
+	window.draw(grid);
 	Scene::Draw(window);
 }
