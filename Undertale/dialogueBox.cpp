@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "dialogueBox.h"
+#include "SceneBattle.h"
 
 dialogueBox::dialogueBox(const std::string& name)
 	: GameObject(name)
@@ -56,6 +57,8 @@ void dialogueBox::Release()
 
 void dialogueBox::Reset()
 {
+	scene = ((SceneBattle*)SCENE_MGR.GetCurrentScene());
+
 	text.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	sprite.setTexture(TEXTURE_MGR.Get("graphics/spr_dialogueBox.png"));
 	SetPosition({ size.x * 0.55f, size.y * 0.3f });
@@ -67,6 +70,9 @@ void dialogueBox::Update(float dt)
 
 void dialogueBox::Draw(sf::RenderWindow& window)
 {
-	window.draw(sprite);
-	window.draw(text);
+	if (scene->isMyTurn && scene->btState == ButtonState::None)
+	{
+		window.draw(sprite);
+		window.draw(text);
+	}
 }

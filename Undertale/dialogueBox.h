@@ -1,5 +1,8 @@
 #pragma once
 #include "GameObject.h"
+
+class SceneBattle;
+
 class dialogueBox : public GameObject
 {
 protected:
@@ -7,6 +10,8 @@ protected:
 	sf::Text text;
 
 	sf::Vector2f size = { 640.f,480.f };
+
+	SceneBattle* scene;
 
 public:
 	dialogueBox(const std::string& name = "");

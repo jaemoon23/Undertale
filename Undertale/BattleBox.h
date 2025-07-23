@@ -1,9 +1,18 @@
 #pragma once
 #include "GameObject.h"
+#include "Animator.h"
+
+class SceneBattle;
+
 class BattleBox : public GameObject
 {
 protected:
 	sf::RectangleShape box;
+	sf::RectangleShape maxHpBar;
+	sf::RectangleShape hpBar;
+
+	sf::Sprite fightSprite;
+	sf::RectangleShape fightLine;
 
 	sf::Text startDescribe;
 
@@ -14,8 +23,24 @@ protected:
 
 	sf::Vector2f size = { 640.f,480.f };
 
+	SceneBattle* scene;
+	int* monsterHp;
+	int* monsterMaxHp;
+
+	const float fightLineSpeed = 320.f;
+
+	sf::Sprite fightAniSprite;
+	Animator animator;
+
+	float timer = 0.f;
+	const float fightAniTime = 0.4f;
+
+	bool isAttacking = false;
+
 public:
 	std::string startStr;
+	bool fightBtPress = false;
+	bool isDrawHpBar = false;
 
 	BattleBox(const std::string& name = "");
 	virtual ~BattleBox() = default;
@@ -30,6 +55,9 @@ public:
 	void Release() override;
 	void Reset() override;
 	void Update(float dt) override;
+
+	void UpdateBox();
+
 	void Draw(sf::RenderWindow& window) override;
 };
 

@@ -62,8 +62,10 @@ void Soul::Reset()
 void Soul::Update(float dt)
 {
 	sf::Vector2f pos = GetPosition();
-	switch (scene->btState)
+	if (scene->isMyTurn)
 	{
+		switch (scene->btState)
+		{
 		case ButtonState::None:
 			if (*btIndex != 0 && InputMgr::GetKeyDown(sf::Keyboard::Left))
 			{
@@ -86,10 +88,18 @@ void Soul::Update(float dt)
 			break;
 		case ButtonState::Mercy:
 			break;
+		}
+	}
+	else
+	{
+		pos.x += InputMgr::GetAxis(Axis::Horizontal) * moveSpeed * dt;
+		pos.y += InputMgr::GetAxis(Axis::Vertical) * moveSpeed * dt;
+		SetPosition(pos);
 	}
 }
 
 void Soul::Draw(sf::RenderWindow& window)
 {
-	window.draw(sprite);
+	if(scene->btState != ButtonState::Fight)
+		window.draw(sprite);
 }

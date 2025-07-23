@@ -14,8 +14,10 @@ SceneBattle::SceneBattle()
 void SceneBattle::Init()
 {
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
-	
+
+	ANI_CLIP_MGR.Load("animations/fist.csv");
 	texIds.push_back("graphics/spr_battlebg_0.png");
+	texIds.push_back("graphics/spr_dumbtarget_0.png");
 	texIds.push_back("graphics/spr_froggit_2.png");
 	texIds.push_back("graphics/spr_dialogueBox.png");
 	texIds.push_back("graphics/spr_fightbt_0.png");
@@ -27,6 +29,12 @@ void SceneBattle::Init()
 	texIds.push_back("graphics/spr_sparebt_0.png");
 	texIds.push_back("graphics/spr_sparebt_1.png");
 	texIds.push_back("graphics/spr_heart_battle_pl_0.png");
+	texIds.push_back("graphics/spr_hyperfist_0.png");
+	texIds.push_back("graphics/spr_hyperfist_1.png");
+	texIds.push_back("graphics/spr_hyperfist_2.png");
+	texIds.push_back("graphics/spr_hyperfist_3.png");
+	texIds.push_back("graphics/spr_hyperfist_4.png");
+	texIds.push_back("graphics/spr_hyperfist_5.png");
 
 	statusUI = (StatusInBattleUI*)AddGameObject(new StatusInBattleUI());
 	statusUI->SetPosition({ windowSize.x * 0.02f, windowSize.y * 0.8f });
@@ -64,8 +72,7 @@ void SceneBattle::Enter()
 	json data;
 	file >> data;
 
-	dialBox->SetString(data["lines"][0]);
-
+	dialBox->SetString(data["lines"][lineIndex]);
 	btBox->startStr = data["startDescribe"];
 
 	//
@@ -93,12 +100,14 @@ void SceneBattle::Update(float dt)
 {
 	Scene::Update(dt);
 
-	if (btState == ButtonState::None)
+	if (isMyTurn)
 	{
-		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+		if (btState == ButtonState::None)
 		{
-			switch (btIndex)
+			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 			{
+				switch (btIndex)
+				{
 				case 0:
 					btState = ButtonState::Fight;
 					break;
@@ -111,15 +120,20 @@ void SceneBattle::Update(float dt)
 				case 3:
 					btState = ButtonState::Mercy;
 					break;
+				}
+			}
+			else
+			{
+				fightButton->UpdateTexture();
+				actButton->UpdateTexture();
+				itemButton->UpdateTexture();
+				mercyButton->UpdateTexture();
 			}
 		}
-		else
-		{
-			fightButton->UpdateTexture();
-			actButton->UpdateTexture();
-			itemButton->UpdateTexture();
-			mercyButton->UpdateTexture();
-		}
+	}
+	else
+	{
+
 	}
 }
 
@@ -128,4 +142,9 @@ void SceneBattle::Draw(sf::RenderWindow& window)
 	window.draw(background);
 	window.draw(monster);
 	Scene::Draw(window);
+}
+
+void SceneBattle::SetMonsterTurn()
+{
+	soul->SetPosition({ size.x * 0.51f, size.y * 0.67f });
 }

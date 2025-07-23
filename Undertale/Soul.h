@@ -13,7 +13,7 @@ protected:
 	int hp = 20;
 	int maxHp = 20;
 
-	float moveSpeed = 50.f;
+	float moveSpeed = 125.f;
 
 	SceneBattle* scene;
 	int* btIndex;

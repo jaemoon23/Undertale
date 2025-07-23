@@ -37,9 +37,15 @@ protected:
 
 	Animator animator;
 
+	sf::Vector2f size = { 640.f,480.f };
+
 public:
+	bool isMyTurn = true;
 	ButtonState btState = ButtonState::None;
 	int btIndex = 0;
+	int lineIndex = 0;
+	int monsterHp = 100;
+	int monsterMaxHp = 100;
 
 	SceneBattle();
 	~SceneBattle() override = default;
@@ -51,4 +57,6 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	Soul* GetSoul() { return soul; }
+
+	void SetMonsterTurn();
 };
