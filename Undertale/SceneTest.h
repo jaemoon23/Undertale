@@ -8,6 +8,7 @@ class TestBackGround;
 class HpUi;
 class NameUi;
 class InventoryUi;
+class DialogueBox;
 
 class SceneTest : public Scene
 {
@@ -19,6 +20,7 @@ protected:
 	HpUi* hpui;
 	NameUi* nameui;
 	InventoryUi* inventoryui;
+	DialogueBox* dialoguebox;
 
 public:
 	SceneTest();

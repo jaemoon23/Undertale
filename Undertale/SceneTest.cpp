@@ -7,6 +7,7 @@
 #include "HpUi.h"
 #include "NameUi.h"
 #include "InventoryUi.h"
+#include "DialogueBox.h"
 
 SceneTest::SceneTest()
 	:Scene(SceneIds::Test)
@@ -50,14 +51,13 @@ void SceneTest::Init()
 	hpui = new HpUi("hpui");
 	nameui = new NameUi("nameui");
 	inventoryui = new InventoryUi("InventoryUi");
+	dialoguebox = new DialogueBox("dialoguebox");
 
 	nameui->SetName("Chara");
 	hpui->SetHp(20, 20);
 	player->SetSans(sans);
 	player->SetHpUi(hpui);
 	
-
-
 	AddGameObject(testbackground);
 	AddGameObject(player);
 	AddGameObject(sans);
@@ -65,6 +65,7 @@ void SceneTest::Init()
 	AddGameObject(hpui);
 	AddGameObject(nameui);
 	AddGameObject(inventoryui);
+	AddGameObject(dialoguebox);
 
 	Scene::Init();
 }
