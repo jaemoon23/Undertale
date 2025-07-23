@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "HpUi.h"
+#include "Player.h"
 
 HpUi::HpUi(const std::string& fontIds, const std::string& name)
 	:TextGo("fonts/DungGeunMo.ttf", name)
@@ -14,7 +15,7 @@ void HpUi::Init()
 }
 void HpUi::Reset()
 {
-	SetHp(20, 20);
+	//SetHp(10, 10);
 	SetOrigin(Origins::MC);
 	SetCharacterSize(25);
 	SetFillColor(sf::Color::White);
@@ -40,7 +41,7 @@ void HpUi::Draw(sf::RenderWindow& window)
 	}
 }
 
-void HpUi::SetHp(int maxHp, int hp)
+void HpUi::SetHp(int hp, int maxHp)
 {
 	this->hp = hp;
 	this->maxHp = maxHp;

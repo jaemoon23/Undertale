@@ -63,6 +63,10 @@ void Player::Reset()
 	direction = { 0.f, 0.f };
 	maxHp = 20;
 	hp = 20;
+	if (hpui)
+	{
+		hpui->SetHp(hp, maxHp);
+	}
 
 	//look = { 1.f, 0.f };
 	SetOrigin(Origins::MC);

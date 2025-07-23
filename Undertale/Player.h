@@ -10,8 +10,8 @@ class Player : public GameObject
 protected:
 	sf::Sprite body;
 
-	int maxHp = 0;
-	int hp = 0;
+	int maxHp = 10;
+	int hp = 10;
 	int att = 10;
 	int def = 10;
 	std::string name = "Chara";
