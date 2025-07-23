@@ -70,7 +70,7 @@ void dialogueBox::Update(float dt)
 
 void dialogueBox::Draw(sf::RenderWindow& window)
 {
-	if (scene->isMyTurn && scene->btState == ButtonState::None)
+	if (isDraw)
 	{
 		window.draw(sprite);
 		window.draw(text);

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "StatusInBattleUI.h"
+#include "SceneBattle.h"
 
 StatusInBattleUI::StatusInBattleUI(const std::string& name)
 	: GameObject(name)
@@ -57,11 +58,9 @@ void StatusInBattleUI::Init()
 	statusText.setCharacterSize(30.f);
 
 	hpText.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
-	hpText.setString(std::to_string(playerCurrentHp) + "/" + std::to_string(playerMaxHp));
 	hpText.setCharacterSize(30.f);
 
 	hpBar.setFillColor(sf::Color::Yellow);
-	hpBar.setSize({ 2.f * playerMaxHp, 30.f });
 }
 
 void StatusInBattleUI::Release()
@@ -70,10 +69,21 @@ void StatusInBattleUI::Release()
 
 void StatusInBattleUI::Reset()
 {
+	soul = ((SceneBattle*)SCENE_MGR.GetCurrentScene())->GetSoul();
+	Hp = &(soul->hp);
+	maxHp = &(soul->maxHp);
+	hpText.setString(std::to_string(*Hp) + "/" + std::to_string(*maxHp));
+	hpBar.setSize({ 2.f * *maxHp, 30.f });
 }
 
 void StatusInBattleUI::Update(float dt)
 {
+}
+
+void StatusInBattleUI::UpdateHpUI()
+{
+	hpText.setString(std::to_string(*Hp) + "/" + std::to_string(*maxHp));
+	hpBar.setSize({ 2.f * *Hp, 30.f });
 }
 
 void StatusInBattleUI::Draw(sf::RenderWindow& window)

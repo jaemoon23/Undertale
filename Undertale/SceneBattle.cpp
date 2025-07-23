@@ -3,8 +3,7 @@
 #include "SceneBattle.h"
 #include "dialogueBox.h"
 #include "BattleBox.h"
-#include "json.hpp"
-using json = nlohmann::json;
+#include "Bullet.h"
 
 SceneBattle::SceneBattle()
 	: Scene(SceneIds::Battle)
@@ -14,9 +13,12 @@ SceneBattle::SceneBattle()
 void SceneBattle::Init()
 {
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
-
+	
 	ANI_CLIP_MGR.Load("animations/fist.csv");
 	texIds.push_back("graphics/spr_battlebg_0.png");
+	texIds.push_back("graphics/spr_gun_bullet_.png");
+	texIds.push_back("graphics/spr_bluespear.png");
+	texIds.push_back("graphics/spr_eggbullet.png");
 	texIds.push_back("graphics/spr_dumbtarget_0.png");
 	texIds.push_back("graphics/spr_froggit_2.png");
 	texIds.push_back("graphics/spr_dialogueBox.png");
@@ -69,11 +71,13 @@ void SceneBattle::Enter()
 	{
 		std::cerr << "파일 열기 실패\n";
 	}
-	json data;
 	file >> data;
 
 	dialBox->SetString(data["lines"][lineIndex]);
+	lineCount = data["lines"].size();
+	lineIndex = ++lineIndex % lineCount;
 	btBox->startStr = data["startDescribe"];
+	patternCount = data["attackPattern"].size();
 
 	//
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
@@ -106,6 +110,7 @@ void SceneBattle::Update(float dt)
 		{
 			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 			{
+				dialBox->isDraw = false;
 				switch (btIndex)
 				{
 				case 0:
@@ -133,7 +138,18 @@ void SceneBattle::Update(float dt)
 	}
 	else
 	{
-
+		dialTimer += dt;
+		turnTimer += dt;
+		if (dialTimer >= dialExistTime)
+		{
+			dialTimer = 0.f;
+			dialBox->isDraw = false;
+		}
+		if (turnTimer >= turnDuration)
+		{
+			turnTimer = 0.f;
+			SetPlayerTurn();
+		}
 	}
 }
 
@@ -147,4 +163,39 @@ void SceneBattle::Draw(sf::RenderWindow& window)
 void SceneBattle::SetMonsterTurn()
 {
 	soul->SetPosition({ size.x * 0.51f, size.y * 0.67f });
+	soul->SetBoundary(btBox->GetBoxGlobalBounds());
+	dialBox->isDraw = true;
+	dialBox->SetString(data["lines"][lineIndex]);
+	lineIndex = ++lineIndex % lineCount;
+
+	//
+	int bulletCount = data["attackPattern"][PatternIndex]["bullets"].size();
+	turnDuration = data["attackPattern"][PatternIndex]["duration"];
+	for (int i = 0; i < bulletCount; ++i)
+	{
+		Bullet* b = (Bullet*)AddGameObject(new Bullet());
+		bulletTemp.push_back(b);
+		b->SetBulletState(data["attackPattern"][PatternIndex]["bullets"][i]["texId"],
+			{ data["attackPattern"][PatternIndex]["bullets"][i]["PosX"], data["attackPattern"][PatternIndex]["bullets"][i]["PosY"] },
+			{ data["attackPattern"][PatternIndex]["bullets"][i]["DirX"], data["attackPattern"][PatternIndex]["bullets"][i]["DirY"] },
+			data["attackPattern"][PatternIndex]["bullets"][i]["speed"],
+			data["attackPattern"][PatternIndex]["bullets"][i]["delay"],
+			data["attackPattern"][PatternIndex]["bullets"][i]["damage"]
+		);
+		b->Reset();
+	}
+
+	PatternIndex = (PatternIndex + 1) % patternCount;
+}
+
+void SceneBattle::SetPlayerTurn()
+{
+	isMyTurn = true;
+	soul->SetPosition({ size.x * 0.03f, size.y * 0.93f });
+	btBox->Reset();
+	for (auto& b : bulletTemp)
+	{
+		RemoveGameObject(b);
+	}
+	bulletTemp.clear();
 }

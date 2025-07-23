@@ -14,6 +14,8 @@ protected:
 	SceneBattle* scene;
 
 public:
+	bool isDraw = true;
+
 	dialogueBox(const std::string& name = "");
 	virtual ~dialogueBox() = default;
 

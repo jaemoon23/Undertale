@@ -2,7 +2,63 @@
   "name": "프로깃",
   "hp": 30,
   "lines" : [
-    "개굴 ~"
+    "개굴 ~",
+    "멍 때리는 중"
   ],
+  "attackPattern" : [
+    {
+      "name" : "pattern1",
+      "duration" : 5.0,
+      "bullets" : [
+        {
+          "texId" : "graphics/spr_eggbullet.png", "PosX" : 100.0, "PosY" : 350.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 1.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_eggbullet.png", "PosX" : 200.0, "PosY" : 200.0, "DirX" : 1.0, "DirY" : 1.0,
+          "speed" : 100.0, "delay" : 1.5, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_eggbullet.png", "PosX" : 300.0, "PosY" : 200.0, "DirX" : 0, "DirY" : 1.0,
+          "speed" : 100.0, "delay" : 2.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_eggbullet.png", "PosX" : 400.0, "PosY" : 200.0, "DirX" : -1.0, "DirY" : 1.0,
+          "speed" : 100.0, "delay" : 2.5, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_eggbullet.png", "PosX" : 500.0, "PosY" : 350.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 3.0, "damage" : 4
+        }
+      ]
+    },
+    {
+      "name" : "pattern2",
+      "duration" : 4.0,
+      "bullets" : [
+        {
+          "texId" : "graphics/spr_gun_bullet_.png", "PosX" : 100.0, "PosY" : 270.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 300.0, "delay" : 1.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_gun_bullet_.png", "PosX" : 100.0, "PosY" : 290.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 300.0, "delay" : 1.2, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_gun_bullet_.png", "PosX" : 100.0, "PosY" : 310.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 300.0, "delay" : 1.4, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_gun_bullet_.png", "PosX" : 100.0, "PosY" : 330.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 300.0, "delay" : 1.6, "damage" : 4
+        },        
+        {
+          "texId" : "graphics/spr_gun_bullet_.png", "PosX" : 100.0, "PosY" : 350.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 300.0, "delay" : 2.6, "damage" : 4
+        }
+      ]
+    }
+  ],
+
   "startDescribe": "* 프로깃이 당신을 공격했다!"    
 }

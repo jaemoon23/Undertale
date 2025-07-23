@@ -4,6 +4,9 @@
 #include "BattleButton.h"
 #include "StatusInBattleUI.h"
 #include "Soul.h"
+#include "json.hpp"
+#include "Bullet.h"
+using json = nlohmann::json;
 
 // 640, 480
 class dialogueBox;
@@ -39,11 +42,24 @@ protected:
 
 	sf::Vector2f size = { 640.f,480.f };
 
+	float dialTimer = 0.f;
+	const float dialExistTime = 2.f;
+
+	float turnTimer = 0.f;
+	float turnDuration;
+
+	json data;
+
+	int PatternIndex = 1;
+	int patternCount = 0;
+	std::vector<Bullet*> bulletTemp;
+
 public:
 	bool isMyTurn = true;
 	ButtonState btState = ButtonState::None;
 	int btIndex = 0;
 	int lineIndex = 0;
+	int lineCount = 2;
 	int monsterHp = 100;
 	int monsterMaxHp = 100;
 
@@ -57,6 +73,8 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	Soul* GetSoul() { return soul; }
+	StatusInBattleUI* GetStatusUI() { return statusUI; }
 
 	void SetMonsterTurn();
+	void SetPlayerTurn();
 };

@@ -61,6 +61,8 @@ void Soul::Reset()
 
 void Soul::Update(float dt)
 {
+	hitBox.UpdateTransform(sprite, sprite.getLocalBounds());
+
 	sf::Vector2f pos = GetPosition();
 	if (scene->isMyTurn)
 	{
@@ -94,6 +96,8 @@ void Soul::Update(float dt)
 	{
 		pos.x += InputMgr::GetAxis(Axis::Horizontal) * moveSpeed * dt;
 		pos.y += InputMgr::GetAxis(Axis::Vertical) * moveSpeed * dt;
+		pos.x = Utils::Clamp(pos.x, minX, maxX);
+		pos.y = Utils::Clamp(pos.y, minY, maxY);
 		SetPosition(pos);
 	}
 }
@@ -102,4 +106,21 @@ void Soul::Draw(sf::RenderWindow& window)
 {
 	if(scene->btState != ButtonState::Fight)
 		window.draw(sprite);
+	hitBox.Draw(window);
+}
+
+void Soul::SetBoundary(sf::FloatRect bounds)
+{
+	sf::FloatRect soulBound = sprite.getGlobalBounds();
+	minX = bounds.left + soulBound.width * 0.5f;
+	minY = bounds.top + soulBound.height * 0.5f;
+	maxX = bounds.left + bounds.width - soulBound.width - 5.f;
+	maxY = bounds.top + bounds.height - soulBound.height - 5.f;
+}
+
+void Soul::TakeDamage(int damage)
+{
+	hp -= damage;
+	if (hp < 0)
+		hp = 0;
 }

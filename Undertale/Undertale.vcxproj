@@ -134,6 +134,7 @@
     <ClCompile Include="AniPlayer.cpp" />
     <ClCompile Include="BattleBox.cpp" />
     <ClCompile Include="BattleButton.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="dialogueBox.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Framework\AnimationClip.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="AniPlayer.h" />
     <ClInclude Include="BattleBox.h" />
     <ClInclude Include="BattleButton.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="dialogueBox.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Framework\AnimationClip.h" />

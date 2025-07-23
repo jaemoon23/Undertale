@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+#include "Soul.h"
+
 class StatusInBattleUI : public GameObject
 {
 protected:
@@ -7,10 +9,12 @@ protected:
 	sf::Text hpText;
 	sf::RectangleShape hpBar;
 
+	Soul* soul;
+
 	std::string playerName = "Frisk";
 	int level = 1;
-	int playerMaxHp = 20;
-	int playerCurrentHp = 20;
+	int* Hp;
+	int* maxHp;
 
 public:
 	StatusInBattleUI(const std::string& name = "");
@@ -26,6 +30,9 @@ public:
 	void Release() override;
 	void Reset() override;
 	void Update(float dt) override;
+
+	void UpdateHpUI();
+
 	void Draw(sf::RenderWindow& window) override;
 };
 
