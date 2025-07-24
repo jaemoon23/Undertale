@@ -5,12 +5,24 @@
 class TextGo;
 class SpriteGo;
 
+// 삭제 가능한 오브젝트를 하나로 다루기 위한 구조체
+struct UndoAction
+{
+    enum class Type { Sprite, HitBox } type;
+    union {
+        SpriteGo* sprite;
+        sf::RectangleShape* rect; // 히트박스는 포인터 관리 필요
+    } data;
+};
+
 class MapTool :
     public Scene
 {
 protected:
     sf::Vector2f windowSize;
     sf::Vector2f defaultCenter;
+
+    std::vector<UndoAction> undoStack;
 
     Button* hitBox;
 

@@ -239,9 +239,11 @@ void MapTool::Update(float dt)
 			isDragging = false;
 			dragMode = false;
 
-			
 			hitBoxes.push_back(dragHitBox);
-
+			UndoAction action;
+			action.type = UndoAction::Type::HitBox;
+			action.data.rect = &hitBoxes.back();
+			undoStack.push_back(action);
 			std::cout << "히트박스 저장: 위치(" << dragHitBox.getPosition().x << ", " << dragHitBox.getPosition().y << "), 크기(" << dragHitBox.getSize().x << ", " << dragHitBox.getSize().y << std::endl;
 		}
 	}
@@ -262,6 +264,10 @@ void MapTool::Update(float dt)
 			placed->SetOrigin(Origins::MC);
 			
 			placedSprites.push_back(placed);
+			UndoAction action;
+			action.type = UndoAction::Type::Sprite;
+			action.data.sprite = placed;
+			undoStack.push_back(action);
 			std::cout << "맵에 오브젝트 배치 완료" << std::endl;
 
 			delete activeSprite;
@@ -273,12 +279,49 @@ void MapTool::Update(float dt)
 		{
 			delete activeSprite;
 			activeSprite = nullptr;
-			std::cout << "배치 취소됨" << std::endl;
+			std::cout << "배치 취소" << std::endl;
 		}
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
 	{
 		SCENE_MGR.ChangeScene(SceneIds::test);
+	}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+	{
+		if (!undoStack.empty())
+		{
+			UndoAction action = undoStack.back();
+			undoStack.pop_back();
+
+			switch (action.type)
+			{
+			case UndoAction::Type::Sprite:
+			{
+				SpriteGo* spriteToDelete = action.data.sprite;
+				auto it = std::find(placedSprites.begin(), placedSprites.end(), spriteToDelete);
+				if (it != placedSprites.end())
+				{
+					RemoveGameObject(*it);      
+					placedSprites.erase(it);   
+				}
+				break;
+			}
+			case UndoAction::Type::HitBox:
+			{
+				auto it = std::find_if(hitBoxes.begin(), hitBoxes.end(), [&](const sf::RectangleShape& rect) {
+					return &rect == action.data.rect;
+					});
+
+				if (it != hitBoxes.end())
+				{
+					hitBoxes.erase(it);
+				}
+				break;
+			}
+			}
+			std::cout << "오브젝트 삭제" << std::endl;
+		}
 	}
 	Scene::Update(dt);
 }
