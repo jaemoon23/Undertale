@@ -4,7 +4,7 @@
 class InventoryUi : public GameObject
 {
 protected:
-	bool isActive = false;
+	bool isActive = true;
 	sf::Sprite inventory;
 	sf::Font fonts;
 	std::string fonttexIds = "fonts/DungGeunMo.ttf";

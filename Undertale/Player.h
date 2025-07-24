@@ -6,6 +6,8 @@
 class HpUi;
 class Sans;
 class DialogueBox;
+class UiChanger;
+class InventoryUi;
 class Player : public GameObject
 {
 protected:
@@ -26,8 +28,8 @@ protected:
 	Sans* sans;
 	HpUi* hpui;
 	DialogueBox* dialoguebox;
-	
-
+	UiChanger* uichanger;
+	InventoryUi* inventoryui;
 public:
 	Player(const std::string& name = "");
 	virtual ~Player() = default;
@@ -54,6 +56,8 @@ public:
 	void SetHpUi(HpUi* hpui);
 	void SetSans(Sans* s) { sans = s; }
 	void SetBox(DialogueBox* dbox) { dialoguebox = dbox; }
+	void SetInventoryUi(InventoryUi* i) { inventoryui = i; }
+	void SetUiChanger(UiChanger* u) { uichanger = u; }
 	
 };
 

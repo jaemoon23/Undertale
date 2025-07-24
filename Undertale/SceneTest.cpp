@@ -8,6 +8,7 @@
 #include "NameUi.h"
 #include "InventoryUi.h"
 #include "DialogueBox.h"
+#include "UiChanger.h"
 
 SceneTest::SceneTest()
 	:Scene(SceneIds::Test)
@@ -43,7 +44,6 @@ void SceneTest::Init()
 	ANI_CLIP_MGR.Load("Animation/leftwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/rightwalking.csv");
 	
-
 	player = new Player("player");
 	sans = new Sans("sans");
 	testbackground = new TestBackGround("testbackground ");
@@ -52,13 +52,18 @@ void SceneTest::Init()
 	nameui = new NameUi("nameui");
 	inventoryui = new InventoryUi("InventoryUi");
 	dialoguebox = new DialogueBox("dialoguebox");
+	uichanger = new UiChanger("uichanger");
 
 	nameui->SetName("Chara");
-	hpui->SetHp(20, 20);
+	//hpui->SetHp(20, 20);
 	player->SetSans(sans);
 	player->SetHpUi(hpui);
 	player->SetBox(dialoguebox);
+	player->SetUiChanger(uichanger);
+	player->SetInventoryUi(inventoryui);
 	dialoguebox->SetPlayer(player);
+	uichanger->SetPlayer(player);
+	uichanger->SetInventoryUi(inventoryui);
 	
 	AddGameObject(testbackground);
 	AddGameObject(player);
@@ -68,6 +73,7 @@ void SceneTest::Init()
 	AddGameObject(nameui);
 	AddGameObject(inventoryui);
 	AddGameObject(dialoguebox);
+	AddGameObject(uichanger);
 
 	Scene::Init();
 }
@@ -100,8 +106,7 @@ void SceneTest::Update(float dt)
 	hpui->Update(dt);
 	nameui->Update(dt);
 	backgroundui->Update(dt);
-
-
+	uichanger->Update(dt);
 }
 void SceneTest::Draw(sf::RenderWindow& window)
 {

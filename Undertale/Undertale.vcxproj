@@ -167,6 +167,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TestBackGround.cpp" />
+    <ClCompile Include="UiChanger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AniPlayer.h" />
@@ -206,6 +207,7 @@
     <ClInclude Include="StatusInBattleUI.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TestBackGround.h" />
+    <ClInclude Include="UiChanger.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

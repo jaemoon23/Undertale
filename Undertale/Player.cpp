@@ -3,6 +3,8 @@
 #include "Sans.h"
 #include "HpUi.h"
 #include "DialogueBox.h"
+#include "UiChanger.h"
+#include "InventoryUi.h"
 
 Player::Player(const std::string& name)
 	: GameObject(name)
@@ -62,8 +64,8 @@ void Player::Reset()
 	animator.Play("Animation/idle.csv");
 
 	direction = { 0.f, 0.f };
-	maxHp = 20;
-	hp = 20;
+	maxHp = 10;
+	hp = 10;
 	if (hpui)
 	{
 		hpui->SetHp(hp, maxHp);
@@ -76,12 +78,16 @@ void Player::Reset()
 
 void Player::Update(float dt)
 {
-	if (!dialoguebox->GetActive())
+	if (!dialoguebox->GetActive()&& !uichanger->GetActive())
 	{
 		direction.x = InputMgr::GetAxis(Axis::Horizontal);
 		direction.y = InputMgr::GetAxis(Axis::Vertical);
 		Utils::Normalize(direction);
 		SetPosition(GetPosition() + direction * speed * dt);
+	}
+	else
+	{
+		animator.Stop();
 	}
 
 
@@ -115,6 +121,7 @@ void Player::Update(float dt)
 		if (InputMgr::GetKeyDown(sf::Keyboard::C))
 		{
 			dialoguebox->SetActive(false);
+			inventoryui->SetActive(false);
 			std::cout << "대화나가기" << std::endl;
 		}
 	}

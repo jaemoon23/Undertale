@@ -66,7 +66,7 @@ void BackGroundUi::Reset()
 void BackGroundUi::Update(float dt)
 {
 	sf::FloatRect bounds = FRAMEWORK.GetWindowBounds();
-	if (InputMgr::GetKeyDown(sf::Keyboard::P))
+	if (InputMgr::GetKeyDown(sf::Keyboard::W))
 	{
 		isActive = !isActive;
 	}

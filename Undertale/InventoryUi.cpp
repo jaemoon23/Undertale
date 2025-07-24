@@ -43,6 +43,7 @@ void InventoryUi::Init()
 {
 	sortingLayer = SortingLayers::UI;
 	sortingOrder = 1;
+	SetActive(false);
 }
 
 void InventoryUi::Release()
@@ -87,7 +88,7 @@ void InventoryUi::Reset()
 	
 	text.setFont(fonts);
 	text.setFillColor(sf::Color::White);
-	text.setString("Press [I] to Finish ");
+	text.setString("Press [C] to Finish ");
 	text.setCharacterSize(20.f);
 	text.setPosition({ (invBounds.left + invBounds.width) *0.5f - 64.f ,invBounds.top + invBounds.height - 50.f});
 
@@ -96,10 +97,10 @@ void InventoryUi::Reset()
 void InventoryUi::Update(float dt)
 {
 	sf::FloatRect bounds = FRAMEWORK.GetWindowBounds();
-	if (InputMgr::GetKeyDown(sf::Keyboard::I))
-	{
-		isActive = !isActive;
-	}
+	//if (InputMgr::GetKeyDown(sf::Keyboard::Q))
+	//{
+	//	isActive = !isActive;
+	//}
 }
 
 void InventoryUi::Draw(sf::RenderWindow& window)

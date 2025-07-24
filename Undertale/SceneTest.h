@@ -9,6 +9,7 @@ class HpUi;
 class NameUi;
 class InventoryUi;
 class DialogueBox;
+class UiChanger;
 
 class SceneTest : public Scene
 {
@@ -21,6 +22,7 @@ protected:
 	NameUi* nameui;
 	InventoryUi* inventoryui;
 	DialogueBox* dialoguebox;
+	UiChanger* uichanger;
 
 public:
 	SceneTest();
