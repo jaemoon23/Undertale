@@ -158,7 +158,6 @@
     <ClCompile Include="NameUi.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sans.cpp" />
-    <ClCompile Include="Scenes\SceneDev1.cpp" />
     <ClCompile Include="SceneTest.cpp" />
     <ClCompile Include="SceneBattle.cpp" />
     <ClCompile Include="Scenes\SceneDev1.cpp" />
@@ -200,7 +199,6 @@
     <ClInclude Include="NameUi.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Sans.h" />
-    <ClInclude Include="Scenes\SceneDev1.h" />
     <ClInclude Include="SceneTest.h" />
     <ClInclude Include="SceneBattle.h" />
     <ClInclude Include="Scenes\SceneDev1.h" />
