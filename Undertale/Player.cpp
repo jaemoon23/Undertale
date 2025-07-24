@@ -89,10 +89,7 @@ void Player::Update(float dt)
 		animator.Stop();
 	}
 
-
 	hitBox.UpdateTransform(body, body.getLocalBounds());
-
-
 
 	if (sans)
 	{
@@ -112,7 +109,6 @@ void Player::Update(float dt)
 			{
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
-					std::cout << "Z" << std::endl;
 					dialoguebox->NextLine();
 				}
 			}
@@ -123,7 +119,6 @@ void Player::Update(float dt)
 			inventoryui->SetActive(false);
 		}
 	}
-
 
 		if (InputMgr::GetKeyDown(sf::Keyboard::Right))
 		{
@@ -153,7 +148,6 @@ void Player::Update(float dt)
 	animator.Update(dt);
 }
 
-
 void Player::Draw(sf::RenderWindow& window)
 {
 	window.draw(body);
@@ -165,19 +159,4 @@ void Player::SansInteract()
 	std::vector<std::wstring> testDialogues =
 	{ L"안녕", L"테스트", L"uihyun"};
 	dialoguebox->StartDialogue(testDialogues);
-}
-
-void Player::SetHpUi(HpUi* hpui)
-{
-	this->hpui = hpui;
-}
-
-void Player::SetHp(int h, int maxh)
-{
-	hp = h;
-	maxHp = maxh;
-	//if (hpui)
-	//{
-	//	hpui->SetHp(hp, maxHp); // 동기화 
-	//}
 }

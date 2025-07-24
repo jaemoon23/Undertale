@@ -154,6 +154,7 @@
     <ClCompile Include="InventoryUi.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerInfoUi.cpp" />
     <ClCompile Include="Sans.cpp" />
     <ClCompile Include="SceneTest.cpp" />
     <ClCompile Include="SceneBattle.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="Framework\Variables.h" />
     <ClInclude Include="InventoryUi.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerInfoUi.h" />
     <ClInclude Include="Sans.h" />
     <ClInclude Include="SceneTest.h" />
     <ClInclude Include="SceneBattle.h" />

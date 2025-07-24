@@ -33,6 +33,7 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TestBackGround.cpp" />
     <ClCompile Include="UiChanger.cpp" />
+    <ClCompile Include="PlayerInfoUi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AniPlayer.h" />
@@ -70,5 +71,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TestBackGround.h" />
     <ClInclude Include="UiChanger.h" />
+    <ClInclude Include="PlayerInfoUi.h" />
   </ItemGroup>
 </Project>

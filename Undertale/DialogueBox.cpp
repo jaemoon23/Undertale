@@ -103,7 +103,7 @@ void DialogueBox::StartDialogue(const std::vector<std::wstring>& lines)
 
 	if (!dialogueLines.empty())
 	{
-		dialogueText.setString(dialogueLines[currentLineIndex]);  // sf::Text´Â std::wstring Áö¿ø
+		dialogueText.setString(dialogueLines[currentLineIndex]);
 	}
 	SetActive(true);
 }

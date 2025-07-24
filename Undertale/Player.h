@@ -15,9 +15,10 @@ protected:
 	std::string name = "Chara";
 	int maxHp = 10;
 	int hp = 10;
-	int att = 10;
-	int def = 10;
-
+	int att = 0;
+	int def = 0;
+	int exp = 0;
+	int gold = 0;
 
 	float speed = 80.f;
 	sf::Vector2f direction;
@@ -46,18 +47,18 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void SetHp(int h, int maxh);
+	void SetHp(int h) { hp = h; }
 	void SetAtt(int a) { att = a; }
 	void SetDef(int d) { def = d; }
+	void SetGold(int g) { gold = g; }
+	void SetExp(int e) { exp = e; }
 	void SetName(const std::string& n) { name = n; }
 
 	void SansInteract();
 
-	void SetHpUi(HpUi* hpui);
 	void SetSans(Sans* s) { sans = s; }
 	void SetBox(DialogueBox* dbox) { dialoguebox = dbox; }
 	void SetInventoryUi(InventoryUi* i) { inventoryui = i; }
-	void SetUiChanger(UiChanger* u) { uichanger = u; }
-	
+	void SetUiChanger(UiChanger* u) { uichanger = u; }	
 };
 

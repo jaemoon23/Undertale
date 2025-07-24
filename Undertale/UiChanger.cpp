@@ -54,7 +54,6 @@ void UiChanger::Release()
 
 void UiChanger::Reset()
 {
-
 	font.loadFromFile(fonttexIds);
 
 	uiChanger.setTexture(TEXTURE_MGR.Get(uiChangertexIds));

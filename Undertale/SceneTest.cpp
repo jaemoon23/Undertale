@@ -6,6 +6,7 @@
 #include "InventoryUi.h"
 #include "DialogueBox.h"
 #include "UiChanger.h"
+#include "PlayerInfoUi.h"
 
 SceneTest::SceneTest()
 	:Scene(SceneIds::Test)
@@ -47,10 +48,10 @@ void SceneTest::Init()
 	inventoryui = new InventoryUi("InventoryUi");
 	dialoguebox = new DialogueBox("dialoguebox");
 	uichanger = new UiChanger("uichanger");
+	playerinfoui = new PlayerInfoUi("playerinfoui");
 
 	//hpui->SetHp(20, 20);
 	player->SetSans(sans);
-	player->SetHpUi(hpui);
 	player->SetBox(dialoguebox);
 	player->SetUiChanger(uichanger);
 	player->SetInventoryUi(inventoryui);
@@ -64,6 +65,7 @@ void SceneTest::Init()
 	AddGameObject(inventoryui);
 	AddGameObject(dialoguebox);
 	AddGameObject(uichanger);
+	AddGameObject(playerinfoui);
 
 	Scene::Init();
 }
@@ -94,6 +96,7 @@ void SceneTest::Update(float dt)
 	dialoguebox->Update(dt);
 	inventoryui->Update(dt);
 	uichanger->Update(dt);
+	playerinfoui->Update(dt);
 }
 void SceneTest::Draw(sf::RenderWindow& window)
 {

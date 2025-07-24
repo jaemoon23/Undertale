@@ -10,6 +10,7 @@ class NameUi;
 class InventoryUi;
 class DialogueBox;
 class UiChanger;
+class PlayerInfoUi;
 
 class SceneTest : public Scene
 {
@@ -23,7 +24,7 @@ protected:
 	InventoryUi* inventoryui;
 	DialogueBox* dialoguebox;
 	UiChanger* uichanger;
-
+	PlayerInfoUi* playerinfoui;
 public:
 	SceneTest();
 	~SceneTest() override = default;
