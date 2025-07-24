@@ -48,7 +48,7 @@ protected:
     };
 
     sf::RectangleShape dragHitBox;
-    std::vector<sf::RectangleShape> hitBoxes;
+    std::vector<sf::RectangleShape*> hitBoxes;
     sf::Vector2f dragStartPos;
 
     bool isDragging = false;

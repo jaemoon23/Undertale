@@ -107,15 +107,53 @@ void MapTool::Enter()
 				// 기존 배경 삭제
 				if (currentBackground)
 				{
-					delete currentBackground;
-					currentBackground = nullptr;
+					RemoveGameObject(currentBackground);
 				}
 				// 배치된 오브젝트들 모두 제거
-				/*for (auto sprite : placedSprites)
+				for (auto sprite : placedSprites)
 				{
-					delete sprite;
+					RemoveGameObject(sprite);
 				}
-				placedSprites.clear();*/
+				for (auto box : hitBoxes)
+				{
+					delete box;
+				}
+				for (int i = 0; i < undoStack.size(); ++i)
+				{
+					if (!undoStack.empty())
+					{
+						UndoAction action = undoStack.back();
+						undoStack.pop_back();
+
+						switch (action.type)
+						{
+						case UndoAction::Type::Sprite:
+						{
+							SpriteGo* spriteToDelete = action.data.sprite;
+							auto it = std::find(placedSprites.begin(), placedSprites.end(), spriteToDelete);
+							if (it != placedSprites.end())
+							{
+								RemoveGameObject(*it);
+								placedSprites.erase(it);
+							}
+							break;
+						}
+						case UndoAction::Type::HitBox:
+						{
+							auto it = std::find(hitBoxes.begin(), hitBoxes.end(), action.data.rect);
+							if (it != hitBoxes.end())
+							{
+								delete* it;
+								hitBoxes.erase(it);
+							}
+							break;
+						}
+						}
+						std::cout << "오브젝트 삭제" << std::endl;
+					}
+				}
+				placedSprites.clear();
+				hitBoxes.clear();
 
 				// 새 배경 생성
 				currentBackground = (SpriteGo*)(AddGameObject(new SpriteGo(backgroundTexturePaths[index])));
@@ -239,12 +277,15 @@ void MapTool::Update(float dt)
 			isDragging = false;
 			dragMode = false;
 
-			hitBoxes.push_back(dragHitBox);
+			auto newRect = new sf::RectangleShape(dragHitBox);
+			hitBoxes.push_back(newRect);
+
 			UndoAction action;
 			action.type = UndoAction::Type::HitBox;
-			action.data.rect = &hitBoxes.back();
+			action.data.rect = newRect;
 			undoStack.push_back(action);
-			std::cout << "히트박스 저장: 위치(" << dragHitBox.getPosition().x << ", " << dragHitBox.getPosition().y << "), 크기(" << dragHitBox.getSize().x << ", " << dragHitBox.getSize().y << std::endl;
+
+			dragHitBox.setSize({ 0.f, 0.f });
 		}
 	}
 
@@ -309,12 +350,10 @@ void MapTool::Update(float dt)
 			}
 			case UndoAction::Type::HitBox:
 			{
-				auto it = std::find_if(hitBoxes.begin(), hitBoxes.end(), [&](const sf::RectangleShape& rect) {
-					return &rect == action.data.rect;
-					});
-
+				auto it = std::find(hitBoxes.begin(), hitBoxes.end(), action.data.rect);
 				if (it != hitBoxes.end())
 				{
+					delete* it;
 					hitBoxes.erase(it);
 				}
 				break;
@@ -339,6 +378,6 @@ void MapTool::Draw(sf::RenderWindow& window)
 	}
 	for (auto& box : hitBoxes)
 	{
-		window.draw(box);
+		window.draw(*box);
 	}
 }
