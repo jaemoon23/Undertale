@@ -96,6 +96,11 @@ void SceneTest::Update(float dt)
 	player->Update(dt);
 	sans->Update(dt);
 	Scene::Update(dt);
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num1))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::Battle);
+	}
 }
 void SceneTest::Draw(sf::RenderWindow& window)
 {

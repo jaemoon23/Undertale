@@ -61,18 +61,13 @@ void BattleBox::Init()
 	fightLine.setOutlineColor(sf::Color::White);
 	fightLine.setOutlineThickness(0.5f);
 
-	startDescribe.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	startDescribe.setCharacterSize(30.f);
-	describe1.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	describe1.setCharacterSize(30.f);
 	describe1.setPosition({ size.x * 0.09f, size.y * 0.54f });
-	describe2.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	describe2.setCharacterSize(30.f);
 	describe2.setPosition({ size.x * 0.59f, size.y * 0.54f });
-	describe3.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	describe3.setCharacterSize(30.f);
 	describe3.setPosition({ size.x * 0.09f, size.y * 0.63f });
-	describe4.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	describe4.setCharacterSize(30.f);
 	describe4.setPosition({ size.x * 0.59f, size.y * 0.63f });
 
@@ -102,8 +97,11 @@ void BattleBox::Reset()
 	SetOrigin(Origins::MC);
 	SetPosition({ size.x * 0.51f, size.y * 0.67f });
 
-	std::wstring ws = utf8_to_wstring(startStr);
-	startDescribe.setString(ws);
+	startDescribe.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
+	describe1.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
+	describe2.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
+	describe3.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
+	describe4.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 }
 
 void BattleBox::Update(float dt)
@@ -124,6 +122,7 @@ void BattleBox::Update(float dt)
 			*monsterHp -= scene->playerATK;
 			fightBtPress = true;
 			isAttacking = true;
+			scene->isMonsterBlink = true;
 		}
 
 		if (fightBtPress)
@@ -145,7 +144,16 @@ void BattleBox::Update(float dt)
 			sf::Vector2f hpBarSize = hpBar.getSize();
 			hpBarSize.x -= minusHpbarSize * dt / hpAniTime;
 			hpBar.setSize(hpBarSize);
-			if (timer >= hpAniTime)
+			if (hpBarSize.x <= 0)
+			{
+				hpBarSize.x = 0;
+				hpBar.setSize(hpBarSize);
+				timer = 0.f;
+				isHpAni = false;
+				isDrawHpBar = false;
+				scene->MonsterDie();
+			}
+			else if (timer >= hpAniTime)
 			{
 				sf::Vector2f hpBarSize = maxHpBar.getSize();
 				hpBarSize.x *= (((float)*monsterHp) / *monsterMaxHp);

@@ -13,6 +13,7 @@ SceneBattle::SceneBattle()
 void SceneBattle::Init()
 {
 	ANI_CLIP_MGR.Load("animations/fist.csv");
+	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("graphics/spr_battlebg_0.png");
 	texIds.push_back("graphics/spr_gun_bullet_.png");
 	texIds.push_back("graphics/spr_bluespear.png");
@@ -61,6 +62,10 @@ void SceneBattle::Init()
 
 void SceneBattle::Enter()
 {
+	isPlaying = true;
+	btIndex = 0;
+
+	Scene::Enter();
 	// JSON 파일 불러오기
 	std::ifstream file("jsons/frog.json");
 	std::ifstream file2("jsons/testInventory.json");
@@ -87,7 +92,8 @@ void SceneBattle::Enter()
 	dialBox->SetString(data["lines"][lineIndex]);
 	lineCount = data["lines"].size();
 	lineIndex = ++lineIndex % lineCount;
-	btBox->startStr = data["startDescribe"];
+	btBox->startStr = utf8_to_wstring(data["startDescribe"]);
+	btBox->SetStartDescribe();
 	patternCount = data["attackPattern"].size();
 	monsterTexId = data["texId"];
 	monsterMaxHp = data["hp"];
@@ -97,8 +103,6 @@ void SceneBattle::Enter()
 	worldView.setSize(size);
 	worldView.setCenter(size * 0.5f);
 
-	Scene::Enter();
-
 	background.setTexture(TEXTURE_MGR.Get("graphics/spr_battlebg_0.png"));
 	Utils::SetOrigin(background, Origins::TC);
 	background.setPosition({ size.x * 0.5f,10.f });
@@ -106,91 +110,111 @@ void SceneBattle::Enter()
 	monster.setTexture(TEXTURE_MGR.Get(monsterTexId));
 	Utils::SetOrigin(monster, Origins::MC);
 	monster.setPosition({ size.x * 0.45f, size.y * 0.4f });
+	monsteroriginColor = monster.getColor();
+	monsteroriginColor.a = 255;
+	monsterblinkColor = monster.getColor();
+	monsterblinkColor.a = 100;
 }
 
 void SceneBattle::Exit()
 {
 	Scene::Exit();
+
+	btState = ButtonState::None;
 }
 
 void SceneBattle::Update(float dt)
 {
-	Scene::Update(dt);
-
-	if (isMyTurn)
+	if (isPlaying)
 	{
-		if (btState == ButtonState::None)
+		Scene::Update(dt);
+
+		if (isMonsterBlink)
+			MonsterBlinkUpdate(dt);
+
+		if (isMyTurn)
 		{
-			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+			if (btState == ButtonState::None)
 			{
-				dialBox->isDraw = false;
-				switch (btIndex)
+				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
-				case 0:
-					btState = ButtonState::ChooseFight;
-					btBox->describeStr[0] = utf8_to_wstring(data["FightDescribe"]);
-					break;
-				case 1:
-					btState = ButtonState::ChooseAct;
-					actChooseIndex = 0;
-					for (int i = 0; i < actChooseCount; ++i)
+					dialBox->isDraw = false;
+					switch (btIndex)
 					{
-						btBox->describeStr[i] = utf8_to_wstring(data["ActDescribe"][i]["act"]);
-					}
-					for (int i = actChooseCount; i < 4; ++i)
-					{
-						btBox->describeStr[i] = L"";
-					}
-					break;
-				case 2:
-					btState = ButtonState::ChooseItem;
-					itemChooseIndex = 0;
-					for (int i = 0; i < itemChooseCount; ++i)
-					{
-						std::string temp = invenData["items"][i]["itemId"];
-						if (temp == "Null")
+					case 0:
+						btState = ButtonState::ChooseFight;
+						btBox->describeStr[0] = utf8_to_wstring(data["FightDescribe"]);
+						break;
+					case 1:
+						btState = ButtonState::ChooseAct;
+						actChooseIndex = 0;
+						for (int i = 0; i < actChooseCount; ++i)
 						{
-							btBox->describeStr[i] = L"== 비어 있음 ==";
+							btBox->describeStr[i] = utf8_to_wstring(data["ActDescribe"][i]["act"]);
 						}
-						else
+						for (int i = actChooseCount; i < 4; ++i)
 						{
-							btBox->describeStr[i] = utf8_to_wstring(itemData[i]["name"]);
-							healAmount[i] = itemData[i]["healAmount"];
+							btBox->describeStr[i] = L"";
 						}
+						break;
+					case 2:
+						btState = ButtonState::ChooseItem;
+						itemChooseIndex = 0;
+						for (int i = 0; i < itemChooseCount; ++i)
+						{
+							std::string temp = invenData["items"][i]["itemId"];
+							if (temp == "Null")
+							{
+								btBox->describeStr[i] = L"== 비어 있음 ==";
+							}
+							else
+							{
+								btBox->describeStr[i] = utf8_to_wstring(itemData[i]["name"]);
+								healAmount[i] = itemData[i]["healAmount"];
+							}
+						}
+						break;
+					case 3:
+						btState = ButtonState::ChooseMercy;
+						mercyChooseIndex = 0;
+						btBox->describeStr[0] = L"* 살려주기";
+						btBox->describeStr[2] = L"* 도망";
+						break;
 					}
-					break;
-				case 3:
-					btState = ButtonState::ChooseMercy;
-					mercyChooseIndex = 0;
-					btBox->describeStr[0] = L"* 살려주기";
-					btBox->describeStr[2] = L"* 도망";
-					break;
+					soul->SetPosition({ size.x * 0.05f, size.y * 0.57f });
+					btBox->UpdateBox();
 				}
-				soul->SetPosition({ size.x * 0.05f, size.y * 0.57f });
-				btBox->UpdateBox();
+				else
+				{
+					fightButton->UpdateTexture();
+					actButton->UpdateTexture();
+					itemButton->UpdateTexture();
+					mercyButton->UpdateTexture();
+				}
 			}
-			else
+		}
+		else
+		{
+			dialTimer += dt;
+			turnTimer += dt;
+			if (dialTimer >= dialExistTime)
 			{
-				fightButton->UpdateTexture();
-				actButton->UpdateTexture();
-				itemButton->UpdateTexture();
-				mercyButton->UpdateTexture();
+				dialTimer = 0.f;
+				dialBox->isDraw = false;
+			}
+			if (turnTimer >= turnDuration)
+			{
+				turnTimer = 0.f;
+				SetPlayerTurn();
 			}
 		}
 	}
 	else
 	{
-		dialTimer += dt;
-		turnTimer += dt;
-		if (dialTimer >= dialExistTime)
+		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 		{
-			dialTimer = 0.f;
-			dialBox->isDraw = false;
-		}
-		if (turnTimer >= turnDuration)
-		{
-			turnTimer = 0.f;
-			SetPlayerTurn();
+			std::cout << "씬탈출" << std::endl;
+			SCENE_MGR.ChangeScene(SceneIds::Test);
 		}
 	}
 }
@@ -272,10 +296,57 @@ void SceneBattle::TryMercy()
 {
 	if (mercyChooseIndex == 0 && mercyPoint >= mercyCanPoint)
 	{
+		isPlaying = false;
 		std::cout << "살려주기 실행" << std::endl;
 	}
 	else if (mercyChooseIndex == 1)
 	{
+		isPlaying = false;
 		std::cout << "도망가기 실행" << std::endl;
 	}
+}
+
+void SceneBattle::MonsterBlinkUpdate(float dt)
+{
+	monsterblinkTimer += dt;
+	monsterblinkPeriodTimer += dt;
+	if (monsterblinkTimer >= monsterblinkTime)
+	{
+		isMonsterBlink = false;
+		monsterblinkTimer = 0.f;
+		monsterblinkPeriodTimer = 0.f;
+		monster.setColor(monsteroriginColor);
+	}
+
+	if (monsterblinkPeriodTimer >= monsterblinkPeriod)
+	{
+		if (monster.getColor() == monsteroriginColor)
+			monster.setColor(monsterblinkColor);
+		else
+			monster.setColor(monsteroriginColor);
+		monsterblinkPeriodTimer = 0.f;
+	}
+}
+
+void SceneBattle::MonsterDie()
+{
+	isMyTurn = true;
+	soul->SetPosition({ size.x * 0.03f + size.x * 0.26f * btIndex, size.y * 0.93f });
+	btBox->startStr = L"* 승리!";
+	btBox->SetStartDescribe();
+	btState = ButtonState::None;
+	sf::Color color = monster.getColor();
+	color.a = 100;
+	monster.setColor(color);
+	std::cout << "몬스터 사망" << std::endl;
+	isPlaying = false;
+}
+
+void SceneBattle::PlayerDie()
+{
+	isMyTurn = true;
+	btState = ButtonState::None;
+	btBox->startStr = L"* 패배!";
+	btBox->SetStartDescribe();
+	isPlaying = false;
 }

@@ -51,7 +51,17 @@ protected:
 	int patternCount = 0;
 	std::vector<Bullet*> bulletTemp;
 
+	bool isPlaying = true;
+
+	sf::Color monsteroriginColor;
+	sf::Color monsterblinkColor;
+	float monsterblinkTimer = 0.f;
+	float monsterblinkPeriodTimer = 0.f;
+	const float monsterblinkPeriod = 0.15f;
+	const float monsterblinkTime = 0.7f; 
+
 public:
+	bool isMonsterBlink = false;
 	bool isMyTurn = true;
 	ButtonState btState = ButtonState::None;
 	int btIndex = 0;
@@ -68,7 +78,7 @@ public:
 	int mercyPoint = 0;
 	const int mercyCanPoint = 100;
 
-	int playerATK = 20;
+	int playerATK = 55;
 
 	SceneBattle();
 	~SceneBattle() override = default;
@@ -89,4 +99,9 @@ public:
 
 	void TryUseItem();
 	void TryMercy();
+
+	void MonsterBlinkUpdate(float dt);
+	void MonsterDie();
+
+	void PlayerDie();
 };

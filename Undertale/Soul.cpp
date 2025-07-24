@@ -54,6 +54,8 @@ void Soul::Release()
 
 void Soul::Reset()
 {
+	SetPosition({ size.x * 0.03f, size.y * 0.93f });
+
 	originColor = sprite.getColor();
 	originColor.a = 255;
 	blinkColor = sprite.getColor();
@@ -232,8 +234,11 @@ void Soul::SetBoundary(sf::FloatRect bounds)
 void Soul::TakeDamage(int damage)
 {
 	hp -= damage;
-	if (hp < 0)
+	if (hp <= 0)
+	{
 		hp = 0;
+		scene->PlayerDie();
+	}
 }
 
 void Soul::BlinkUpdate(float dt)

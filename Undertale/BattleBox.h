@@ -43,13 +43,15 @@ protected:
 	float minusHpbarSize;
 
 public:
-	std::string startStr;
+	std::wstring startStr;
 	std::wstring describeStr[4];
 	bool fightBtPress = false;
 	bool isDrawHpBar = false;
 
 	BattleBox(const std::string& name = "");
 	virtual ~BattleBox() = default;
+
+	void SetStartDescribe() { startDescribe.setString(startStr); }
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;
