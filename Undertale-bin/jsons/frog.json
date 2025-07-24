@@ -1,11 +1,15 @@
 {  
   "name": "프로깃",
   "texId" : "graphics/spr_froggit_2.png",
+  "animationId" : "animations/frogit_idle.csv",
   "hp": 100,
   "lines" : [
     "개굴 ~",
-    "멍 때리는 중"
+    "멍 때리는 중",
+    "생각하는 중",
+    "(한숨)"
   ],
+  "lineExistTime" : 2.5,
   "FightDescribe" : "* 프로깃",
   "ActDescribe" : [
     {

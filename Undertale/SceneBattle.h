@@ -37,7 +37,7 @@ protected:
 	sf::Vector2f size = { 640.f,480.f };
 
 	float dialTimer = 0.f;
-	const float dialExistTime = 2.f;
+	float dialExistTime = 0.f;
 
 	float turnTimer = 0.f;
 	float turnDuration;
@@ -79,6 +79,8 @@ public:
 	const int mercyCanPoint = 100;
 
 	int playerATK = 55;
+
+	static std::string monsterJsonID;
 
 	SceneBattle();
 	~SceneBattle() override = default;

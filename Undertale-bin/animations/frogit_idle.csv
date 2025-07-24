@@ -1,0 +1,6 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)		",,
+frogit_idle,1,1,,
+"				",,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
+graphics/spr_froggit_2.png,0,0,106,112
+graphics/spr_froggit_3.png,0,0,106,102

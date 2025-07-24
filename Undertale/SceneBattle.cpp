@@ -5,6 +5,8 @@
 #include "BattleBox.h"
 #include "Bullet.h"
 
+std::string SceneBattle::monsterJsonID = "jsons/frog.json";
+
 SceneBattle::SceneBattle()
 	: Scene(SceneIds::Battle)
 {
@@ -13,6 +15,7 @@ SceneBattle::SceneBattle()
 void SceneBattle::Init()
 {
 	ANI_CLIP_MGR.Load("animations/fist.csv");
+	ANI_CLIP_MGR.Load("animations/frogit_idle.csv");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("graphics/spr_battlebg_0.png");
 	texIds.push_back("graphics/spr_gun_bullet_.png");
@@ -20,6 +23,7 @@ void SceneBattle::Init()
 	texIds.push_back("graphics/spr_eggbullet.png");
 	texIds.push_back("graphics/spr_dumbtarget_0.png");
 	texIds.push_back("graphics/spr_froggit_2.png");
+	texIds.push_back("graphics/spr_froggit_3.png");
 	texIds.push_back("graphics/spr_dialogueBox.png");
 	texIds.push_back("graphics/spr_fightbt_0.png");
 	texIds.push_back("graphics/spr_fightbt_1.png");
@@ -64,10 +68,11 @@ void SceneBattle::Enter()
 {
 	isPlaying = true;
 	btIndex = 0;
+	PatternIndex = 0;
 
 	Scene::Enter();
-	// JSON 파일 불러오기
-	std::ifstream file("jsons/frog.json");
+	// JSON 파일 불러오기	
+	std::ifstream file(monsterJsonID);
 	std::ifstream file2("jsons/testInventory.json");
 	if (!file.is_open())
 	{
@@ -89,6 +94,7 @@ void SceneBattle::Enter()
 		}		
 	}
 
+	dialExistTime = data["lineExistTime"];
 	dialBox->SetString(data["lines"][lineIndex]);
 	lineCount = data["lines"].size();
 	lineIndex = ++lineIndex % lineCount;
@@ -108,7 +114,9 @@ void SceneBattle::Enter()
 	background.setPosition({ size.x * 0.5f,10.f });
 
 	monster.setTexture(TEXTURE_MGR.Get(monsterTexId));
+	animator.SetTarget(&monster);
 	Utils::SetOrigin(monster, Origins::MC);
+	animator.Play("animations/frogit_idle.csv");
 	monster.setPosition({ size.x * 0.45f, size.y * 0.4f });
 	monsteroriginColor = monster.getColor();
 	monsteroriginColor.a = 255;
@@ -128,6 +136,7 @@ void SceneBattle::Update(float dt)
 	if (isPlaying)
 	{
 		Scene::Update(dt);
+		animator.Update(dt);
 
 		if (isMonsterBlink)
 			MonsterBlinkUpdate(dt);
@@ -138,7 +147,6 @@ void SceneBattle::Update(float dt)
 			{
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
-					dialBox->isDraw = false;
 					switch (btIndex)
 					{
 					case 0:
@@ -214,7 +222,7 @@ void SceneBattle::Update(float dt)
 		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 		{
 			std::cout << "씬탈출" << std::endl;
-			SCENE_MGR.ChangeScene(SceneIds::Test);
+			SCENE_MGR.ChangeScene(SceneIds::Battle);
 		}
 	}
 }

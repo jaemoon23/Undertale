@@ -86,6 +86,7 @@ void BattleBox::Release()
 
 void BattleBox::Reset()
 {
+	hpBar.setSize({ size.x * 0.3f, size.y * 0.05f });
 	scene = ((SceneBattle*)SCENE_MGR.GetCurrentScene());
 	monsterHp = &(scene->monsterHp);
 	monsterMaxHp = &(scene->monsterMaxHp);

@@ -79,7 +79,7 @@ void StatusInBattleUI::Reset()
 	Hp = &(soul->hp);
 	maxHp = &(soul->maxHp);
 	hpText.setString(std::to_string(*Hp) + "/" + std::to_string(*maxHp));
-	hpBar.setSize({ 2.f * *maxHp, 30.f });
+	hpBar.setSize({ 2.f * *Hp, 30.f });
 	maxhpBar.setSize({ 2.f * *maxHp, 30.f });
 }
 
