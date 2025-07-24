@@ -1,0 +1,10 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)		",,
+Fist,12,0,,
+"				",,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
+graphics/spr_hyperfist_0.png,0,0,58,118
+graphics/spr_hyperfist_1.png,0,0,58,118
+graphics/spr_hyperfist_2.png,0,0,58,118
+graphics/spr_hyperfist_3.png,0,0,76,136
+graphics/spr_hyperfist_4.png,0,0,98,152
+graphics/spr_hyperfist_5.png,0,0,98,152

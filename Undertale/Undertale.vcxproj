@@ -134,6 +134,11 @@
     <ClCompile Include="AniPlayer.cpp" />
     <ClCompile Include="BackGroundUi.cpp" />
     <ClCompile Include="DialogueBox.cpp" />
+    <ClCompile Include="BattleBox.cpp" />
+    <ClCompile Include="BattleButton.cpp" />
+    <ClCompile Include="BattleDialogueBox.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Framework\AnimationClip.cpp" />
     <ClCompile Include="Framework\Animator.cpp" />
     <ClCompile Include="Framework\Framework.cpp" />
@@ -155,6 +160,10 @@
     <ClCompile Include="Sans.cpp" />
     <ClCompile Include="Scenes\SceneDev1.cpp" />
     <ClCompile Include="SceneTest.cpp" />
+    <ClCompile Include="SceneBattle.cpp" />
+    <ClCompile Include="Scenes\SceneDev1.cpp" />
+    <ClCompile Include="Soul.cpp" />
+    <ClCompile Include="StatusInBattleUI.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -164,6 +173,11 @@
     <ClInclude Include="AniPlayer.h" />
     <ClInclude Include="BackGroundUi.h" />
     <ClInclude Include="DialogueBox.h" />
+    <ClInclude Include="BattleBox.h" />
+    <ClInclude Include="BattleButton.h" />
+    <ClInclude Include="BattleDialogueBox.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Framework\AnimationClip.h" />
     <ClInclude Include="Framework\Animator.h" />
     <ClInclude Include="Framework\Defines.h" />
@@ -188,6 +202,10 @@
     <ClInclude Include="Sans.h" />
     <ClInclude Include="Scenes\SceneDev1.h" />
     <ClInclude Include="SceneTest.h" />
+    <ClInclude Include="SceneBattle.h" />
+    <ClInclude Include="Scenes\SceneDev1.h" />
+    <ClInclude Include="Soul.h" />
+    <ClInclude Include="StatusInBattleUI.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TestBackGround.h" />
   </ItemGroup>

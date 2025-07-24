@@ -1,0 +1,126 @@
+#include "stdafx.h"
+#include "Soul.h"
+#include "SceneBattle.h"
+
+Soul::Soul(const std::string& name)
+	: GameObject(name)
+{
+}
+
+void Soul::SetPosition(const sf::Vector2f& pos)
+{
+	GameObject::SetPosition(pos);
+	sprite.setPosition(pos);
+}
+
+void Soul::SetRotation(float rot)
+{
+	GameObject::SetRotation(rot);
+	sprite.setRotation(rot);
+}
+
+void Soul::SetScale(const sf::Vector2f& s)
+{
+	GameObject::SetScale(s);
+	sprite.setScale(s);
+}
+
+void Soul::SetOrigin(const sf::Vector2f& o)
+{
+	GameObject::SetOrigin(o);
+	sprite.setOrigin(o);
+}
+
+void Soul::SetOrigin(Origins preset)
+{
+	GameObject::SetOrigin(preset);
+	if (preset != Origins::Custom)
+	{
+		Utils::SetOrigin(sprite, preset);
+	}
+}
+
+void Soul::Init()
+{
+	SetOrigin(Origins::MC);
+	sortingLayer = SortingLayers::Foreground;
+	sortingOrder = 1;
+	SetPosition({ size.x * 0.03f, size.y * 0.93f });
+}
+
+void Soul::Release()
+{
+}
+
+void Soul::Reset()
+{
+	scene = (SceneBattle*)SCENE_MGR.GetCurrentScene();
+	btIndex = &(scene->btIndex);
+	sprite.setTexture(TEXTURE_MGR.Get("graphics/spr_heart_battle_pl_0.png"));
+}
+
+void Soul::Update(float dt)
+{
+	hitBox.UpdateTransform(sprite, sprite.getLocalBounds());
+
+	sf::Vector2f pos = GetPosition();
+	if (scene->isMyTurn)
+	{
+		switch (scene->btState)
+		{
+		case ButtonState::None:
+			if (*btIndex != 0 && InputMgr::GetKeyDown(sf::Keyboard::Left))
+			{
+				pos.x -= size.x * 0.26f;
+				SetPosition(pos);
+				(*btIndex)--;
+			}
+			if (*btIndex != 3 && InputMgr::GetKeyDown(sf::Keyboard::Right))
+			{
+				pos.x += size.x * 0.26f;
+				SetPosition(pos);
+				(*btIndex)++;
+			}
+			break;
+		case ButtonState::Fight:
+			break;
+		case ButtonState::Act:
+			break;
+		case ButtonState::Item:
+			break;
+		case ButtonState::Mercy:
+			break;
+		}
+	}
+	else
+	{
+		pos.x += InputMgr::GetAxis(Axis::Horizontal) * moveSpeed * dt;
+		pos.y += InputMgr::GetAxis(Axis::Vertical) * moveSpeed * dt;
+		pos.x = Utils::Clamp(pos.x, minX, maxX);
+		pos.y = Utils::Clamp(pos.y, minY, maxY);
+		SetPosition(pos);
+	}
+}
+
+void Soul::Draw(sf::RenderWindow& window)
+{
+	if(scene->btState != ButtonState::Fight)
+		window.draw(sprite);
+	hitBox.Draw(window);
+}
+
+void Soul::SetBoundary(sf::FloatRect bounds)
+{
+	sf::FloatRect soulBound = sprite.getGlobalBounds();
+	minX = bounds.left + soulBound.width * 0.5f;
+	minY = bounds.top + soulBound.height * 0.5f;
+	maxX = bounds.left + bounds.width - soulBound.width - 5.f;
+	maxY = bounds.top + bounds.height - soulBound.height - 5.f;
+}
+
+void Soul::TakeDamage(int damage)
+{
+	hp -= damage;
+	if (hp < 0)
+		hp = 0;
+}

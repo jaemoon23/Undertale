@@ -24,6 +24,7 @@ enum class SceneIds
 	Test,
 	Title,
 	Game,
+	Battle,
 	Dev1,
 	Dev2,
 	Count,
@@ -34,4 +35,13 @@ enum class Sides
 	Left,
 	Right,
 	None,
+};
+
+enum class ButtonState
+{
+	None,
+	Fight,
+	Act,
+	Item,
+	Mercy
 };
