@@ -169,6 +169,6 @@ void Player::SetAtt(int a)
 void Player::SansInteract()
 {
 	std::vector<std::wstring> testDialogues =
-	{ L"¾È³ç", L"Å×½ºÆ®", L"uihyun"};
+	{ L"¾È³ç", L"Å×½ºÆ®"};
 	dialoguebox->StartDialogue(testDialogues);
 }
