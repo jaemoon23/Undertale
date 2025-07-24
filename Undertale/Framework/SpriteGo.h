@@ -23,6 +23,9 @@ public:
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
 
+	sf::FloatRect GetLocalBounds() const override;
+	sf::FloatRect GetGlobalBounds() const override;
+
 	void Init() override;
 	void Release() override;
 	void Reset() override;

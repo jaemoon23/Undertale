@@ -4,7 +4,7 @@
 #include "TextGo.h"
 #include "SpriteGo.h"
 
-MapTool::MapTool() : Scene(SceneIds::MapTool), grid(sf::Lines), gridOffset(200.f, 200.f)
+MapTool::MapTool() : Scene(SceneIds::MapTool), grid(sf::Lines), gridOffset(0.f, 0.f)
 {
 }
 
@@ -137,12 +137,19 @@ void MapTool::Enter()
 				// 새 배경 생성
 				currentBackground = (SpriteGo*)(AddGameObject(new SpriteGo(backgroundTexturePaths[index])));
 				currentBackground->Reset();
+
 				currentBackground->SetTextureId(backgroundTexturePaths[index]);
 				currentBackground->SetScale({ 1.f, 1.f });
-				currentBackground->SetOrigin({currentBackground->GetLocalBounds().width * 0.5f,currentBackground->GetLocalBounds().height});
-				currentBackground->SetPosition({ 200.f, 200.f });
+
+				sf::FloatRect bounds = currentBackground->GetLocalBounds();     
+				currentBackground->SetOrigin({ bounds.width * 0.5f, bounds.height * 0.5f});
+
+				currentBackground->SetPosition({ 320.f , 240.f });
 				currentBackground->sortingLayer = SortingLayers::Background;
 				currentBackground->sortingOrder = 0;
+
+				std::cout << "포지션: " << currentBackground->GetPosition().x << ", " << currentBackground->GetPosition().y << std::endl;
+				std::cout << "바운드: " << bounds.width << ", " << bounds.height << std::endl;
 			});
 		}
 	}
@@ -159,7 +166,7 @@ void MapTool::Enter()
 		backgroundSprites[i]->sortingOrder = 0;
 		backgroundSprites[i]->SetScale({ 0.5f,0.4f });
 		backgroundSprites[i]->SetOrigin({ backgroundSprites[i]->GetLocalBounds().width * 0.5f, backgroundSprites[i]->GetLocalBounds().height });
-		backgroundSprites[i]->SetPosition({ backgroundButtons[i]->GetPosition().x,backgroundButtons[i]->GetPosition().y });
+		backgroundSprites[i]->SetPosition({ backgroundButtons[i]->GetPosition().x, backgroundButtons[i]->GetPosition().y });
 	}
 
 	hitBox->SetSize({ 100.f, 100.f });
@@ -202,7 +209,7 @@ void MapTool::Update(float dt)
 		{
 			if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
 			{
-				std::cout << "(" << cellX + 1 << ", " << cellY + 1 << ")" << std::endl;
+				std::cout << "(" << cellX << ", " << cellY << ")" << std::endl;
 			}
 		}
 	}

@@ -41,6 +41,16 @@ void SpriteGo::SetOrigin(Origins preset)
 
 }
 
+sf::FloatRect SpriteGo::GetLocalBounds() const
+{
+	return sprite.getLocalBounds();
+}
+
+sf::FloatRect SpriteGo::GetGlobalBounds() const
+{
+	return sprite.getGlobalBounds();
+}
+
 void SpriteGo::Init()
 {
 }
