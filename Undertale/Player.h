@@ -53,7 +53,5 @@ public:
 
 	void SetHpUi(HpUi* hpui);
 	void SetSans(Sans* s) { sans = s; }
-	void SetBox(DialogueBox* dbox) { dialoguebox = dbox; }
-	
+	void SetBox(DialogueBox* dbox) { dialoguebox = dbox; }	
 };
-

@@ -1,0 +1,16 @@
+{
+    "items" : [
+        {
+            "itemId" : "jsons/TestItem.json"
+        },
+        {
+            "itemId" : "Null"
+        },
+        {
+            "itemId" : "Null"
+        },
+        {
+            "itemId" : "Null"
+        }
+    ]
+}

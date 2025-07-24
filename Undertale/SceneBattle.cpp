@@ -63,11 +63,26 @@ void SceneBattle::Enter()
 {
 	// JSON 파일 불러오기
 	std::ifstream file("jsons/frog.json");
+	std::ifstream file2("jsons/testInventory.json");
 	if (!file.is_open())
 	{
 		std::cerr << "파일 열기 실패\n";
 	}
+	if (!file2.is_open())
+	{
+		std::cerr << "파일2 열기 실패\n";
+	}
 	file >> data;
+	file2 >> invenData;
+	for (int i = 0; i < 4; i++)
+	{
+		std::string temp = invenData["items"][i]["itemId"];
+		if (temp != "Null")
+		{
+			std::ifstream f(temp);
+			f >> itemData[i];
+		}		
+	}
 
 	dialBox->SetString(data["lines"][lineIndex]);
 	lineCount = data["lines"].size();
@@ -122,9 +137,27 @@ void SceneBattle::Update(float dt)
 					{
 						btBox->describeStr[i] = utf8_to_wstring(data["ActDescribe"][i]["act"]);
 					}
+					for (int i = actChooseCount; i < 4; ++i)
+					{
+						btBox->describeStr[i] = L"";
+					}
 					break;
 				case 2:
 					btState = ButtonState::ChooseItem;
+					itemChooseIndex = 0;
+					for (int i = 0; i < itemChooseCount; ++i)
+					{
+						std::string temp = invenData["items"][i]["itemId"];
+						if (temp == "Null")
+						{
+							btBox->describeStr[i] = L"== 비어 있음 ==";
+						}
+						else
+						{
+							btBox->describeStr[i] = utf8_to_wstring(itemData[i]["name"]);
+							healAmount[i] = itemData[i]["healAmount"];
+						}
+					}
 					break;
 				case 3:
 					btState = ButtonState::ChooseMercy;
@@ -214,4 +247,18 @@ void SceneBattle::SetActDescribe()
 	btBox->describeStr[0] = utf8_to_wstring(data["ActDescribe"][actChooseIndex]["describes"][0]["describe"]);
 	btBox->describeStr[2] = utf8_to_wstring(data["ActDescribe"][actChooseIndex]["describes"][1]["describe"]);
 	btBox->UpdateBox();
+}
+
+void SceneBattle::TryUseItem()
+{
+	// "jsons/TestItem.json"
+	if (!itemData[itemChooseIndex].empty())
+	{
+		int amount = itemData[itemChooseIndex]["healAmount"];
+		invenData["items"][itemChooseIndex]["itemId"] = "Null";
+		soul->hp = Utils::ClampInt(soul->hp + amount, 0, soul->maxHp);
+		statusUI->UpdateHpUI();
+		SetMonsterTurn();
+		itemData[itemChooseIndex].clear();
+	}
 }

@@ -169,6 +169,10 @@ void BattleBox::UpdateBox()
 		describe4.setString(describeStr[3]);
 		break;
 	case ButtonState::ChooseItem:
+		describe1.setString(describeStr[0]);
+		describe2.setString(describeStr[1]);
+		describe3.setString(describeStr[2]);
+		describe4.setString(describeStr[3]);
 		break;
 	case ButtonState::ChooseMercy:
 		break;
@@ -205,6 +209,10 @@ void BattleBox::Draw(sf::RenderWindow& window)
 			window.draw(describe4);
 			break;
 		case ButtonState::ChooseItem:
+			window.draw(describe1);
+			window.draw(describe2);
+			window.draw(describe3);
+			window.draw(describe4);
 			break;
 		case ButtonState::ChooseMercy:
 			break;

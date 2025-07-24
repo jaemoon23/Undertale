@@ -43,6 +43,9 @@ protected:
 	float turnDuration;
 
 	json data;
+	json invenData;
+	json itemData[4];
+	int healAmount[4];
 
 	int PatternIndex = 0;
 	int patternCount = 0;
@@ -54,6 +57,8 @@ public:
 	int btIndex = 0;
 	int actChooseIndex = 0;
 	int actChooseCount = 0;
+	int itemChooseIndex = 0;
+	int itemChooseCount = 4;
 	int lineIndex = 0;
 	int lineCount = 2;
 	int monsterHp = 100;
@@ -75,4 +80,6 @@ public:
 	void SetPlayerTurn();
 
 	void SetActDescribe();
+
+	void TryUseItem();
 };

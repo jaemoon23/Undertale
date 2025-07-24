@@ -58,6 +58,8 @@ void Soul::Reset()
 	btIndex = &(scene->btIndex);
 	actChooseIndex = &(scene->actChooseIndex);
 	actChooseCount = &(scene->actChooseCount);
+	itemChooseIndex = &(scene->itemChooseIndex);
+	itemChooseCount = &(scene->itemChooseCount);
 	sprite.setTexture(TEXTURE_MGR.Get("graphics/spr_heart_battle_pl_0.png"));
 }
 
@@ -129,7 +131,32 @@ void Soul::Update(float dt)
 			}
 			break;
 		case ButtonState::ChooseItem:
-			if (InputMgr::GetKeyDown(sf::Keyboard::X))
+			if (*itemChooseIndex != 0 && *itemChooseIndex != 2 && InputMgr::GetKeyDown(sf::Keyboard::Left))
+			{
+				(*itemChooseIndex)--;
+				SetPosition({ size.x * 0.05f + size.x * 0.5f * (*itemChooseIndex % 2), size.y * 0.57f + size.y * 0.09f * ((*itemChooseIndex) / 2) });
+			}
+			if (*itemChooseIndex != 1 && *itemChooseIndex != 3 && InputMgr::GetKeyDown(sf::Keyboard::Right))
+			{
+				*itemChooseIndex = Utils::ClampInt(*itemChooseIndex + 1, 0, *itemChooseCount - 1);
+				SetPosition({ size.x * 0.05f + size.x * 0.5f * (*itemChooseIndex % 2), size.y * 0.57f + size.y * 0.09f * ((*itemChooseIndex) / 2) });
+			}
+			if (*itemChooseIndex != 0 && *itemChooseIndex != 1 && InputMgr::GetKeyDown(sf::Keyboard::Up))
+			{
+				*itemChooseIndex -= 2;
+				SetPosition({ size.x * 0.05f + size.x * 0.5f * (*itemChooseIndex % 2), size.y * 0.57f + size.y * 0.09f * ((*itemChooseIndex) / 2) });
+			}
+			if (*itemChooseIndex != 2 && *itemChooseIndex != 3 && InputMgr::GetKeyDown(sf::Keyboard::Down))
+			{
+				*itemChooseIndex = Utils::ClampInt(*itemChooseIndex + 2, 0, *itemChooseCount - 1);
+				SetPosition({ size.x * 0.05f + size.x * 0.5f * (*itemChooseIndex % 2), size.y * 0.57f + size.y * 0.09f * ((*itemChooseIndex) / 2) });
+			}
+
+			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+			{
+				scene->TryUseItem();
+			}
+			else if (InputMgr::GetKeyDown(sf::Keyboard::X))
 			{
 				scene->btState = ButtonState::None;
 				SetPosition({ size.x * 0.03f + size.x * 0.26f * scene->btIndex, size.y * 0.93f });
