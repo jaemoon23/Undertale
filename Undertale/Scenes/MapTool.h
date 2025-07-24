@@ -1,7 +1,6 @@
 #pragma once
 #include "Scene.h"
 #include "Button.h"
-#include "InputText.h"
 
 class TextGo;
 class SpriteGo;
@@ -12,27 +11,35 @@ class MapTool :
 protected:
     sf::Vector2f windowSize;
 
-    TextGo* object;
-    SpriteGo* back;
-    
-    std::vector<Button*> buttons;
-    std::vector<SpriteGo*> sprites;
+    Button* hitBox;
 
-    SpriteGo* ch;
-    sf::RectangleShape backSheets;
-    sf::RectangleShape objectSheets;
+    std::vector<Button*> objectButtons;
+    std::vector<Button*> backgroundButtons;
+   
+    std::vector<SpriteGo*> objectSprites;
+    std::vector<SpriteGo*> backgroundSprites;
+    std::vector<SpriteGo*> placedSprites;
 
-    sf::VertexArray grid;
-    sf::Vector2f gridOffset;
+    SpriteGo* activeSprite = nullptr;
+    SpriteGo* currentBackground = nullptr; 
 
-    const int gridWidth = 680;
-    const int gridHeight = 480;
-    int cellSize = 32;
-    int cellX;
-    int cellY;
+    std::vector<std::string> objectTexturePaths = {
+       "graphics/spr_f_maincharad_0.png",
+       "graphics/spr_cutetable_0.png",
+       "graphics/spr_darkelevator_l_0.png",
+       "graphics/spr_darknesstotem_0.png"
+    };
+    std::vector<std::string> backgroundTexturePaths = {
+       "graphics/bg_firstroom.png",
+       "graphics/bg_innrooms_0.png"
+    };
 
-    bool gridDraw = false;
-    
+    sf::RectangleShape dragHitBox;
+    std::vector<sf::RectangleShape> hitBoxes;
+    sf::Vector2f dragStartPos;
+
+    bool isDragging = false;
+    bool dragMode = false;
 public:
     MapTool();
     ~MapTool() override = default;
@@ -42,7 +49,5 @@ public:
     void Exit() override;
     void Update(float dt) override;
     void Draw(sf::RenderWindow& window) override;
-
-    void HandleZoom(float delta);
 };
 
