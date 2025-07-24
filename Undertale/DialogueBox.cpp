@@ -76,10 +76,11 @@ void DialogueBox::Reset()
 
 void DialogueBox::Update(float dt)
 {
-	//if (InputMgr::GetKeyDown(sf::Keyboard::Z))
-	//{
-	//	isActive = true;	
-	//}
+	if (!GetActive()) return;
+	{
+		UpdateTypingEffect(dt);
+		dialogueText.setString(currentText);
+	}
 }
 
 void DialogueBox::Draw(sf::RenderWindow& window)
@@ -97,6 +98,7 @@ void DialogueBox::StartDialogue(const std::vector<std::string>& lines)
 {
 	dialogueLines = lines;
 	currentLineIndex = 0;
+	TypingEffect(dialogueLines[currentLineIndex], typingSpeed);
 
 	if (!dialogueLines.empty())
 	{
@@ -111,10 +113,39 @@ void DialogueBox::NextLine()
 	{
 		currentLineIndex++;
 		dialogueText.setString(dialogueLines[currentLineIndex]);
+		TypingEffect(dialogueLines[currentLineIndex], typingSpeed);
 	}
 	else
 	{
 		SetActive(false);
 	}
+}
+
+void DialogueBox::TypingEffect(const std::string& text, float speed)
+{
+	fullText = text;
+	currentText.clear();
+	charIndex = 0;
+	typingTimer = 0.f;
+	typingSpeed = speed;
+}
+
+void DialogueBox::UpdateTypingEffect(float dt)
+{
+	if (charIndex < fullText.size())
+	{
+		typingTimer += dt;
+		if (typingTimer >= typingSpeed)
+		{
+			typingTimer = 0.f;
+			currentText += fullText[charIndex];
+			charIndex++;
+		}
+	}
+}
+
+bool DialogueBox::Typingdone()
+{
+	return charIndex >= fullText.size();
 }
 

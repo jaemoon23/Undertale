@@ -95,6 +95,7 @@ void SceneTest::Update(float dt)
 	//std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl; 잘모르겠으면 좌표 찍어보자 
 	player->Update(dt);
 	sans->Update(dt);
+	dialoguebox->Update(dt);
 	//Scene::Update(dt);
 
 }

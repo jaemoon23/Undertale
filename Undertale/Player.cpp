@@ -154,7 +154,7 @@ void Player::Draw(sf::RenderWindow& window)
 void Player::SansInteract()
 {
 	std::vector<std::string> testDialogues =
-	{ "Hi","Next"};
+	{ "Hidflaskdjflaksdjlfakjsld","Nextalsdkfjalskdfjalsdkfj"};
 	dialoguebox->StartDialogue(testDialogues);
 }
 
