@@ -38,6 +38,7 @@ void Framework::Do()
 
         InputMgr::Update(deltaTime);
 
+
         // Update
         SOUND_MGR.Update(deltaTime);
 
@@ -55,6 +56,7 @@ void Framework::Do()
         window.clear();
         SCENE_MGR.Draw(window);
         window.display();
+        InputMgr::Clear();
     }
 }
 

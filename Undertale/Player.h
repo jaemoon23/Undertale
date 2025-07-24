@@ -10,12 +10,12 @@ class Player : public GameObject
 {
 protected:
 	sf::Sprite body;
-
+	std::string name = "Chara";
 	int maxHp = 10;
 	int hp = 10;
 	int att = 10;
 	int def = 10;
-	std::string name = "Chara";
+
 
 	float speed = 50.f;
 	sf::Vector2f direction;
@@ -49,7 +49,7 @@ public:
 	void SetDef(int d) { def = d; }
 	void SetName(const std::string& n) { name = n; }
 
-	void Interact();
+	void SansInteract();
 
 	void SetHpUi(HpUi* hpui);
 	void SetSans(Sans* s) { sans = s; }

@@ -92,15 +92,21 @@ void Player::Update(float dt)
 
 		if (distance <= interactDistance)
 		{
-			if (InputMgr::GetKeyDown(sf::Keyboard::X) && !dialoguebox->GetActive())
+			if (!dialoguebox->GetActive())
 			{
-				Interact();
+				if (InputMgr::GetKeyDown(sf::Keyboard::X))
+				{
+					SansInteract();
+				}
 			}
-			else if (InputMgr::GetKeyDown(sf::Keyboard::Z) && dialoguebox->GetActive())
+			else  
 			{
-				dialoguebox->NextLine();
+				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+				{
+					std::cout << "Z" << std::endl;
+					dialoguebox->NextLine();
+				}	
 			}
-
 		}
 		if (InputMgr::GetKeyDown(sf::Keyboard::C))
 		{
@@ -108,6 +114,7 @@ void Player::Update(float dt)
 			std::cout << "대화나가기" << std::endl;
 		}
 	}
+
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Right))
 	{
@@ -144,9 +151,10 @@ void Player::Draw(sf::RenderWindow& window)
 	hitBox.Draw(window);
 }
 
-void Player::Interact()
+void Player::SansInteract()
 {
-	std::vector<std::string> testDialogues = { "Hi",  "Good" };
+	std::vector<std::string> testDialogues =
+	{ "Hi","Next"};
 	dialoguebox->StartDialogue(testDialogues);
 }
 

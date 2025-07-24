@@ -58,7 +58,7 @@ void SceneTest::Init()
 	player->SetSans(sans);
 	player->SetHpUi(hpui);
 	player->SetBox(dialoguebox);
-	dialoguebox->SetPlayer(player);
+	//dialoguebox->SetPlayer(player);
 	
 	AddGameObject(testbackground);
 	AddGameObject(player);
@@ -95,7 +95,8 @@ void SceneTest::Update(float dt)
 	//std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl; 잘모르겠으면 좌표 찍어보자 
 	player->Update(dt);
 	sans->Update(dt);
-	Scene::Update(dt);
+	//Scene::Update(dt);
+
 }
 void SceneTest::Draw(sf::RenderWindow& window)
 {

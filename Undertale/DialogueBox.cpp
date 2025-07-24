@@ -95,12 +95,13 @@ void DialogueBox::Draw(sf::RenderWindow& window)
 
 void DialogueBox::StartDialogue(const std::vector<std::string>& lines)
 {
-	this->dialogueLines = lines;
+	dialogueLines = lines;
 	currentLineIndex = 0;
 
 	if (!dialogueLines.empty())
+	{
 		dialogueText.setString(dialogueLines[currentLineIndex]);
-
+	}
 	SetActive(true);
 }
 
