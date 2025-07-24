@@ -12,8 +12,6 @@ SceneBattle::SceneBattle()
 
 void SceneBattle::Init()
 {
-	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
-	
 	ANI_CLIP_MGR.Load("animations/fist.csv");
 	texIds.push_back("graphics/spr_battlebg_0.png");
 	texIds.push_back("graphics/spr_gun_bullet_.png");
@@ -39,26 +37,24 @@ void SceneBattle::Init()
 	texIds.push_back("graphics/spr_hyperfist_5.png");
 
 	statusUI = (StatusInBattleUI*)AddGameObject(new StatusInBattleUI());
-	statusUI->SetPosition({ windowSize.x * 0.02f, windowSize.y * 0.8f });
+	statusUI->SetPosition({ size.x * 0.02f, size.y * 0.8f });
 
 	fightButton = (BattleButton*)AddGameObject(new BattleButton());
 	fightButton->SetTexIds("graphics/spr_fightbt_0.png", "graphics/spr_fightbt_1.png");
-	fightButton->SetPosition({ windowSize.x * 0.02f, windowSize.y * 0.9f });
+	fightButton->SetPosition({ size.x * 0.02f, size.y * 0.9f });
 	actButton = (BattleButton*)AddGameObject(new BattleButton());
 	actButton->SetTexIds("graphics/spr_actbt_0.png", "graphics/spr_actbt_1.png");
-	actButton->SetPosition({ windowSize.x * 0.28f, windowSize.y * 0.9f });
+	actButton->SetPosition({ size.x * 0.28f, size.y * 0.9f });
 	itemButton = (BattleButton*)AddGameObject(new BattleButton());
 	itemButton->SetTexIds("graphics/spr_itembt_0.png", "graphics/spr_itembt_1.png");
-	itemButton->SetPosition({ windowSize.x * 0.54f, windowSize.y * 0.9f });
+	itemButton->SetPosition({ size.x * 0.54f, size.y * 0.9f });
 	mercyButton = (BattleButton*)AddGameObject(new BattleButton());
 	mercyButton->SetTexIds("graphics/spr_sparebt_0.png", "graphics/spr_sparebt_1.png");
-	mercyButton->SetPosition({ windowSize.x * 0.8f, windowSize.y * 0.9f });
-
-	soul = (Soul*)AddGameObject(new Soul());
-
-	dialBox = (BattleDialogueBox*)AddGameObject(new BattleDialogueBox());
+	mercyButton->SetPosition({ size.x * 0.8f, size.y * 0.9f });
 
 	btBox = (BattleBox*)AddGameObject(new BattleBox());
+	soul = (Soul*)AddGameObject(new Soul());
+	dialBox = (BattleDialogueBox*)AddGameObject(new BattleDialogueBox());
 
 	Scene::Init();
 }
@@ -81,21 +77,20 @@ void SceneBattle::Enter()
 	monsterTexId = data["texId"];
 	monsterMaxHp = data["hp"];
 	monsterHp = monsterMaxHp;
-
+	actChooseCount = data["ActDescribe"].size();
 	//
-	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
-	worldView.setSize(windowSize);
-	worldView.setCenter(windowSize * 0.5f);
+	worldView.setSize(size);
+	worldView.setCenter(size * 0.5f);
 
 	Scene::Enter();
 
 	background.setTexture(TEXTURE_MGR.Get("graphics/spr_battlebg_0.png"));
 	Utils::SetOrigin(background, Origins::TC);
-	background.setPosition({ windowSize.x * 0.5f,10.f });
+	background.setPosition({ size.x * 0.5f,10.f });
 
 	monster.setTexture(TEXTURE_MGR.Get(monsterTexId));
 	Utils::SetOrigin(monster, Origins::MC);
-	monster.setPosition({ windowSize.x * 0.45f, windowSize.y * 0.4f });
+	monster.setPosition({ size.x * 0.45f, size.y * 0.4f });
 }
 
 void SceneBattle::Exit()
@@ -117,18 +112,26 @@ void SceneBattle::Update(float dt)
 				switch (btIndex)
 				{
 				case 0:
-					btState = ButtonState::Fight;
+					btState = ButtonState::ChooseFight;
+					btBox->describeStr[0] = utf8_to_wstring(data["FightDescribe"]);
 					break;
 				case 1:
-					btState = ButtonState::Act;
+					btState = ButtonState::ChooseAct;
+					actChooseIndex = 0;
+					for (int i = 0; i < actChooseCount; ++i)
+					{
+						btBox->describeStr[i] = utf8_to_wstring(data["ActDescribe"][i]["act"]);
+					}
 					break;
 				case 2:
-					btState = ButtonState::Item;
+					btState = ButtonState::ChooseItem;
 					break;
 				case 3:
-					btState = ButtonState::Mercy;
+					btState = ButtonState::ChooseMercy;
 					break;
 				}
+				soul->SetPosition({ size.x * 0.05f, size.y * 0.57f });
+				btBox->UpdateBox();
 			}
 			else
 			{
@@ -165,6 +168,9 @@ void SceneBattle::Draw(sf::RenderWindow& window)
 
 void SceneBattle::SetMonsterTurn()
 {
+	isMyTurn = false;
+	btState = ButtonState::None;
+	btBox->SetBtBoxSize({ size.x * 0.4f, size.y * 0.25f });
 	soul->SetPosition({ size.x * 0.51f, size.y * 0.67f });
 	soul->SetBoundary(btBox->GetBoxGlobalBounds());
 	dialBox->isDraw = true;
@@ -194,11 +200,18 @@ void SceneBattle::SetMonsterTurn()
 void SceneBattle::SetPlayerTurn()
 {
 	isMyTurn = true;
-	soul->SetPosition({ size.x * 0.03f, size.y * 0.93f });
+	soul->SetPosition({ size.x * 0.03f + size.x * 0.26f * btIndex, size.y * 0.93f });
 	btBox->Reset();
 	for (auto& b : bulletTemp)
 	{
 		RemoveGameObject(b);
 	}
 	bulletTemp.clear();
+}
+
+void SceneBattle::SetActDescribe()
+{
+	btBox->describeStr[0] = utf8_to_wstring(data["ActDescribe"][actChooseIndex]["describes"][0]["describe"]);
+	btBox->describeStr[2] = utf8_to_wstring(data["ActDescribe"][actChooseIndex]["describes"][1]["describe"]);
+	btBox->UpdateBox();
 }

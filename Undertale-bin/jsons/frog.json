@@ -6,6 +6,42 @@
     "개굴 ~",
     "멍 때리는 중"
   ],
+  "FightDescribe" : "* 프로깃",
+  "ActDescribe" : [
+    {
+      "act" : "* 살펴보기", 
+      "describes" : [
+        {
+          "describe" : "* 프로깃 - ATK 4 DEF 0"
+        },
+        {
+          "describe" : "* 프로깃은 기분이 나빠보인다"
+        }
+      ]
+    },
+    {
+      "act" : "* 칭찬하기", 
+      "describes" : [
+        {
+          "describe" : "* 당신은 프로깃에게 칭찬했다!"
+        },
+        {
+          "describe" : "* 프로깃은 기분이 좋아졌다"
+        }
+      ]
+    },
+    {
+      "act" : "* 째려보기", 
+      "describes" : [
+        {
+          "describe" : "* 당신을 프로깃을 째려보았다!"
+        },
+        {
+          "describe" : "* 프로깃은 기분이 나빠졌다"
+        }
+      ]
+    }    
+  ],
   "attackPattern" : [
     {
       "name" : "pattern1",

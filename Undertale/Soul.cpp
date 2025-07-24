@@ -56,6 +56,8 @@ void Soul::Reset()
 {
 	scene = (SceneBattle*)SCENE_MGR.GetCurrentScene();
 	btIndex = &(scene->btIndex);
+	actChooseIndex = &(scene->actChooseIndex);
+	actChooseCount = &(scene->actChooseCount);
 	sprite.setTexture(TEXTURE_MGR.Get("graphics/spr_heart_battle_pl_0.png"));
 }
 
@@ -82,6 +84,64 @@ void Soul::Update(float dt)
 				(*btIndex)++;
 			}
 			break;
+		case ButtonState::ChooseFight:
+			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+			{
+				scene->btState = ButtonState::Fight;
+			}
+			else if (InputMgr::GetKeyDown(sf::Keyboard::X))
+			{
+				scene->btState = ButtonState::None;
+				SetPosition({ size.x * 0.03f + size.x * 0.26f * scene->btIndex, size.y * 0.93f });
+			}
+			break;
+		case ButtonState::ChooseAct:
+			if (*actChooseIndex != 0 && *actChooseIndex != 2 && InputMgr::GetKeyDown(sf::Keyboard::Left))
+			{
+				(*actChooseIndex)--; 
+				SetPosition({ size.x * 0.05f + size.x * 0.5f * (*actChooseIndex % 2), size.y * 0.57f + size.y * 0.09f * ((*actChooseIndex) / 2)});
+			}
+			if (*actChooseIndex != 1 && *actChooseIndex != 3 && InputMgr::GetKeyDown(sf::Keyboard::Right))
+			{
+				*actChooseIndex = Utils::ClampInt(*actChooseIndex + 1, 0, *actChooseCount - 1);
+				SetPosition({ size.x * 0.05f + size.x * 0.5f * (*actChooseIndex % 2), size.y * 0.57f + size.y * 0.09f * ((*actChooseIndex) / 2) });
+			}
+			if (*actChooseIndex != 0 && *actChooseIndex != 1 && InputMgr::GetKeyDown(sf::Keyboard::Up))
+			{
+				*actChooseIndex -= 2;
+				SetPosition({ size.x * 0.05f + size.x * 0.5f * (*actChooseIndex % 2), size.y * 0.57f + size.y * 0.09f * ((*actChooseIndex) / 2) });
+			}
+			if (*actChooseIndex != 2 && *actChooseIndex != 3 && InputMgr::GetKeyDown(sf::Keyboard::Down))
+			{
+				*actChooseIndex = Utils::ClampInt(*actChooseIndex + 2, 0, *actChooseCount - 1);
+				SetPosition({ size.x * 0.05f + size.x * 0.5f * (*actChooseIndex % 2), size.y * 0.57f + size.y * 0.09f * ((*actChooseIndex) / 2) });
+			}
+
+			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+			{
+				scene->btState = ButtonState::Act;
+				scene->SetActDescribe();
+			}
+			else if (InputMgr::GetKeyDown(sf::Keyboard::X))
+			{
+				scene->btState = ButtonState::None;
+				SetPosition({ size.x * 0.03f + size.x * 0.26f * scene->btIndex, size.y * 0.93f });
+			}
+			break;
+		case ButtonState::ChooseItem:
+			if (InputMgr::GetKeyDown(sf::Keyboard::X))
+			{
+				scene->btState = ButtonState::None;
+				SetPosition({ size.x * 0.03f + size.x * 0.26f * scene->btIndex, size.y * 0.93f });
+			}
+			break;
+		case ButtonState::ChooseMercy:
+			if (InputMgr::GetKeyDown(sf::Keyboard::X))
+			{
+				scene->btState = ButtonState::None;
+				SetPosition({ size.x * 0.03f + size.x * 0.26f * scene->btIndex, size.y * 0.93f });
+			}
+			break;
 		case ButtonState::Fight:
 			break;
 		case ButtonState::Act:
@@ -104,7 +164,7 @@ void Soul::Update(float dt)
 
 void Soul::Draw(sf::RenderWindow& window)
 {
-	if(scene->btState != ButtonState::Fight)
+	if(scene->btState != ButtonState::Fight && scene->btState != ButtonState::Act)
 		window.draw(sprite);
 	hitBox.Draw(window);
 }

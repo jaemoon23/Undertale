@@ -36,9 +36,11 @@ protected:
 	const float fightAniTime = 0.4f;
 
 	bool isAttacking = false;
+	bool playerCheck = false;
 
 public:
 	std::string startStr;
+	std::wstring describeStr[4];
 	bool fightBtPress = false;
 	bool isDrawHpBar = false;
 
@@ -50,6 +52,12 @@ public:
 	void SetScale(const sf::Vector2f& s) override;
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
+
+	void SetBtBoxSize(sf::Vector2f size)
+	{ 
+		box.setSize(size);
+		Utils::SetOrigin(box, Origins::MC);
+	}
 
 	sf::FloatRect GetBoxGlobalBounds() { return box.getGlobalBounds(); }
 

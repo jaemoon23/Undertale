@@ -14,6 +14,8 @@ protected:
 
 	SceneBattle* scene;
 	int* btIndex;
+	int* actChooseIndex;
+	int* actChooseCount;
 
 	sf::Vector2f size = { 640.f, 480.f };
 	int minX;

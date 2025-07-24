@@ -52,6 +52,8 @@ public:
 	bool isMyTurn = true;
 	ButtonState btState = ButtonState::None;
 	int btIndex = 0;
+	int actChooseIndex = 0;
+	int actChooseCount = 0;
 	int lineIndex = 0;
 	int lineCount = 2;
 	int monsterHp = 100;
@@ -71,4 +73,6 @@ public:
 
 	void SetMonsterTurn();
 	void SetPlayerTurn();
+
+	void SetActDescribe();
 };

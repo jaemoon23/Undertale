@@ -63,6 +63,18 @@ void BattleBox::Init()
 
 	startDescribe.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	startDescribe.setCharacterSize(30.f);
+	describe1.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
+	describe1.setCharacterSize(30.f);
+	describe1.setPosition({ size.x * 0.09f, size.y * 0.54f });
+	describe2.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
+	describe2.setCharacterSize(30.f);
+	describe2.setPosition({ size.x * 0.59f, size.y * 0.54f });
+	describe3.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
+	describe3.setCharacterSize(30.f);
+	describe3.setPosition({ size.x * 0.09f, size.y * 0.63f });
+	describe4.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
+	describe4.setCharacterSize(30.f);
+	describe4.setPosition({ size.x * 0.59f, size.y * 0.63f });
 
 	maxHpBar.setFillColor(sf::Color::Yellow);
 	maxHpBar.setSize({ size.x * 0.3f, size.y * 0.05f });
@@ -123,15 +135,18 @@ void BattleBox::Update(float dt)
 				fightBtPress = false;
 				isAttacking = false;
 				isDrawHpBar = false;
-				scene->isMyTurn = false;
-				scene->btState = ButtonState::None;
 				sf::Vector2f hpBarSize = hpBar.getSize();
 				hpBarSize.x *= (((float)*monsterHp) / *monsterMaxHp);
-				hpBar.setSize(hpBarSize);
-				box.setSize({ size.x * 0.4f, size.y * 0.25f });
-				Utils::SetOrigin(box, Origins::MC);				
+				hpBar.setSize(hpBarSize);		
 				scene->SetMonsterTurn();
 			}
+		}
+	}
+	else if (scene->btState == ButtonState::Act)
+	{
+		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+		{
+			scene->SetMonsterTurn();
 		}
 	}
 
@@ -144,9 +159,24 @@ void BattleBox::UpdateBox()
 	{
 	case ButtonState::None:
 		break;
+	case ButtonState::ChooseFight:
+		describe1.setString(describeStr[0]);
+		break;
+	case ButtonState::ChooseAct:
+		describe1.setString(describeStr[0]);
+		describe2.setString(describeStr[1]);
+		describe3.setString(describeStr[2]);
+		describe4.setString(describeStr[3]);
+		break;
+	case ButtonState::ChooseItem:
+		break;
+	case ButtonState::ChooseMercy:
+		break;
 	case ButtonState::Fight:
 		break;
 	case ButtonState::Act:
+		describe1.setString(describeStr[0]);
+		describe3.setString(describeStr[2]);
 		break;
 	case ButtonState::Item:
 		break;
@@ -165,11 +195,26 @@ void BattleBox::Draw(sf::RenderWindow& window)
 		case ButtonState::None:
 			window.draw(startDescribe);
 			break;
+		case ButtonState::ChooseFight:
+			window.draw(describe1);
+			break;
+		case ButtonState::ChooseAct:
+			window.draw(describe1);
+			window.draw(describe2);
+			window.draw(describe3);
+			window.draw(describe4);
+			break;
+		case ButtonState::ChooseItem:
+			break;
+		case ButtonState::ChooseMercy:
+			break;
 		case ButtonState::Fight:
 			window.draw(fightSprite);
 			window.draw(fightLine);
 			break;
 		case ButtonState::Act:
+			window.draw(describe1);
+			window.draw(describe3);
 			break;
 		case ButtonState::Item:
 			break;
