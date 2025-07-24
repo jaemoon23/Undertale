@@ -132,7 +132,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AniPlayer.cpp" />
-    <ClCompile Include="BackGroundUi.cpp" />
     <ClCompile Include="DialogueBox.cpp" />
     <ClCompile Include="BattleBox.cpp" />
     <ClCompile Include="BattleButton.cpp" />
@@ -152,10 +151,8 @@
     <ClCompile Include="Framework\TextGo.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="Framework\Variables.cpp" />
-    <ClCompile Include="HpUi.cpp" />
     <ClCompile Include="InventoryUi.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="NameUi.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sans.cpp" />
     <ClCompile Include="SceneTest.cpp" />
@@ -171,7 +168,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AniPlayer.h" />
-    <ClInclude Include="BackGroundUi.h" />
     <ClInclude Include="DialogueBox.h" />
     <ClInclude Include="BattleBox.h" />
     <ClInclude Include="BattleButton.h" />
@@ -195,9 +191,7 @@
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="Framework\Variables.h" />
-    <ClInclude Include="HpUi.h" />
     <ClInclude Include="InventoryUi.h" />
-    <ClInclude Include="NameUi.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Sans.h" />
     <ClInclude Include="SceneTest.h" />

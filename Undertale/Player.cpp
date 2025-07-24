@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "Sans.h"
-#include "HpUi.h"
 #include "DialogueBox.h"
 #include "UiChanger.h"
 #include "InventoryUi.h"
@@ -66,10 +65,10 @@ void Player::Reset()
 	direction = { 0.f, 0.f };
 	maxHp = 10;
 	hp = 10;
-	if (hpui)
-	{
-		hpui->SetHp(hp, maxHp);
-	}
+	//if (hpui)
+	//{
+	//	hpui->SetHp(hp, maxHp);
+	//}
 
 	//look = { 1.f, 0.f };
 	SetOrigin(Origins::MC);
@@ -122,7 +121,6 @@ void Player::Update(float dt)
 		{
 			dialoguebox->SetActive(false);
 			inventoryui->SetActive(false);
-			std::cout << "대화나가기" << std::endl;
 		}
 	}
 
@@ -179,8 +177,8 @@ void Player::SetHp(int h, int maxh)
 {
 	hp = h;
 	maxHp = maxh;
-	if (hpui)
-	{
-		hpui->SetHp(hp, maxHp); // 동기화 
-	}
+	//if (hpui)
+	//{
+	//	hpui->SetHp(hp, maxHp); // 동기화 
+	//}
 }

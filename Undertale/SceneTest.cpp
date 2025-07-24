@@ -2,10 +2,7 @@
 #include "SceneTest.h"
 #include "Player.h"
 #include "Sans.h"
-#include "BackGroundUi.h"
 #include "TestBackGround.h"
-#include "HpUi.h"
-#include "NameUi.h"
 #include "InventoryUi.h"
 #include "DialogueBox.h"
 #include "UiChanger.h"
@@ -47,14 +44,10 @@ void SceneTest::Init()
 	player = new Player("player");
 	sans = new Sans("sans");
 	testbackground = new TestBackGround("testbackground ");
-	backgroundui = new BackGroundUi("backgroundui");
-	hpui = new HpUi("hpui");
-	nameui = new NameUi("nameui");
 	inventoryui = new InventoryUi("InventoryUi");
 	dialoguebox = new DialogueBox("dialoguebox");
 	uichanger = new UiChanger("uichanger");
 
-	nameui->SetName("Chara");
 	//hpui->SetHp(20, 20);
 	player->SetSans(sans);
 	player->SetHpUi(hpui);
@@ -68,9 +61,6 @@ void SceneTest::Init()
 	AddGameObject(testbackground);
 	AddGameObject(player);
 	AddGameObject(sans);
-	AddGameObject(backgroundui);
-	AddGameObject(hpui);
-	AddGameObject(nameui);
 	AddGameObject(inventoryui);
 	AddGameObject(dialoguebox);
 	AddGameObject(uichanger);
@@ -103,9 +93,6 @@ void SceneTest::Update(float dt)
 	sans->Update(dt);
 	dialoguebox->Update(dt);
 	inventoryui->Update(dt);
-	hpui->Update(dt);
-	nameui->Update(dt);
-	backgroundui->Update(dt);
 	uichanger->Update(dt);
 }
 void SceneTest::Draw(sf::RenderWindow& window)
