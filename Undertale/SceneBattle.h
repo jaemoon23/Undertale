@@ -68,6 +68,8 @@ public:
 	int mercyPoint = 0;
 	const int mercyCanPoint = 100;
 
+	int playerATK = 20;
+
 	SceneBattle();
 	~SceneBattle() override = default;
 

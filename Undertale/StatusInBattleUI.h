@@ -8,6 +8,7 @@ protected:
 	sf::Text statusText;
 	sf::Text hpText;
 	sf::RectangleShape hpBar;
+	sf::RectangleShape maxhpBar;
 
 	Soul* soul;
 

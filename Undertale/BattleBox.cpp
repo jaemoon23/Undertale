@@ -76,7 +76,7 @@ void BattleBox::Init()
 	describe4.setCharacterSize(30.f);
 	describe4.setPosition({ size.x * 0.59f, size.y * 0.63f });
 
-	maxHpBar.setFillColor(sf::Color::Yellow);
+	maxHpBar.setFillColor(sf::Color(128, 128, 128));
 	maxHpBar.setSize({ size.x * 0.3f, size.y * 0.05f });
 	maxHpBar.setPosition({ size.x * 0.3f, size.y * 0.2f });
 
@@ -110,7 +110,7 @@ void BattleBox::Update(float dt)
 {
 	if (scene->btState == ButtonState::Fight)
 	{
-		if (!fightBtPress)
+		if (!fightBtPress && !isHpAni)
 		{
 			sf::Vector2f pos = fightLine.getPosition();
 			pos.x += fightLineSpeed * dt;
@@ -121,7 +121,7 @@ void BattleBox::Update(float dt)
 		{
 			isDrawHpBar = true;
 			animator.Play("animations/fist.csv");
-			*monsterHp -= 20;
+			*monsterHp -= scene->playerATK;
 			fightBtPress = true;
 			isAttacking = true;
 		}
@@ -132,12 +132,27 @@ void BattleBox::Update(float dt)
 			if (timer >= fightAniTime)
 			{
 				timer = 0.f;
+				isHpAni = true;
 				fightBtPress = false;
 				isAttacking = false;
-				isDrawHpBar = false;
-				sf::Vector2f hpBarSize = hpBar.getSize();
+				minusHpbarSize = maxHpBar.getSize().x * (((float)scene->playerATK) / *monsterMaxHp);
+			}
+		}
+
+		if (isHpAni)
+		{
+			timer += dt;
+			sf::Vector2f hpBarSize = hpBar.getSize();
+			hpBarSize.x -= minusHpbarSize * dt / hpAniTime;
+			hpBar.setSize(hpBarSize);
+			if (timer >= hpAniTime)
+			{
+				sf::Vector2f hpBarSize = maxHpBar.getSize();
 				hpBarSize.x *= (((float)*monsterHp) / *monsterMaxHp);
-				hpBar.setSize(hpBarSize);		
+				hpBar.setSize(hpBarSize);
+				timer = 0.f;
+				isHpAni = false;
+				isDrawHpBar = false;
 				scene->SetMonsterTurn();
 			}
 		}
