@@ -47,6 +47,6 @@ public:
 
 	void TypingEffect(const std::string& text, float speed = 0.5f);
 	void UpdateTypingEffect(float dt);
-	bool GetActive() { return isActive; }
+	bool GetActive() {return isActive;}
 };
 

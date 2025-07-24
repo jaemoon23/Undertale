@@ -112,14 +112,15 @@ void DialogueBox::NextLine()
 {
 	if (currentLineIndex + 1 < dialogueLines.size())
 	{
+		isActive = true;
 		currentLineIndex++;
 		dialogueText.setString(dialogueLines[currentLineIndex]);
 		TypingEffect(dialogueLines[currentLineIndex], typingSpeed);
 	}
 	else
 	{
-		SetActive(false);
 		isActive = false;
+		SetActive(false);
 	}
 }
 

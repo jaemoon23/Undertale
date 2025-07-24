@@ -76,10 +76,14 @@ void Player::Reset()
 
 void Player::Update(float dt)
 {
-	direction.x = InputMgr::GetAxis(Axis::Horizontal);
-	direction.y = InputMgr::GetAxis(Axis::Vertical);
-	Utils::Normalize(direction);
-	SetPosition(GetPosition() + direction * speed * dt);
+	if (!dialoguebox->GetActive())
+	{
+		direction.x = InputMgr::GetAxis(Axis::Horizontal);
+		direction.y = InputMgr::GetAxis(Axis::Vertical);
+		Utils::Normalize(direction);
+		SetPosition(GetPosition() + direction * speed * dt);
+	}
+
 
 	hitBox.UpdateTransform(body, body.getLocalBounds());
 
@@ -116,29 +120,29 @@ void Player::Update(float dt)
 	}
 
 
-	if (InputMgr::GetKeyDown(sf::Keyboard::Right)&& !dialoguebox->GetActive())
-	{
-		animator.Play("Animation/rightwalking.csv");
-	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Left) && !dialoguebox->GetActive())
-	{
-		animator.Play("Animation/leftwalking.csv");
-	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Up) && !dialoguebox->GetActive())
-	{
-		animator.Play("Animation/upwalking.csv");
-	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Down) && !dialoguebox->GetActive())
-	{
-		animator.Play("Animation/downwalking.csv");
-	}
-
+		if (InputMgr::GetKeyDown(sf::Keyboard::Right))
+		{
+			animator.Play("Animation/rightwalking.csv");
+		}
+		if (InputMgr::GetKeyDown(sf::Keyboard::Left))
+		{
+			animator.Play("Animation/leftwalking.csv");
+		}
+		if (InputMgr::GetKeyDown(sf::Keyboard::Up))
+		{
+			animator.Play("Animation/upwalking.csv");
+		}
+		if (InputMgr::GetKeyDown(sf::Keyboard::Down))
+		{
+			animator.Play("Animation/downwalking.csv");
+		}
+	
 	//if (InputMgr::GetKey(sf::Keyboard::Up) == 0 &&
 	//	InputMgr::GetKey(sf::Keyboard::Down) == 0 &&
 	//	InputMgr::GetKey(sf::Keyboard::Left) == 0 &&
 	//	InputMgr::GetKey(sf::Keyboard::Right) == 0)
 	//{
-	//	animator.Play("Animation/idle.csv");
+	//	animator.Stop();
 	//}
 
 	animator.Update(dt);
@@ -152,11 +156,11 @@ void Player::Draw(sf::RenderWindow& window)
 }
 
 void Player::SansInteract()
-{
-	SetSans(sans);
+{	
 	std::vector<std::string> testDialogues =
 	{ "Hidflaskdjflaksdjlfakjsld","Nextalsdkfjalskdfjalsdkfj","uihyun","junmo" };
 	dialoguebox->StartDialogue(testDialogues);
+	dialoguebox->GetActive();
 }
 
 void Player::SetHpUi(HpUi* hpui)
