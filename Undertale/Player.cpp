@@ -94,18 +94,18 @@ void Player::Update(float dt)
 		{
 			if (!dialoguebox->GetActive())
 			{
-				if (InputMgr::GetKeyDown(sf::Keyboard::X))
+				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
 					SansInteract();
 				}
 			}
-			else  
+			else
 			{
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
 					std::cout << "Z" << std::endl;
 					dialoguebox->NextLine();
-				}	
+				}
 			}
 		}
 		if (InputMgr::GetKeyDown(sf::Keyboard::C))
@@ -116,19 +116,19 @@ void Player::Update(float dt)
 	}
 
 
-	if (InputMgr::GetKeyDown(sf::Keyboard::Right))
+	if (InputMgr::GetKeyDown(sf::Keyboard::Right)&& !dialoguebox->GetActive())
 	{
 		animator.Play("Animation/rightwalking.csv");
 	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Left))
+	if (InputMgr::GetKeyDown(sf::Keyboard::Left) && !dialoguebox->GetActive())
 	{
 		animator.Play("Animation/leftwalking.csv");
 	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Up))
+	if (InputMgr::GetKeyDown(sf::Keyboard::Up) && !dialoguebox->GetActive())
 	{
 		animator.Play("Animation/upwalking.csv");
 	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Down))
+	if (InputMgr::GetKeyDown(sf::Keyboard::Down) && !dialoguebox->GetActive())
 	{
 		animator.Play("Animation/downwalking.csv");
 	}
@@ -154,7 +154,7 @@ void Player::Draw(sf::RenderWindow& window)
 void Player::SansInteract()
 {
 	std::vector<std::string> testDialogues =
-	{ "Hidflaskdjflaksdjlfakjsld","Nextalsdkfjalskdfjalsdkfj"};
+	{ "Hidflaskdjflaksdjlfakjsld","Nextalsdkfjalskdfjalsdkfj","uihyun","junmo" };
 	dialoguebox->StartDialogue(testDialogues);
 }
 

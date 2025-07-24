@@ -4,12 +4,7 @@ class Player;
 class DialogueBox : public GameObject
 {
 protected:
-	std::string fullText;
-	std::string currentText;
-	float typingSpeed = 0.03f;
-	float typingTimer = 0.f;
-	size_t charIndex = 0; 
-	
+	bool isActive = false;
 
 	sf::Sprite dialogueBox;
 	std::string dialogueboxtexIds = "Sprites/backgroundui.png";
@@ -20,6 +15,12 @@ protected:
 	
 	std::vector<std::string> dialogueLines;
 	size_t currentLineIndex = 0;
+
+	std::string fullText;
+	std::string currentText;
+	float typingSpeed = 0.03f;
+	float typingTimer = 0.f;
+	size_t charIndex = 0;
 
 	Player* player; 
 public:
@@ -46,6 +47,6 @@ public:
 
 	void TypingEffect(const std::string& text, float speed = 0.5f);
 	void UpdateTypingEffect(float dt);
-	bool Typingdone();
+	bool GetActive() { return isActive; }
 };
 
