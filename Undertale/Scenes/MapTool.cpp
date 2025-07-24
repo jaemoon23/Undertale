@@ -124,6 +124,8 @@ void MapTool::Enter()
 				currentBackground->SetScale({ 1.f, 1.f });
 				currentBackground->SetOrigin({currentBackground->GetLocalBounds().width * 0.5f,currentBackground->GetLocalBounds().height});
 				currentBackground->SetPosition({ 200.f, 200.f });
+				currentBackground->sortingLayer = SortingLayers::Background;
+				currentBackground->sortingOrder = 0;
 				
 			});
 		}
@@ -165,6 +167,52 @@ void MapTool::Exit()
 
 void MapTool::Update(float dt)
 {
+	// zoom in, out 
+	static float currentZoom = 1.f;
+	const float zoomStep = 0.1f;
+	const float minZoom = 0.2f;
+	const float maxZoom = 1.0f;
+
+	float delta = InputMgr::GetMouseWheelDelta();
+	if (delta != 0.f)
+	{
+		float newZoom = currentZoom + (delta < 0.f ? zoomStep : -zoomStep);
+		newZoom = Utils::Clamp(newZoom, minZoom, maxZoom);
+
+		if (newZoom != currentZoom)
+		{
+			float zoomFactor = newZoom / currentZoom;
+			currentZoom = newZoom;
+
+			worldView.zoom(zoomFactor);
+			FRAMEWORK.GetWindow().setView(worldView);
+		}
+	}
+
+	// 뷰 이동 속도
+	float moveSpeed = 100.f;
+
+	// 뷰 이동
+	if (InputMgr::GetKey(sf::Keyboard::Left))
+	{
+		worldView.move(-moveSpeed * dt, 0.f);
+		FRAMEWORK.GetWindow().setView(worldView);
+	}
+	if (InputMgr::GetKey(sf::Keyboard::Right))
+	{
+		worldView.move(moveSpeed * dt, 0.f);
+		FRAMEWORK.GetWindow().setView(worldView);
+	}
+	if (InputMgr::GetKey(sf::Keyboard::Up))
+	{
+		worldView.move(0.f, -moveSpeed * dt);
+		FRAMEWORK.GetWindow().setView(worldView);
+	}
+	if (InputMgr::GetKey(sf::Keyboard::Down))
+	{
+		worldView.move(0.f, moveSpeed * dt);
+		FRAMEWORK.GetWindow().setView(worldView);
+	}
 	
 	if (dragMode)
 	{
@@ -191,7 +239,7 @@ void MapTool::Update(float dt)
 			isDragging = false;
 			dragMode = false;
 
-			// 복사본 저장
+			
 			hitBoxes.push_back(dragHitBox);
 
 			std::cout << "히트박스 저장: 위치(" << dragHitBox.getPosition().x << ", " << dragHitBox.getPosition().y << "), 크기(" << dragHitBox.getSize().x << ", " << dragHitBox.getSize().y << std::endl;
@@ -237,6 +285,7 @@ void MapTool::Update(float dt)
 
 void MapTool::Draw(sf::RenderWindow& window)
 {
+	Scene::Draw(window);
 	if (activeSprite)
 	{
 		activeSprite->Draw(window);
@@ -249,6 +298,4 @@ void MapTool::Draw(sf::RenderWindow& window)
 	{
 		window.draw(box);
 	}
-	
-	Scene::Draw(window);
 }

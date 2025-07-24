@@ -10,6 +10,7 @@ class MapTool :
 {
 protected:
     sf::Vector2f windowSize;
+    sf::Vector2f defaultCenter;
 
     Button* hitBox;
 
