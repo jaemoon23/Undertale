@@ -56,7 +56,7 @@ void Sans::Reset()
 	sortingOrder = 0;
 
 	sans.setTexture(TEXTURE_MGR.Get(sanstexIds));
-	sans.setPosition(0.f, 0.f);
+	sans.setPosition(100.f, 100.f);
 	SetOrigin(Origins::MC);
 }
 
@@ -74,4 +74,9 @@ void Sans::Draw(sf::RenderWindow& window)
 const sf::RectangleShape& Sans::GetHitBox() const
 {
 	return hitBox.rect;
+}
+
+sf::Vector2f Sans::GetPosition() const
+{
+	return sans.getPosition();
 }

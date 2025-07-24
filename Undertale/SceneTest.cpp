@@ -58,7 +58,7 @@ void SceneTest::Init()
 	player->SetSans(sans);
 	player->SetHpUi(hpui);
 	player->SetBox(dialoguebox);
-	//dialoguebox->SetPlayer(player);
+	dialoguebox->SetPlayer(player);
 	
 	AddGameObject(testbackground);
 	AddGameObject(player);
@@ -96,7 +96,11 @@ void SceneTest::Update(float dt)
 	player->Update(dt);
 	sans->Update(dt);
 	dialoguebox->Update(dt);
-	//Scene::Update(dt);
+	inventoryui->Update(dt);
+	hpui->Update(dt);
+	nameui->Update(dt);
+	backgroundui->Update(dt);
+
 
 }
 void SceneTest::Draw(sf::RenderWindow& window)

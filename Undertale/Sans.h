@@ -25,5 +25,6 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	const sf::RectangleShape& GetHitBox() const;
+	sf::Vector2f GetPosition() const;
 };
 

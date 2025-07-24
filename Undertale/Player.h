@@ -17,7 +17,7 @@ protected:
 	int def = 10;
 
 
-	float speed = 50.f;
+	float speed = 80.f;
 	sf::Vector2f direction;
 
 	Animator animator;
