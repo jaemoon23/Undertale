@@ -161,6 +161,9 @@ void SceneBattle::Update(float dt)
 					break;
 				case 3:
 					btState = ButtonState::ChooseMercy;
+					mercyChooseIndex = 0;
+					btBox->describeStr[0] = L"* 살려주기";
+					btBox->describeStr[2] = L"* 도망";
 					break;
 				}
 				soul->SetPosition({ size.x * 0.05f, size.y * 0.57f });
@@ -247,6 +250,8 @@ void SceneBattle::SetActDescribe()
 	btBox->describeStr[0] = utf8_to_wstring(data["ActDescribe"][actChooseIndex]["describes"][0]["describe"]);
 	btBox->describeStr[2] = utf8_to_wstring(data["ActDescribe"][actChooseIndex]["describes"][1]["describe"]);
 	btBox->UpdateBox();
+	
+	mercyPoint += data["ActDescribe"][actChooseIndex]["mercyPoint"];
 }
 
 void SceneBattle::TryUseItem()

@@ -59,10 +59,14 @@ public:
 	int actChooseCount = 0;
 	int itemChooseIndex = 0;
 	int itemChooseCount = 4;
+	int mercyChooseIndex = 0;
 	int lineIndex = 0;
 	int lineCount = 2;
 	int monsterHp = 100;
 	int monsterMaxHp = 100;
+
+	int mercyPoint = 0;
+	const int mercyCanPoint = 100;
 
 	SceneBattle();
 	~SceneBattle() override = default;

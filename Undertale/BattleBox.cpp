@@ -160,21 +160,34 @@ void BattleBox::UpdateBox()
 	case ButtonState::None:
 		break;
 	case ButtonState::ChooseFight:
+		describe1.setFillColor(sf::Color::White);
 		describe1.setString(describeStr[0]);
 		break;
 	case ButtonState::ChooseAct:
+		describe1.setFillColor(sf::Color::White);
 		describe1.setString(describeStr[0]);
 		describe2.setString(describeStr[1]);
 		describe3.setString(describeStr[2]);
 		describe4.setString(describeStr[3]);
 		break;
 	case ButtonState::ChooseItem:
+		describe1.setFillColor(sf::Color::White);
 		describe1.setString(describeStr[0]);
 		describe2.setString(describeStr[1]);
 		describe3.setString(describeStr[2]);
 		describe4.setString(describeStr[3]);
 		break;
 	case ButtonState::ChooseMercy:
+		if (scene->mercyPoint >= scene->mercyCanPoint)
+		{
+			describe1.setFillColor(sf::Color::Yellow);
+		}
+		else
+		{
+			describe1.setFillColor(sf::Color::White);
+		}
+		describe1.setString(describeStr[0]);
+		describe3.setString(describeStr[2]);
 		break;
 	case ButtonState::Fight:
 		break;
@@ -215,6 +228,8 @@ void BattleBox::Draw(sf::RenderWindow& window)
 			window.draw(describe4);
 			break;
 		case ButtonState::ChooseMercy:
+			window.draw(describe1);
+			window.draw(describe3);
 			break;
 		case ButtonState::Fight:
 			window.draw(fightSprite);

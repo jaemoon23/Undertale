@@ -1,5 +1,5 @@
 ID,FPS,"LoopType (0: Single, 1: Loop)		",,
-Fist,12,0,,
+Fist,20,0,,
 "				",,,,
 TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
 graphics/spr_hyperfist_0.png,0,0,58,118

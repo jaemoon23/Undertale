@@ -17,7 +17,8 @@
         {
           "describe" : "* 프로깃은 기분이 나빠보인다"
         }
-      ]
+      ],
+      "mercyPoint" : 0
     },
     {
       "act" : "* 칭찬하기", 
@@ -28,7 +29,8 @@
         {
           "describe" : "* 프로깃은 기분이 좋아졌다"
         }
-      ]
+      ],
+      "mercyPoint" : 100
     },
     {
       "act" : "* 째려보기", 
@@ -39,7 +41,8 @@
         {
           "describe" : "* 프로깃은 기분이 나빠졌다"
         }
-      ]
+      ],
+      "mercyPoint" : -50
     }    
   ],
   "attackPattern" : [

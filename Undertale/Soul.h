@@ -18,6 +18,7 @@ protected:
 	int* actChooseCount;
 	int* itemChooseIndex;
 	int* itemChooseCount;
+	int* mercyChooseIndex;
 
 	sf::Vector2f size = { 640.f, 480.f };
 	int minX;

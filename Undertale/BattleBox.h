@@ -33,7 +33,7 @@ protected:
 	Animator animator;
 
 	float timer = 0.f;
-	const float fightAniTime = 0.4f;
+	const float fightAniTime = 0.6f;
 
 	bool isAttacking = false;
 	bool playerCheck = false;

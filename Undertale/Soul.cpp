@@ -60,6 +60,7 @@ void Soul::Reset()
 	actChooseCount = &(scene->actChooseCount);
 	itemChooseIndex = &(scene->itemChooseIndex);
 	itemChooseCount = &(scene->itemChooseCount);
+	mercyChooseIndex = &(scene->mercyChooseIndex);
 	sprite.setTexture(TEXTURE_MGR.Get("graphics/spr_heart_battle_pl_0.png"));
 }
 
@@ -163,6 +164,16 @@ void Soul::Update(float dt)
 			}
 			break;
 		case ButtonState::ChooseMercy:
+			if (*mercyChooseIndex == 0 && InputMgr::GetKeyDown(sf::Keyboard::Down))
+			{
+				(*mercyChooseIndex)++;
+				SetPosition({ size.x * 0.05f, size.y * 0.57f + size.y * 0.09f * (*mercyChooseIndex) });
+			}
+			if (*mercyChooseIndex == 1 && InputMgr::GetKeyDown(sf::Keyboard::Up))
+			{
+				(*mercyChooseIndex)--;
+				SetPosition({ size.x * 0.05f, size.y * 0.57f + size.y * 0.09f * (*mercyChooseIndex) });
+			}
 			if (InputMgr::GetKeyDown(sf::Keyboard::X))
 			{
 				scene->btState = ButtonState::None;
