@@ -54,6 +54,11 @@ void Soul::Release()
 
 void Soul::Reset()
 {
+	originColor = sprite.getColor();
+	originColor.a = 255;
+	blinkColor = sprite.getColor();
+	blinkColor.a = 100;
+
 	scene = (SceneBattle*)SCENE_MGR.GetCurrentScene();
 	btIndex = &(scene->btIndex);
 	actChooseIndex = &(scene->actChooseIndex);
@@ -174,7 +179,12 @@ void Soul::Update(float dt)
 				(*mercyChooseIndex)--;
 				SetPosition({ size.x * 0.05f, size.y * 0.57f + size.y * 0.09f * (*mercyChooseIndex) });
 			}
-			if (InputMgr::GetKeyDown(sf::Keyboard::X))
+
+			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+			{
+				scene->TryMercy();
+			}
+			else if (InputMgr::GetKeyDown(sf::Keyboard::X))
 			{
 				scene->btState = ButtonState::None;
 				SetPosition({ size.x * 0.03f + size.x * 0.26f * scene->btIndex, size.y * 0.93f });
@@ -198,6 +208,9 @@ void Soul::Update(float dt)
 		pos.y = Utils::Clamp(pos.y, minY, maxY);
 		SetPosition(pos);
 	}
+
+	if(isBlink)
+		BlinkUpdate(dt);
 }
 
 void Soul::Draw(sf::RenderWindow& window)
@@ -221,4 +234,26 @@ void Soul::TakeDamage(int damage)
 	hp -= damage;
 	if (hp < 0)
 		hp = 0;
+}
+
+void Soul::BlinkUpdate(float dt)
+{
+	blinkTimer += dt;
+	blinkPeriodTimer += dt;
+	if (blinkTimer >= blinkTime)
+	{
+		isBlink = false;
+		blinkTimer = 0.f;
+		blinkPeriodTimer = 0.f;
+		sprite.setColor(originColor);
+	}
+
+	if (blinkPeriodTimer >= blinkPeriod)
+	{
+		if (sprite.getColor() == originColor)
+			sprite.setColor(blinkColor);
+		else
+			sprite.setColor(originColor);
+		blinkPeriodTimer = 0.f;
+	}
 }

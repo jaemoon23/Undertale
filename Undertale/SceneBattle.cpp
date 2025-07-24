@@ -267,3 +267,15 @@ void SceneBattle::TryUseItem()
 		itemData[itemChooseIndex].clear();
 	}
 }
+
+void SceneBattle::TryMercy()
+{
+	if (mercyChooseIndex == 0 && mercyPoint >= mercyCanPoint)
+	{
+		std::cout << "살려주기 실행" << std::endl;
+	}
+	else if (mercyChooseIndex == 1)
+	{
+		std::cout << "도망가기 실행" << std::endl;
+	}
+}

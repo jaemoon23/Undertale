@@ -88,4 +88,5 @@ public:
 	void SetActDescribe();
 
 	void TryUseItem();
+	void TryMercy();
 };
