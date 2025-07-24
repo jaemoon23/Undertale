@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include <fstream>
 #include "SceneBattle.h"
-#include "dialogueBox.h"
+#include "BattleDialogueBox.h"
 #include "BattleBox.h"
 #include "Bullet.h"
 
@@ -56,7 +56,7 @@ void SceneBattle::Init()
 
 	soul = (Soul*)AddGameObject(new Soul());
 
-	dialBox = (dialogueBox*)AddGameObject(new dialogueBox());
+	dialBox = (BattleDialogueBox*)AddGameObject(new BattleDialogueBox());
 
 	btBox = (BattleBox*)AddGameObject(new BattleBox());
 

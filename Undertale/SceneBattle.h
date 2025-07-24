@@ -9,7 +9,7 @@
 using json = nlohmann::json;
 
 // 640, 480
-class dialogueBox;
+class BattleDialogueBox;
 class BattleBox;
 
 class SceneBattle : public Scene
@@ -21,7 +21,7 @@ protected:
 	sf::Sprite monster;
 	std::string monsterTexId;
 
-	dialogueBox* dialBox;
+	BattleDialogueBox* dialBox;
 
 	BattleBox* btBox;
 

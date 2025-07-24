@@ -3,7 +3,7 @@
 
 class SceneBattle;
 
-class dialogueBox : public GameObject
+class BattleDialogueBox : public GameObject
 {
 protected:
 	sf::Sprite sprite;
@@ -16,8 +16,8 @@ protected:
 public:
 	bool isDraw = true;
 
-	dialogueBox(const std::string& name = "");
-	virtual ~dialogueBox() = default;
+	BattleDialogueBox(const std::string& name = "");
+	virtual ~BattleDialogueBox() = default;
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;
@@ -25,7 +25,7 @@ public:
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
 
-	void SetString(std::string s) 
+	void SetString(std::string s)
 	{
 		std::wstring ws = utf8_to_wstring(s);
 		text.setString(ws);
