@@ -40,5 +40,8 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void SetPlayerName(const std::wstring& playerName);
+
 };
 

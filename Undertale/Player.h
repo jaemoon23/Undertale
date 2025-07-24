@@ -12,7 +12,7 @@ class Player : public GameObject
 {
 protected:
 	sf::Sprite body;
-	std::string name = "Chara";
+	std::wstring name = L"플레이어";
 	int maxHp = 10;
 	int hp = 10;
 	int att = 0;
@@ -52,7 +52,7 @@ public:
 	void SetDef(int d) { def = d; }
 	void SetGold(int g) { gold = g; }
 	void SetExp(int e) { exp = e; }
-	void SetName(const std::string& n) { name = n; }
+	void SetName(const std::wstring& n) { name = n; }
 
 	void SansInteract();
 

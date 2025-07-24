@@ -10,25 +10,25 @@ PlayerInfoUi::PlayerInfoUi(const std::string& name)
 void PlayerInfoUi::SetPosition(const sf::Vector2f& pos)
 {
 	GameObject::SetPosition(pos);
-	background.setPosition(pos);
+	playerInfo.setPosition(pos);
 }
 
 void PlayerInfoUi::SetRotation(float rot)
 {
 	GameObject::SetRotation(rot);
-	background.setRotation(rot);
+	playerInfo.setRotation(rot);
 }
 
 void PlayerInfoUi::SetScale(const sf::Vector2f& s)
 {
 	GameObject::SetScale(s);
-	background.setScale(s);
+	playerInfo.setScale(s);
 }
 
 void PlayerInfoUi::SetOrigin(const sf::Vector2f& o)
 {
 	GameObject::SetOrigin(o);
-	background.setOrigin(o);
+	playerInfo.setOrigin(o);
 }
 
 void PlayerInfoUi::SetOrigin(Origins preset)
@@ -36,7 +36,7 @@ void PlayerInfoUi::SetOrigin(Origins preset)
 	GameObject::SetOrigin(preset);
 	if (preset != Origins::Custom)
 	{
-		Utils::SetOrigin(background, preset);
+		Utils::SetOrigin(playerInfo, preset);
 	}
 }
 
@@ -55,15 +55,22 @@ void PlayerInfoUi::Reset()
 	font.loadFromFile(fonttexIds);
 
 	SetOrigin(Origins::MC);
-	background.setTexture(TEXTURE_MGR.Get(playerInfotexIds));
-	background.setPosition(350.f, 100.f);
-	background.setScale(0.4f, 0.6f);
+	playerInfo.setTexture(TEXTURE_MGR.Get(playerInfotexIds));
+	playerInfo.setPosition(350.f, 100.f);
+	playerInfo.setScale(0.4f, 0.6f);
 
 	line.setSize({ 251.f, 285.f });
 	line.setPosition(350.f, 103.f);
 	line.setFillColor(sf::Color::Transparent);
 	line.setOutlineColor(sf::Color::White);
 	line.setOutlineThickness(5.f);
+
+	info.name = L"플레이어";
+	name.setFont(font);
+	name.setString(info.name);
+	name.setCharacterSize(20);
+	name.setFillColor(sf::Color::White);
+	name.setPosition(390.f, 123.f);
 }
 
 void PlayerInfoUi::Update(float dt)
@@ -72,7 +79,13 @@ void PlayerInfoUi::Update(float dt)
 
 void PlayerInfoUi::Draw(sf::RenderWindow& window)
 {
-	window.draw(background);
+	window.draw(playerInfo);
 	window.draw(line);
 	window.draw(name);
+}
+
+void PlayerInfoUi::SetPlayerName(const std::wstring& playerName)
+{
+	info.name = playerName;
+	name.setString(info.name);
 }
