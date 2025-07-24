@@ -19,6 +19,18 @@ class MapTool :
     public Scene
 {
 protected:
+    // ±×¸®µå
+    sf::VertexArray grid;
+    sf::Vector2f gridOffset;
+
+    const int gridWidth = 640;
+    const int gridHeight = 480;
+    int cellSize = 32;
+    int cellX;
+    int cellY;
+
+    bool gridDraw = false;
+
     sf::Vector2f windowSize;
     sf::Vector2f defaultCenter;
 

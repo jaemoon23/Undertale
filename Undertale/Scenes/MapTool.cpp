@@ -1,10 +1,10 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "MapTool.h"
 #include "Button.h"
 #include "TextGo.h"
 #include "SpriteGo.h"
 
-MapTool::MapTool() : Scene(SceneIds::MapTool)
+MapTool::MapTool() : Scene(SceneIds::MapTool), grid(sf::Lines), gridOffset(200.f, 200.f)
 {
 }
 
@@ -37,6 +37,19 @@ void MapTool::Init()
 void MapTool::Enter()
 {
 	Scene::Enter();
+
+	// ê·¸ë¦¬ë“œ
+	gridDraw = false;
+	for (int y = 0; y <= gridHeight; y += cellSize)
+	{
+		grid.append(sf::Vertex(sf::Vector2f(gridOffset.x, gridOffset.y + y), sf::Color::Red));
+		grid.append(sf::Vertex(sf::Vector2f(gridOffset.x + gridWidth, gridOffset.y + y), sf::Color::Red)); 
+	}
+	for (int x = 0; x <= gridWidth; x += cellSize)
+	{
+		grid.append(sf::Vertex(sf::Vector2f(gridOffset.x + x, gridOffset.y), sf::Color::Red));
+		grid.append(sf::Vertex(sf::Vector2f(gridOffset.x + x, gridOffset.y + gridHeight), sf::Color::Red));
+	}
 	objectTexturePaths = {
 	   "graphics/spr_f_maincharad_0.png",
 	   "graphics/spr_cutetable_0.png",
@@ -71,8 +84,8 @@ void MapTool::Enter()
 			btn->SetOrigin({ btn->GetLocalBounds().width * 0.5f, btn->GetLocalBounds().height * 0.5f });
 		
 			btn->setCallback([&, index]() {
-				std::cout << "¹öÆ° " << index + 1 << " ´©¸§" << std::endl;
-				// ¸¶¿ì½º µû¶ó´Ù´Ï´Â ½ºÇÁ¶óÀÌÆ® »ý¼º
+				std::cout << "ë²„íŠ¼ " << index + 1 << " ëˆ„ë¦„" << std::endl;
+				// ë§ˆìš°ìŠ¤ ë”°ë¼ë‹¤ë‹ˆëŠ” ìŠ¤í”„ë¼ì´íŠ¸ ìƒì„±
 				if (activeSprite)
 				{
 					delete activeSprite;
@@ -102,14 +115,14 @@ void MapTool::Enter()
 			btn->SetPosition({ 1020.f + (x * 325), 170.f + (y * 125.f) });
 			btn->SetOrigin({ btn->GetLocalBounds().width * 0.5f, btn->GetLocalBounds().height * 0.5f });
 			btn->setCallback([&, index]() {
-				std::cout << "¹öÆ° " << index + 1 << " ´©¸§" << std::endl;
+				std::cout << "ë²„íŠ¼ " << index + 1 << " ëˆ„ë¦„" << std::endl;
 
-				// ±âÁ¸ ¹è°æ »èÁ¦
+				// ê¸°ì¡´ ë°°ê²½ ì‚­ì œ
 				if (currentBackground)
 				{
 					RemoveGameObject(currentBackground);
 				}
-				// ¹èÄ¡µÈ ¿ÀºêÁ§Æ®µé ¸ðµÎ Á¦°Å
+				// ë°°ì¹˜ëœ ì˜¤ë¸Œì íŠ¸ë“¤ ëª¨ë‘ ì œê±°
 				for (auto sprite : placedSprites)
 				{
 					RemoveGameObject(sprite);
@@ -118,44 +131,10 @@ void MapTool::Enter()
 				{
 					delete box;
 				}
-				for (int i = 0; i < undoStack.size(); ++i)
-				{
-					if (!undoStack.empty())
-					{
-						UndoAction action = undoStack.back();
-						undoStack.pop_back();
-
-						switch (action.type)
-						{
-						case UndoAction::Type::Sprite:
-						{
-							SpriteGo* spriteToDelete = action.data.sprite;
-							auto it = std::find(placedSprites.begin(), placedSprites.end(), spriteToDelete);
-							if (it != placedSprites.end())
-							{
-								RemoveGameObject(*it);
-								placedSprites.erase(it);
-							}
-							break;
-						}
-						case UndoAction::Type::HitBox:
-						{
-							auto it = std::find(hitBoxes.begin(), hitBoxes.end(), action.data.rect);
-							if (it != hitBoxes.end())
-							{
-								delete* it;
-								hitBoxes.erase(it);
-							}
-							break;
-						}
-						}
-						std::cout << "¿ÀºêÁ§Æ® »èÁ¦" << std::endl;
-					}
-				}
 				placedSprites.clear();
 				hitBoxes.clear();
 
-				// »õ ¹è°æ »ý¼º
+				// ìƒˆ ë°°ê²½ ìƒì„±
 				currentBackground = (SpriteGo*)(AddGameObject(new SpriteGo(backgroundTexturePaths[index])));
 				currentBackground->Reset();
 				currentBackground->SetTextureId(backgroundTexturePaths[index]);
@@ -164,7 +143,6 @@ void MapTool::Enter()
 				currentBackground->SetPosition({ 200.f, 200.f });
 				currentBackground->sortingLayer = SortingLayers::Background;
 				currentBackground->sortingOrder = 0;
-				
 			});
 		}
 	}
@@ -188,8 +166,8 @@ void MapTool::Enter()
 	hitBox->SetPosition({ 0.f,0.f });
 	hitBox->setCallback([&]() {
 		dragMode = true;
-		std::cout << "µå·¡±× ¸ðµå ON" << std::endl;
-		});
+		std::cout << "ë“œëž˜ê·¸ ëª¨ë“œ ON" << std::endl;
+	});
 }
 
 void MapTool::Exit()
@@ -205,6 +183,30 @@ void MapTool::Exit()
 
 void MapTool::Update(float dt)
 {
+	// ë§ˆìš°ìŠ¤ í¬ì§€ì…˜
+	sf::Vector2i pixelPos = sf::Mouse::getPosition(FRAMEWORK.GetWindow());
+	sf::Vector2f worldPos = FRAMEWORK.GetWindow().mapPixelToCoords(pixelPos);
+
+	// ê·¸ë¦¬ë“œ
+	if (InputMgr::GetKeyDown(sf::Keyboard::F2))
+	{
+		gridDraw = !gridDraw;
+	}
+
+	if (gridDraw)
+	{
+		cellX = (worldPos.x - gridOffset.x) / cellSize;
+		cellY = (worldPos.y - gridOffset.y) / cellSize;
+
+		if (cellX >= 0 && cellX < gridWidth / cellSize && cellY >= 0 && cellY < gridHeight / cellSize)
+		{
+			if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
+			{
+				std::cout << "(" << cellX + 1 << ", " << cellY + 1 << ")" << std::endl;
+			}
+		}
+	}
+	
 	// zoom in, out 
 	static float currentZoom = 1.f;
 	const float zoomStep = 0.1f;
@@ -227,10 +229,10 @@ void MapTool::Update(float dt)
 		}
 	}
 
-	// ºä ÀÌµ¿ ¼Óµµ
+	// ë·° ì´ë™ ì†ë„
 	float moveSpeed = 100.f;
 
-	// ºä ÀÌµ¿
+	// ë·° ì´ë™
 	if (InputMgr::GetKey(sf::Keyboard::Left))
 	{
 		worldView.move(-moveSpeed * dt, 0.f);
@@ -252,6 +254,7 @@ void MapTool::Update(float dt)
 		FRAMEWORK.GetWindow().setView(worldView);
 	}
 	
+	// ížˆíŠ¸ë°•ìŠ¤ ë“œëž˜ê·¸
 	if (dragMode)
 	{
 		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
@@ -289,19 +292,17 @@ void MapTool::Update(float dt)
 		}
 	}
 
-	// ¸¶¿ì½º µû¶ó´Ù´Ï´Â ½ºÇÁ¶óÀÌÆ® À§Ä¡ °»½Å
+	// ë§ˆìš°ìŠ¤ ë”°ë¼ë‹¤ë‹ˆëŠ” ìŠ¤í”„ë¼ì´íŠ¸
 	if (activeSprite)
 	{
-		sf::Vector2i mousePixel = sf::Mouse::getPosition(FRAMEWORK.GetWindow());
-		sf::Vector2f mouseWorld = FRAMEWORK.GetWindow().mapPixelToCoords(mousePixel);
-		activeSprite->SetPosition(mouseWorld);
+		activeSprite->SetPosition(worldPos);
 
 		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
 		{
 			auto placed = (SpriteGo*)(AddGameObject(new SpriteGo(activeSprite->GetTextureId())));
 			placed->Reset();
 			placed->sortingOrder = 1;
-			placed->SetPosition(mouseWorld);
+			placed->SetPosition(worldPos);
 			placed->SetOrigin(Origins::MC);
 			
 			placedSprites.push_back(placed);
@@ -309,23 +310,19 @@ void MapTool::Update(float dt)
 			action.type = UndoAction::Type::Sprite;
 			action.data.sprite = placed;
 			undoStack.push_back(action);
-			std::cout << "¸Ê¿¡ ¿ÀºêÁ§Æ® ¹èÄ¡ ¿Ï·á" << std::endl;
+			std::cout << "ë§µì— ì˜¤ë¸Œì íŠ¸ ë°°ì¹˜ ì™„ë£Œ" << std::endl;
 
 			delete activeSprite;
 			activeSprite = nullptr;
 		}
 
-		// ESC ´©¸£¸é Ãë¼Ò
+		// ESC ëˆ„ë¥´ë©´ ì·¨ì†Œ
 		if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
 		{
 			delete activeSprite;
 			activeSprite = nullptr;
-			std::cout << "¹èÄ¡ Ãë¼Ò" << std::endl;
+			std::cout << "ë°°ì¹˜ ì·¨ì†Œ" << std::endl;
 		}
-	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
-	{
-		SCENE_MGR.ChangeScene(SceneIds::test);
 	}
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Z))
@@ -359,7 +356,7 @@ void MapTool::Update(float dt)
 				break;
 			}
 			}
-			std::cout << "¿ÀºêÁ§Æ® »èÁ¦" << std::endl;
+			std::cout << "ì˜¤ë¸Œì íŠ¸ ì‚­ì œ" << std::endl;
 		}
 	}
 	Scene::Update(dt);
@@ -379,5 +376,9 @@ void MapTool::Draw(sf::RenderWindow& window)
 	for (auto& box : hitBoxes)
 	{
 		window.draw(*box);
+	}
+	if (gridDraw)
+	{
+		window.draw(grid);
 	}
 }
