@@ -94,7 +94,7 @@ void DialogueBox::Draw(sf::RenderWindow& window)
 
 }
 
-void DialogueBox::StartDialogue(const std::vector<std::string>& lines)
+void DialogueBox::StartDialogue(const std::vector<std::wstring>& lines)
 {
 	isActive = true;
 	dialogueLines = lines;
@@ -103,7 +103,7 @@ void DialogueBox::StartDialogue(const std::vector<std::string>& lines)
 
 	if (!dialogueLines.empty())
 	{
-		dialogueText.setString(dialogueLines[currentLineIndex]);
+		dialogueText.setString(dialogueLines[currentLineIndex]);  // sf::Text´Â std::wstring Áö¿ø
 	}
 	SetActive(true);
 }
@@ -124,7 +124,7 @@ void DialogueBox::NextLine()
 	}
 }
 
-void DialogueBox::TypingEffect(const std::string& text, float speed)
+void DialogueBox::TypingEffect(const std::wstring& text, float speed)
 {
 	fullText = text;
 	currentText.clear();

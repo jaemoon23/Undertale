@@ -161,11 +161,10 @@ void Player::Draw(sf::RenderWindow& window)
 }
 
 void Player::SansInteract()
-{	
-	std::vector<std::string> testDialogues =
-	{ "Hidflaskdjflaksdjlfakjsld","Nextalsdkfjalskdfjalsdkfj","uihyun","junmo" };
+{
+	std::vector<std::wstring> testDialogues =
+	{ L"¾È³ç", L"Å×½ºÆ®", L"uihyun"};
 	dialoguebox->StartDialogue(testDialogues);
-	dialoguebox->GetActive();
 }
 
 void Player::SetHpUi(HpUi* hpui)

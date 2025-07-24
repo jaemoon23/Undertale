@@ -13,11 +13,11 @@ protected:
 	sf::Text dialogueText;
 	sf::Font font;
 	
-	std::vector<std::string> dialogueLines;
+	std::vector<std::wstring> dialogueLines;
 	size_t currentLineIndex = 0;
 
-	std::string fullText;
-	std::string currentText;
+	std::wstring fullText;
+	std::wstring currentText;
 	float typingSpeed = 0.03f;
 	float typingTimer = 0.f;
 	size_t charIndex = 0;
@@ -39,13 +39,13 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void StartDialogue(const std::vector<std::string>& lines);
+	void StartDialogue(const std::vector<std::wstring>& lines);
 	void NextLine();
 
 	void SetBox(sf::Sprite d, sf::RectangleShape l) { dialogueBox = d, line = l; }
 	void SetPlayer(Player* p) { player = p; }
 
-	void TypingEffect(const std::string& text, float speed = 0.5f);
+	void TypingEffect(const std::wstring& text, float speed = 0.5f);
 	void UpdateTypingEffect(float dt);
 	bool GetActive() {return isActive;}
 };
