@@ -8,6 +8,7 @@ class Sans;
 class DialogueBox;
 class UiChanger;
 class InventoryUi;
+class PlayerInfoUi;
 class Player : public GameObject
 {
 protected:
@@ -31,6 +32,7 @@ protected:
 	DialogueBox* dialoguebox;
 	UiChanger* uichanger;
 	InventoryUi* inventoryui;
+	PlayerInfoUi* playerInfoUi;
 public:
 	Player(const std::string& name = "");
 	virtual ~Player() = default;
@@ -38,7 +40,7 @@ public:
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;
 	void SetScale(const sf::Vector2f& s) override;
-	void SetOrigin(const sf::Vector2f& o) override;
+	void SetOrigin(const sf::Vector2f& o) override; 
 	void SetOrigin(Origins preset) override;
 
 	void Init() override;
@@ -48,7 +50,7 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetHp(int h) { hp = h; }
-	void SetAtt(int a) { att = a; }
+	void SetAtt(int a);
 	void SetDef(int d) { def = d; }
 	void SetGold(int g) { gold = g; }
 	void SetExp(int e) { exp = e; }
@@ -60,5 +62,6 @@ public:
 	void SetBox(DialogueBox* dbox) { dialoguebox = dbox; }
 	void SetInventoryUi(InventoryUi* i) { inventoryui = i; }
 	void SetUiChanger(UiChanger* u) { uichanger = u; }	
+	void SetPlayerInfoUi(PlayerInfoUi* infoUi) { playerInfoUi = infoUi; }
 };
 

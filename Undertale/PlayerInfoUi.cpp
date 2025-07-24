@@ -71,6 +71,13 @@ void PlayerInfoUi::Reset()
 	name.setCharacterSize(20);
 	name.setFillColor(sf::Color::White);
 	name.setPosition(390.f, 123.f);
+
+	att.setFont(font);
+	att.setCharacterSize(18);
+	att.setFillColor(sf::Color::White);
+	att.setPosition(390.f, 153.f); // 원하는 위치로 조정
+	att.setString(L"ATK : " + std::to_wstring(info.att));
+
 }
 
 void PlayerInfoUi::Update(float dt)
@@ -82,6 +89,7 @@ void PlayerInfoUi::Draw(sf::RenderWindow& window)
 	window.draw(playerInfo);
 	window.draw(line);
 	window.draw(name);
+	window.draw(att);
 }
 
 void PlayerInfoUi::SetPlayerName(const std::wstring& playerName)
@@ -89,3 +97,10 @@ void PlayerInfoUi::SetPlayerName(const std::wstring& playerName)
 	info.name = playerName;
 	name.setString(info.name);
 }
+
+void PlayerInfoUi::SetPlayerAttack(const std::wstring& playerAtt)
+{
+	info.att = std::stoi(playerAtt);
+	att.setString(L"ATK : " + playerAtt);
+}
+

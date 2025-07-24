@@ -7,7 +7,7 @@ protected:
 	struct PlayerInfo
 	{
 		std::wstring name;
-		//int hp;
+		int att;
 	};
 
 	PlayerInfo info;
@@ -42,6 +42,6 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetPlayerName(const std::wstring& playerName);
-
+	void SetPlayerAttack(const std::wstring& playerAtt);
 };
 

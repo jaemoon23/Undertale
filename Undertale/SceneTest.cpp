@@ -55,6 +55,7 @@ void SceneTest::Init()
 	player->SetBox(dialoguebox);
 	player->SetUiChanger(uichanger);
 	player->SetInventoryUi(inventoryui);
+	player->SetPlayerInfoUi(playerinfoui);
 	dialoguebox->SetPlayer(player);
 	uichanger->SetPlayer(player);
 	uichanger->SetInventoryUi(inventoryui);

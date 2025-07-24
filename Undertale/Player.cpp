@@ -4,6 +4,7 @@
 #include "DialogueBox.h"
 #include "UiChanger.h"
 #include "InventoryUi.h"
+#include "PlayerInfoUi.h"
 
 Player::Player(const std::string& name)
 	: GameObject(name)
@@ -65,6 +66,8 @@ void Player::Reset()
 	direction = { 0.f, 0.f };
 	maxHp = 10;
 	hp = 10;
+	SetAtt(20);
+
 	//if (hpui)
 	//{
 	//	hpui->SetHp(hp, maxHp);
@@ -152,6 +155,15 @@ void Player::Draw(sf::RenderWindow& window)
 {
 	window.draw(body);
 	hitBox.Draw(window);
+}
+
+void Player::SetAtt(int a)
+{
+	att = a;
+	if (playerInfoUi)
+	{
+		playerInfoUi->SetPlayerAttack(std::to_wstring(att));
+	}
 }
 
 void Player::SansInteract()
