@@ -33,6 +33,7 @@ protected:
 	BattleButton* mercyButton;
 
 	Animator animator;
+	std::string animationId;
 
 	sf::Vector2f size = { 640.f,480.f };
 
@@ -75,10 +76,9 @@ public:
 	int monsterHp = 100;
 	int monsterMaxHp = 100;
 
+	int playerATK = 55;
 	int mercyPoint = 0;
 	const int mercyCanPoint = 100;
-
-	int playerATK = 55;
 
 	static std::string monsterJsonID;
 

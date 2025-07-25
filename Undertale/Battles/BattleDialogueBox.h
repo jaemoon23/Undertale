@@ -7,7 +7,7 @@ class BattleDialogueBox : public GameObject
 {
 protected:
 	sf::Sprite sprite;
-	sf::Text text;
+	WrappedText text;
 
 	sf::Vector2f size = { 640.f,480.f };
 
@@ -25,6 +25,7 @@ public:
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
 
+	void SetMaxWidth(float width) { text.setMaxWidth(width); }
 	void SetString(std::string s)
 	{
 		std::wstring ws = utf8_to_wstring(s);

@@ -3,6 +3,7 @@
 #include <string>
 #include <locale>
 #include <codecvt>
+#include "WrappedText.h"
 
 inline std::wstring utf8_to_wstring(const std::string& str)
 {
@@ -34,6 +35,7 @@ public:
 	static sf::Vector2f SetOrigin(sf::Transformable& obj, Origins preset, const sf::FloatRect bound);
 	static sf::Vector2f SetOrigin(sf::Shape& obj, Origins preset);
 	static sf::Vector2f SetOrigin(sf::Text& obj, Origins preset);
+	static sf::Vector2f SetOrigin(WrappedText& obj, Origins preset);
 	static sf::Vector2f SetOrigin(sf::Sprite& obj, Origins preset);
 
 	// Math

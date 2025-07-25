@@ -13,11 +13,14 @@ SceneBattle::SceneBattle()
 }
 
 void SceneBattle::Init()
-{
+{	
+	ANI_CLIP_MGR.Load("animations/sans_idle.csv");
 	ANI_CLIP_MGR.Load("animations/fist.csv");
 	ANI_CLIP_MGR.Load("animations/frogit_idle.csv");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("graphics/spr_battlebg_0.png");
+	texIds.push_back("graphics/spr_sans_battle.png");
+	texIds.push_back("graphics/spr_sans_idle.png");
 	texIds.push_back("graphics/spr_gun_bullet_.png");
 	texIds.push_back("graphics/spr_bluespear.png");
 	texIds.push_back("graphics/spr_eggbullet.png");
@@ -60,28 +63,25 @@ void SceneBattle::Init()
 	btBox = (BattleBox*)AddGameObject(new BattleBox());
 	soul = (Soul*)AddGameObject(new Soul());
 	dialBox = (BattleDialogueBox*)AddGameObject(new BattleDialogueBox());
-
+	dialBox->SetMaxWidth(size.x * 0.3);
 	Scene::Init();
 }
 
 void SceneBattle::Enter()
 {
 	isPlaying = true;
+	mercyPoint = 0;
 	btIndex = 0;
 	PatternIndex = 0;
+	itemChooseIndex = 0;
+	actChooseIndex = 0;
+	mercyChooseIndex = 0;
+	lineIndex = 0;
 
 	Scene::Enter();
 	// JSON 파일 불러오기	
 	std::ifstream file(monsterJsonID);
 	std::ifstream file2("jsons/testInventory.json");
-	if (!file.is_open())
-	{
-		std::cerr << "파일 열기 실패\n";
-	}
-	if (!file2.is_open())
-	{
-		std::cerr << "파일2 열기 실패\n";
-	}
 	file >> data;
 	file2 >> invenData;
 	for (int i = 0; i < 4; i++)
@@ -105,6 +105,7 @@ void SceneBattle::Enter()
 	monsterMaxHp = data["hp"];
 	monsterHp = monsterMaxHp;
 	actChooseCount = data["ActDescribe"].size();
+	animationId = data["animationId"];
 	//
 	worldView.setSize(size);
 	worldView.setCenter(size * 0.5f);
@@ -115,9 +116,9 @@ void SceneBattle::Enter()
 
 	monster.setTexture(TEXTURE_MGR.Get(monsterTexId));
 	animator.SetTarget(&monster);
-	Utils::SetOrigin(monster, Origins::MC);
-	animator.Play("animations/frogit_idle.csv");
-	monster.setPosition({ size.x * 0.45f, size.y * 0.4f });
+	Utils::SetOrigin(monster, Origins::TC);
+	animator.Play(animationId);
+	monster.setPosition({ size.x * 0.45f, size.y * 0.27f });
 	monsteroriginColor = monster.getColor();
 	monsteroriginColor.a = 255;
 	monsterblinkColor = monster.getColor();
