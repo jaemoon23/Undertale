@@ -75,5 +75,11 @@ public:
 	void UpdateBox();
 
 	void Draw(sf::RenderWindow& window) override;
+
+	void ResetBox()
+	{
+		box.setSize({ size.x * 0.95f, size.y * 0.25f }); 
+		SetOrigin(Origins::MC);
+	}
 };
 

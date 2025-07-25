@@ -123,6 +123,7 @@ void SceneBattle::Enter()
 	monsteroriginColor.a = 255;
 	monsterblinkColor = monster.getColor();
 	monsterblinkColor.a = 100;
+	monster.setColor(monsteroriginColor);
 }
 
 void SceneBattle::Exit()
@@ -270,7 +271,7 @@ void SceneBattle::SetPlayerTurn()
 {
 	isMyTurn = true;
 	soul->SetPosition({ size.x * 0.03f + size.x * 0.26f * btIndex, size.y * 0.93f });
-	btBox->Reset();
+	btBox->ResetBox();
 	for (auto& b : bulletTemp)
 	{
 		RemoveGameObject(b);
