@@ -66,7 +66,13 @@ void Player::Reset()
 	direction = { 0.f, 0.f };
 	maxHp = 10;
 	hp = 10;
+	SetName(L"Frisk");
 	SetAtt(20);
+	SetDef(20);
+	SetHp(20);
+	SetLevel(1);
+	SetGold(0);
+
 
 	//if (hpui)
 	//{
@@ -158,6 +164,15 @@ void Player::Draw(sf::RenderWindow& window)
 	hitBox.Draw(window);
 }
 
+void Player::SetHp(int h)
+{
+	hp = h;
+	if (playerInfoUi)
+	{
+		playerInfoUi->SetPlayerHp(std::to_wstring(hp));
+	}
+}
+
 void Player::SetAtt(int a)
 {
 	att = a;
@@ -167,9 +182,54 @@ void Player::SetAtt(int a)
 	}
 }
 
+void Player::SetDef(int d)
+{
+	def = d;
+	if (playerInfoUi)
+	{
+		playerInfoUi->SetPlayerDefence(std::to_wstring(def));
+	}
+}
+
+void Player::SetGold(int g)
+{
+	gold = g;
+	if (playerInfoUi)
+	{
+		playerInfoUi->SetPlayerGold(std::to_wstring(gold));
+	}
+}
+
+void Player::SetLevel(int l)
+{
+	level = l;
+	if (playerInfoUi)
+	{
+		playerInfoUi->SetPlayerLevel(std::to_wstring(level));
+	}
+}
+
+void Player::SetName(const std::wstring& n)
+{
+	name = n;
+	if (playerInfoUi)
+	{
+		playerInfoUi->SetPlayerName(n);
+	}
+}
+
 void Player::SansInteract()
 {
 	std::vector<std::wstring> testDialogues =
 	{ L"¾È³ç", L"Å×½ºÆ®" };
 	dialoguebox->StartDialogue(testDialogues);
+}
+
+void Player::Heal(int value,int maxHp)
+{
+	hp += value;
+	if (hp > maxHp)
+	{
+		hp = maxHp;
+	}
 }

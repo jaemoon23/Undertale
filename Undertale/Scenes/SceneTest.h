@@ -11,6 +11,7 @@ class InventoryUi;
 class DialogueBox;
 class UiChanger;
 class PlayerInfoUi;
+class HealItem;
 
 class SceneTest : public Scene
 {
@@ -25,7 +26,7 @@ protected:
 	DialogueBox* dialoguebox;
 	UiChanger* uichanger;
 	PlayerInfoUi* playerinfoui;
-
+	HealItem* healitem;
 public:
 	SceneTest();
 	~SceneTest() override = default;

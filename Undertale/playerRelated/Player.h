@@ -9,17 +9,20 @@ class DialogueBox;
 class UiChanger;
 class InventoryUi;
 class PlayerInfoUi;
+class HealItem;
 class Player : public GameObject
 {
 protected:
 	sf::Sprite body;
-	std::wstring name = L"�÷��̾�";
+	std::wstring name;
 	int maxHp = 10;
 	int hp = 10;
 	int att = 0;
 	int def = 0;
 	int exp = 0;
+	int maxexp = 100;
 	int gold = 0;
+	int level = 0;
 
 	float speed = 80.f;
 	sf::Vector2f direction;
@@ -33,6 +36,7 @@ protected:
 	UiChanger* uichanger;
 	InventoryUi* inventoryui;
 	PlayerInfoUi* playerInfoUi;
+	HealItem* heamitem;
 public:
 	Player(const std::string& name = "");
 	virtual ~Player() = default;
@@ -49,19 +53,22 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void SetHp(int h) { hp = h; }
+	void SetHp(int h);
 	void SetAtt(int a);
-	void SetDef(int d) { def = d; }
-	void SetGold(int g) { gold = g; }
+	void SetDef(int d);
+	void SetGold(int g);
+	void SetLevel(int l);
 	void SetExp(int e) { exp = e; }
-	void SetName(const std::wstring& n) { name = n; }
+	void SetName(const std::wstring& n);
 
 	void SansInteract();
+	void Heal(int value, int maxHp);
 
 	void SetSans(Sans* s) { sans = s; }
 	void SetBox(DialogueBox* dbox) { dialoguebox = dbox; }
 	void SetInventoryUi(InventoryUi* i) { inventoryui = i; }
 	void SetUiChanger(UiChanger* u) { uichanger = u; }	
 	void SetPlayerInfoUi(PlayerInfoUi* infoUi) { playerInfoUi = infoUi; }
+	void SetHealItem(HealItem* heal) { heamitem = heal; }
 };
 

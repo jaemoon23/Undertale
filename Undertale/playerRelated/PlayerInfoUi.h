@@ -8,12 +8,15 @@ protected:
 	{
 		std::wstring name;
 		int att;
+		int def;
+		int hp;
+		int level;
+		int gold;
 	};
 
 	PlayerInformation info;
 
 	sf::Sprite playerInfo;
-	//std::string playerInfotexIds = "Sprites/backgroundui.png";
 
 	sf::RectangleShape line;
 	sf::Font font;
@@ -22,8 +25,11 @@ protected:
 	sf::Text name;
 	sf::Text att;
 	sf::Text def;
+	sf::Text hp;
 	sf::Text gold;
 	sf::Text exp;
+	sf::Text level;
+
 
 	bool isActive = true;
 
@@ -45,5 +51,9 @@ public:
 
 	void SetPlayerName(const std::wstring& playerName);
 	void SetPlayerAttack(const std::wstring& playerAtt);
+	void SetPlayerDefence(const std::wstring& playerDef);
+	void SetPlayerHp(const std::wstring& playerHp);
+	void SetPlayerLevel(const std::wstring& playerLevel);
+	void SetPlayerGold(const std::wstring& playergold);
 };
 

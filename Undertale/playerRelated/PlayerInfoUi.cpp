@@ -65,18 +65,41 @@ void PlayerInfoUi::Reset()
 	line.setOutlineColor(sf::Color::White);
 	line.setOutlineThickness(5.f);
 
-	info.name = L"플레이어";
 	name.setFont(font);
-	name.setString(info.name);
 	name.setCharacterSize(20);
 	name.setFillColor(sf::Color::White);
-	name.setPosition(390.f, 123.f);
+	name.setPosition(390.f, 113.f);
+	name.setString(info.name);
+
+	level.setFont(font);
+	level.setCharacterSize(18);
+	level.setFillColor(sf::Color::White);
+	level.setPosition(390.f, 147.f);
+	level.setString(L"LEVEL : " + std::to_wstring(info.level));
 
 	att.setFont(font);
 	att.setCharacterSize(18);
 	att.setFillColor(sf::Color::White);
-	att.setPosition(390.f, 153.f); 
+	att.setPosition(390.f, 180.f);
 	att.setString(L"ATK : " + std::to_wstring(info.att));
+
+	def.setFont(font);
+	def.setCharacterSize(18);
+	def.setFillColor(sf::Color::White);
+	def.setPosition(390.f, 210.f);
+	def.setString(L"DEF : " + std::to_wstring(info.def));
+
+	hp.setFont(font);
+	hp.setCharacterSize(18);
+	hp.setFillColor(sf::Color::White);
+	hp.setPosition(390.f, 240.f);
+	hp.setString(L"HP : " + std::to_wstring(info.hp));
+
+	gold.setFont(font);
+	gold.setCharacterSize(18);
+	gold.setFillColor(sf::Color::White);
+	gold.setPosition(390.f, 300.f);
+	gold.setString(L"GOLD : " + std::to_wstring(info.gold));
 
 }
 
@@ -89,22 +112,49 @@ void PlayerInfoUi::Draw(sf::RenderWindow& window)
 	if (isActive)
 	{
 		window.draw(playerInfo);
-		std::cout << playerInfo.getPosition().x << playerInfo.getPosition().y << std::endl;
 		window.draw(line);
 		window.draw(name);
 		window.draw(att);
+		window.draw(def);
+		window.draw(hp);
+		window.draw(level);
+		window.draw(gold);
 	}
 }
 
 void PlayerInfoUi::SetPlayerName(const std::wstring& playerName)
 {
 	info.name = playerName;
-	name.setString(info.name);
+	name.setString(playerName);
 }
 
 void PlayerInfoUi::SetPlayerAttack(const std::wstring& playerAtt)
 {
 	info.att = std::stoi(playerAtt);
 	att.setString(L"ATK : " + playerAtt);
+}
+
+void PlayerInfoUi::SetPlayerDefence(const std::wstring& playerDef)
+{
+	info.def = std::stoi(playerDef); // (std::stoi = string to int)
+	def.setString(L"DEF : " + playerDef);
+}
+
+void PlayerInfoUi::SetPlayerHp(const std::wstring& playerHp)
+{
+	info.hp = std::stoi(playerHp);
+	hp.setString(L"HP : " + playerHp);
+}
+
+void PlayerInfoUi::SetPlayerLevel(const std::wstring& playerLevel)
+{
+	info.level = std::stoi(playerLevel);
+	level.setString(L"LEVEL : " + playerLevel);
+}
+
+void PlayerInfoUi::SetPlayerGold(const std::wstring& playergold)
+{
+	info.gold = std::stoi(playergold);
+	gold.setString(L"GOLD : " + playergold);
 }
 
