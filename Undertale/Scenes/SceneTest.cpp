@@ -76,6 +76,7 @@ void SceneTest::Init()
 
 void SceneTest::Enter()
 {
+	FRAMEWORK.SetWindowSize(640.f, 480.f);
 	auto size = FRAMEWORK.GetWindowSizeF()* 0.5f;
 	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
 

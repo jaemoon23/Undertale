@@ -1,0 +1,28 @@
+{
+    "map0": {
+        "background": {
+            "position": [
+                320.0,
+                240.0
+            ],
+            "scale": [
+                1.0,
+                1.0
+            ],
+            "textureId": "graphics/bg_innrooms_0.png"
+        },
+        "objects": [
+            {
+                "position": [
+                    332.0,
+                    246.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0
+                ],
+                "textureId": "graphics/spr_f_maincharad_0.png"
+            }
+        ]
+    }
+}

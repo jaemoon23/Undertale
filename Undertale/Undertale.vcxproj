@@ -107,7 +107,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\SFML-Button-main\include;.\SFML-Button-main\src;.\Framework;.\Scenes;$(ProjectDir);.\Battles;.\Maptools;.\playerRelated;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\SFML-Button-main\include;.\SFML-Button-main\src;.\Framework;.\Scenes;$(ProjectDir);.\Battles;.\Maptools;.\playerRelated;.\Maps;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

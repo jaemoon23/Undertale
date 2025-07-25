@@ -9,11 +9,28 @@ class SpriteGo;
 // 삭제 가능한 오브젝트를 하나로 다루기 위한 구조체
 struct UndoAction
 {
-    enum class Type { Sprite, HitBox } type;
-    union {
+    enum class Type 
+    { 
+        Sprite,
+        HitBox 
+    } type;
+    union 
+    {
         SpriteGo* sprite;
-        sf::RectangleShape* rect; // 히트박스는 포인터 관리 필요
+        sf::RectangleShape* rect; 
     } data;
+};
+
+enum class HitBoxType
+{
+    Wall,
+    SceneChanege
+};
+
+struct HitBoxInfo
+{
+    sf::RectangleShape* shape;
+    HitBoxType type;
 };
 
 class MapTool :
@@ -36,7 +53,8 @@ protected:
    
     std::vector<UndoAction> undoStack;
 
-    Button* hitBox;
+    Button* hitBox = nullptr;
+    Button* saveButton = nullptr;
 
     std::vector<Button*> objectButtons;
     std::vector<Button*> backgroundButtons;
@@ -62,7 +80,7 @@ protected:
     };
 
     sf::RectangleShape dragHitBox;
-    std::vector<sf::RectangleShape*> hitBoxes;
+    std::vector<HitBoxInfo> hitBoxes;
     sf::Vector2f dragStartPos;
 
     bool isDragging = false;
@@ -76,5 +94,9 @@ public:
     void Exit() override;
     void Update(float dt) override;
     void Draw(sf::RenderWindow& window) override;
+
+
+    void jsonInput();
+
 };
 
