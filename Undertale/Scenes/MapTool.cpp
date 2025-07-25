@@ -37,7 +37,11 @@ void MapTool::Init()
 void MapTool::Enter()
 {
 	Scene::Enter();
+	FRAMEWORK.SetWindowSize(1920, 1080);
+	windowSize = FRAMEWORK.GetWindowSizeF();
 
+	worldView.setSize(windowSize);
+	worldView.setCenter(windowSize.x * 0.5f, windowSize.y * 0.5f);
 	// 그리드
 	gridDraw = false;
 	for (int y = 0; y <= gridHeight; y += cellSize)
@@ -60,12 +64,7 @@ void MapTool::Enter()
 	   "graphics/bg_firstroom.png",
 	   "graphics/bg_innrooms_0.png"
 	};
-	FRAMEWORK.SetWindowSize(1920, 1080);
-	windowSize = FRAMEWORK.GetWindowSizeF();
-
-	worldView.setSize(windowSize);
-	worldView.setCenter(windowSize.x * 0.5f, windowSize.y * 0.5f);
-
+	
 	const int maxColumns = 5; 
 	for (int y = 0; y < 5; ++y)
 	{
@@ -88,8 +87,7 @@ void MapTool::Enter()
 				// 마우스 따라다니는 스프라이트 생성
 				if (activeSprite)
 				{
-					delete activeSprite;
-					activeSprite = nullptr;
+					RemoveGameObject(activeSprite);
 				}
 				activeSprite = new SpriteGo(objectTexturePaths[index]);
 				activeSprite->SetTextureId(objectTexturePaths[index]);
@@ -127,12 +125,12 @@ void MapTool::Enter()
 				{
 					RemoveGameObject(sprite);
 				}
-				for (auto box : hitBoxes)
+				for (auto info : hitBoxes)
 				{
-					delete box;
+					delete info.shape;
 				}
-				placedSprites.clear();
-				hitBoxes.clear();
+				/*placedSprites.clear();
+				hitBoxes.clear();*/
 
 				// 새 배경 생성
 				currentBackground = (SpriteGo*)(AddGameObject(new SpriteGo(backgroundTexturePaths[index])));
@@ -180,7 +178,7 @@ void MapTool::Enter()
 
 void MapTool::Exit()
 {
-	objectButtons.clear();
+	/*objectButtons.clear();*/
 
 	if (activeSprite)
 	{
@@ -238,7 +236,7 @@ void MapTool::Update(float dt)
 	}
 
 	// 뷰 이동 속도
-	float moveSpeed = 100.f;
+	float moveSpeed = 300.f;
 
 	// 뷰 이동
 	if (InputMgr::GetKey(sf::Keyboard::A))
@@ -289,15 +287,37 @@ void MapTool::Update(float dt)
 			dragMode = false;
 
 			auto newRect = new sf::RectangleShape(dragHitBox);
-			hitBoxes.push_back(newRect);
 
+			// 히트박스 타입 결정
+			HitBoxType boxType = HitBoxType::Wall; // 기본: 벽
+			if (InputMgr::GetKey(sf::Keyboard::Num1)) // Num1 누르면 씬 전환
+			{
+				boxType = HitBoxType::SceneChanege;
+				newRect->setOutlineColor(sf::Color(128, 0, 128)); // 보라색
+			}
+			else
+			{
+				boxType = HitBoxType::Wall;
+				newRect->setOutlineColor(sf::Color::Green);
+			}
+
+			newRect->setFillColor(sf::Color::Transparent);
+			newRect->setOutlineThickness(1.f);
+
+			// 히트박스 저장
+			hitBoxes.push_back({ newRect, boxType });
+
+			// Undo에 저장
 			UndoAction action;
 			action.type = UndoAction::Type::HitBox;
-			action.data.rect = newRect;
+			action.data.rect = newRect; 
 			undoStack.push_back(action);
 
 			dragHitBox.setSize({ 0.f, 0.f });
+
+			std::cout << "히트박스 생성됨 (타입: " << (boxType == HitBoxType::Wall ? "Wall" : "SceneChanege") << ")" << std::endl;
 		}
+		
 	}
 
 	// 마우스 따라다니는 스프라이트
@@ -355,10 +375,10 @@ void MapTool::Update(float dt)
 			}
 			case UndoAction::Type::HitBox:
 			{
-				auto it = std::find(hitBoxes.begin(), hitBoxes.end(), action.data.rect);
+				auto it = std::find_if(hitBoxes.begin(), hitBoxes.end(), [&](const HitBoxInfo& info) { return info.shape == action.data.rect; });
 				if (it != hitBoxes.end())
 				{
-					delete* it;
+					delete it->shape;
 					hitBoxes.erase(it);
 				}
 				break;
@@ -381,9 +401,9 @@ void MapTool::Draw(sf::RenderWindow& window)
 	{
 		window.draw(dragHitBox);
 	}
-	for (auto& box : hitBoxes)
+	for (auto& info : hitBoxes)
 	{
-		window.draw(*box);
+		window.draw(*info.shape);
 	}
 	if (gridDraw)
 	{
