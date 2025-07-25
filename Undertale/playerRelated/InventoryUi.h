@@ -2,6 +2,7 @@
 #include "GameObject.h"
 
 class Player;
+class HealItem;
 
 class InventoryUi : public GameObject
 {
@@ -20,8 +21,10 @@ protected:
 	sf::Text text;
 
 	sf::Text healitemtext;
+	std::vector<HealItem> item;
 
 	Player* player;
+	HealItem healitem;
 public:
 	InventoryUi(const std::string& name = "");
 	virtual ~InventoryUi() = default;
@@ -37,5 +40,8 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void AddItem(const HealItem& item);
+	void UseItem(int index);
 };
 

@@ -146,6 +146,7 @@ void PlayerInfoUi::SetPlayerHp(const std::wstring& playerHp)
 	hp.setString(L"HP : " + playerHp);
 }
 
+
 void PlayerInfoUi::SetPlayerLevel(const std::wstring& playerLevel)
 {
 	info.level = std::stoi(playerLevel);

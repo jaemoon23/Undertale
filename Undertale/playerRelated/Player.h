@@ -9,6 +9,7 @@ class DialogueBox;
 class UiChanger;
 class InventoryUi;
 class PlayerInfoUi;
+class HealItem;
 
 class Player : public GameObject
 {
@@ -36,6 +37,7 @@ protected:
 	UiChanger* uichanger;
 	InventoryUi* inventoryui;
 	PlayerInfoUi* playerInfoUi;
+	HealItem* healitem;
 
 public:
 	Player(const std::string& name = "");

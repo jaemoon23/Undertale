@@ -220,8 +220,13 @@ void Player::SetName(const std::wstring& n)
 void Player::SansInteract()
 {
 	std::vector<std::wstring> testDialogues =
-	{ L"안녕", L"테스트" };
+	{ L"* 안녕", L"* 회복 아이템 줄게 " };
 	dialoguebox->StartDialogue(testDialogues);
+	HealItem healItem("아이스크림", 1);
+	if (inventoryui)
+	{
+		inventoryui->AddItem(healItem);
+	}
 }
 
 

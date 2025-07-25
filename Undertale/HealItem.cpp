@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "HealItem.h"
 
-HealItem::HealItem(const std::string& name)
-	: GameObject(name)
+HealItem::HealItem(const std::string& name, int healAmount)
+	: GameObject(name), healAmount(healAmount)
 {
 }
 

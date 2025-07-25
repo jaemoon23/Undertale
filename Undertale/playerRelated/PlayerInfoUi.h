@@ -10,6 +10,7 @@ protected:
 		int att;
 		int def;
 		int hp;
+		int maxhp;
 		int level;
 		int gold;
 	};
@@ -26,6 +27,7 @@ protected:
 	sf::Text att;
 	sf::Text def;
 	sf::Text hp;
+	sf::Text maxhp;
 	sf::Text gold;
 	sf::Text exp;
 	sf::Text level;
