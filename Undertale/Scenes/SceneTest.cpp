@@ -59,6 +59,7 @@ void SceneTest::Init()
 	dialoguebox->SetPlayer(player);
 	uichanger->SetPlayer(player);
 	uichanger->SetInventoryUi(inventoryui);
+	uichanger->SetPlayerInfoUi(playerinfoui);
 	
 	AddGameObject(testbackground);
 	AddGameObject(player);
@@ -82,6 +83,8 @@ void SceneTest::Enter()
 	worldView.setSize(size);
 	worldView.setCenter(center);
 
+
+
 	Scene::Enter();
 }
 void SceneTest::Exit()
@@ -91,13 +94,18 @@ void SceneTest::Exit()
 void SceneTest::Update(float dt)
 {	
 	worldView.setCenter(player->GetPosition().x, player->GetPosition().y);
-	//std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl; �߸𸣰����� ��ǥ ���� 
+	//std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
 	player->Update(dt);
 	sans->Update(dt);
 	dialoguebox->Update(dt);
 	inventoryui->Update(dt);
 	uichanger->Update(dt);
 	playerinfoui->Update(dt);
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num3))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::Test);
+	}
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num1))
 	{

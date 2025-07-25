@@ -80,7 +80,7 @@ void Player::Reset()
 
 void Player::Update(float dt)
 {
-	if (!dialoguebox->GetActive()&& !uichanger->GetActive())
+	if (!dialoguebox->GetActive() && !uichanger->GetActive())
 	{
 		direction.x = InputMgr::GetAxis(Axis::Horizontal);
 		direction.y = InputMgr::GetAxis(Axis::Vertical);
@@ -120,26 +120,27 @@ void Player::Update(float dt)
 		{
 			dialoguebox->SetActive(false);
 			inventoryui->SetActive(false);
+			playerInfoUi->SetActive(false);
 		}
 	}
 
-		if (InputMgr::GetKeyDown(sf::Keyboard::Right))
-		{
-			animator.Play("Animation/rightwalking.csv");
-		}
-		if (InputMgr::GetKeyDown(sf::Keyboard::Left))
-		{
-			animator.Play("Animation/leftwalking.csv");
-		}
-		if (InputMgr::GetKeyDown(sf::Keyboard::Up))
-		{
-			animator.Play("Animation/upwalking.csv");
-		}
-		if (InputMgr::GetKeyDown(sf::Keyboard::Down))
-		{
-			animator.Play("Animation/downwalking.csv");
-		}
-	
+	if (InputMgr::GetKeyDown(sf::Keyboard::Right))
+	{
+		animator.Play("Animation/rightwalking.csv");
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Left))
+	{
+		animator.Play("Animation/leftwalking.csv");
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Up))
+	{
+		animator.Play("Animation/upwalking.csv");
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Down))
+	{
+		animator.Play("Animation/downwalking.csv");
+	}
+
 	//if (InputMgr::GetKey(sf::Keyboard::Up) == 0 &&
 	//	InputMgr::GetKey(sf::Keyboard::Down) == 0 &&
 	//	InputMgr::GetKey(sf::Keyboard::Left) == 0 &&
@@ -169,6 +170,6 @@ void Player::SetAtt(int a)
 void Player::SansInteract()
 {
 	std::vector<std::wstring> testDialogues =
-	{ L"¾È³ç", L"Å×½ºÆ®"};
+	{ L"¾È³ç", L"Å×½ºÆ®" };
 	dialoguebox->StartDialogue(testDialogues);
 }

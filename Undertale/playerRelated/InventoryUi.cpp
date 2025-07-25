@@ -52,7 +52,6 @@ void InventoryUi::Release()
 
 void InventoryUi::Reset()
 {
-
 	inventory.setTexture(TEXTURE_MGR.Get(inventorytexIds));
 	inventory.setPosition(320.f, 230.f);
 	inventory.setScale(0.8f, 0.8f);
@@ -91,16 +90,11 @@ void InventoryUi::Reset()
 	text.setString("Press [C] to Finish ");
 	text.setCharacterSize(20.f);
 	text.setPosition({ (invBounds.left + invBounds.width) *0.5f - 64.f ,invBounds.top + invBounds.height - 50.f});
-
 }
 
 void InventoryUi::Update(float dt)
 {
 	sf::FloatRect bounds = FRAMEWORK.GetWindowBounds();
-	//if (InputMgr::GetKeyDown(sf::Keyboard::Q))
-	//{
-	//	isActive = !isActive;
-	//}
 }
 
 void InventoryUi::Draw(sf::RenderWindow& window)

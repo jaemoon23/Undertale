@@ -25,6 +25,7 @@ protected:
 	DialogueBox* dialoguebox;
 	UiChanger* uichanger;
 	PlayerInfoUi* playerinfoui;
+
 public:
 	SceneTest();
 	~SceneTest() override = default;

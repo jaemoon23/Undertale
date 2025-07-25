@@ -44,6 +44,7 @@ void PlayerInfoUi::Init()
 {
 	sortingLayer = SortingLayers::UI;
 	sortingOrder = 1;
+	SetActive(false);
 }
 
 void PlayerInfoUi::Release()
@@ -54,8 +55,7 @@ void PlayerInfoUi::Reset()
 {
 	font.loadFromFile(fonttexIds);
 
-	SetOrigin(Origins::MC);
-	playerInfo.setTexture(TEXTURE_MGR.Get(playerInfotexIds));
+	playerInfo.setTexture(TEXTURE_MGR.Get("Sprites/backgroundui.png"));
 	playerInfo.setPosition(350.f, 100.f);
 	playerInfo.setScale(0.4f, 0.6f);
 
@@ -75,7 +75,7 @@ void PlayerInfoUi::Reset()
 	att.setFont(font);
 	att.setCharacterSize(18);
 	att.setFillColor(sf::Color::White);
-	att.setPosition(390.f, 153.f); // 원하는 위치로 조정
+	att.setPosition(390.f, 153.f); 
 	att.setString(L"ATK : " + std::to_wstring(info.att));
 
 }
@@ -86,10 +86,14 @@ void PlayerInfoUi::Update(float dt)
 
 void PlayerInfoUi::Draw(sf::RenderWindow& window)
 {
-	window.draw(playerInfo);
-	window.draw(line);
-	window.draw(name);
-	window.draw(att);
+	if (isActive)
+	{
+		window.draw(playerInfo);
+		std::cout << playerInfo.getPosition().x << playerInfo.getPosition().y << std::endl;
+		window.draw(line);
+		window.draw(name);
+		window.draw(att);
+	}
 }
 
 void PlayerInfoUi::SetPlayerName(const std::wstring& playerName)

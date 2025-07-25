@@ -2,6 +2,7 @@
 #include "UiChanger.h"
 #include "Player.h"
 #include "InventoryUi.h"
+#include "PlayerInfoUi.h"
 
 UiChanger::UiChanger(const std::string& name)
 	: GameObject(name)
@@ -108,11 +109,17 @@ void UiChanger::Update(float dt)
 		invenText.setFillColor(sf::Color(130, 130, 130));
 		statText.setFillColor(sf::Color::White);
 	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+
+
+	if (isActive && InputMgr::GetKeyDown(sf::Keyboard::Enter))
 	{
 		if (selectIndex == 0 && inventoryui)
 		{
 			inventoryui->SetActive(true);
+		}
+		if (selectIndex == 1 && playerinfoui)
+		{
+			playerinfoui->SetActive(true);
 		}
 	}
 }

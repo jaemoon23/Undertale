@@ -4,16 +4,16 @@
 class PlayerInfoUi : public GameObject
 {
 protected:
-	struct PlayerInfo
+	struct PlayerInformation
 	{
 		std::wstring name;
 		int att;
 	};
 
-	PlayerInfo info;
+	PlayerInformation info;
 
 	sf::Sprite playerInfo;
-	std::string playerInfotexIds = "Sprites/backgroundui.png";
+	//std::string playerInfotexIds = "Sprites/backgroundui.png";
 
 	sf::RectangleShape line;
 	sf::Font font;
@@ -24,6 +24,8 @@ protected:
 	sf::Text def;
 	sf::Text gold;
 	sf::Text exp;
+
+	bool isActive = true;
 
 public:
 	PlayerInfoUi(const std::string& name = "");
