@@ -1,9 +1,11 @@
 #include "stdafx.h"
 #include "Framework.h"
 
-void Framework::Init(int w, int h, const std::string& t)
+
+void Framework::Init(int width, int height, std::string name)
 {
-	window.create(sf::VideoMode(w, h), t);
+    window.create(sf::VideoMode(width, height), name);
+	// window.create(sf::VideoMode(w, h), t);
 
     fontIds.push_back("fonts/DungGeunMo.ttf");
 
@@ -68,4 +70,9 @@ void Framework::Release()
 	SOUNDBUFFER_MGR.Unload(soundIds);
 	FONT_MGR.Unload(fontIds);
 	TEXTURE_MGR.Unload(texIds);
+}
+
+void Framework::SetWindowSize(int width, int height)
+{
+    window.setSize(sf::Vector2u(width, height));
 }

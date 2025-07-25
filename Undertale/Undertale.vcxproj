@@ -107,12 +107,12 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\Framework;.\Scenes;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\SFML-Button-main\include;.\SFML-Button-main\src;.\Framework;.\Scenes;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>SFML-2.6.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>SFML-2.6.2\lib;SFML-Button-main\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-network-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AniPlayer.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="DialogueBox.cpp" />
     <ClCompile Include="BattleBox.cpp" />
     <ClCompile Include="BattleButton.cpp" />
@@ -151,8 +152,10 @@
     <ClCompile Include="Framework\TextGo.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="Framework\Variables.cpp" />
+    <ClCompile Include="InputText.cpp" />
     <ClCompile Include="InventoryUi.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scenes\MapTool.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerInfoUi.cpp" />
     <ClCompile Include="Sans.cpp" />
@@ -164,11 +167,13 @@
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="test.cpp" />
     <ClCompile Include="TestBackGround.cpp" />
     <ClCompile Include="UiChanger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AniPlayer.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="DialogueBox.h" />
     <ClInclude Include="BattleBox.h" />
     <ClInclude Include="BattleButton.h" />
@@ -192,6 +197,9 @@
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="Framework\Variables.h" />
+    <ClInclude Include="InputText.h" />
+    <ClInclude Include="json.hpp" />
+    <ClInclude Include="Scenes\MapTool.h" />
     <ClInclude Include="InventoryUi.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerInfoUi.h" />
@@ -202,6 +210,7 @@
     <ClInclude Include="Soul.h" />
     <ClInclude Include="StatusInBattleUI.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="test.h" />
     <ClInclude Include="TestBackGround.h" />
     <ClInclude Include="UiChanger.h" />
   </ItemGroup>

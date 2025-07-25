@@ -23,6 +23,8 @@ enum class SceneIds
 	None = -1,
 	Test,
 	Title,
+	test,
+	MapTool,
 	Game,
 	Battle,
 	Dev1,

@@ -1,0 +1,80 @@
+#pragma once
+#include "Scene.h"
+#include "Button.h"
+#include "HitBox.h"
+
+class TextGo;
+class SpriteGo;
+
+// 삭제 가능한 오브젝트를 하나로 다루기 위한 구조체
+struct UndoAction
+{
+    enum class Type { Sprite, HitBox } type;
+    union {
+        SpriteGo* sprite;
+        sf::RectangleShape* rect; // 히트박스는 포인터 관리 필요
+    } data;
+};
+
+class MapTool :
+    public Scene
+{
+protected:
+    // 그리드
+    sf::VertexArray grid;
+    sf::Vector2f gridOffset;
+
+    const int gridWidth = 640;
+    const int gridHeight = 480;
+    int cellSize = 32;
+    int cellX;
+    int cellY;
+
+    bool gridDraw = false;
+
+    sf::Vector2f windowSize;
+   
+    std::vector<UndoAction> undoStack;
+
+    Button* hitBox;
+
+    std::vector<Button*> objectButtons;
+    std::vector<Button*> backgroundButtons;
+   
+    std::vector<SpriteGo*> objectSprites;
+    std::vector<SpriteGo*> backgroundSprites;
+    std::vector<SpriteGo*> placedSprites;
+
+    HitBox hit;
+
+    SpriteGo* activeSprite = nullptr;
+    SpriteGo* currentBackground = nullptr; 
+
+    std::vector<std::string> objectTexturePaths = {
+       "graphics/spr_f_maincharad_0.png",
+       "graphics/spr_cutetable_0.png",
+       "graphics/spr_darkelevator_l_0.png",
+       "graphics/spr_darknesstotem_0.png"
+    };
+    std::vector<std::string> backgroundTexturePaths = {
+       "graphics/bg_firstroom.png",
+       "graphics/bg_innrooms_0.png"
+    };
+
+    sf::RectangleShape dragHitBox;
+    std::vector<sf::RectangleShape*> hitBoxes;
+    sf::Vector2f dragStartPos;
+
+    bool isDragging = false;
+    bool dragMode = false;
+public:
+    MapTool();
+    ~MapTool() override = default;
+    
+    void Init() override;
+    void Enter() override;
+    void Exit() override;
+    void Update(float dt) override;
+    void Draw(sf::RenderWindow& window) override;
+};
+

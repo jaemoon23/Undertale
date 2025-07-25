@@ -42,9 +42,11 @@ public:
 	float GetRealTime() const { return realTime; }
 	float GetRealDeltaTime() const { return realDeltaTime; }
 
-	virtual void Init(int w, int h, const std::string& t);
+	virtual void Init(int width, int height, std::string name = "sf");
 	virtual void Do();
 	virtual void Release();
+
+	void SetWindowSize(int width, int height);
 };
 
 #define FRAMEWORK (Framework::Instance())

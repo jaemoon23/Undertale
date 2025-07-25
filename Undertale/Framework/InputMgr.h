@@ -25,6 +25,7 @@ private:
 
 	static std::unordered_map<Axis, AxisInfo> axisInfoMap;
 	static sf::Vector2i mousePosition;
+	static float mouseWheelDelta;
 
 public:
 	static void Init();
@@ -46,6 +47,7 @@ public:
 	static bool GetMouseButtonDown(sf::Mouse::Button key);
 	static bool GetMouseButtonUp(sf::Mouse::Button key);
 	static bool GetMouseButton(sf::Mouse::Button key);
+	static float GetMouseWheelDelta();
 
 	static sf::Vector2i GetMousePosition();
 };
