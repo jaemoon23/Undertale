@@ -27,10 +27,3 @@ void HealItem::Draw(sf::RenderWindow& window)
 {
 }
 
-void HealItem::Use(Player* player)
-{
-	if (player)
-	{
-		player->Use(healAmount, player->GetMaxHp());
-	}
-}

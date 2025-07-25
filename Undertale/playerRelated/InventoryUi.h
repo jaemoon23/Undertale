@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
+class Player;
+
 class InventoryUi : public GameObject
 {
 protected:
@@ -16,6 +18,10 @@ protected:
 	sf::Text inventext;
 	sf::Text boxtext;
 	sf::Text text;
+
+	sf::Text healitemtext;
+
+	Player* player;
 public:
 	InventoryUi(const std::string& name = "");
 	virtual ~InventoryUi() = default;

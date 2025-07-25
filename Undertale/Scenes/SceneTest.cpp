@@ -7,7 +7,6 @@
 #include "DialogueBox.h"
 #include "UiChanger.h"
 #include "PlayerInfoUi.h"
-#include "HealItem.h"
 
 SceneTest::SceneTest()
 	:Scene(SceneIds::Test)
@@ -51,13 +50,13 @@ void SceneTest::Init()
 	uichanger = new UiChanger("uichanger");
 	playerinfoui = new PlayerInfoUi("playerinfoui");
 
+
 	//hpui->SetHp(20, 20);
 	player->SetSans(sans);
 	player->SetBox(dialoguebox);
 	player->SetUiChanger(uichanger);
 	player->SetInventoryUi(inventoryui);
 	player->SetPlayerInfoUi(playerinfoui);
-	player->SetHealItem(healitem);
 	dialoguebox->SetPlayer(player);
 	uichanger->SetPlayer(player);
 	uichanger->SetInventoryUi(inventoryui);
@@ -104,6 +103,7 @@ void SceneTest::Update(float dt)
 	inventoryui->Update(dt);
 	uichanger->Update(dt);
 	playerinfoui->Update(dt);
+
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num3))
 	{

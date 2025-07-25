@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AniPlayer.cpp" />
+    <ClCompile Include="HealItem.cpp" />
     <ClCompile Include="Maptools\Button.cpp" />
     <ClCompile Include="playerRelated\DialogueBox.cpp" />
     <ClCompile Include="Battles\BattleBox.cpp" />
@@ -173,6 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AniPlayer.h" />
+    <ClInclude Include="HealItem.h" />
     <ClInclude Include="Maptools\Button.h" />
     <ClInclude Include="playerRelated\DialogueBox.h" />
     <ClInclude Include="Battles\BattleBox.h" />

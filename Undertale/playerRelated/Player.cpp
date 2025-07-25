@@ -5,6 +5,7 @@
 #include "UiChanger.h"
 #include "InventoryUi.h"
 #include "PlayerInfoUi.h"
+#include "HealItem.h"
 
 Player::Player(const std::string& name)
 	: GameObject(name)
@@ -64,12 +65,10 @@ void Player::Reset()
 	animator.Play("Animation/idle.csv");
 
 	direction = { 0.f, 0.f };
-	maxHp = 10;
-	hp = 10;
 	SetName(L"Frisk");
 	SetAtt(20);
 	SetDef(20);
-	SetHp(20);
+	SetHp(10);
 	SetLevel(1);
 	SetGold(0);
 
@@ -122,7 +121,7 @@ void Player::Update(float dt)
 				}
 			}
 		}
-		if (InputMgr::GetKeyDown(sf::Keyboard::C))
+		if (InputMgr::GetKeyDown(sf::Keyboard::X))
 		{
 			dialoguebox->SetActive(false);
 			inventoryui->SetActive(false);
@@ -225,11 +224,6 @@ void Player::SansInteract()
 	dialoguebox->StartDialogue(testDialogues);
 }
 
-void Player::Heal(int value,int maxHp)
-{
-	hp += value;
-	if (hp > maxHp)
-	{
-		hp = maxHp;
-	}
-}
+
+
+

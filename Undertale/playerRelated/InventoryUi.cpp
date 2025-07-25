@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "InventoryUi.h"
+#include "Player.h"
+
 
 InventoryUi::InventoryUi(const std::string& name)
 	: GameObject(name)
@@ -87,7 +89,7 @@ void InventoryUi::Reset()
 	
 	text.setFont(fonts);
 	text.setFillColor(sf::Color::White);
-	text.setString("Press [C] to Finish ");
+	text.setString("Press [X] to Finish ");
 	text.setCharacterSize(20.f);
 	text.setPosition({ (invBounds.left + invBounds.width) *0.5f - 64.f ,invBounds.top + invBounds.height - 50.f});
 }
