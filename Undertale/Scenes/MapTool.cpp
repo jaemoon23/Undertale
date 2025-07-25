@@ -1,8 +1,10 @@
 ﻿#include "stdafx.h"
+#include <fstream>
 #include "MapTool.h"
 #include "Button.h"
 #include "TextGo.h"
 #include "SpriteGo.h"
+#include "json.hpp"
 
 MapTool::MapTool() : Scene(SceneIds::MapTool), grid(sf::Lines), gridOffset(0.f, 0.f)
 {
@@ -37,7 +39,7 @@ void MapTool::Init()
 void MapTool::Enter()
 {
 	Scene::Enter();
-	FRAMEWORK.SetWindowSize(1920, 1080);
+	FRAMEWORK.SetWindowSize(640, 480);
 	windowSize = FRAMEWORK.GetWindowSizeF();
 
 	worldView.setSize(windowSize);
@@ -174,6 +176,18 @@ void MapTool::Enter()
 		dragMode = true;
 		std::cout << "드래그 모드 ON" << std::endl;
 	});
+
+	saveButton = (Button*)AddGameObject(new Button("SaveButton"));
+	saveButton->SetSize({ 200.f, 80.f });
+	saveButton->SetPosition({ 1700.f, 950.f });
+	saveButton->SetColor(sf::Color::White, sf::Color::Blue);
+	saveButton->SetOrigin(Origins::MC);
+
+	// 콜백 연결
+	saveButton->setCallback([&]() {
+		jsonInput(); // 저장 함수 실행
+		std::cout << "저장 완료!" << std::endl;
+		});
 }
 
 void MapTool::Exit()
@@ -409,4 +423,54 @@ void MapTool::Draw(sf::RenderWindow& window)
 	{
 		window.draw(grid);
 	}
+}
+
+void MapTool::jsonInput()
+{
+	nlohmann::json total;
+
+	nlohmann::json map;
+	map["background"] = {
+	{"textureId", currentBackground->GetTextureId()},
+	{"position", {
+		currentBackground->GetPosition().x,
+		currentBackground->GetPosition().y
+	}},
+	{"scale", {
+		currentBackground->GetScale().x,
+		currentBackground->GetScale().y
+	}}
+	};
+
+	// 오브젝트 리스트
+	for (auto& sprite : placedSprites)
+	{
+		map["objects"].push_back({
+			{"textureId", sprite->GetTextureId()},
+			{"position", {sprite->GetPosition().x, sprite->GetPosition().y}},
+			{ "scale", {currentBackground->GetScale().x, currentBackground->GetScale().y} }
+		});
+	}
+
+	// 히트박스 리스트
+	for (auto& hit : hitBoxes)
+	{
+		sf::Vector2f pos = hit.shape->getPosition();
+		sf::Vector2f size = hit.shape->getSize();
+		std::string typeStr = (hit.type == HitBoxType::Wall) ? "Wall" : "SceneChange";
+
+		map["hitboxes"].push_back({
+			{"position", {pos.x, pos.y}},
+			{"size", {size.x, size.y}},
+			{"type", typeStr}
+			});
+	}
+
+	// "map0", "map1" 같은 키로 저장
+	std::string mapName = "map0"; // 나중에 인덱스 넘기면 확장 가능
+	total[mapName] = map;
+
+	std::ofstream outFile(mapName + ".json");
+	outFile << total.dump(4);
+	std::cout << "맵 저장 완료: " << mapName << ".json" << std::endl;
 }

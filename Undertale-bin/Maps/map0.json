@@ -1,0 +1,85 @@
+{
+    "map0": {
+        "background": {
+            "position": [
+                320.0,
+                240.0
+            ],
+            "scale": [
+                1.0,
+                1.0
+            ],
+            "textureId": "graphics/bg_firstroom.png"
+        },
+        "hitboxes": [
+            {
+                "position": [
+                    222.0,
+                    150.0
+                ],
+                "size": [
+                    258.0,
+                    108.0
+                ],
+                "type": "Wall"
+            },
+            {
+                "position": [
+                    533.0,
+                    219.0
+                ],
+                "size": [
+                    119.0,
+                    50.0
+                ],
+                "type": "SceneChange"
+            }
+        ],
+        "objects": [
+            {
+                "position": [
+                    199.0,
+                    260.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0
+                ],
+                "textureId": "graphics/spr_f_maincharad_0.png"
+            },
+            {
+                "position": [
+                    92.0,
+                    209.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0
+                ],
+                "textureId": "graphics/spr_f_maincharad_0.png"
+            },
+            {
+                "position": [
+                    75.0,
+                    281.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0
+                ],
+                "textureId": "graphics/spr_darknesstotem_0.png"
+            },
+            {
+                "position": [
+                    138.0,
+                    206.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0
+                ],
+                "textureId": "graphics/spr_darkelevator_l_0.png"
+            }
+        ]
+    }
+}

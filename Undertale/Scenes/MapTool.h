@@ -53,7 +53,8 @@ protected:
    
     std::vector<UndoAction> undoStack;
 
-    Button* hitBox;
+    Button* hitBox = nullptr;
+    Button* saveButton = nullptr;
 
     std::vector<Button*> objectButtons;
     std::vector<Button*> backgroundButtons;
@@ -93,5 +94,9 @@ public:
     void Exit() override;
     void Update(float dt) override;
     void Draw(sf::RenderWindow& window) override;
+
+
+    void jsonInput();
+
 };
 
