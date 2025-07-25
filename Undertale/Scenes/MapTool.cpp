@@ -159,6 +159,7 @@ void MapTool::Enter()
 		objectSprites[i]->SetTextureId(objectTexturePaths[i]);
 		objectSprites[i]->SetPosition({ objectButtons[i]->GetPosition().x,objectButtons[i]->GetPosition().y });
 	}
+	
 
 	for (int i = 0; i < backgroundTexturePaths.size(); ++i)
 	{
@@ -240,22 +241,22 @@ void MapTool::Update(float dt)
 	float moveSpeed = 100.f;
 
 	// 뷰 이동
-	if (InputMgr::GetKey(sf::Keyboard::Left))
+	if (InputMgr::GetKey(sf::Keyboard::A))
 	{
 		worldView.move(-moveSpeed * dt, 0.f);
 		FRAMEWORK.GetWindow().setView(worldView);
 	}
-	if (InputMgr::GetKey(sf::Keyboard::Right))
+	if (InputMgr::GetKey(sf::Keyboard::D))
 	{
 		worldView.move(moveSpeed * dt, 0.f);
 		FRAMEWORK.GetWindow().setView(worldView);
 	}
-	if (InputMgr::GetKey(sf::Keyboard::Up))
+	if (InputMgr::GetKey(sf::Keyboard::W))
 	{
 		worldView.move(0.f, -moveSpeed * dt);
 		FRAMEWORK.GetWindow().setView(worldView);
 	}
-	if (InputMgr::GetKey(sf::Keyboard::Down))
+	if (InputMgr::GetKey(sf::Keyboard::S))
 	{
 		worldView.move(0.f, moveSpeed * dt);
 		FRAMEWORK.GetWindow().setView(worldView);

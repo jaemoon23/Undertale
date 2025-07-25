@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "Button.h"
+#include "HitBox.h"
 
 class TextGo;
 class SpriteGo;
@@ -32,8 +33,7 @@ protected:
     bool gridDraw = false;
 
     sf::Vector2f windowSize;
-    sf::Vector2f defaultCenter;
-
+   
     std::vector<UndoAction> undoStack;
 
     Button* hitBox;
@@ -44,6 +44,8 @@ protected:
     std::vector<SpriteGo*> objectSprites;
     std::vector<SpriteGo*> backgroundSprites;
     std::vector<SpriteGo*> placedSprites;
+
+    HitBox hit;
 
     SpriteGo* activeSprite = nullptr;
     SpriteGo* currentBackground = nullptr; 
