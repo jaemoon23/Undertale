@@ -125,12 +125,12 @@ void MapTool::Enter()
 				{
 					RemoveGameObject(sprite);
 				}
-				for (auto info : hitBoxes)
+				for (auto& info : hitBoxes)
 				{
 					delete info.shape;
 				}
-				/*placedSprites.clear();
-				hitBoxes.clear();*/
+				hitBoxes.clear();
+				placedSprites.clear();
 
 				// 새 배경 생성
 				currentBackground = (SpriteGo*)(AddGameObject(new SpriteGo(backgroundTexturePaths[index])));
