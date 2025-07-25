@@ -287,6 +287,28 @@
           "speed" : 200.0, "delay" : 5.0, "damage" : 4
         }
       ]
+    },
+    {
+      "name" : "Arrow",
+      "duration" : 20.5,
+      "bullets" : [
+        {
+          "texId" : "graphics/spr_arrow_up.png", "PosX" : 321.0, "PosY" : 580.0, "DirX" : 0.0, "DirY" : -1.0,
+          "speed" : 200.0, "delay" : 1.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : -100.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 200.0, "delay" : 2.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_arrow_left.png", "PosX" : 740.0, "PosY" : 316.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 3.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_arrow_right.png", "PosX" : -100.0, "PosY" : 316.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 4.0, "damage" : 4
+        }
+      ]
     }
   ],
 

@@ -56,5 +56,6 @@ enum class BulletPattern
 {
 	Normal,
 	Rotate,
-	Homing
+	Homing,
+	Arrow
 };

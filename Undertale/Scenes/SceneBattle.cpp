@@ -13,12 +13,19 @@ SceneBattle::SceneBattle()
 }
 
 void SceneBattle::Init()
-{	
+{
+	
 	ANI_CLIP_MGR.Load("animations/sans_idle.csv");
 	ANI_CLIP_MGR.Load("animations/fist.csv");
 	ANI_CLIP_MGR.Load("animations/frogit_idle.csv");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("graphics/spr_battlebg_0.png");
+	texIds.push_back("graphics/spr_barrier.png");
+	texIds.push_back("graphics/spr_heart_green.png");
+	texIds.push_back("graphics/spr_arrow_up.png");
+	texIds.push_back("graphics/spr_arrow_right.png");
+	texIds.push_back("graphics/spr_arrow_left.png");
+	texIds.push_back("graphics/spr_arrow_down.png");
 	texIds.push_back("graphics/spr_bonesaver.png");
 	texIds.push_back("graphics/spr_bone_bullet.png");
 	texIds.push_back("graphics/spr_sans_battle.png");
@@ -243,7 +250,7 @@ void SceneBattle::SetMonsterTurn()
 	isMyTurn = false;
 	btState = ButtonState::None;
 	btBox->SetBtBoxSize({ size.x * 0.4f, size.y * 0.25f });
-	soul->SetPosition({ size.x * 0.51f, size.y * 0.67f });
+	soul->SetPosition({ size.x * 0.49f, size.y * 0.64f });
 	soul->SetBoundary(btBox->GetBoxGlobalBounds());
 	dialBox->isDraw = true;
 	dialBox->SetString(data["lines"][lineIndex]);
@@ -256,6 +263,8 @@ void SceneBattle::SetMonsterTurn()
 void SceneBattle::SetPlayerTurn()
 {
 	isMyTurn = true;
+	soul->CanMove = true;
+	soul->SetTexture("graphics/spr_heart_battle_pl_0.png");
 	soul->SetPosition({ size.x * 0.03f + size.x * 0.26f * btIndex, size.y * 0.93f });
 	btBox->ResetBox();
 	for (auto& b : bulletTemp)
@@ -400,6 +409,25 @@ void SceneBattle::SetBulletPattern()
 			);
 			b->Reset();
 			b->pattern = BulletPattern::Homing;
+		}
+	}
+	else if ("Arrow" == data["attackPattern"][PatternIndex]["name"])
+	{
+		soul->CanMove = false;
+		soul->SetTexture("graphics/spr_heart_green.png");
+		for (int i = 0; i < bulletCount; ++i)
+		{
+			Bullet* b = (Bullet*)AddGameObject(new Bullet());
+			bulletTemp.push_back(b);
+			b->SetBulletState(data["attackPattern"][PatternIndex]["bullets"][i]["texId"],
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["PosX"], data["attackPattern"][PatternIndex]["bullets"][i]["PosY"] },
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["DirX"], data["attackPattern"][PatternIndex]["bullets"][i]["DirY"] },
+				data["attackPattern"][PatternIndex]["bullets"][i]["speed"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["delay"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["damage"]
+			);
+			b->Reset();
+			b->pattern = BulletPattern::Arrow;
 		}
 	}
 

@@ -8,6 +8,7 @@ class Soul : public GameObject
 {
 protected:
 	sf::Sprite sprite;
+	sf::Sprite shield;
 	HitBox hitBox;
 
 	float moveSpeed = 125.f;
@@ -38,6 +39,7 @@ public:
 	int hp = 20;
 	int maxHp = 20;
 	bool isBlink = false;
+	bool CanMove = true;
 
 	Soul(const std::string& name = "");
 	virtual ~Soul() = default;
@@ -47,6 +49,8 @@ public:
 	void SetScale(const sf::Vector2f& s) override;
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
+
+	void SetTexture(std::string texId) { sprite.setTexture(TEXTURE_MGR.Get(texId)); }
 
 	sf::FloatRect GetGlobalBounds() const override { return sprite.getGlobalBounds(); }
 

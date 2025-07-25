@@ -42,7 +42,6 @@ void Soul::SetOrigin(Origins preset)
 
 void Soul::Init()
 {
-	SetOrigin(Origins::MC);
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = 1;
 	SetPosition({ size.x * 0.03f, size.y * 0.93f });
@@ -69,6 +68,9 @@ void Soul::Reset()
 	itemChooseCount = &(scene->itemChooseCount);
 	mercyChooseIndex = &(scene->mercyChooseIndex);
 	sprite.setTexture(TEXTURE_MGR.Get("graphics/spr_heart_battle_pl_0.png"));
+	shield.setTexture(TEXTURE_MGR.Get("graphics/spr_barrier.png"));
+	shield.setOrigin({ 24.f,32.f });
+	shield.setPosition({ size.x * 0.505f,size.y * 0.655f });
 }
 
 void Soul::Update(float dt)
@@ -202,13 +204,32 @@ void Soul::Update(float dt)
 			break;
 		}
 	}
-	else
+	else if(CanMove)
 	{
 		pos.x += InputMgr::GetAxis(Axis::Horizontal) * moveSpeed * dt;
 		pos.y += InputMgr::GetAxis(Axis::Vertical) * moveSpeed * dt;
 		pos.x = Utils::Clamp(pos.x, minX, maxX);
 		pos.y = Utils::Clamp(pos.y, minY, maxY);
 		SetPosition(pos);
+	}
+	else
+	{
+		if (InputMgr::GetKeyDown(sf::Keyboard::Left))
+		{
+			shield.setRotation(-90.f);
+		}
+		if (InputMgr::GetKeyDown(sf::Keyboard::Right))
+		{
+			shield.setRotation(90.f);
+		}
+		if (InputMgr::GetKeyDown(sf::Keyboard::Up))
+		{
+			shield.setRotation(0.f);
+		}
+		if (InputMgr::GetKeyDown(sf::Keyboard::Down))
+		{
+			shield.setRotation(180.f);
+		}
 	}
 
 	if(isBlink)
@@ -219,6 +240,8 @@ void Soul::Draw(sf::RenderWindow& window)
 {
 	if(scene->btState != ButtonState::Fight && scene->btState != ButtonState::Act)
 		window.draw(sprite);
+	if (!CanMove)
+		window.draw(shield);
 	hitBox.Draw(window);
 }
 
