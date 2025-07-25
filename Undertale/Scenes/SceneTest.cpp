@@ -50,8 +50,6 @@ void SceneTest::Init()
 	uichanger = new UiChanger("uichanger");
 	playerinfoui = new PlayerInfoUi("playerinfoui");
 
-
-	//hpui->SetHp(20, 20);
 	player->SetSans(sans);
 	player->SetBox(dialoguebox);
 	player->SetUiChanger(uichanger);
@@ -61,7 +59,6 @@ void SceneTest::Init()
 	uichanger->SetPlayer(player);
 	uichanger->SetInventoryUi(inventoryui);
 	uichanger->SetPlayerInfoUi(playerinfoui);
-	
 	
 	AddGameObject(testbackground);
 	AddGameObject(player);
@@ -76,7 +73,7 @@ void SceneTest::Init()
 
 void SceneTest::Enter()
 {
-	FRAMEWORK.SetWindowSize(640.f, 480.f);
+	FRAMEWORK.SetWindowSize(1280.f, 960.f);
 	auto size = FRAMEWORK.GetWindowSizeF()* 0.5f;
 	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
 
@@ -84,9 +81,7 @@ void SceneTest::Enter()
 	uiView.setCenter(center);
 
 	worldView.setSize(size);
-	worldView.setCenter(center);
-
-
+	worldView.setCenter(center);	
 
 	Scene::Enter();
 }
@@ -97,7 +92,6 @@ void SceneTest::Exit()
 void SceneTest::Update(float dt)
 {	
 	worldView.setCenter(player->GetPosition().x, player->GetPosition().y);
-	//std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
 	player->Update(dt);
 	sans->Update(dt);
 	dialoguebox->Update(dt);

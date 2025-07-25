@@ -2,7 +2,7 @@
 
 int main()
 {
-    FRAMEWORK.Init(640, 480, "Undertale");
+    FRAMEWORK.Init(1280, 960, "Undertale");
     FRAMEWORK.Do();
     FRAMEWORK.Release();
 

@@ -3,7 +3,6 @@
 
 class Player;
 class HealItem;
-
 class InventoryUi : public GameObject
 {
 protected:
@@ -20,11 +19,9 @@ protected:
 	sf::Text boxtext;
 	sf::Text text;
 
-	sf::Text healitemtext;
-	std::vector<HealItem> item;
-
 	Player* player;
-	HealItem healitem;
+	HealItem* healItem;
+	
 public:
 	InventoryUi(const std::string& name = "");
 	virtual ~InventoryUi() = default;
@@ -41,7 +38,6 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void AddItem(const HealItem& item);
-	void UseItem(int index);
+
 };
 

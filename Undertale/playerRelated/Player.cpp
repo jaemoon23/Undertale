@@ -5,7 +5,8 @@
 #include "UiChanger.h"
 #include "InventoryUi.h"
 #include "PlayerInfoUi.h"
-#include "HealItem.h"
+	
+
 
 Player::Player(const std::string& name)
 	: GameObject(name)
@@ -72,13 +73,6 @@ void Player::Reset()
 	SetLevel(1);
 	SetGold(0);
 
-
-	//if (hpui)
-	//{
-	//	hpui->SetHp(hp, maxHp);
-	//}
-
-	//look = { 1.f, 0.f };
 	SetOrigin(Origins::MC);
 
 }
@@ -222,13 +216,6 @@ void Player::SansInteract()
 	std::vector<std::wstring> testDialogues =
 	{ L"* 안녕", L"* 회복 아이템 줄게 " };
 	dialoguebox->StartDialogue(testDialogues);
-	HealItem healItem("아이스크림", 1);
-	if (inventoryui)
-	{
-		inventoryui->AddItem(healItem);
-	}
+
 }
-
-
-
 

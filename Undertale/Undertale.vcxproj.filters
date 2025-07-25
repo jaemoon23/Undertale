@@ -38,7 +38,6 @@
     <ClCompile Include="Maptools\test.cpp" />
     <ClCompile Include="playerRelated\TestBackGround.cpp" />
     <ClCompile Include="playerRelated\UiChanger.cpp" />
-    <ClCompile Include="HealItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AniPlayer.cpp">
@@ -155,6 +154,6 @@
     <ClInclude Include="Maptools\test.h" />
     <ClInclude Include="playerRelated\TestBackGround.h" />
     <ClInclude Include="playerRelated\UiChanger.h" />
-    <ClInclude Include="HealItem.h" />
+    <ClInclude Include="playerRelated\HealItem.h" />
   </ItemGroup>
 </Project>
