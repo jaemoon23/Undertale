@@ -1,5 +1,5 @@
 #pragma once
-enum class ButtonState { Normal, Hovered, Pressed };
+//enum class ButtonState8 { Normal, Hovered, Pressed };
 class Button : public GameObject
 {
 protected:
@@ -9,7 +9,7 @@ protected:
 
 	
 
-	ButtonState state = ButtonState::Normal;
+	//ButtonState8 state = ButtonState8::Normal;
 	std::function<void()> onClick;
 
 	bool enabled = true;

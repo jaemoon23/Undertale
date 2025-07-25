@@ -107,7 +107,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\SFML-Button-main\include;.\SFML-Button-main\src;.\Framework;.\Scenes;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\SFML-Button-main\include;.\SFML-Button-main\src;.\Framework;.\Scenes;$(ProjectDir);.\Battles;.\Maptools;.\playerRelated;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,12 +132,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AniPlayer.cpp" />
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="DialogueBox.cpp" />
-    <ClCompile Include="BattleBox.cpp" />
-    <ClCompile Include="BattleButton.cpp" />
-    <ClCompile Include="BattleDialogueBox.cpp" />
-    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Maptools\Button.cpp" />
+    <ClCompile Include="playerRelated\DialogueBox.cpp" />
+    <ClCompile Include="Battles\BattleBox.cpp" />
+    <ClCompile Include="Battles\BattleButton.cpp" />
+    <ClCompile Include="Battles\BattleDialogueBox.cpp" />
+    <ClCompile Include="Battles\Bullet.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Framework\AnimationClip.cpp" />
     <ClCompile Include="Framework\Animator.cpp" />
@@ -152,33 +152,33 @@
     <ClCompile Include="Framework\TextGo.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="Framework\Variables.cpp" />
-    <ClCompile Include="InputText.cpp" />
-    <ClCompile Include="InventoryUi.cpp" />
+    <ClCompile Include="Maptools\InputText.cpp" />
+    <ClCompile Include="playerRelated\InventoryUi.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scenes\MapTool.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerInfoUi.cpp" />
-    <ClCompile Include="Sans.cpp" />
-    <ClCompile Include="SceneTest.cpp" />
-    <ClCompile Include="SceneBattle.cpp" />
+    <ClCompile Include="playerRelated\Player.cpp" />
+    <ClCompile Include="playerRelated\PlayerInfoUi.cpp" />
+    <ClCompile Include="playerRelated\Sans.cpp" />
+    <ClCompile Include="Scenes\SceneTest.cpp" />
+    <ClCompile Include="Scenes\SceneBattle.cpp" />
     <ClCompile Include="Scenes\SceneDev1.cpp" />
-    <ClCompile Include="Soul.cpp" />
-    <ClCompile Include="StatusInBattleUI.cpp" />
+    <ClCompile Include="Battles\Soul.cpp" />
+    <ClCompile Include="Battles\StatusInBattleUI.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="test.cpp" />
-    <ClCompile Include="TestBackGround.cpp" />
-    <ClCompile Include="UiChanger.cpp" />
+    <ClCompile Include="Maptools\test.cpp" />
+    <ClCompile Include="playerRelated\TestBackGround.cpp" />
+    <ClCompile Include="playerRelated\UiChanger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AniPlayer.h" />
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="DialogueBox.h" />
-    <ClInclude Include="BattleBox.h" />
-    <ClInclude Include="BattleButton.h" />
-    <ClInclude Include="BattleDialogueBox.h" />
-    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Maptools\Button.h" />
+    <ClInclude Include="playerRelated\DialogueBox.h" />
+    <ClInclude Include="Battles\BattleBox.h" />
+    <ClInclude Include="Battles\BattleButton.h" />
+    <ClInclude Include="Battles\BattleDialogueBox.h" />
+    <ClInclude Include="Battles\Bullet.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Framework\AnimationClip.h" />
     <ClInclude Include="Framework\Animator.h" />
@@ -197,22 +197,22 @@
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="Framework\Variables.h" />
-    <ClInclude Include="InputText.h" />
+    <ClInclude Include="Maptools\InputText.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Scenes\MapTool.h" />
-    <ClInclude Include="InventoryUi.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerInfoUi.h" />
-    <ClInclude Include="Sans.h" />
-    <ClInclude Include="SceneTest.h" />
-    <ClInclude Include="SceneBattle.h" />
+    <ClInclude Include="playerRelated\InventoryUi.h" />
+    <ClInclude Include="playerRelated\Player.h" />
+    <ClInclude Include="playerRelated\PlayerInfoUi.h" />
+    <ClInclude Include="playerRelated\Sans.h" />
+    <ClInclude Include="Scenes\SceneTest.h" />
+    <ClInclude Include="Scenes\SceneBattle.h" />
     <ClInclude Include="Scenes\SceneDev1.h" />
-    <ClInclude Include="Soul.h" />
-    <ClInclude Include="StatusInBattleUI.h" />
+    <ClInclude Include="Battles\Soul.h" />
+    <ClInclude Include="Battles\StatusInBattleUI.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="test.h" />
-    <ClInclude Include="TestBackGround.h" />
-    <ClInclude Include="UiChanger.h" />
+    <ClInclude Include="Maptools\test.h" />
+    <ClInclude Include="playerRelated\TestBackGround.h" />
+    <ClInclude Include="playerRelated\UiChanger.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
