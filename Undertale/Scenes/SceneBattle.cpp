@@ -19,6 +19,7 @@ void SceneBattle::Init()
 	ANI_CLIP_MGR.Load("animations/frogit_idle.csv");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("graphics/spr_battlebg_0.png");
+	texIds.push_back("graphics/spr_bonesaver.png");
 	texIds.push_back("graphics/spr_bone_bullet.png");
 	texIds.push_back("graphics/spr_sans_battle.png");
 	texIds.push_back("graphics/spr_sans_idle.png");
@@ -73,7 +74,7 @@ void SceneBattle::Enter()
 	isPlaying = true;
 	mercyPoint = 0;
 	btIndex = 0;
-	PatternIndex = 1; // 0으로 바꾸기
+	PatternIndex = 4;
 	itemChooseIndex = 0;
 	actChooseIndex = 0;
 	mercyChooseIndex = 0;
@@ -249,44 +250,7 @@ void SceneBattle::SetMonsterTurn()
 	lineIndex = ++lineIndex % lineCount;
 
 	//
-	int bulletCount = data["attackPattern"][PatternIndex]["bullets"].size();
-	turnDuration = data["attackPattern"][PatternIndex]["duration"];
-	if ("Normal" == data["attackPattern"][PatternIndex]["name"])
-	{
-		for (int i = 0; i < bulletCount; ++i)
-		{
-			Bullet* b = (Bullet*)AddGameObject(new Bullet());
-			bulletTemp.push_back(b);
-			b->SetBulletState(data["attackPattern"][PatternIndex]["bullets"][i]["texId"],
-				{ data["attackPattern"][PatternIndex]["bullets"][i]["PosX"], data["attackPattern"][PatternIndex]["bullets"][i]["PosY"] },
-				{ data["attackPattern"][PatternIndex]["bullets"][i]["DirX"], data["attackPattern"][PatternIndex]["bullets"][i]["DirY"] },
-				data["attackPattern"][PatternIndex]["bullets"][i]["speed"],
-				data["attackPattern"][PatternIndex]["bullets"][i]["delay"],
-				data["attackPattern"][PatternIndex]["bullets"][i]["damage"]
-			);
-			b->Reset();
-			b->pattern = BulletPattern::Normal;
-		}
-	}
-	else if ("Rotate" == data["attackPattern"][PatternIndex]["name"])
-	{
-		for (int i = 0; i < bulletCount; ++i)
-		{
-			Bullet* b = (Bullet*)AddGameObject(new Bullet());
-			bulletTemp.push_back(b);
-			b->SetBulletState(data["attackPattern"][PatternIndex]["bullets"][i]["texId"],
-				{ data["attackPattern"][PatternIndex]["bullets"][i]["PosX"], data["attackPattern"][PatternIndex]["bullets"][i]["PosY"] },
-				{ data["attackPattern"][PatternIndex]["bullets"][i]["DirX"], data["attackPattern"][PatternIndex]["bullets"][i]["DirY"] },
-				data["attackPattern"][PatternIndex]["bullets"][i]["speed"],
-				data["attackPattern"][PatternIndex]["bullets"][i]["delay"],
-				data["attackPattern"][PatternIndex]["bullets"][i]["damage"]
-			);
-			b->Reset();
-			b->pattern = BulletPattern::Rotate;
-		}
-	}
-
-	PatternIndex = (PatternIndex + 1) % patternCount;
+	SetBulletPattern();	
 }
 
 void SceneBattle::SetPlayerTurn()
@@ -381,4 +345,63 @@ void SceneBattle::PlayerDie()
 	btBox->startStr = L"* 패배!";
 	btBox->SetStartDescribe();
 	isPlaying = false;
+}
+
+void SceneBattle::SetBulletPattern()
+{
+	int bulletCount = data["attackPattern"][PatternIndex]["bullets"].size();
+	turnDuration = data["attackPattern"][PatternIndex]["duration"];
+	if ("Normal" == data["attackPattern"][PatternIndex]["name"])
+	{
+		for (int i = 0; i < bulletCount; ++i)
+		{
+			Bullet* b = (Bullet*)AddGameObject(new Bullet());
+			bulletTemp.push_back(b);
+			b->SetBulletState(data["attackPattern"][PatternIndex]["bullets"][i]["texId"],
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["PosX"], data["attackPattern"][PatternIndex]["bullets"][i]["PosY"] },
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["DirX"], data["attackPattern"][PatternIndex]["bullets"][i]["DirY"] },
+				data["attackPattern"][PatternIndex]["bullets"][i]["speed"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["delay"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["damage"]
+			);
+			b->Reset();
+			b->pattern = BulletPattern::Normal;
+		}
+	}
+	else if ("Rotate" == data["attackPattern"][PatternIndex]["name"])
+	{
+		for (int i = 0; i < bulletCount; ++i)
+		{
+			Bullet* b = (Bullet*)AddGameObject(new Bullet());
+			bulletTemp.push_back(b);
+			b->SetBulletState(data["attackPattern"][PatternIndex]["bullets"][i]["texId"],
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["PosX"], data["attackPattern"][PatternIndex]["bullets"][i]["PosY"] },
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["DirX"], data["attackPattern"][PatternIndex]["bullets"][i]["DirY"] },
+				data["attackPattern"][PatternIndex]["bullets"][i]["speed"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["delay"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["damage"]
+			);
+			b->Reset();
+			b->pattern = BulletPattern::Rotate;
+		}
+	}
+	else if ("Homing" == data["attackPattern"][PatternIndex]["name"])
+	{
+		for (int i = 0; i < bulletCount; ++i)
+		{
+			Bullet* b = (Bullet*)AddGameObject(new Bullet());
+			bulletTemp.push_back(b);
+			b->SetBulletState(data["attackPattern"][PatternIndex]["bullets"][i]["texId"],
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["PosX"], data["attackPattern"][PatternIndex]["bullets"][i]["PosY"] },
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["DirX"], data["attackPattern"][PatternIndex]["bullets"][i]["DirY"] },
+				data["attackPattern"][PatternIndex]["bullets"][i]["speed"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["delay"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["damage"]
+			);
+			b->Reset();
+			b->pattern = BulletPattern::Homing;
+		}
+	}
+
+	PatternIndex = (PatternIndex + 1) % patternCount;
 }

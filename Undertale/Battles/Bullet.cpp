@@ -108,6 +108,27 @@ void Bullet::Update(float dt)
 			}
 		}
 		break;
+	case BulletPattern::Homing:
+		if (isHoming)
+		{
+			sf::Vector2f position = sprite.getPosition();
+			position += dir * moveSpeed * dt;
+			SetPosition(position);
+			if (soul->GetGlobalBounds().intersects(sprite.getGlobalBounds()) && !(soul->isBlink))
+			{
+				soul->isBlink = true;
+				soul->TakeDamage(damage);
+				scene->GetStatusUI()->UpdateHpUI();
+				SetActive(false);
+			}
+		}
+		else if (timer >= waitingTime)
+		{
+			isHoming = true;
+			sf::Vector2f soulPos = soul->GetPosition();			
+			dir = Utils::GetNormal(soulPos - GetPosition());
+		}
+		break;
 	}
 }
 

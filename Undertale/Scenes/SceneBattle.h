@@ -106,4 +106,6 @@ public:
 	void MonsterDie();
 
 	void PlayerDie();
+
+	void SetBulletPattern();
 };

@@ -27,6 +27,8 @@ protected:
 
 	int damage = 4;
 
+	bool isHoming = false;
+
 public:
 	BulletPattern pattern = BulletPattern::Normal;
 	Bullet(const std::string& name = "");

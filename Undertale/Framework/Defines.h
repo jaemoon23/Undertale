@@ -55,5 +55,6 @@ enum class ButtonState
 enum class BulletPattern
 {
 	Normal,
-	Rotate
+	Rotate,
+	Homing
 };
