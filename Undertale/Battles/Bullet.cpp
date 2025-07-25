@@ -67,6 +67,7 @@ void Bullet::Reset()
 	sortingOrder = 1;
 	sprite.setTexture(TEXTURE_MGR.Get(texId));
 	SetPosition(pos);
+	SetOrigin(Origins::MC);
 }
 
 void Bullet::Update(float dt)
@@ -74,18 +75,39 @@ void Bullet::Update(float dt)
 	hitBox.UpdateTransform(sprite, sprite.getLocalBounds());
 
 	timer += dt;
-	if (timer >= waitingTime)
+	switch (pattern)
 	{
-		sf::Vector2f position = sprite.getPosition();
-		position += dir * moveSpeed * dt;
-		SetPosition(position);
-		if (soul->GetGlobalBounds().intersects(sprite.getGlobalBounds()) && !(soul->isBlink))
+	case BulletPattern::Normal:
+		if (timer >= waitingTime)
 		{
-			soul->isBlink = true;
-			soul->TakeDamage(damage);
-			scene->GetStatusUI()->UpdateHpUI();
-			SetActive(false);
+			sf::Vector2f position = sprite.getPosition();
+			position += dir * moveSpeed * dt;
+			SetPosition(position);
+			if (soul->GetGlobalBounds().intersects(sprite.getGlobalBounds()) && !(soul->isBlink))
+			{
+				soul->isBlink = true;
+				soul->TakeDamage(damage);
+				scene->GetStatusUI()->UpdateHpUI();
+				SetActive(false);
+			}
 		}
+		break;
+	case BulletPattern::Rotate:
+		sprite.rotate(rotationSpeed * dt);
+		if (timer >= waitingTime)
+		{
+			sf::Vector2f position = sprite.getPosition();
+			position += dir * moveSpeed * dt;
+			SetPosition(position);
+			if (soul->GetGlobalBounds().intersects(sprite.getGlobalBounds()) && !(soul->isBlink))
+			{
+				soul->isBlink = true;
+				soul->TakeDamage(damage);
+				scene->GetStatusUI()->UpdateHpUI();
+				SetActive(false);
+			}
+		}
+		break;
 	}
 }
 

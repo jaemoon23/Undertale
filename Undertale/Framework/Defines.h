@@ -51,3 +51,9 @@ enum class ButtonState
 	ChooseItem,
 	ChooseMercy
 };
+
+enum class BulletPattern
+{
+	Normal,
+	Rotate
+};

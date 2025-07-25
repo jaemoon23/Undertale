@@ -116,7 +116,7 @@ void BattleBox::Update(float dt)
 			fightLine.setPosition(pos);
 		}
 
-		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+		if (!fightBtPress && !isHpAni && InputMgr::GetKeyDown(sf::Keyboard::Z))
 		{
 			isDrawHpBar = true;
 			animator.Play("animations/fist.csv");

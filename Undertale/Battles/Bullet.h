@@ -20,6 +20,7 @@ protected:
 	sf::Vector2f dir = { 1.f, 1.f };
 
 	float moveSpeed = 100.f;
+	float rotationSpeed = 180.f;
 
 	float timer = 0.f;
 	float waitingTime = 1.5f;
@@ -27,6 +28,7 @@ protected:
 	int damage = 4;
 
 public:
+	BulletPattern pattern = BulletPattern::Normal;
 	Bullet(const std::string& name = "");
 	virtual ~Bullet() = default;
 

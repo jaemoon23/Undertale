@@ -51,7 +51,7 @@
   ],
   "attackPattern" : [
     {
-      "name" : "pattern1",
+      "name" : "Normal",
       "duration" : 5.0,
       "bullets" : [
         {
@@ -77,7 +77,7 @@
       ]
     },
     {
-      "name" : "pattern2",
+      "name" : "Normal",
       "duration" : 4.0,
       "bullets" : [
         {
