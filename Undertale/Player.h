@@ -13,7 +13,7 @@ class Player : public GameObject
 {
 protected:
 	sf::Sprite body;
-	std::wstring name = L"ÇÃ·¹ÀÌ¾î";
+	std::wstring name = L"ï¿½Ã·ï¿½ï¿½Ì¾ï¿½";
 	int maxHp = 10;
 	int hp = 10;
 	int att = 0;

@@ -1,0 +1,6 @@
+{
+    "type" : "consumable",
+    "name" : "아이스크림",
+    "describe" : "달콤한 아이스크림이다",
+    "healAmount" : 15
+}

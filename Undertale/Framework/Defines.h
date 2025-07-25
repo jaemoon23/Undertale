@@ -43,5 +43,9 @@ enum class ButtonState
 	Fight,
 	Act,
 	Item,
-	Mercy
+	Mercy,
+	ChooseFight,
+	ChooseAct,
+	ChooseItem,
+	ChooseMercy
 };

@@ -14,6 +14,11 @@ protected:
 
 	SceneBattle* scene;
 	int* btIndex;
+	int* actChooseIndex;
+	int* actChooseCount;
+	int* itemChooseIndex;
+	int* itemChooseCount;
+	int* mercyChooseIndex;
 
 	sf::Vector2f size = { 640.f, 480.f };
 	int minX;
@@ -21,9 +26,18 @@ protected:
 	int minY;
 	int maxY;
 
+	sf::Color originColor;
+	sf::Color blinkColor;
+
+	float blinkTimer = 0.f;
+	float blinkPeriodTimer = 0.f;
+	const float blinkPeriod = 0.15f;
+	const float blinkTime = 1.f; // 1초로 바꾸기
+
 public:
 	int hp = 20;
 	int maxHp = 20;
+	bool isBlink = false;
 
 	Soul(const std::string& name = "");
 	virtual ~Soul() = default;
@@ -45,5 +59,7 @@ public:
 	void SetBoundary(sf::FloatRect bounds);
 
 	void TakeDamage(int damage);
+
+	void BlinkUpdate(float dt);
 };
 

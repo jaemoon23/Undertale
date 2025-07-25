@@ -95,6 +95,15 @@ sf::Vector2f Utils::SetOrigin(sf::Sprite& obj, Origins preset)
     return SetOrigin(obj, preset, obj.getLocalBounds());
 }
 
+int Utils::ClampInt(int value, int min, int max)
+{
+    if (value < min)
+        return min;
+    else if (value > max)
+        return max;
+    return value;
+}
+
 float Utils::Clamp(float value, float min, float max)
 {
     if (value < min)

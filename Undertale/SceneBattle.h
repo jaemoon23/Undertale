@@ -37,25 +37,50 @@ protected:
 	sf::Vector2f size = { 640.f,480.f };
 
 	float dialTimer = 0.f;
-	const float dialExistTime = 2.f;
+	float dialExistTime = 0.f;
 
 	float turnTimer = 0.f;
 	float turnDuration;
 
 	json data;
+	json invenData;
+	json itemData[4];
+	int healAmount[4];
 
 	int PatternIndex = 0;
 	int patternCount = 0;
 	std::vector<Bullet*> bulletTemp;
 
+	bool isPlaying = true;
+
+	sf::Color monsteroriginColor;
+	sf::Color monsterblinkColor;
+	float monsterblinkTimer = 0.f;
+	float monsterblinkPeriodTimer = 0.f;
+	const float monsterblinkPeriod = 0.15f;
+	const float monsterblinkTime = 0.7f; 
+
 public:
+	bool isMonsterBlink = false;
 	bool isMyTurn = true;
 	ButtonState btState = ButtonState::None;
 	int btIndex = 0;
+	int actChooseIndex = 0;
+	int actChooseCount = 0;
+	int itemChooseIndex = 0;
+	int itemChooseCount = 4;
+	int mercyChooseIndex = 0;
 	int lineIndex = 0;
 	int lineCount = 2;
 	int monsterHp = 100;
 	int monsterMaxHp = 100;
+
+	int mercyPoint = 0;
+	const int mercyCanPoint = 100;
+
+	int playerATK = 55;
+
+	static std::string monsterJsonID;
 
 	SceneBattle();
 	~SceneBattle() override = default;
@@ -71,4 +96,14 @@ public:
 
 	void SetMonsterTurn();
 	void SetPlayerTurn();
+
+	void SetActDescribe();
+
+	void TryUseItem();
+	void TryMercy();
+
+	void MonsterBlinkUpdate(float dt);
+	void MonsterDie();
+
+	void PlayerDie();
 };

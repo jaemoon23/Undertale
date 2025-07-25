@@ -33,23 +33,37 @@ protected:
 	Animator animator;
 
 	float timer = 0.f;
-	const float fightAniTime = 0.4f;
+	const float fightAniTime = 0.6f;
+	const float hpAniTime = 0.6f;
 
 	bool isAttacking = false;
+	bool playerCheck = false;
+	bool isHpAni = false;
+
+	float minusHpbarSize;
 
 public:
-	std::string startStr;
+	std::wstring startStr;
+	std::wstring describeStr[4];
 	bool fightBtPress = false;
 	bool isDrawHpBar = false;
 
 	BattleBox(const std::string& name = "");
 	virtual ~BattleBox() = default;
 
+	void SetStartDescribe() { startDescribe.setString(startStr); }
+
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;
 	void SetScale(const sf::Vector2f& s) override;
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
+
+	void SetBtBoxSize(sf::Vector2f size)
+	{ 
+		box.setSize(size);
+		Utils::SetOrigin(box, Origins::MC);
+	}
 
 	sf::FloatRect GetBoxGlobalBounds() { return box.getGlobalBounds(); }
 

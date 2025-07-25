@@ -37,6 +37,7 @@ public:
 	static sf::Vector2f SetOrigin(sf::Sprite& obj, Origins preset);
 
 	// Math
+	static int ClampInt(int value, int min, int max);
 	static float Clamp(float value, float min, float max);
 	static float Clamp01(float value);
 

@@ -1,10 +1,53 @@
 {  
   "name": "프로깃",
   "texId" : "graphics/spr_froggit_2.png",
+  "animationId" : "animations/frogit_idle.csv",
   "hp": 100,
   "lines" : [
     "개굴 ~",
-    "멍 때리는 중"
+    "멍 때리는 중",
+    "생각하는 중",
+    "(한숨)"
+  ],
+  "lineExistTime" : 2.5,
+  "FightDescribe" : "* 프로깃",
+  "ActDescribe" : [
+    {
+      "act" : "* 살펴보기", 
+      "describes" : [
+        {
+          "describe" : "* 프로깃 - ATK 4 DEF 0"
+        },
+        {
+          "describe" : "* 프로깃은 기분이 나빠보인다"
+        }
+      ],
+      "mercyPoint" : 0
+    },
+    {
+      "act" : "* 칭찬하기", 
+      "describes" : [
+        {
+          "describe" : "* 당신은 프로깃에게 칭찬했다!"
+        },
+        {
+          "describe" : "* 프로깃은 기분이 좋아졌다"
+        }
+      ],
+      "mercyPoint" : 100
+    },
+    {
+      "act" : "* 째려보기", 
+      "describes" : [
+        {
+          "describe" : "* 당신을 프로깃을 째려보았다!"
+        },
+        {
+          "describe" : "* 프로깃은 기분이 나빠졌다"
+        }
+      ],
+      "mercyPoint" : -50
+    }    
   ],
   "attackPattern" : [
     {

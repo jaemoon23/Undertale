@@ -91,13 +91,18 @@ void SceneTest::Exit()
 void SceneTest::Update(float dt)
 {	
 	worldView.setCenter(player->GetPosition().x, player->GetPosition().y);
-	//std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl; Àß¸ð¸£°ÚÀ¸¸é ÁÂÇ¥ Âï¾îº¸ÀÚ 
+	//std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl; ï¿½ß¸ð¸£°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½îº¸ï¿½ï¿½ 
 	player->Update(dt);
 	sans->Update(dt);
 	dialoguebox->Update(dt);
 	inventoryui->Update(dt);
 	uichanger->Update(dt);
 	playerinfoui->Update(dt);
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num1))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::Battle);
+	}
 }
 void SceneTest::Draw(sf::RenderWindow& window)
 {
