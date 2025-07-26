@@ -13,6 +13,9 @@ class test :
     public Scene
 {
 protected:
+    float battleCheckTimer = 0.f;
+    const float battleCheckInterval = 1.f; 
+
     SpriteGo* background = nullptr;
     Player* player;
     std::vector<SpriteGo*> testObjects;

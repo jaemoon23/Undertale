@@ -105,9 +105,17 @@ void test::Enter()
 		rect->setFillColor(sf::Color::Transparent);
 
 		if (typeStr == "Wall")
+		{
 			rect->setOutlineColor(sf::Color::Green);
+		}
 		else if (typeStr == "SceneChange")
+		{
 			rect->setOutlineColor(sf::Color(128, 0, 128));
+		}
+		else if (typeStr == "Battle")
+		{
+			rect->setOutlineColor(sf::Color::Red);
+		}
 
 		rect->setOutlineThickness(1.f);
 		hitboxes.push_back({ rect, typeStr });
@@ -116,10 +124,10 @@ void test::Enter()
 void test::Update(float dt)
 {
 	Scene::Update(dt);
-	sf::Vector2f prevPos = player->getPos();
+	battleCheckTimer += dt;
 	for (auto& hit : hitboxes)
 	{
-		if (Utils::CheckCollision(player->GetHitBox(), *hit.shape)) 
+		if (Utils::CheckCollision(player->GetHitBox(), *hit.shape))
 		{
 			if (hit.type == "Wall")
 			{
@@ -129,6 +137,25 @@ void test::Update(float dt)
 			{
 				std::cout << "씬 전환 트리거됨!" << std::endl;
 				SCENE_MGR.ChangeScene(SceneIds::Battle);
+			}
+			else if (hit.type == "Battle")
+			{
+				if (battleCheckTimer >= battleCheckInterval)
+				{
+					std::cout << "배틀 확률 체크" << std::endl;
+					battleCheckTimer = 0.f;
+
+					// 1% 확률
+					if (Utils::RandomRange(0.f, 1.f) < 0.1f)
+					{
+						std::cout << "랜덤 전투 발생!" << std::endl;
+						SCENE_MGR.ChangeScene(SceneIds::Dev1);
+					}
+					else
+					{
+						std::cout << "배틀 아님" << std::endl;
+					}
+				}
 			}
 		}
 	}

@@ -39,7 +39,7 @@ void MapTool::Init()
 void MapTool::Enter()
 {
 	Scene::Enter();
-	FRAMEWORK.SetWindowSize(640, 480);
+	FRAMEWORK.SetWindowSize(1920, 1080);
 	windowSize = FRAMEWORK.GetWindowSizeF();
 
 	worldView.setSize(windowSize);
@@ -304,10 +304,17 @@ void MapTool::Update(float dt)
 
 			// 히트박스 타입 결정
 			HitBoxType boxType = HitBoxType::Wall; // 기본: 벽
+			std::string fieldName = "";
 			if (InputMgr::GetKey(sf::Keyboard::Num1)) // Num1 누르면 씬 전환
 			{
 				boxType = HitBoxType::SceneChanege;
 				newRect->setOutlineColor(sf::Color(128, 0, 128)); // 보라색
+			}
+			else if (InputMgr::GetKey(sf::Keyboard::Num2))
+			{
+				boxType = HitBoxType::Battle;
+				fieldName = "BattleZone";   
+				newRect->setOutlineColor(sf::Color::Red); 
 			}
 			else
 			{
@@ -329,7 +336,21 @@ void MapTool::Update(float dt)
 
 			dragHitBox.setSize({ 0.f, 0.f });
 
-			std::cout << "히트박스 생성됨 (타입: " << (boxType == HitBoxType::Wall ? "Wall" : "SceneChanege") << ")" << std::endl;
+			std::string typeStr;
+			switch (boxType)
+			{
+			case HitBoxType::Wall:
+				typeStr = "Wall";
+				break;
+			case HitBoxType::SceneChanege:
+				typeStr = "SceneChanege";
+				break;
+			case HitBoxType::Battle: 
+				typeStr = "Battle";
+				break;
+			}
+
+			std::cout << "히트박스 생성됨 (타입: " << typeStr << ")" << std::endl;
 		}
 		
 	}
@@ -457,7 +478,19 @@ void MapTool::jsonInput()
 	{
 		sf::Vector2f pos = hit.shape->getPosition();
 		sf::Vector2f size = hit.shape->getSize();
-		std::string typeStr = (hit.type == HitBoxType::Wall) ? "Wall" : "SceneChange";
+		std::string typeStr;
+		switch (hit.type)
+		{
+		case HitBoxType::Wall:
+			typeStr = "Wall";
+			break;
+		case HitBoxType::SceneChanege:
+			typeStr = "SceneChange";
+			break;
+		case HitBoxType::Battle: // 또는 Battle
+			typeStr = "Battle";
+			break;
+		}
 
 		map["hitboxes"].push_back({
 			{"position", {pos.x, pos.y}},
