@@ -141,6 +141,7 @@ void BattleBox::Update(float dt)
 				timer = 0.f;
 				isHpAni = true;
 				fightBtPress = false;
+				scene->isMonsterShaking = true;
 				isAttacking = false;
 				minusHpbarSize = maxHpBar.getSize().x * (((float)scene->playerATK) / *monsterMaxHp);
 				SOUND_MGR.PlaySfx("sounds/snd_punchstrong.wav");

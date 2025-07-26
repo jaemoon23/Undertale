@@ -19,6 +19,7 @@ protected:
 	Soul* soul;
 
 	sf::Sprite monster;
+	sf::Vector2f monsterOriginalPos;
 	std::string monsterTexId;
 	std::string bgmId;
 
@@ -62,7 +63,11 @@ protected:
 	const float monsterblinkPeriod = 0.15f;
 	const float monsterblinkTime = 0.7f; 
 
+	float monsterShakeTimer = 0.f;
+	float monsterShakeInterval = 0.05f;
+
 public:
+	bool isMonsterShaking = false;
 	bool isMonsterBlink = false;
 	bool isMyTurn = true;
 	ButtonState btState = ButtonState::None;
@@ -109,4 +114,6 @@ public:
 	void PlayerDie();
 
 	void SetBulletPattern();
+
+	void MonsterShakeUpdate(float dt);
 };

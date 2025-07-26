@@ -13,8 +13,7 @@ SceneBattle::SceneBattle()
 }
 
 void SceneBattle::Init()
-{
-	
+{	
 	ANI_CLIP_MGR.Load("animations/sans_idle.csv");
 	ANI_CLIP_MGR.Load("animations/fist.csv");
 	ANI_CLIP_MGR.Load("animations/frogit_idle.csv");
@@ -91,6 +90,7 @@ void SceneBattle::Init()
 void SceneBattle::Enter()
 {
 	isPlaying = true;
+	isMonsterShaking = false;
 	mercyPoint = 0;
 	btIndex = 0;
 	PatternIndex = 0; // 0으로 바꾸기
@@ -143,6 +143,7 @@ void SceneBattle::Enter()
 	Utils::SetOrigin(monster, Origins::TC);
 	animator.Play(animationId);
 	monster.setPosition({ size.x * 0.45f, size.y * 0.27f });
+	monsterOriginalPos = monster.getPosition();
 	monsteroriginColor = monster.getColor();
 	monsteroriginColor.a = 255;
 	monsterblinkColor = monster.getColor();
@@ -252,6 +253,9 @@ void SceneBattle::Update(float dt)
 			SCENE_MGR.ChangeScene(SceneIds::Battle);
 		}
 	}
+
+	if (isMonsterShaking)
+		MonsterShakeUpdate(dt);
 }
 
 void SceneBattle::Draw(sf::RenderWindow& window)
@@ -264,6 +268,9 @@ void SceneBattle::Draw(sf::RenderWindow& window)
 void SceneBattle::SetMonsterTurn()
 {
 	isMyTurn = false;
+	isMonsterShaking = false;
+	monsterShakeTimer = 0.f;
+	monster.setPosition(monsterOriginalPos);
 	btState = ButtonState::None;
 	btBox->SetBtBoxSize({ size.x * 0.4f, size.y * 0.25f });
 	soul->SetPosition({ size.x * 0.49f, size.y * 0.64f });
@@ -375,6 +382,9 @@ void SceneBattle::MonsterDie()
 	monster.setColor(color);
 	std::cout << "몬스터 사망" << std::endl;
 	isPlaying = false;
+	isMonsterShaking = false;
+	monsterShakeTimer = 0.f;
+	monster.setPosition(monsterOriginalPos);
 	SOUND_MGR.StopBgm();
 	SOUND_MGR.PlaySfx("sounds/snd_chug.wav");
 }
@@ -484,4 +494,21 @@ void SceneBattle::SetBulletPattern()
 	}
 
 	PatternIndex = (PatternIndex + 1) % patternCount;
+}
+
+void SceneBattle::MonsterShakeUpdate(float dt)
+{
+	monsterShakeTimer += dt;
+	float shakeOffset = 4.f;
+	if (monsterShakeTimer >= monsterShakeInterval)
+	{
+		if (fmod(monsterShakeTimer, monsterShakeInterval * 2) < monsterShakeInterval)
+		{
+			monster.setPosition(monsterOriginalPos.x + shakeOffset, monsterOriginalPos.y);
+		}
+		else
+		{
+			monster.setPosition(monsterOriginalPos.x - shakeOffset, monsterOriginalPos.y);
+		}
+	}
 }
