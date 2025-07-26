@@ -2,11 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="AniPlayer.cpp" />
-    <ClCompile Include="DialogueBox.cpp" />
-    <ClCompile Include="BattleBox.cpp" />
-    <ClCompile Include="BattleButton.cpp" />
-    <ClCompile Include="BattleDialogueBox.cpp" />
-    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Framework\AnimationClip.cpp" />
     <ClCompile Include="Framework\Animator.cpp" />
@@ -21,19 +16,28 @@
     <ClCompile Include="Framework\TextGo.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="Framework\Variables.cpp" />
-    <ClCompile Include="InventoryUi.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Sans.cpp" />
-    <ClCompile Include="SceneTest.cpp" />
-    <ClCompile Include="SceneBattle.cpp" />
     <ClCompile Include="Scenes\SceneDev1.cpp" />
-    <ClCompile Include="Soul.cpp" />
-    <ClCompile Include="StatusInBattleUI.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="TestBackGround.cpp" />
-    <ClCompile Include="UiChanger.cpp" />
-    <ClCompile Include="PlayerInfoUi.cpp" />
+    <ClCompile Include="Maptools\Button.cpp" />
+    <ClCompile Include="playerRelated\DialogueBox.cpp" />
+    <ClCompile Include="Battles\BattleBox.cpp" />
+    <ClCompile Include="Battles\BattleButton.cpp" />
+    <ClCompile Include="Battles\BattleDialogueBox.cpp" />
+    <ClCompile Include="Battles\Bullet.cpp" />
+    <ClCompile Include="Maptools\InputText.cpp" />
+    <ClCompile Include="playerRelated\InventoryUi.cpp" />
+    <ClCompile Include="Scenes\MapTool.cpp" />
+    <ClCompile Include="playerRelated\Player.cpp" />
+    <ClCompile Include="playerRelated\PlayerInfoUi.cpp" />
+    <ClCompile Include="playerRelated\Sans.cpp" />
+    <ClCompile Include="Scenes\SceneTest.cpp" />
+    <ClCompile Include="Scenes\SceneBattle.cpp" />
+    <ClCompile Include="Battles\Soul.cpp" />
+    <ClCompile Include="Battles\StatusInBattleUI.cpp" />
+    <ClCompile Include="Maptools\test.cpp" />
+    <ClCompile Include="playerRelated\TestBackGround.cpp" />
+    <ClCompile Include="playerRelated\UiChanger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AniPlayer.cpp">
@@ -87,101 +91,9 @@
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\MapTool.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="test.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="InputText.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AniPlayer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\AnimationClip.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Animator.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Defines.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Framework.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\rapidcsv.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\GameObject.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\HitBox.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\InputMgr.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\ResourceMgr.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Scene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\SceneMgr.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Singleton.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\SoundMgr.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\SpriteGo.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\TextGo.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utils.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Variables.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\SceneDev1.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\MapTool.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="test.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="json.hpp">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="InputText.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="AniPlayer.h" />
-    <ClInclude Include="DialogueBox.h" />
-    <ClInclude Include="BattleBox.h" />
-    <ClInclude Include="BattleButton.h" />
-    <ClInclude Include="BattleDialogueBox.h" />
-    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Framework\AnimationClip.h" />
     <ClInclude Include="Framework\Animator.h" />
@@ -200,17 +112,47 @@
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="Framework\Variables.h" />
-    <ClInclude Include="InventoryUi.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Sans.h" />
-    <ClInclude Include="SceneTest.h" />
-    <ClInclude Include="SceneBattle.h" />
     <ClInclude Include="Scenes\SceneDev1.h" />
-    <ClInclude Include="Soul.h" />
-    <ClInclude Include="StatusInBattleUI.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="TestBackGround.h" />
-    <ClInclude Include="UiChanger.h" />
-    <ClInclude Include="PlayerInfoUi.h" />
+    <ClInclude Include="AniPlayer.h" />
+    <ClInclude Include="Maptools\Button.h" />
+    <ClInclude Include="playerRelated\DialogueBox.h" />
+    <ClInclude Include="Battles\BattleBox.h" />
+    <ClInclude Include="Battles\BattleButton.h" />
+    <ClInclude Include="Battles\BattleDialogueBox.h" />
+    <ClInclude Include="Battles\Bullet.h" />
+    <ClInclude Include="Framework\AnimationClip.h" />
+    <ClInclude Include="Framework\Animator.h" />
+    <ClInclude Include="Framework\Defines.h" />
+    <ClInclude Include="Framework\Framework.h" />
+    <ClInclude Include="Framework\GameObject.h" />
+    <ClInclude Include="Framework\HitBox.h" />
+    <ClInclude Include="Framework\InputMgr.h" />
+    <ClInclude Include="Framework\rapidcsv.h" />
+    <ClInclude Include="Framework\ResourceMgr.h" />
+    <ClInclude Include="Framework\Scene.h" />
+    <ClInclude Include="Framework\SceneMgr.h" />
+    <ClInclude Include="Framework\Singleton.h" />
+    <ClInclude Include="Framework\SoundMgr.h" />
+    <ClInclude Include="Framework\SpriteGo.h" />
+    <ClInclude Include="Framework\TextGo.h" />
+    <ClInclude Include="Framework\Utils.h" />
+    <ClInclude Include="Framework\Variables.h" />
+    <ClInclude Include="Maptools\InputText.h" />
+    <ClInclude Include="json.hpp" />
+    <ClInclude Include="Scenes\MapTool.h" />
+    <ClInclude Include="playerRelated\InventoryUi.h" />
+    <ClInclude Include="playerRelated\Player.h" />
+    <ClInclude Include="playerRelated\PlayerInfoUi.h" />
+    <ClInclude Include="playerRelated\Sans.h" />
+    <ClInclude Include="Scenes\SceneTest.h" />
+    <ClInclude Include="Scenes\SceneBattle.h" />
+    <ClInclude Include="Scenes\SceneDev1.h" />
+    <ClInclude Include="Battles\Soul.h" />
+    <ClInclude Include="Battles\StatusInBattleUI.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Maptools\test.h" />
+    <ClInclude Include="playerRelated\TestBackGround.h" />
+    <ClInclude Include="playerRelated\UiChanger.h" />
   </ItemGroup>
 </Project>
