@@ -24,13 +24,16 @@ struct UndoAction
 enum class HitBoxType
 {
     Wall,
-    SceneChanege
+    Battle,
+    SceneChanege,
+    
 };
 
 struct HitBoxInfo
 {
     sf::RectangleShape* shape;
     HitBoxType type;
+    std::string field;
 };
 
 class MapTool :

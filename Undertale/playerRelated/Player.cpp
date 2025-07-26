@@ -48,9 +48,9 @@ void Player::SetOrigin(Origins preset)
 
 void Player::Init()
 {
+	
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = 1;
-
 	animator.SetTarget(&body);
 }
 
@@ -62,9 +62,8 @@ void Player::Reset()
 {
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = 1;
-
+	body.setTexture(TEXTURE_MGR.Get(texId));
 	animator.Play("Animation/idle.csv");
-
 	direction = { 0.f, 0.f };
 	SetName(L"Frisk");
 	SetAtt(20);
@@ -79,18 +78,24 @@ void Player::Reset()
 
 void Player::Update(float dt)
 {
+	animator.Update(dt);
+	prevPosition = GetPosition();
+	/*if (!dialoguebox->GetActive()&& !uichanger->GetActive())
 	if (!dialoguebox->GetActive() && !uichanger->GetActive())
 	{
 		direction.x = InputMgr::GetAxis(Axis::Horizontal);
 		direction.y = InputMgr::GetAxis(Axis::Vertical);
 		Utils::Normalize(direction);
 		SetPosition(GetPosition() + direction * speed * dt);
+		
 	}
 	else
 	{
 		animator.Stop();
-	}
-
+	}*/
+	direction.x = InputMgr::GetAxis(Axis::Horizontal);
+	direction.y = InputMgr::GetAxis(Axis::Vertical);
+	SetPosition(GetPosition() + direction * speed * dt);
 	hitBox.UpdateTransform(body, body.getLocalBounds());
 
 	if (sans)
@@ -148,7 +153,7 @@ void Player::Update(float dt)
 	//	animator.Stop();
 	//}
 
-	animator.Update(dt);
+	
 }
 
 void Player::Draw(sf::RenderWindow& window)
@@ -214,8 +219,12 @@ void Player::SetName(const std::wstring& n)
 void Player::SansInteract()
 {
 	std::vector<std::wstring> testDialogues =
-	{ L"* ¾È³ç", L"* È¸º¹ ¾ÆÀÌÅÛ ÁÙ°Ô " };
+	{ L"* ï¿½È³ï¿½", L"* È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù°ï¿½ " };
 	dialoguebox->StartDialogue(testDialogues);
 
 }
 
+const sf::RectangleShape& Player::GetHitBox() const 
+{
+	return hitBox.rect;
+}

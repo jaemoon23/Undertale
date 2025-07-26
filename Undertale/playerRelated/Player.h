@@ -15,6 +15,10 @@ class PlayerInfoUi;
 class Player : public GameObject
 {
 protected:
+	// LJM
+	sf::Vector2f prevPosition;
+
+	std::string texId = "Sprites/idle.png";
 	sf::Sprite body;
 	std::wstring name;
 	int maxHp = 0;
@@ -72,6 +76,9 @@ public:
 	void SetUiChanger(UiChanger* u) { uichanger = u; }	
 	void SetPlayerInfoUi(PlayerInfoUi* infoUi) { playerInfoUi = infoUi; }
 
+	const sf::RectangleShape& GetHitBox() const;
+	sf::Vector2f getPos() { return prevPosition; }
+	
 	void Heal(int healamount);
 	void GiveItem(const std::string& itemName);
 };

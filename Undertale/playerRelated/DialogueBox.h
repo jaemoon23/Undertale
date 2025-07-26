@@ -41,12 +41,12 @@ public:
 
 	void StartDialogue(const std::vector<std::wstring>& lines);
 	void NextLine();
-
+	
 	void SetBox(sf::Sprite d, sf::RectangleShape l) { dialogueBox = d, line = l; }
 	void SetPlayer(Player* p) { player = p; }
 
 	void TypingEffect(const std::wstring& text, float speed = 0.5f);
 	void UpdateTypingEffect(float dt);
-	bool GetActive() {return isActive;}
+	bool GetActive5() { return isActive; }
 };
 

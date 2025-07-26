@@ -1,7 +1,8 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "test.h"
 #include <fstream>
 #include "json.hpp"
+#include "Player.h"
 
 test::test() : Scene(SceneIds::test)
 {
@@ -10,98 +11,154 @@ test::test() : Scene(SceneIds::test)
 void test::Init()
 {
 	
-	texIds.push_back("graphics/spr_f_maincharad_0.png");
-	texIds.push_back("graphics/spr_cutetable_0.png");
-	texIds.push_back("graphics/spr_darkelevator_l_0.png");
-	texIds.push_back("graphics/spr_darknesstotem_0.png");
-	texIds.push_back("graphics/bg_firstroom.png");
+	texIds.push_back("Sprites/idle.png");
+	texIds.push_back("Sprites/downwalking.png");
+	texIds.push_back("Sprites/upwalking.png");
+	texIds.push_back("Sprites/leftwalking.png");
+	texIds.push_back("Sprites/rightwalking.png");
+	texIds.push_back("Sprites/backgroundui.png");
+	texIds.push_back("Sprites/bg_asgore_livingroom_0.png");
+	texIds.push_back("Sprites/spr_sans_sleep_0.png");
 	texIds.push_back("graphics/bg_innrooms_0.png");
+	texIds.push_back("graphics/bg_firstroom.png");
+	texIds.push_back("graphics/spr_cutetable_0.png");
+
+	ANI_CLIP_MGR.Load("Animation/idle.csv");
+	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
+	ANI_CLIP_MGR.Load("Animation/upwalking.csv");
+	ANI_CLIP_MGR.Load("Animation/leftwalking.csv");
+	ANI_CLIP_MGR.Load("Animation/rightwalking.csv");
+
+	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
+	Scene::Init();
 }
 
 void test::Enter()
 {
 	Scene::Enter();
-	//FRAMEWORK.SetWindowSize(640, 480);
-	//sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
-
-	auto size = FRAMEWORK.GetWindowSizeF() * 0.5f;
+	auto size = FRAMEWORK.GetWindowSizeF();
 	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
-
-	uiView.setSize(size);
-	uiView.setCenter(center);
-
 	worldView.setSize(size);
 	worldView.setCenter(center);
-	// JSON ÆÄÀÏ ¿­±â
+
 	std::ifstream in("map0.json");
 	if (!in)
 	{
-		std::cerr << "map0.json ÆÄÀÏÀ» ¿­ ¼ö ¾ø½À´Ï´Ù!" << std::endl;
+		std::cerr << "map0.json íŒŒì¼ì„ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!" << std::endl;
 		return;
 	}
 
 	nlohmann::json j;
 	in >> j;
-
 	auto& mapData = j["map0"];
 
-	// ¹é±×¶ó¿îµå »ý¼º
+	// ë°°ê²½
 	std::string bgTex = mapData["background"]["textureId"];
-	sf::Vector2f bgPos(
-		mapData["background"]["position"][0],
-		mapData["background"]["position"][1]
-	);
-	sf::Vector2f scale(
-		mapData["background"]["scale"][0],
-		mapData["background"]["scale"][1]
-	);
+	sf::Vector2f bgPos(mapData["background"]["position"][0], mapData["background"]["position"][1]);
+	sf::Vector2f scale(mapData["background"]["scale"][0], mapData["background"]["scale"][1]);
 
 	background = new SpriteGo(bgTex);
 	background->SetTextureId(bgTex);
-	
 	background->SetOrigin(Origins::MC);
-	
 	background->SetPosition(bgPos);
+	background->SetScale(scale);
 	background->Reset();
-	background->SetScale({ 2.f, 2.f });
-	
 
-	// ¿ÀºêÁ§Æ® »ý¼º
+	// ì˜¤ë¸Œì íŠ¸
+	bool playerPlaced = false;
 	for (auto& obj : mapData["objects"])
 	{
 		std::string texId = obj["textureId"];
 		sf::Vector2f pos(obj["position"][0], obj["position"][1]);
+		sf::Vector2f scale(1.f, 1.f);
+		if (obj.contains("scale"))
+			scale = { obj["scale"][0], obj["scale"][1] };
 
-		SpriteGo* sprite = new SpriteGo(texId);
-		sprite->SetTextureId(texId);
-		sprite->SetOrigin(Origins::MC);
-		sprite->SetPosition(pos);
-		sprite->Reset();
+		if (!playerPlaced)  // ì²« ë²ˆì§¸ ì˜¤ë¸Œì íŠ¸ë¥¼ player ìœ„ì¹˜ë¡œ ì‚¬ìš©
+		{
+			player->SetOrigin(Origins::MC);
+			player->SetPosition(pos);
+			playerPlaced = true;
+		}
+		else
+		{
+			auto sprite = new SpriteGo(texId);
+			sprite->SetTextureId(texId);
+			sprite->SetOrigin(Origins::MC);
+			sprite->SetPosition(pos);
+			sprite->SetScale(scale);
+			sprite->Reset();
+			AddGameObject(sprite);
+			testObjects.push_back(sprite);
+		}
+	}
 
-		testObjects.push_back(sprite);
+	//  ížˆíŠ¸ë°•ìŠ¤ ë¡œë“œ
+	for (auto& box : mapData["hitboxes"])
+	{
+		sf::Vector2f pos(box["position"][0], box["position"][1]);
+		sf::Vector2f size(box["size"][0], box["size"][1]);
+		std::string typeStr = box["type"];
+
+		auto rect = new sf::RectangleShape(size);
+		rect->setPosition(pos);
+		rect->setFillColor(sf::Color::Transparent);
+
+		if (typeStr == "Wall")
+		{
+			rect->setOutlineColor(sf::Color::Green);
+		}
+		else if (typeStr == "SceneChange")
+		{
+			rect->setOutlineColor(sf::Color(128, 0, 128));
+		}
+		else if (typeStr == "Battle")
+		{
+			rect->setOutlineColor(sf::Color::Red);
+		}
+
+		rect->setOutlineThickness(1.f);
+		hitboxes.push_back({ rect, typeStr });
 	}
 }
-
 void test::Update(float dt)
 {
-	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
+	Scene::Update(dt);
+	battleCheckTimer += dt;
+	for (auto& hit : hitboxes)
 	{
-		SCENE_MGR.ChangeScene(SceneIds::MapTool);
+		if (Utils::CheckCollision(player->GetHitBox(), *hit.shape))
+		{
+			if (hit.type == "Wall")
+			{
+				player->SetPosition(player->getPos());
+			}
+			else if (hit.type == "SceneChange")
+			{
+				std::cout << "ì”¬ ì „í™˜ íŠ¸ë¦¬ê±°ë¨!" << std::endl;
+				SCENE_MGR.ChangeScene(SceneIds::Battle);
+			}
+			else if (hit.type == "Battle")
+			{
+				if (battleCheckTimer >= battleCheckInterval)
+				{
+					std::cout << "ë°°í‹€ í™•ë¥  ì²´í¬" << std::endl;
+					battleCheckTimer = 0.f;
+
+					// 1% í™•ë¥ 
+					if (Utils::RandomRange(0.f, 1.f) < 0.1f)
+					{
+						std::cout << "ëžœë¤ ì „íˆ¬ ë°œìƒ!" << std::endl;
+						SCENE_MGR.ChangeScene(SceneIds::Dev1);
+					}
+					else
+					{
+						std::cout << "ë°°í‹€ ì•„ë‹˜" << std::endl;
+					}
+				}
+			}
+		}
 	}
-}
-	
-void test::Exit()
-{
-	if (background)
-	{
-		delete background;
-		background = nullptr;
-	}
-	for (auto s : testObjects)
-	{
-		delete s;
-	}
-	testObjects.clear();
 }
 
 void test::Draw(sf::RenderWindow& window)
@@ -110,9 +167,19 @@ void test::Draw(sf::RenderWindow& window)
 	{
 		background->Draw(window);
 	}
-		
-	for (auto sprite : testObjects)
+
+	for (auto* obj : testObjects)
 	{
-		sprite->Draw(window);
+		obj->Draw(window);
 	}
+
+	if (Variables::isDrawHitBox)
+	{
+		for (auto& hit : hitboxes)
+		{
+			window.draw(*hit.shape);
+		}
+	}
+	
+	Scene::Draw(window);
 }
