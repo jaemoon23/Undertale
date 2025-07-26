@@ -20,6 +20,7 @@ void SceneBattle::Init()
 	ANI_CLIP_MGR.Load("animations/frogit_idle.csv");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("graphics/spr_battlebg_0.png");
+	texIds.push_back("graphics/spr_heart_blue.png");
 	texIds.push_back("graphics/spr_barrier.png");
 	texIds.push_back("graphics/spr_heart_green.png");
 	texIds.push_back("graphics/spr_arrow_up.png");
@@ -52,7 +53,18 @@ void SceneBattle::Init()
 	texIds.push_back("graphics/spr_hyperfist_3.png");
 	texIds.push_back("graphics/spr_hyperfist_4.png");
 	texIds.push_back("graphics/spr_hyperfist_5.png");
-
+	soundIds.push_back("sounds/09 Enemy Approaching.flac");
+	soundIds.push_back("sounds/100 MEGALOVANIA.flac");
+	soundIds.push_back("sounds/snd_squeak.wav");
+	soundIds.push_back("sounds/snd_select.wav");
+	soundIds.push_back("sounds/snd_hurt1.wav");
+	soundIds.push_back("sounds/snd_heal_c.wav");
+	soundIds.push_back("sounds/snd_punchweak.wav");
+	soundIds.push_back("sounds/snd_punchstrong.wav");
+	soundIds.push_back("sounds/snd_escaped.wav");
+	soundIds.push_back("sounds/snd_chug.wav");
+	soundIds.push_back("sounds/snd_bell.wav");
+	
 	statusUI = (StatusInBattleUI*)AddGameObject(new StatusInBattleUI());
 	statusUI->SetPosition({ size.x * 0.02f, size.y * 0.8f });
 
@@ -81,7 +93,7 @@ void SceneBattle::Enter()
 	isPlaying = true;
 	mercyPoint = 0;
 	btIndex = 0;
-	PatternIndex = 0;
+	PatternIndex = 0; // 0으로 바꾸기
 	itemChooseIndex = 0;
 	actChooseIndex = 0;
 	mercyChooseIndex = 0;
@@ -115,6 +127,9 @@ void SceneBattle::Enter()
 	monsterHp = monsterMaxHp;
 	actChooseCount = data["ActDescribe"].size();
 	animationId = data["animationId"];
+	bgmId = data["bgmId"];
+	SOUND_MGR.SetBgmVolume(50.f);
+	SOUND_MGR.PlayBgm(bgmId, true);
 	//
 	worldView.setSize(size);
 	worldView.setCenter(size * 0.5f);
@@ -158,6 +173,7 @@ void SceneBattle::Update(float dt)
 			{
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
+					SOUND_MGR.PlaySfx("sounds/snd_select.wav");
 					switch (btIndex)
 					{
 					case 0:
@@ -264,6 +280,7 @@ void SceneBattle::SetPlayerTurn()
 {
 	isMyTurn = true;
 	soul->CanMove = true;
+	soul->isGravity = false;
 	soul->SetTexture("graphics/spr_heart_battle_pl_0.png");
 	soul->SetPosition({ size.x * 0.03f + size.x * 0.26f * btIndex, size.y * 0.93f });
 	btBox->ResetBox();
@@ -294,6 +311,11 @@ void SceneBattle::TryUseItem()
 		statusUI->UpdateHpUI();
 		SetMonsterTurn();
 		itemData[itemChooseIndex].clear();
+		SOUND_MGR.PlaySfx("sounds/snd_heal_c.wav");
+	}
+	else
+	{
+		SOUND_MGR.PlaySfx("sounds/snd_select.wav");
 	}
 }
 
@@ -302,12 +324,20 @@ void SceneBattle::TryMercy()
 	if (mercyChooseIndex == 0 && mercyPoint >= mercyCanPoint)
 	{
 		isPlaying = false;
-		std::cout << "살려주기 실행" << std::endl;
+		monster.setColor(monsterblinkColor);
+		SOUND_MGR.PlaySfx("sounds/snd_chug.wav");
+		SOUND_MGR.StopBgm();
 	}
 	else if (mercyChooseIndex == 1)
-	{
+	{		
 		isPlaying = false;
 		std::cout << "도망가기 실행" << std::endl;
+		SOUND_MGR.PlaySfx("sounds/snd_escaped.wav");
+		SOUND_MGR.StopBgm();
+	}
+	else
+	{
+		SOUND_MGR.PlaySfx("sounds/snd_select.wav");
 	}
 }
 
@@ -345,6 +375,8 @@ void SceneBattle::MonsterDie()
 	monster.setColor(color);
 	std::cout << "몬스터 사망" << std::endl;
 	isPlaying = false;
+	SOUND_MGR.StopBgm();
+	SOUND_MGR.PlaySfx("sounds/snd_chug.wav");
 }
 
 void SceneBattle::PlayerDie()
@@ -354,6 +386,7 @@ void SceneBattle::PlayerDie()
 	btBox->startStr = L"* 패배!";
 	btBox->SetStartDescribe();
 	isPlaying = false;
+	SOUND_MGR.StopBgm();
 }
 
 void SceneBattle::SetBulletPattern()
@@ -428,6 +461,25 @@ void SceneBattle::SetBulletPattern()
 			);
 			b->Reset();
 			b->pattern = BulletPattern::Arrow;
+		}
+	}
+	else if ("Gravity" == data["attackPattern"][PatternIndex]["name"])
+	{
+		soul->isGravity = true;
+		soul->SetTexture("graphics/spr_heart_blue.png");
+		for (int i = 0; i < bulletCount; ++i)
+		{
+			Bullet* b = (Bullet*)AddGameObject(new Bullet());
+			bulletTemp.push_back(b);
+			b->SetBulletState(data["attackPattern"][PatternIndex]["bullets"][i]["texId"],
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["PosX"], data["attackPattern"][PatternIndex]["bullets"][i]["PosY"] },
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["DirX"], data["attackPattern"][PatternIndex]["bullets"][i]["DirY"] },
+				data["attackPattern"][PatternIndex]["bullets"][i]["speed"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["delay"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["damage"]
+			);
+			b->Reset();
+			b->pattern = BulletPattern::Normal;
 		}
 	}
 

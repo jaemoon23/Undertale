@@ -20,6 +20,7 @@ protected:
 
 	sf::Sprite monster;
 	std::string monsterTexId;
+	std::string bgmId;
 
 	BattleDialogueBox* dialBox;
 

@@ -2,7 +2,8 @@
   "name": "프로깃",
   "texId" : "graphics/spr_froggit_2.png",
   "animationId" : "animations/frogit_idle.csv",
-  "hp": 100,
+  "bgmId" : "sounds/09 Enemy Approaching.flac",
+  "hp": 150,
   "lines" : [
     "개굴 ~",
     "멍 때리는 중",

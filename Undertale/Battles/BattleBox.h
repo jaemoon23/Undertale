@@ -42,6 +42,9 @@ protected:
 
 	float minusHpbarSize;
 
+	float punchTimer = 0.f;
+	const float punchPeriod = 0.15f;
+
 public:
 	std::wstring startStr;
 	std::wstring describeStr[4];

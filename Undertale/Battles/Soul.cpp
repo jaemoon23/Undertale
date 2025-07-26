@@ -86,16 +86,18 @@ void Soul::Update(float dt)
 		{
 		case ButtonState::None:
 			if (*btIndex != 0 && InputMgr::GetKeyDown(sf::Keyboard::Left))
-			{
+			{				
 				pos.x -= size.x * 0.26f;
 				SetPosition(pos);
 				(*btIndex)--;
+				SOUND_MGR.PlaySfx("sounds/snd_squeak.wav");
 			}
 			if (*btIndex != 3 && InputMgr::GetKeyDown(sf::Keyboard::Right))
 			{
 				pos.x += size.x * 0.26f;
 				SetPosition(pos);
 				(*btIndex)++;
+				SOUND_MGR.PlaySfx("sounds/snd_squeak.wav");
 			}
 			break;
 		case ButtonState::ChooseFight:
@@ -135,6 +137,7 @@ void Soul::Update(float dt)
 			{
 				scene->btState = ButtonState::Act;
 				scene->SetActDescribe();
+				SOUND_MGR.PlaySfx("sounds/snd_select.wav");
 			}
 			else if (InputMgr::GetKeyDown(sf::Keyboard::X))
 			{
@@ -208,11 +211,39 @@ void Soul::Update(float dt)
 	}
 	else if(CanMove)
 	{
-		pos.x += InputMgr::GetAxis(Axis::Horizontal) * moveSpeed * dt;
-		pos.y += InputMgr::GetAxis(Axis::Vertical) * moveSpeed * dt;
-		pos.x = Utils::Clamp(pos.x, minX, maxX);
-		pos.y = Utils::Clamp(pos.y, minY, maxY);
-		SetPosition(pos);
+		if (isGravity)
+		{
+			if (InputMgr::GetKey(sf::Keyboard::Up))
+			{
+				jumpHoldTime += dt;
+				jumpHoldTime = Utils::Clamp(jumpHoldTime, minJumpHoldTime, maxJumpHoldTime);
+			}
+			if (CanJump && InputMgr::GetKeyUp(sf::Keyboard::Up))
+			{
+				CanJump = false;
+				velocityY = -(jumpHoldTime / maxJumpHoldTime) * maxJumpPower;
+				jumpHoldTime = 0.f;
+			}
+			velocityY += gravity * dt;
+			pos.y += velocityY * dt;
+			pos.x += InputMgr::GetAxis(Axis::Horizontal) * moveSpeed * dt;
+			pos.x = Utils::Clamp(pos.x, minX, maxX);
+			pos.y = Utils::Clamp(pos.y, minY, maxY);
+			if (pos.y == maxY)
+			{
+				CanJump = true;
+				velocityY = 0.f;
+			}
+			SetPosition(pos);
+		}
+		else
+		{
+			pos.x += InputMgr::GetAxis(Axis::Horizontal) * moveSpeed * dt;
+			pos.y += InputMgr::GetAxis(Axis::Vertical) * moveSpeed * dt;
+			pos.x = Utils::Clamp(pos.x, minX, maxX);
+			pos.y = Utils::Clamp(pos.y, minY, maxY);
+			SetPosition(pos);
+		}
 	}
 	else
 	{
@@ -266,6 +297,10 @@ void Soul::TakeDamage(int damage)
 	{
 		hp = 0;
 		scene->PlayerDie();
+	}
+	else
+	{
+		SOUND_MGR.PlaySfx("sounds/snd_hurt1.wav");	
 	}
 }
 

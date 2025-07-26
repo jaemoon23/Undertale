@@ -28,6 +28,7 @@ protected:
 	int damage = 4;
 
 	bool isHoming = false;
+	bool isDraw = false;
 
 public:
 	BulletPattern pattern = BulletPattern::Normal;

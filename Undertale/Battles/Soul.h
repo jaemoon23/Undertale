@@ -39,12 +39,21 @@ protected:
 	float shieldblinkTimer = 0.f;
 	const float shieldblinkTime = 0.1f; 
 
+	float gravity = 600.f;
+	float maxJumpPower = 320.f;
+	float velocityY = 0.f;
+	float jumpHoldTime = 0.f;
+	float minJumpHoldTime = 0.1f;
+	float maxJumpHoldTime = 0.33f;
+
 public:
 	int hp = 20;
 	int maxHp = 20;
 	bool isBlink = false;
 	bool isShieldBlink = false;
 	bool CanMove = true;
+	bool isGravity = false;
+	bool CanJump = false;
 
 	Soul(const std::string& name = "");
 	virtual ~Soul() = default;

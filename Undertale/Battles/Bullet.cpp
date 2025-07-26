@@ -80,6 +80,7 @@ void Bullet::Update(float dt)
 	case BulletPattern::Normal:
 		if (timer >= waitingTime)
 		{
+			isDraw = true;
 			sf::Vector2f position = sprite.getPosition();
 			position += dir * moveSpeed * dt;
 			SetPosition(position);
@@ -96,6 +97,7 @@ void Bullet::Update(float dt)
 		sprite.rotate(rotationSpeed * dt);
 		if (timer >= waitingTime)
 		{
+			isDraw = true;
 			sf::Vector2f position = sprite.getPosition();
 			position += dir * moveSpeed * dt;
 			SetPosition(position);
@@ -124,6 +126,7 @@ void Bullet::Update(float dt)
 		}
 		else if (timer >= waitingTime)
 		{
+			isDraw = true;
 			isHoming = true;
 			sf::Vector2f soulPos = soul->GetPosition();			
 			dir = Utils::GetNormal(soulPos - GetPosition());
@@ -132,6 +135,7 @@ void Bullet::Update(float dt)
 	case BulletPattern::Arrow:
 		if (timer >= waitingTime)
 		{
+			isDraw = true;
 			sf::Vector2f position = sprite.getPosition();
 			position += dir * moveSpeed * dt;
 			SetPosition(position);
@@ -140,6 +144,7 @@ void Bullet::Update(float dt)
 			{
 				soul->SetShieldBlink();
 				SetActive(false);
+				SOUND_MGR.PlaySfx("sounds/snd_bell.wav");
 			}
 			else if (soul->GetGlobalBounds().intersects(sprite.getGlobalBounds()) && !(soul->isBlink))
 			{
@@ -155,6 +160,9 @@ void Bullet::Update(float dt)
 
 void Bullet::Draw(sf::RenderWindow& window)
 {
-	window.draw(sprite);
-	hitBox.Draw(window);
+	if (isDraw)
+	{
+		window.draw(sprite);
+		hitBox.Draw(window);
+	}
 }
