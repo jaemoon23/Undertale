@@ -135,7 +135,13 @@ void Bullet::Update(float dt)
 			sf::Vector2f position = sprite.getPosition();
 			position += dir * moveSpeed * dt;
 			SetPosition(position);
-			if (soul->GetGlobalBounds().intersects(sprite.getGlobalBounds()) && !(soul->isBlink))
+
+			if (soul->GetShieldGlobalBounds().intersects(sprite.getGlobalBounds()))
+			{
+				soul->SetShieldBlink();
+				SetActive(false);
+			}
+			else if (soul->GetGlobalBounds().intersects(sprite.getGlobalBounds()) && !(soul->isBlink))
 			{
 				soul->isBlink = true;
 				soul->TakeDamage(damage);

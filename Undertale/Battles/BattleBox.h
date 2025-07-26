@@ -80,6 +80,7 @@ public:
 	{
 		box.setSize({ size.x * 0.95f, size.y * 0.25f }); 
 		SetOrigin(Origins::MC);
+		SetPosition({ size.x * 0.51f, size.y * 0.67f });
 	}
 };
 

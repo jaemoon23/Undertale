@@ -59,6 +59,8 @@ void Soul::Reset()
 	originColor.a = 255;
 	blinkColor = sprite.getColor();
 	blinkColor.a = 100;
+	shield.setColor(sf::Color::Blue);
+	shieldOriginColor = shield.getColor();
 
 	scene = (SceneBattle*)SCENE_MGR.GetCurrentScene();
 	btIndex = &(scene->btIndex);
@@ -214,6 +216,9 @@ void Soul::Update(float dt)
 	}
 	else
 	{
+		if (isShieldBlink)
+			ShieldBlinkUpdate(dt);
+
 		if (InputMgr::GetKeyDown(sf::Keyboard::Left))
 		{
 			shield.setRotation(-90.f);
@@ -283,5 +288,16 @@ void Soul::BlinkUpdate(float dt)
 		else
 			sprite.setColor(originColor);
 		blinkPeriodTimer = 0.f;
+	}
+}
+
+void Soul::ShieldBlinkUpdate(float dt)
+{
+	shieldblinkTimer += dt;
+	if (shieldblinkTimer >= shieldblinkTime)
+	{
+		shieldblinkTimer = 0.f;
+		isShieldBlink = false;
+		shield.setColor(shieldOriginColor);
 	}
 }

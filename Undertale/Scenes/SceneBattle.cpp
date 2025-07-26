@@ -81,7 +81,7 @@ void SceneBattle::Enter()
 	isPlaying = true;
 	mercyPoint = 0;
 	btIndex = 0;
-	PatternIndex = 4;
+	PatternIndex = 0;
 	itemChooseIndex = 0;
 	actChooseIndex = 0;
 	mercyChooseIndex = 0;
