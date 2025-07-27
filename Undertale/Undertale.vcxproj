@@ -155,6 +155,7 @@
     <ClCompile Include="Maptools\InputText.cpp" />
     <ClCompile Include="playerRelated\InventoryUi.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scenes\SceneIntro.cpp" />
     <ClCompile Include="Scenes\MapTool.cpp" />
     <ClCompile Include="playerRelated\Player.cpp" />
     <ClCompile Include="playerRelated\PlayerInfoUi.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="Framework\Variables.h" />
     <ClInclude Include="Maptools\InputText.h" />
     <ClInclude Include="json.hpp" />
+    <ClInclude Include="Scenes\SceneIntro.h" />
     <ClInclude Include="Scenes\MapTool.h" />
     <ClInclude Include="playerRelated\InventoryUi.h" />
     <ClInclude Include="playerRelated\Player.h" />

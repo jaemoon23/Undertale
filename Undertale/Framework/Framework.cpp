@@ -5,7 +5,7 @@
 void Framework::Init(int width, int height, std::string name)
 {
     window.create(sf::VideoMode(width, height), name);
-	// window.create(sf::VideoMode(w, h), t);
+	 //window.create(sf::VideoMode(w, h), t);
 
     fontIds.push_back("fonts/DungGeunMo.ttf");
 

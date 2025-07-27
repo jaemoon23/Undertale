@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "SceneMgr.h"
 #include "SceneDev1.h"
+#include "SceneIntro.h"
 #include "MapTool.h"
 #include "test.h"
 //#include "SceneDev2.h"
@@ -10,7 +11,7 @@
 
 void SceneMgr::Init()
 {
-	
+	scenes.insert({ SceneIds::Intro, new SceneIntro() });
 	scenes.insert({ SceneIds::Test ,new SceneTest() });
 	scenes.insert({ SceneIds::Dev1 ,new SceneDev1() });
 	scenes.insert({ SceneIds::test ,new test() });
