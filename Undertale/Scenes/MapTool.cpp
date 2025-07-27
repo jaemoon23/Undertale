@@ -12,6 +12,7 @@ MapTool::MapTool() : Scene(SceneIds::MapTool), grid(sf::Lines), gridOffset(0.f, 
 
 void MapTool::Init()
 {
+	fontIds.push_back("fonts/DungGeunMo.ttf");
 	for (int i = 0; i < objectTexturePaths.size(); ++i)
 	{
 		texIds.push_back(objectTexturePaths[i]);
@@ -33,6 +34,11 @@ void MapTool::Init()
 	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton2"))));
 
 	hitBox = (Button*)AddGameObject(new Button("HitBox"));
+
+	hitBoxText = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
+	saveBoxText = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
+	backText = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
+	objectText = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
 	Scene::Init();
 }
 
@@ -49,7 +55,7 @@ void MapTool::Enter()
 	for (int y = 0; y <= gridHeight; y += cellSize)
 	{
 		grid.append(sf::Vertex(sf::Vector2f(gridOffset.x, gridOffset.y + y), sf::Color::Red));
-		grid.append(sf::Vertex(sf::Vector2f(gridOffset.x + gridWidth, gridOffset.y + y), sf::Color::Red)); 
+		grid.append(sf::Vertex(sf::Vector2f(gridOffset.x + gridWidth, gridOffset.y + y), sf::Color::Red));
 	}
 	for (int x = 0; x <= gridWidth; x += cellSize)
 	{
@@ -66,8 +72,8 @@ void MapTool::Enter()
 	   "graphics/bg_firstroom.png",
 	   "graphics/bg_innrooms_0.png"
 	};
-	
-	const int maxColumns = 5; 
+
+	const int maxColumns = 5;
 	for (int y = 0; y < 5; ++y)
 	{
 		for (int x = 0; x < maxColumns; ++x)
@@ -83,7 +89,7 @@ void MapTool::Enter()
 			btn->SetColor(sf::Color::Transparent, sf::Color::Green);
 			btn->SetPosition({ 1020.f + (x * 125), 700.f + (y * 125.f) });
 			btn->SetOrigin({ btn->GetLocalBounds().width * 0.5f, btn->GetLocalBounds().height * 0.5f });
-		
+
 			btn->setCallback([&, index]() {
 				std::cout << "버튼 " << index + 1 << " 누름" << std::endl;
 				// 마우스 따라다니는 스프라이트 생성
@@ -109,8 +115,8 @@ void MapTool::Enter()
 				break;
 			}
 			auto btn = backgroundButtons[index];
-			
-			btn->SetSize({ 300.f, 300.f });
+
+			btn->SetSize({ 300.f, 200.f });
 			btn->SetColor(sf::Color::Transparent, sf::Color::Red);
 			btn->SetPosition({ 1020.f + (x * 325), 170.f + (y * 125.f) });
 			btn->SetOrigin({ btn->GetLocalBounds().width * 0.5f, btn->GetLocalBounds().height * 0.5f });
@@ -141,8 +147,8 @@ void MapTool::Enter()
 				currentBackground->SetTextureId(backgroundTexturePaths[index]);
 				currentBackground->SetScale({ 1.f, 1.f });
 
-				sf::FloatRect bounds = currentBackground->GetLocalBounds();     
-				currentBackground->SetOrigin({ bounds.width * 0.5f, bounds.height * 0.5f});
+				sf::FloatRect bounds = currentBackground->GetLocalBounds();
+				currentBackground->SetOrigin({ bounds.width * 0.5f, bounds.height * 0.5f });
 
 				currentBackground->SetPosition({ 320.f , 240.f });
 				currentBackground->sortingLayer = SortingLayers::Background;
@@ -150,16 +156,17 @@ void MapTool::Enter()
 
 				std::cout << "포지션: " << currentBackground->GetPosition().x << ", " << currentBackground->GetPosition().y << std::endl;
 				std::cout << "바운드: " << bounds.width << ", " << bounds.height << std::endl;
-			});
+				});
 		}
 	}
 
 	for (int i = 0; i < objectTexturePaths.size(); ++i)
 	{
 		objectSprites[i]->SetTextureId(objectTexturePaths[i]);
-		objectSprites[i]->SetPosition({ objectButtons[i]->GetPosition().x,objectButtons[i]->GetPosition().y });
+		objectSprites[i]->SetOrigin(Origins::MC);
+		objectSprites[i]->SetPosition({ objectButtons[i]->GetPosition().x + 50.f,objectButtons[i]->GetPosition().y + 40.f });
 	}
-	
+
 
 	for (int i = 0; i < backgroundTexturePaths.size(); ++i)
 	{
@@ -167,27 +174,47 @@ void MapTool::Enter()
 		backgroundSprites[i]->sortingOrder = 0;
 		backgroundSprites[i]->SetScale({ 0.5f,0.4f });
 		backgroundSprites[i]->SetOrigin({ backgroundSprites[i]->GetLocalBounds().width * 0.5f, backgroundSprites[i]->GetLocalBounds().height });
-		backgroundSprites[i]->SetPosition({ backgroundButtons[i]->GetPosition().x, backgroundButtons[i]->GetPosition().y });
+		backgroundSprites[i]->SetPosition({ backgroundButtons[i]->GetPosition().x + 150.f, backgroundButtons[i]->GetPosition().y + 150.f });
 	}
 
-	hitBox->SetSize({ 100.f, 100.f });
-	hitBox->SetPosition({ 0.f,0.f });
+	hitBox->SetSize({ 150.f, 50.f });
+	hitBox->SetColor(sf::Color::Transparent, sf::Color::Blue);
+	hitBox->SetPosition({ 20.f,500.f });
 	hitBox->setCallback([&]() {
 		dragMode = true;
 		std::cout << "드래그 모드 ON" << std::endl;
-	});
+		});
+	hitBoxText->SetString("HitBox");
+	hitBoxText->SetCharacterSize(50.f);
+	hitBoxText->SetFillColor(sf::Color::Blue);
+	hitBoxText->SetPosition({ hitBox->GetPosition().x, hitBox->GetPosition().y - 10.f});
+	
 
 	saveButton = (Button*)AddGameObject(new Button("SaveButton"));
-	saveButton->SetSize({ 200.f, 80.f });
-	saveButton->SetPosition({ 1700.f, 950.f });
-	saveButton->SetColor(sf::Color::White, sf::Color::Blue);
-	saveButton->SetOrigin(Origins::MC);
-
-	// 콜백 연결
+	saveButton->SetSize({ 150.f, 50.f });
+	saveButton->SetColor(sf::Color::Transparent, sf::Color::Blue);
+	saveButton->SetPosition({ 200.f,500.f });
 	saveButton->setCallback([&]() {
-		jsonInput(); // 저장 함수 실행
+		jsonInput(); 
 		std::cout << "저장 완료!" << std::endl;
 		});
+	saveBoxText->SetString("save");
+	saveBoxText->SetCharacterSize(50.f);
+	saveBoxText->SetFillColor(sf::Color::Blue);
+	saveBoxText->SetPosition({ saveButton->GetPosition().x + 25.f, saveButton->GetPosition().y - 10.f });
+
+	backText->SetString("BackGround");
+	backText->SetCharacterSize(50.f);
+	backText->SetFillColor(sf::Color::White);
+	backText->SetPosition({ 1200.f, 100.f});
+
+	objectText->SetString("Object");
+	objectText->SetCharacterSize(50.f);
+	objectText->SetFillColor(sf::Color::White);
+	objectText->SetPosition({ 1200.f, 600.f});
+
+	
+
 }
 
 void MapTool::Exit()

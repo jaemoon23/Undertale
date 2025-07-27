@@ -76,6 +76,7 @@ public:
 	static bool PolygonsIntersect(const std::vector<sf::Vector2f>& polygonA, const sf::Transform& transformA,
 		const std::vector<sf::Vector2f>& polygonB, const sf::Transform& transformB);
 
+	
 };
 
 

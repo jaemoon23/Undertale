@@ -86,6 +86,11 @@ protected:
     std::vector<HitBoxInfo> hitBoxes;
     sf::Vector2f dragStartPos;
 
+    TextGo* hitBoxText;
+    TextGo* saveBoxText;
+    TextGo* backText;
+    TextGo* objectText;
+
     bool isDragging = false;
     bool dragMode = false;
 public:
