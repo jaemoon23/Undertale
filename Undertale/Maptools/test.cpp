@@ -3,6 +3,7 @@
 #include <fstream>
 #include "json.hpp"
 #include "Player.h"
+#include "SceneBattle.h"
 
 test::test() : Scene(SceneIds::test)
 {
@@ -149,7 +150,9 @@ void test::Update(float dt)
 					if (Utils::RandomRange(0.f, 1.f) < 0.1f)
 					{
 						std::cout << "랜덤 전투 발생!" << std::endl;
-						SCENE_MGR.ChangeScene(SceneIds::Dev1);
+						SceneBattle::monsterJsonID = "jsons/frog.json";
+						//SceneBattle::monsterJsonID = "jsons/sans.json";
+						SCENE_MGR.ChangeScene(SceneIds::Battle);
 					}
 					else
 					{
