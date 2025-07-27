@@ -5,7 +5,7 @@
 #include "UiChanger.h"
 #include "InventoryUi.h"
 #include "PlayerInfoUi.h"
-	
+
 
 
 Player::Player(const std::string& name)
@@ -105,19 +105,14 @@ void Player::Update(float dt)
 
 		if (distance <= interactDistance)
 		{
-			if (!dialoguebox->GetActive())
+			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 			{
-				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
-				{
-					SansInteract();
-				}
+				SansInteract();
+				std::cout << "z" << std::endl;
 			}
-			else
+			if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
 			{
-				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
-				{
-					dialoguebox->NextLine();
-				}
+				dialoguebox->NextLine();
 			}
 		}
 		if (InputMgr::GetKeyDown(sf::Keyboard::X))
