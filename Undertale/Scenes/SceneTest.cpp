@@ -7,6 +7,7 @@
 #include "DialogueBox.h"
 #include "UiChanger.h"
 #include "PlayerInfoUi.h"
+#include "HealItem.h"
 
 SceneTest::SceneTest()
 	:Scene(SceneIds::Test)
@@ -49,16 +50,20 @@ void SceneTest::Init()
 	dialoguebox = new DialogueBox("dialoguebox");
 	uichanger = new UiChanger("uichanger");
 	playerinfoui = new PlayerInfoUi("playerinfoui");
+	healitem = new HealItem("potion", 5);
 
 	player->SetSans(sans);
 	player->SetBox(dialoguebox);
 	player->SetUiChanger(uichanger);
 	player->SetInventoryUi(inventoryui);
 	player->SetPlayerInfoUi(playerinfoui);
+	player->SetHealItem(healitem);
 	dialoguebox->SetPlayer(player);
 	uichanger->SetPlayer(player);
 	uichanger->SetInventoryUi(inventoryui);
 	uichanger->SetPlayerInfoUi(playerinfoui);
+	
+	inventoryui->SetHealItem(healitem);
 	
 	AddGameObject(testbackground);
 	AddGameObject(player);
@@ -67,6 +72,7 @@ void SceneTest::Init()
 	AddGameObject(dialoguebox);
 	AddGameObject(uichanger);
 	AddGameObject(playerinfoui);
+	AddGameObject(healitem);
 
 	Scene::Init();
 }

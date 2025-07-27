@@ -41,6 +41,7 @@
     <ClCompile Include="WrappedText.cpp" />
     <ClCompile Include="Scenes\SceneIntro.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
+    <ClCompile Include="playerRelated\HealItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AniPlayer.cpp">

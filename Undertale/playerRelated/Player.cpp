@@ -5,6 +5,7 @@
 #include "UiChanger.h"
 #include "InventoryUi.h"
 #include "PlayerInfoUi.h"
+#include "HealItem.h"
 
 Player::Player(const std::string& name)
 	: GameObject(name)
@@ -212,12 +213,39 @@ void Player::SetName(const std::wstring& n)
 void Player::SansInteract()
 {
 	std::vector<std::wstring> testDialogues =
-	{ L"* �ȳ�", L"* ȸ�� ������ �ٰ� " };
+	{ L"* hi", L"* potion" };
 	dialoguebox->StartDialogue(testDialogues);
-
+	GetHealItem("Potion");
 }
 
-const sf::RectangleShape& Player::GetHitBox() const 
+void Player::Heal(int amount, int maxHp)
+{
+	int newHp = hp + amount;
+	if (newHp > maxHp)
+	{
+		newHp = maxHp;
+	}
+	if (playerInfoUi)
+	{
+		playerInfoUi->SetPlayerHp(std::to_wstring(hp));
+	}
+}
+
+void Player::GetHealItem(const std::string& healitemName)
+{
+	healItem = new HealItem(healitemName, 5); 
+	if (inventoryui)
+	{
+		inventoryui->SetHealItem(healItem);
+	}
+}
+
+void Player::UseHealItem(HealItem* item)
+{
+	Heal(item->GetHealAmount(), maxHp);
+}
+
+const sf::RectangleShape& Player::GetHitBox() const
 {
 	return hitBox.rect;
 }
