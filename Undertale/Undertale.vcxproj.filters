@@ -40,6 +40,7 @@
     <ClCompile Include="playerRelated\UiChanger.cpp" />
     <ClCompile Include="WrappedText.cpp" />
     <ClCompile Include="Scenes\SceneIntro.cpp" />
+    <ClCompile Include="SceneTitle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AniPlayer.cpp">
@@ -158,5 +159,6 @@
     <ClInclude Include="playerRelated\UiChanger.h" />
     <ClInclude Include="WrappedText.h" />
     <ClInclude Include="Scenes\SceneIntro.h" />
+    <ClInclude Include="SceneTitle.h" />
   </ItemGroup>
 </Project>

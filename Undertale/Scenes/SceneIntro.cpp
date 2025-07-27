@@ -64,6 +64,10 @@ void SceneIntro::Enter()
 	isFadeOut = false;
 	lastIntro = false;
 	isDrawBlack = false;
+	timer = 0.f;
+	fadeTimer = 0.f;
+	waitingTimer = 0.f;
+	lastIntroTimer = 0.f;
 }
 
 void SceneIntro::Exit()
@@ -74,6 +78,11 @@ void SceneIntro::Exit()
 void SceneIntro::Update(float dt)
 {
 	Scene::Update(dt);
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::Title);
+	}
 
 	if (lastIntro)
 	{
@@ -132,7 +141,7 @@ void SceneIntro::Update(float dt)
 			}
 			else if (introIndex == INTRO_IMAGE_COUNT)
 			{
-				SCENE_MGR.ChangeScene(SceneIds::Intro);
+				SCENE_MGR.ChangeScene(SceneIds::Title);
 			}
 		}
 	}

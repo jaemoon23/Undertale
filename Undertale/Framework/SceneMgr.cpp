@@ -7,7 +7,7 @@
 //#include "SceneDev2.h"
 #include "SceneBattle.h"
 #include "SceneTest.h"
-
+#include "SceneTitle.h"
 
 void SceneMgr::Init()
 {
@@ -16,9 +16,7 @@ void SceneMgr::Init()
 	scenes.insert({ SceneIds::Dev1 ,new SceneDev1() });
 	scenes.insert({ SceneIds::test ,new test() });
 	scenes.insert({ SceneIds::MapTool ,new MapTool() });
-	//scenes.insert({ SceneIds::Title ,new SceneDev2() });
-	
-
+	scenes.insert({ SceneIds::Title ,new SceneTitle() });
 	scenes.insert({ SceneIds::Battle ,new SceneBattle() });
 	
 	for (auto scene : scenes)

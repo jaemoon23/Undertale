@@ -5,7 +5,7 @@
 #include "BattleBox.h"
 #include "Bullet.h"
 
-std::string SceneBattle::monsterJsonID = "jsons/sans.json";
+std::string SceneBattle::monsterJsonID = "jsons/frog.json";
 
 SceneBattle::SceneBattle()
 	: Scene(SceneIds::Battle)
@@ -63,6 +63,7 @@ void SceneBattle::Init()
 	soundIds.push_back("sounds/snd_escaped.wav");
 	soundIds.push_back("sounds/snd_chug.wav");
 	soundIds.push_back("sounds/snd_bell.wav");
+	soundIds.push_back("sounds/snd_vaporized.wav");
 	
 	statusUI = (StatusInBattleUI*)AddGameObject(new StatusInBattleUI());
 	statusUI->SetPosition({ size.x * 0.02f, size.y * 0.8f });
@@ -386,7 +387,7 @@ void SceneBattle::MonsterDie()
 	monsterShakeTimer = 0.f;
 	monster.setPosition(monsterOriginalPos);
 	SOUND_MGR.StopBgm();
-	SOUND_MGR.PlaySfx("sounds/snd_chug.wav");
+	SOUND_MGR.PlaySfx("sounds/snd_vaporized.wav");
 }
 
 void SceneBattle::PlayerDie()
