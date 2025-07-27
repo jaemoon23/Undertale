@@ -1,10 +1,11 @@
 #pragma once
 #include "Scene.h"
 #include "SpriteGo.h"
+
 struct HitBoxInfos
 {
     sf::RectangleShape* shape;
-    std::string type; 
+    std::string type;
 };
 
 class Player;

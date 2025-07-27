@@ -145,7 +145,7 @@ void test::Update(float dt)
 					std::cout << "배틀 확률 체크" << std::endl;
 					battleCheckTimer = 0.f;
 
-					// 1% 확률
+					// 10% 확률
 					if (Utils::RandomRange(0.f, 1.f) < 0.1f)
 					{
 						std::cout << "랜덤 전투 발생!" << std::endl;
