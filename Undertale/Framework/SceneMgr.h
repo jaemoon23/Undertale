@@ -9,7 +9,7 @@ protected:
 
 	std::unordered_map<SceneIds, Scene*> scenes;
 
-	SceneIds startScene = SceneIds::Intro;
+	SceneIds startScene = SceneIds::Test;
 	SceneIds currentScene = SceneIds::None;
 	SceneIds nextScene = SceneIds::None;
 

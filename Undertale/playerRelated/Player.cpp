@@ -6,8 +6,6 @@
 #include "InventoryUi.h"
 #include "PlayerInfoUi.h"
 
-
-
 Player::Player(const std::string& name)
 	: GameObject(name)
 {
@@ -93,10 +91,10 @@ void Player::Update(float dt)
 	{
 		animator.Stop();
 	}*/
-	direction.x = InputMgr::GetAxis(Axis::Horizontal);
-	direction.y = InputMgr::GetAxis(Axis::Vertical);
-	SetPosition(GetPosition() + direction * speed * dt);
-	hitBox.UpdateTransform(body, body.getLocalBounds());
+		direction.x = InputMgr::GetAxis(Axis::Horizontal);
+		direction.y = InputMgr::GetAxis(Axis::Vertical);
+		SetPosition(GetPosition() + direction * speed * dt);
+		hitBox.UpdateTransform(body, body.getLocalBounds());
 
 	if (sans)
 	{

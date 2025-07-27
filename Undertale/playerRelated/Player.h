@@ -10,8 +10,6 @@ class UiChanger;
 class InventoryUi;
 class PlayerInfoUi;
 
-
-
 class Player : public GameObject
 {
 protected:
