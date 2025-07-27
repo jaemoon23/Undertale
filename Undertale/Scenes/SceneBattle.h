@@ -19,7 +19,9 @@ protected:
 	Soul* soul;
 
 	sf::Sprite monster;
+	sf::Vector2f monsterOriginalPos;
 	std::string monsterTexId;
+	std::string bgmId;
 
 	BattleDialogueBox* dialBox;
 
@@ -33,6 +35,7 @@ protected:
 	BattleButton* mercyButton;
 
 	Animator animator;
+	std::string animationId;
 
 	sf::Vector2f size = { 640.f,480.f };
 
@@ -60,7 +63,11 @@ protected:
 	const float monsterblinkPeriod = 0.15f;
 	const float monsterblinkTime = 0.7f; 
 
+	float monsterShakeTimer = 0.f;
+	float monsterShakeInterval = 0.05f;
+
 public:
+	bool isMonsterShaking = false;
 	bool isMonsterBlink = false;
 	bool isMyTurn = true;
 	ButtonState btState = ButtonState::None;
@@ -75,10 +82,9 @@ public:
 	int monsterHp = 100;
 	int monsterMaxHp = 100;
 
+	int playerATK = 50;
 	int mercyPoint = 0;
 	const int mercyCanPoint = 100;
-
-	int playerATK = 55;
 
 	static std::string monsterJsonID;
 
@@ -106,4 +112,8 @@ public:
 	void MonsterDie();
 
 	void PlayerDie();
+
+	void SetBulletPattern();
+
+	void MonsterShakeUpdate(float dt);
 };

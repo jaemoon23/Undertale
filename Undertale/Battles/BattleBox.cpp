@@ -116,7 +116,7 @@ void BattleBox::Update(float dt)
 			fightLine.setPosition(pos);
 		}
 
-		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+		if (!fightBtPress && !isHpAni && InputMgr::GetKeyDown(sf::Keyboard::Z))
 		{
 			isDrawHpBar = true;
 			animator.Play("animations/fist.csv");
@@ -129,13 +129,22 @@ void BattleBox::Update(float dt)
 		if (fightBtPress)
 		{
 			timer += dt;
+			punchTimer += dt;
+			if (punchTimer >= punchPeriod)
+			{
+				punchTimer = 0.f;
+				SOUND_MGR.PlaySfx("sounds/snd_punchweak.wav");
+			}
+
 			if (timer >= fightAniTime)
 			{
 				timer = 0.f;
 				isHpAni = true;
 				fightBtPress = false;
+				scene->isMonsterShaking = true;
 				isAttacking = false;
 				minusHpbarSize = maxHpBar.getSize().x * (((float)scene->playerATK) / *monsterMaxHp);
+				SOUND_MGR.PlaySfx("sounds/snd_punchstrong.wav");
 			}
 		}
 

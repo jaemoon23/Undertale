@@ -22,6 +22,7 @@ enum class SceneIds
 {
 	None = -1,
 	Test,
+	Intro,
 	Title,
 	test,
 	MapTool,
@@ -50,4 +51,12 @@ enum class ButtonState
 	ChooseAct,
 	ChooseItem,
 	ChooseMercy
+};
+
+enum class BulletPattern
+{
+	Normal,
+	Rotate,
+	Homing,
+	Arrow
 };

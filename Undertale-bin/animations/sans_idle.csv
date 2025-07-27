@@ -1,0 +1,11 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)		",,
+sans_idle,1,1,,
+"				",,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
+graphics/spr_sans_idle.png,0,0,98,112
+graphics/spr_sans_idle.png,98,0,98,112
+graphics/spr_sans_idle.png,196,0,98,112
+graphics/spr_sans_idle.png,294,0,98,112
+graphics/spr_sans_idle.png,392,0,98,112
+graphics/spr_sans_idle.png,490,0,98,112
+graphics/spr_sans_idle.png,588,0,98,112

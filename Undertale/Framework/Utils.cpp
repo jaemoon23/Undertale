@@ -90,6 +90,11 @@ sf::Vector2f Utils::SetOrigin(sf::Text& obj, Origins preset)
     return SetOrigin(obj, preset, obj.getLocalBounds());
 }
 
+sf::Vector2f Utils::SetOrigin(WrappedText& obj, Origins preset)
+{
+    return SetOrigin(obj, preset, obj.getLocalBounds());
+}
+
 sf::Vector2f Utils::SetOrigin(sf::Sprite& obj, Origins preset)
 {
     return SetOrigin(obj, preset, obj.getLocalBounds());

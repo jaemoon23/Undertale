@@ -42,6 +42,9 @@ protected:
 
 	float minusHpbarSize;
 
+	float punchTimer = 0.f;
+	const float punchPeriod = 0.15f;
+
 public:
 	std::wstring startStr;
 	std::wstring describeStr[4];
@@ -75,5 +78,12 @@ public:
 	void UpdateBox();
 
 	void Draw(sf::RenderWindow& window) override;
+
+	void ResetBox()
+	{
+		box.setSize({ size.x * 0.95f, size.y * 0.25f }); 
+		SetOrigin(Origins::MC);
+		SetPosition({ size.x * 0.51f, size.y * 0.67f });
+	}
 };
 

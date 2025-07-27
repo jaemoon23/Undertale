@@ -8,6 +8,7 @@ class Soul : public GameObject
 {
 protected:
 	sf::Sprite sprite;
+	sf::Sprite shield;
 	HitBox hitBox;
 
 	float moveSpeed = 125.f;
@@ -28,16 +29,31 @@ protected:
 
 	sf::Color originColor;
 	sf::Color blinkColor;
+	sf::Color shieldOriginColor;
 
 	float blinkTimer = 0.f;
 	float blinkPeriodTimer = 0.f;
 	const float blinkPeriod = 0.15f;
-	const float blinkTime = 1.f; // 1초로 바꾸기
+	const float blinkTime = 1.f;
+
+	float shieldblinkTimer = 0.f;
+	const float shieldblinkTime = 0.1f; 
+
+	float gravity = 600.f;
+	float maxJumpPower = 320.f;
+	float velocityY = 0.f;
+	float jumpHoldTime = 0.f;
+	float minJumpHoldTime = 0.1f;
+	float maxJumpHoldTime = 0.33f;
 
 public:
 	int hp = 20;
 	int maxHp = 20;
 	bool isBlink = false;
+	bool isShieldBlink = false;
+	bool CanMove = true;
+	bool isGravity = false;
+	bool CanJump = false;
 
 	Soul(const std::string& name = "");
 	virtual ~Soul() = default;
@@ -48,7 +64,15 @@ public:
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
 
+	void SetTexture(std::string texId) { sprite.setTexture(TEXTURE_MGR.Get(texId)); }
+	void SetShieldBlink()
+	{ 
+		shield.setColor(sf::Color::Red);
+		isShieldBlink = true;
+	}
+
 	sf::FloatRect GetGlobalBounds() const override { return sprite.getGlobalBounds(); }
+	sf::FloatRect GetShieldGlobalBounds() { return shield.getGlobalBounds(); }
 
 	void Init() override;
 	void Release() override;
@@ -61,5 +85,6 @@ public:
 	void TakeDamage(int damage);
 
 	void BlinkUpdate(float dt);
+	void ShieldBlinkUpdate(float dt);
 };
 

@@ -42,7 +42,6 @@ void Soul::SetOrigin(Origins preset)
 
 void Soul::Init()
 {
-	SetOrigin(Origins::MC);
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = 1;
 	SetPosition({ size.x * 0.03f, size.y * 0.93f });
@@ -60,6 +59,8 @@ void Soul::Reset()
 	originColor.a = 255;
 	blinkColor = sprite.getColor();
 	blinkColor.a = 100;
+	shield.setColor(sf::Color::Blue);
+	shieldOriginColor = shield.getColor();
 
 	scene = (SceneBattle*)SCENE_MGR.GetCurrentScene();
 	btIndex = &(scene->btIndex);
@@ -69,6 +70,9 @@ void Soul::Reset()
 	itemChooseCount = &(scene->itemChooseCount);
 	mercyChooseIndex = &(scene->mercyChooseIndex);
 	sprite.setTexture(TEXTURE_MGR.Get("graphics/spr_heart_battle_pl_0.png"));
+	shield.setTexture(TEXTURE_MGR.Get("graphics/spr_barrier.png"));
+	shield.setOrigin({ 24.f,32.f });
+	shield.setPosition({ size.x * 0.505f,size.y * 0.655f });
 }
 
 void Soul::Update(float dt)
@@ -82,16 +86,18 @@ void Soul::Update(float dt)
 		{
 		case ButtonState::None:
 			if (*btIndex != 0 && InputMgr::GetKeyDown(sf::Keyboard::Left))
-			{
+			{				
 				pos.x -= size.x * 0.26f;
 				SetPosition(pos);
 				(*btIndex)--;
+				SOUND_MGR.PlaySfx("sounds/snd_squeak.wav");
 			}
 			if (*btIndex != 3 && InputMgr::GetKeyDown(sf::Keyboard::Right))
 			{
 				pos.x += size.x * 0.26f;
 				SetPosition(pos);
 				(*btIndex)++;
+				SOUND_MGR.PlaySfx("sounds/snd_squeak.wav");
 			}
 			break;
 		case ButtonState::ChooseFight:
@@ -131,6 +137,7 @@ void Soul::Update(float dt)
 			{
 				scene->btState = ButtonState::Act;
 				scene->SetActDescribe();
+				SOUND_MGR.PlaySfx("sounds/snd_select.wav");
 			}
 			else if (InputMgr::GetKeyDown(sf::Keyboard::X))
 			{
@@ -202,13 +209,63 @@ void Soul::Update(float dt)
 			break;
 		}
 	}
+	else if(CanMove)
+	{
+		if (isGravity)
+		{
+			if (InputMgr::GetKey(sf::Keyboard::Up))
+			{
+				jumpHoldTime += dt;
+				jumpHoldTime = Utils::Clamp(jumpHoldTime, minJumpHoldTime, maxJumpHoldTime);
+			}
+			if (CanJump && InputMgr::GetKeyUp(sf::Keyboard::Up))
+			{
+				CanJump = false;
+				velocityY = -(jumpHoldTime / maxJumpHoldTime) * maxJumpPower;
+				jumpHoldTime = 0.f;
+			}
+			velocityY += gravity * dt;
+			pos.y += velocityY * dt;
+			pos.x += InputMgr::GetAxis(Axis::Horizontal) * moveSpeed * dt;
+			pos.x = Utils::Clamp(pos.x, minX, maxX);
+			pos.y = Utils::Clamp(pos.y, minY, maxY);
+			if (pos.y == maxY)
+			{
+				CanJump = true;
+				velocityY = 0.f;
+			}
+			SetPosition(pos);
+		}
+		else
+		{
+			pos.x += InputMgr::GetAxis(Axis::Horizontal) * moveSpeed * dt;
+			pos.y += InputMgr::GetAxis(Axis::Vertical) * moveSpeed * dt;
+			pos.x = Utils::Clamp(pos.x, minX, maxX);
+			pos.y = Utils::Clamp(pos.y, minY, maxY);
+			SetPosition(pos);
+		}
+	}
 	else
 	{
-		pos.x += InputMgr::GetAxis(Axis::Horizontal) * moveSpeed * dt;
-		pos.y += InputMgr::GetAxis(Axis::Vertical) * moveSpeed * dt;
-		pos.x = Utils::Clamp(pos.x, minX, maxX);
-		pos.y = Utils::Clamp(pos.y, minY, maxY);
-		SetPosition(pos);
+		if (isShieldBlink)
+			ShieldBlinkUpdate(dt);
+
+		if (InputMgr::GetKeyDown(sf::Keyboard::Left))
+		{
+			shield.setRotation(-90.f);
+		}
+		if (InputMgr::GetKeyDown(sf::Keyboard::Right))
+		{
+			shield.setRotation(90.f);
+		}
+		if (InputMgr::GetKeyDown(sf::Keyboard::Up))
+		{
+			shield.setRotation(0.f);
+		}
+		if (InputMgr::GetKeyDown(sf::Keyboard::Down))
+		{
+			shield.setRotation(180.f);
+		}
 	}
 
 	if(isBlink)
@@ -219,6 +276,8 @@ void Soul::Draw(sf::RenderWindow& window)
 {
 	if(scene->btState != ButtonState::Fight && scene->btState != ButtonState::Act)
 		window.draw(sprite);
+	if (!CanMove)
+		window.draw(shield);
 	hitBox.Draw(window);
 }
 
@@ -238,6 +297,10 @@ void Soul::TakeDamage(int damage)
 	{
 		hp = 0;
 		scene->PlayerDie();
+	}
+	else
+	{
+		SOUND_MGR.PlaySfx("sounds/snd_hurt1.wav");	
 	}
 }
 
@@ -260,5 +323,16 @@ void Soul::BlinkUpdate(float dt)
 		else
 			sprite.setColor(originColor);
 		blinkPeriodTimer = 0.f;
+	}
+}
+
+void Soul::ShieldBlinkUpdate(float dt)
+{
+	shieldblinkTimer += dt;
+	if (shieldblinkTimer >= shieldblinkTime)
+	{
+		shieldblinkTimer = 0.f;
+		isShieldBlink = false;
+		shield.setColor(shieldOriginColor);
 	}
 }

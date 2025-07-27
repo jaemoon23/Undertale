@@ -155,6 +155,7 @@
     <ClCompile Include="Maptools\InputText.cpp" />
     <ClCompile Include="playerRelated\InventoryUi.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scenes\SceneIntro.cpp" />
     <ClCompile Include="Scenes\MapTool.cpp" />
     <ClCompile Include="playerRelated\Player.cpp" />
     <ClCompile Include="playerRelated\PlayerInfoUi.cpp" />
@@ -166,12 +167,14 @@
     <ClCompile Include="Scenes\SceneDev1.cpp" />
     <ClCompile Include="Battles\Soul.cpp" />
     <ClCompile Include="Battles\StatusInBattleUI.cpp" />
+    <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Maptools\test.cpp" />
     <ClCompile Include="playerRelated\TestBackGround.cpp" />
     <ClCompile Include="playerRelated\UiChanger.cpp" />
+    <ClCompile Include="WrappedText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AniPlayer.h" />
@@ -201,6 +204,7 @@
     <ClInclude Include="Framework\Variables.h" />
     <ClInclude Include="Maptools\InputText.h" />
     <ClInclude Include="json.hpp" />
+    <ClInclude Include="Scenes\SceneIntro.h" />
     <ClInclude Include="playerRelated\HealItem.h" />
     <ClInclude Include="Scenes\MapTool.h" />
     <ClInclude Include="playerRelated\InventoryUi.h" />
@@ -214,10 +218,12 @@
     <ClInclude Include="Scenes\SceneDev1.h" />
     <ClInclude Include="Battles\Soul.h" />
     <ClInclude Include="Battles\StatusInBattleUI.h" />
+    <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Maptools\test.h" />
     <ClInclude Include="playerRelated\TestBackGround.h" />
     <ClInclude Include="playerRelated\UiChanger.h" />
+    <ClInclude Include="WrappedText.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
