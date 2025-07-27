@@ -6,6 +6,7 @@
 #include "Bullet.h"
 
 std::string SceneBattle::monsterJsonID = "jsons/frog.json";
+SceneIds SceneBattle::nextSceneId = SceneIds::test;
 
 SceneBattle::SceneBattle()
 	: Scene(SceneIds::Battle)
@@ -251,7 +252,7 @@ void SceneBattle::Update(float dt)
 		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 		{
 			std::cout << "¾ÀÅ»Ãâ" << std::endl;
-			SCENE_MGR.ChangeScene(SceneIds::Battle);
+			SCENE_MGR.ChangeScene(nextSceneId);
 		}
 	}
 
@@ -333,7 +334,7 @@ void SceneBattle::TryMercy()
 	{
 		isPlaying = false;
 		monster.setColor(monsterblinkColor);
-		SOUND_MGR.PlaySfx("sounds/snd_chug.wav");
+		SOUND_MGR.PlaySfx("sounds/snd_vaporized.wav");
 		SOUND_MGR.StopBgm();
 	}
 	else if (mercyChooseIndex == 1)

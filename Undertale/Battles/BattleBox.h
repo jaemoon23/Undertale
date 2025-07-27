@@ -14,6 +14,8 @@ protected:
 	sf::Sprite fightSprite;
 	sf::RectangleShape fightLine;
 
+	sf::Text damageText;
+
 	sf::Text startDescribe;
 
 	sf::Text describe1;
@@ -34,13 +36,14 @@ protected:
 
 	float timer = 0.f;
 	const float fightAniTime = 0.6f;
-	const float hpAniTime = 0.6f;
+	const float hpAniTime = 1.0f;
 
 	bool isAttacking = false;
 	bool playerCheck = false;
 	bool isHpAni = false;
 
 	float minusHpbarSize;
+	float realDamage = 0.f;
 
 	float punchTimer = 0.f;
 	const float punchPeriod = 0.15f;

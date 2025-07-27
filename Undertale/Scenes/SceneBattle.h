@@ -87,6 +87,7 @@ public:
 	const int mercyCanPoint = 100;
 
 	static std::string monsterJsonID;
+	static SceneIds nextSceneId;
 
 	SceneBattle();
 	~SceneBattle() override = default;

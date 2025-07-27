@@ -78,6 +78,12 @@ void BattleBox::Init()
 	hpBar.setFillColor(sf::Color::Green);
 	hpBar.setSize({ size.x * 0.3f, size.y * 0.05f });
 	hpBar.setPosition({ size.x * 0.3f, size.y * 0.2f });
+
+	damageText.setCharacterSize(40.f);
+	damageText.setFillColor(sf::Color::Black);
+	damageText.setOutlineColor(sf::Color::Red);
+	damageText.setOutlineThickness(3.f);
+	damageText.setPosition({ size.x * 0.42f, size.y * 0.1f });
 }
 
 void BattleBox::Release()
@@ -103,6 +109,7 @@ void BattleBox::Reset()
 	describe2.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	describe3.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	describe4.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
+	damageText.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 }
 
 void BattleBox::Update(float dt)
@@ -114,16 +121,30 @@ void BattleBox::Update(float dt)
 			sf::Vector2f pos = fightLine.getPosition();
 			pos.x += fightLineSpeed * dt;
 			fightLine.setPosition(pos);
+			if (pos.x >= 620.f)
+			{
+				timer = 0.f;
+				isHpAni = false;
+				isDrawHpBar = false;
+				scene->SetMonsterTurn();
+			}
 		}
 
 		if (!fightBtPress && !isHpAni && InputMgr::GetKeyDown(sf::Keyboard::Z))
 		{
 			isDrawHpBar = true;
 			animator.Play("animations/fist.csv");
-			*monsterHp -= scene->playerATK;
 			fightBtPress = true;
 			isAttacking = true;
 			scene->isMonsterBlink = true;
+
+			float maxdistance = box.getGlobalBounds().width * 0.5f;
+			float distance = std::abs(fightLine.getPosition().x - (box.getGlobalBounds().left + maxdistance));
+			float ratio = Utils::Clamp01(1.f - (distance / maxdistance));
+			realDamage = scene->playerATK * ratio;
+			*monsterHp -= realDamage;
+			damageText.setString(std::to_string((int)realDamage));
+			damageText.setPosition({ size.x * 0.42f, size.y * 0.1f });
 		}
 
 		if (fightBtPress)
@@ -143,7 +164,7 @@ void BattleBox::Update(float dt)
 				fightBtPress = false;
 				scene->isMonsterShaking = true;
 				isAttacking = false;
-				minusHpbarSize = maxHpBar.getSize().x * (((float)scene->playerATK) / *monsterMaxHp);
+				minusHpbarSize = maxHpBar.getSize().x * (realDamage / *monsterMaxHp);
 				SOUND_MGR.PlaySfx("sounds/snd_punchstrong.wav");
 			}
 		}
@@ -173,6 +194,10 @@ void BattleBox::Update(float dt)
 				isDrawHpBar = false;
 				scene->SetMonsterTurn();
 			}
+
+			sf::Vector2f textPos = damageText.getPosition();
+			textPos.y += (timer < hpAniTime * 0.5f) ? (-20.f * dt) : (20.f * dt);
+			damageText.setPosition(textPos);
 		}
 	}
 	else if (scene->btState == ButtonState::Act)
@@ -288,5 +313,10 @@ void BattleBox::Draw(sf::RenderWindow& window)
 	{
 		window.draw(maxHpBar);
 		window.draw(hpBar);
+	}
+
+	if (isHpAni)
+	{
+		window.draw(damageText);
 	}
 }
