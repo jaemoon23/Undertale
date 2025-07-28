@@ -40,7 +40,6 @@ void test::Enter()
 	auto size = FRAMEWORK.GetWindowSizeF();
 	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
 	worldView.setSize(size * 0.5f);
-	worldView.setCenter(center);
 
 	std::ifstream in("map0.json");
 	if (!in)
