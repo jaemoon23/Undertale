@@ -8,7 +8,6 @@ struct HitBoxInfos
     std::string type;
 };
 
-
 class Player;
 class Sans;
 class InventoryUi;
@@ -39,7 +38,6 @@ protected:
     InventoryUi* inventoryui;
     DialogueBox* dialoguebox;
     PlayerInfoUi* playerinfoui;
-    HealItem* healitem;
 public:
     test();
     ~test() override = default;

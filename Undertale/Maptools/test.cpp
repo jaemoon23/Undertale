@@ -18,7 +18,7 @@ test::test() : Scene(SceneIds::test)
 }
 void test::Init()
 {
-	
+
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("Sprites/downwalking.png");
 	texIds.push_back("Sprites/upwalking.png");
@@ -31,6 +31,7 @@ void test::Init()
 	texIds.push_back("graphics/bg_firstroom.png");
 	texIds.push_back("graphics/spr_cutetable_0.png");
 	texIds.push_back("Sprites/spr_sans_sleep_0.png");
+	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
@@ -45,7 +46,6 @@ void test::Init()
 	dialoguebox = new DialogueBox("dialoguebox");
 	uichanger = new UiChanger("uichanger");
 	playerinfoui = new PlayerInfoUi("playerinfoui");
-	healitem = new HealItem("potion", 5);
 
 	background = (SpriteGo*)AddGameObject(new SpriteGo());
 	background->sortingLayer = SortingLayers::Background;
@@ -54,21 +54,21 @@ void test::Init()
 	player->SetUiChanger(uichanger);
 	player->SetInventoryUi(inventoryui);
 	player->SetPlayerInfoUi(playerinfoui);
-	player->SetHealItem(healitem);
 	dialoguebox->SetPlayer(player);
 	uichanger->SetPlayer(player);
 	uichanger->SetInventoryUi(inventoryui);
 	uichanger->SetPlayerInfoUi(playerinfoui);
 	player->SetSans(sans);
-
-	inventoryui->SetHealItem(healitem);
-
+	
 	AddGameObject(inventoryui);
 	AddGameObject(dialoguebox);
 	AddGameObject(uichanger);
 	AddGameObject(playerinfoui);
-	AddGameObject(healitem);
 	Scene::Init();
+
+	InventoryUi::healItem1.SetInfo(L"아이스크림", 15);
+	//InventoryUi::healItem1.GetName();
+	InventoryUi::healItem2.SetInfo(L"쿠키", 10);
 }
 
 void test::Enter()
@@ -228,8 +228,8 @@ void test::Update(float dt)
 	player->Update(dt);
 	playerinfoui->Update(dt);
 	inventoryui->Update(dt);
-	
 	uichanger->Update(dt);
+
 
 }
 

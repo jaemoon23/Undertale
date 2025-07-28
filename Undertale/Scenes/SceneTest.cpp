@@ -103,7 +103,6 @@ void SceneTest::Update(float dt)
 	uichanger->Update(dt);
 	playerinfoui->Update(dt);
 
-
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num3))
 	{
 		SCENE_MGR.ChangeScene(SceneIds::Test);

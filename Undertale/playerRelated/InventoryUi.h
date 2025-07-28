@@ -1,12 +1,22 @@
 #pragma once
 #include "GameObject.h"
 
+enum class SelectedItem
+{
+	healItem1,
+	healItem2,
+	healItem3,
+	healItem4,
+};
+
 class Player;
 class HealItem;
 class InventoryUi : public GameObject
 {
 protected:
+	int selectIndex = 0;
 	bool isActive = true;
+
 	sf::Sprite inventory;
 	sf::Font fonts;
 	std::string fonttexIds = "fonts/DungGeunMo.ttf";
@@ -19,12 +29,23 @@ protected:
 	sf::Text boxtext;
 	sf::Text text;
 
-	sf::Text itemText;
+	sf::Text itemText1;
+	sf::Text itemText2;
+	sf::Text itemText3;
+	sf::Text itemText4;
+
+	sf::Sprite selectSprite;
+	std::string selecttexIds = "Sprites/spr_heart_battle_pl_0.png";
 
 	Player* player;
-	HealItem* healItem;
+	//HealItem* healItem;
 	
 public:
+	static HealItem healItem1;
+	static HealItem healItem2;
+	static HealItem healItem3;
+	static HealItem healItem4;
+
 	InventoryUi(const std::string& name = "");
 	virtual ~InventoryUi() = default;
 
@@ -34,7 +55,7 @@ public:
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
 	
-	void SetHealItem(HealItem* item) { healItem = item; }
+	//void SetHealItem1(HealItem* item) { healItem1 = item; }
 
 	void Init() override;
 	void Release() override;

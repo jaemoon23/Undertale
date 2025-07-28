@@ -4,7 +4,6 @@
 class Player;
 class Sans;
 class TestBackGround;
-class NameUi;
 class InventoryUi;
 class DialogueBox;
 class UiChanger;
@@ -18,7 +17,6 @@ protected:
 	Player* player;
 	Sans* sans;
 	TestBackGround* testbackground;
-	NameUi* nameui;
 	InventoryUi* inventoryui;
 	DialogueBox* dialoguebox;
 	UiChanger* uichanger;

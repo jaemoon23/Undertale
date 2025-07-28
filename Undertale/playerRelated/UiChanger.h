@@ -6,6 +6,7 @@ enum class SelectedText
 	Inventory,
 	Stat
 };
+
 class Player;
 class InventoryUi;
 class PlayerInfoUi;

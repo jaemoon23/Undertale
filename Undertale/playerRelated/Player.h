@@ -43,7 +43,6 @@ protected:
 	PlayerInfoUi* playerInfoUi;
 	HealItem* healItem;
 
-
 public:
 	Player(const std::string& name = "");
 	virtual ~Player() = default;
@@ -77,10 +76,8 @@ public:
 	void SetPlayerInfoUi(PlayerInfoUi* infoUi) { playerInfoUi = infoUi; }
 
 	void SetHealItem(HealItem* item) { healItem = item; }
-
 	void UseHealItem(HealItem* item);
 	void Heal(int amount, int maxHp);
-	void GetHealItem(const std::string& healitemName);
 
 	const sf::RectangleShape& GetHitBox() const;
 	sf::Vector2f getPos() { return prevPosition; }

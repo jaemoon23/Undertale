@@ -5,14 +5,21 @@
 class HealItem : public GameObject 
 {
 private:
-    std::string name = "POTION";
+    std::wstring name;
     int healAmount;
 
 public:
+    HealItem();
     HealItem(const std::string& name, int healAmount);
     ~HealItem() override = default; 
 
-    std::string GetName() const { return name; }
+    void SetInfo(std::wstring str, int amount) {
+        name = str;
+        healAmount = amount;
+    }
+
+    void SetName(std::wstring str) { name = str; }
+    std::wstring GetName() const { return name; }
     int GetHealAmount() const { return healAmount; }
 
 	void Init() override;

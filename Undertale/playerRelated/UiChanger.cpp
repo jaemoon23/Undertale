@@ -102,6 +102,7 @@ void UiChanger::Update(float dt)
 	{
 		selectIndex = 0;
 	}
+
 	if (selectIndex == 0)
 	{
 		invenText.setFillColor(sf::Color::White);

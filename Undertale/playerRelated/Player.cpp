@@ -47,7 +47,6 @@ void Player::SetOrigin(Origins preset)
 
 void Player::Init()
 {
-
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = 1;
 	animator.SetTarget(&body);
@@ -103,7 +102,6 @@ void Player::Update(float dt)
 			dialoguebox->SetActive(false);
 			inventoryui->SetActive(false);
 			playerInfoUi->SetActive(false);
-			//uichanger->SetActive(false);
 		}
 	}
 
@@ -200,7 +198,6 @@ void Player::SansInteract()
 	std::vector<std::wstring> testDialogues =
 	{ L"* hi", L"* potion" };
 	dialoguebox->StartDialogue(testDialogues);
-	GetHealItem("Potion");
 }
 
 void Player::Heal(int amount, int maxHp)
@@ -213,15 +210,6 @@ void Player::Heal(int amount, int maxHp)
 	if (playerInfoUi)
 	{
 		playerInfoUi->SetPlayerHp(std::to_wstring(hp));
-	}
-}
-
-void Player::GetHealItem(const std::string& healitemName)
-{
-	healItem = new HealItem(healitemName, 5);
-	if (inventoryui)
-	{
-		inventoryui->SetHealItem(healItem);
 	}
 }
 
