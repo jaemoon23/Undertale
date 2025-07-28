@@ -18,6 +18,7 @@ protected:
 	sf::Sprite background;
 	sf::Sprite gameOver;
 	sf::Color gameOverColor;
+	sf::Text gameOverText;
 	Soul* soul;
 
 	sf::Sprite monster;
@@ -77,6 +78,8 @@ protected:
 	float fadeIntervalTimer = 0.f;
 	float fadeInterval = 0.2f;
 	bool isFadeIn = false;
+	bool isDrawGameOverText = false;
+	bool isBreak = false;
 
 public:
 	bool isMonsterShaking = false;

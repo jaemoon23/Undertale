@@ -55,8 +55,9 @@ void SceneBattle::Init()
 	texIds.push_back("graphics/spr_hyperfist_2.png");
 	texIds.push_back("graphics/spr_hyperfist_3.png");
 	texIds.push_back("graphics/spr_hyperfist_4.png");
-	texIds.push_back("graphics/spr_hyperfist_5.png");
+	texIds.push_back("graphics/spr_hyperfist_5.png"); 
 	soundIds.push_back("sounds/09 Enemy Approaching.flac");
+	soundIds.push_back("sounds/11 Determination.flac");
 	soundIds.push_back("sounds/100 MEGALOVANIA.flac");
 	soundIds.push_back("sounds/snd_squeak.wav");
 	soundIds.push_back("sounds/snd_select.wav");
@@ -68,6 +69,7 @@ void SceneBattle::Init()
 	soundIds.push_back("sounds/snd_chug.wav");
 	soundIds.push_back("sounds/snd_bell.wav");
 	soundIds.push_back("sounds/snd_vaporized.wav");
+	soundIds.push_back("sounds/snd_break1_c.wav");
 	
 	statusUI = (StatusInBattleUI*)AddGameObject(new StatusInBattleUI());
 	statusUI->SetPosition({ size.x * 0.02f, size.y * 0.8f });
@@ -98,6 +100,8 @@ void SceneBattle::Enter()
 	isGameOver = false;
 	isMonsterShaking = false;
 	isFadeIn = false;
+	isDrawGameOverText = false;
+	isBreak = false;
 	mercyPoint = 0;
 	btIndex = 0;
 	PatternIndex = 0; // 0으로 바꾸기
@@ -154,6 +158,11 @@ void SceneBattle::Enter()
 	gameOverColor.a = 0;
 	gameOver.setColor(gameOverColor);
 
+	gameOverText.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
+	gameOverText.setCharacterSize(30.f);
+	gameOverText.setPosition({ size.x * 0.25f, size.y * 0.55f });
+	gameOverText.setString(L"지금 끝낼 수는 없어!");
+
 	monster.setTexture(TEXTURE_MGR.Get(monsterTexId));
 	animator.SetTarget(&monster);
 	Utils::SetOrigin(monster, Origins::TC);
@@ -165,7 +174,7 @@ void SceneBattle::Enter()
 	monsterblinkColor = monster.getColor();
 	monsterblinkColor.a = 100;
 	monster.setColor(monsteroriginColor);
-	soul->hp = 4; // 지우기
+	statusUI->UpdateHpUI();
 }
 
 void SceneBattle::Exit()
@@ -268,7 +277,13 @@ void SceneBattle::Update(float dt)
 		if (heartbreakTimer >= heartbreakTime)
 		{
 			isFadeIn = true;
-			soul->SetTexture("graphics/spr_heartbreak_0.png");			
+			if (!isBreak)
+			{
+				isBreak = true;
+				soul->SetTexture("graphics/spr_heartbreak_0.png");
+				SOUND_MGR.PlaySfx("sounds/snd_break1_c.wav");
+				SOUND_MGR.PlayBgm("sounds/11 Determination.flac");
+			}
 		}
 
 		if (isFadeIn)
@@ -287,10 +302,11 @@ void SceneBattle::Update(float dt)
 
 			if (fadeTimer >= fadeTime || gameOverColor.a == 255.f)
 			{
+				isDrawGameOverText = true;
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
 					isFadeIn = false;
-					SCENE_MGR.ChangeScene(SceneIds::Battle);
+					SCENE_MGR.ChangeScene(SceneIds::test);
 				}
 				fadeIntervalTimer = 0.f;
 			}
@@ -320,6 +336,8 @@ void SceneBattle::Draw(sf::RenderWindow& window)
 	{
 		soul->Draw(window);
 		window.draw(gameOver);
+		if (isDrawGameOverText)
+			window.draw(gameOverText);
 	}
 }
 
