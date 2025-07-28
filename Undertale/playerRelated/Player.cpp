@@ -111,10 +111,14 @@ void Player::Update(float dt)
 	if (uichanger && uichanger->GetActive()) return; // UI 변경 중에는 플레이어 이동 불가
 	if (dialoguebox && dialoguebox->GetActive()) return; // 대화 중에는 플레이어 이동 불가
 
-	direction.x = InputMgr::GetAxis(Axis::Horizontal);
-	direction.y = InputMgr::GetAxis(Axis::Vertical);
-	SetPosition(GetPosition() + direction * speed * dt);
-	hitBox.UpdateTransform(body, body.getLocalBounds());
+	if (move)
+	{
+		direction.x = InputMgr::GetAxis(Axis::Horizontal);
+		direction.y = InputMgr::GetAxis(Axis::Vertical);
+		SetPosition(GetPosition() + direction * speed * dt);
+		hitBox.UpdateTransform(body, body.getLocalBounds());
+	}
+	
 
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Right))

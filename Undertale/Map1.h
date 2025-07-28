@@ -21,6 +21,18 @@ protected:
 	Player* player;
 	std::vector<SpriteGo*> testObjects;
 	std::vector<HitBoxInfo2> hitboxes;
+
+	sf::RectangleShape wall;
+	sf::Vector2f direction;
+	float eventMoveRemaining = 0.f;
+	float eventMoveSpeed = 200.f; // 초당 이동 속도
+	float moveStep;
+
+	bool wallHitBox = true;
+	bool event = false;
+	bool moveEvent = false;
+	bool puzzleSuccess = false;
+
 public:
 	Map1();
 	~Map1() override = default;
@@ -30,6 +42,8 @@ public:
 	void Enter() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	
 
 };
 

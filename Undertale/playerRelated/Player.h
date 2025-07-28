@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Animator.h"
 #include "HitBox.h"
+#include "Map1.h"
 
 class HpUi;
 class Sans;
@@ -43,7 +44,7 @@ protected:
 	PlayerInfoUi* playerInfoUi;
 	HealItem* healItem;
 
-
+	bool move = true;
 public:
 	Player(const std::string& name = "");
 	virtual ~Player() = default;
@@ -84,5 +85,8 @@ public:
 
 	const sf::RectangleShape& GetHitBox() const;
 	sf::Vector2f getPos() { return prevPosition; }
+
+
+	void SetMove(bool a) { move = a; }
 };
 

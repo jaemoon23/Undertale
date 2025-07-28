@@ -29,6 +29,13 @@ void Map1::Init()
 
 void Map1::Enter()
 {
+	direction = { 0.f,1.f };
+	wall.setSize({ 10.f,70.f });
+	wall.setFillColor(sf::Color::Transparent);
+	wall.setOutlineColor(sf::Color::Green);
+	wall.setOutlineThickness(1.f);
+	wall.setPosition({ 640.f, -10.f });
+
 	std::ifstream in("map1.json");
 	if (!in)
 	{
@@ -147,11 +154,15 @@ void Map1::Update(float dt)
 {
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
+	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
+	{
+		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
+	}
 	for (auto& hit : hitboxes)
 	{
 		if (Utils::CheckCollision(player->GetHitBox(), *hit.shape))
 		{
-			if (hit.type == "Wall")
+			if (hit.type == "Wall" && wallHitBox)
 			{
 				player->SetPosition(player->getPos());
 			}
@@ -167,29 +178,28 @@ void Map1::Update(float dt)
 					std::cout << "배틀 확률 체크" << std::endl;
 					battleCheckTimer = 0.f;
 
-					// 10% 확률
-					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
-					{
-						std::cout << "랜덤 전투 발생!" << std::endl;
-						SceneBattle::nextSceneId = SceneIds::test;
-						SceneBattle::monsterJsonID = "jsons/frog.json";
-						//SceneBattle::monsterJsonID = "jsons/sans.json";
-						SCENE_MGR.ChangeScene(SceneIds::Battle);
-					}
-					else
-					{
-						std::cout << "배틀 아님" << std::endl;
-					}
+					// 1% 확률
+					//if (Utils::RandomRange(0.f, 1.f) < 0.01f)
+					//{
+					//	std::cout << "랜덤 전투 발생!" << std::endl;
+					//	SceneBattle::nextSceneId = SceneIds::test;
+					//	SceneBattle::monsterJsonID = "jsons/frog.json";
+					//	//SceneBattle::monsterJsonID = "jsons/sans.json";
+					//	SCENE_MGR.ChangeScene(SceneIds::Battle);
+					//}
+					//else
+					//{
+					//	std::cout << "배틀 아님" << std::endl;
+					//}
 				}
-			}
-			else if (hit.type == "Event")
-			{
-				std::cout << "Event" << std::endl;
-				
 			}
 			else if (hit.type == "Switch")
 			{
 				std::cout << "Switch" << std::endl;
+				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+				{
+					puzzleSuccess = true;
+				}
 			}
 			else if (hit.type == "NextScene")
 			{
@@ -205,6 +215,54 @@ void Map1::Update(float dt)
 			{
 				std::cout << "Signs" << std::endl;
 			}
+			else if (hit.type == "Door")
+			{
+				std::cout << "Door" << std::endl;
+				player->SetPosition({ -2.0f, -50.f });
+			}
+			if (!moveEvent)
+			{
+				if (hit.type == "Event")
+				{
+					std::cout << "Event" << std::endl;
+					eventMoveRemaining = 420.f;
+					event = true;
+					moveEvent = true;
+					player->SetMove(false);
+				}
+			}
+		}
+	}
+	if (event)
+	{
+		wallHitBox = false;
+		direction.y = 1.f;
+
+		float moveStep = eventMoveSpeed * dt;
+
+		if (eventMoveRemaining <= 0.f)
+		{
+			std::cout << "Event 이동 완료" << std::endl;
+			wallHitBox = true;
+			event = false;
+			moveEvent = false;
+			player->SetMove(true);
+		}
+		else
+		{
+			// 이동할 거리 vs 남은 거리 중 더 작은 값만큼 이동
+			float actualStep = std::min(moveStep, eventMoveRemaining);
+			player->SetPosition(player->GetPosition() + direction * actualStep);
+			eventMoveRemaining -= actualStep;
+
+			std::cout << "남은 거리: " << eventMoveRemaining << ", 이번 이동: " << actualStep << std::endl;
+		}
+	}
+	if (!puzzleSuccess)
+	{
+		if (Utils::CheckCollision(player->GetHitBox(), wall))
+		{
+			player->SetPosition(player->getPos());
 		}
 	}
 	Scene::Update(dt);
@@ -221,5 +279,6 @@ void Map1::Draw(sf::RenderWindow& window)
 		{
 			window.draw(*hit.shape); // worldView 기준으로 그려짐
 		}
+		window.draw(wall);
 	}
 }
