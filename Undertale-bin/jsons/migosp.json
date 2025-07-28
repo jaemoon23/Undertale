@@ -3,7 +3,7 @@
   "texId" : "graphics/spr_migosp_0.png",
   "animationId" : "animations/migosp_idle.csv",
   "bgmId" : "sounds/09 Enemy Approaching.flac",
-  "hp": 100,
+  "hp": 90,
   "exp": 20,
   "gold" : 4,
   "lines" : [

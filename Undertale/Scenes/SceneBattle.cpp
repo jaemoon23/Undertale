@@ -5,7 +5,7 @@
 #include "BattleBox.h"
 #include "Bullet.h"
 
-std::string SceneBattle::monsterJsonID = "jsons/migosp.json";
+std::string SceneBattle::monsterJsonID = "jsons/aaron.json";
 SceneIds SceneBattle::nextSceneId = SceneIds::test;
 
 SceneBattle::SceneBattle()
@@ -21,8 +21,17 @@ void SceneBattle::Init()
 	ANI_CLIP_MGR.Load("animations/frogit_idle.csv");
 	ANI_CLIP_MGR.Load("animations/whimsun_idle.csv");
 	ANI_CLIP_MGR.Load("animations/migosp_idle.csv");
+	ANI_CLIP_MGR.Load("animations/icecap_idle.csv");
+	ANI_CLIP_MGR.Load("animations/aaron_idle.csv");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("graphics/spr_battlebg_0.png");
+	texIds.push_back("graphics/spr_heavybullet.png");
+	texIds.push_back("graphics/spr_aaron_0.png");
+	texIds.push_back("graphics/spr_aaron_1.png");
+	texIds.push_back("graphics/spr_icecap_0.png");
+	texIds.push_back("graphics/spr_icecap_1.png");
+	texIds.push_back("graphics/spr_icecap_2.png");
+	texIds.push_back("graphics/spr_icecap_3.png");
 	texIds.push_back("graphics/spr_clawbullet_1.png");
 	texIds.push_back("graphics/spr_migosp_0.png");
 	texIds.push_back("graphics/spr_migosp_1.png");
@@ -173,9 +182,9 @@ void SceneBattle::Enter()
 
 	monster.setTexture(TEXTURE_MGR.Get(monsterTexId));
 	animator.SetTarget(&monster);
-	Utils::SetOrigin(monster, Origins::TC);
+	Utils::SetOrigin(monster, Origins::MC);
 	animator.Play(animationId);
-	monster.setPosition({ size.x * 0.45f, size.y * 0.27f });
+	monster.setPosition({ size.x * 0.45f, size.y * 0.35f });
 	monsterOriginalPos = monster.getPosition();
 	monsteroriginColor = monster.getColor();
 	monsteroriginColor.a = 255;

@@ -1,0 +1,113 @@
+{  
+  "name": "아이스캡",
+  "texId" : "graphics/spr_icecap_0.png",
+  "animationId" : "animations/icecap_idle.csv",
+  "bgmId" : "sounds/09 Enemy Approaching.flac",
+  "hp": 180,
+  "exp": 100,
+  "gold" : 17,
+  "lines" : [
+    "네 모자는 어딨어",
+    "저기? 내 모자 여기 있어.",
+    "참 멋진 모자야!(내꺼)",
+    "네 머리 참..."
+  ],
+  "lineExistTime" : 2.5,
+  "FightDescribe" : "* 아이스캡",
+  "ActDescribe" : [
+    {
+      "act" : "* 살펴보기", 
+      "describes" : [
+        {
+          "describe" : "* 아이스캡 - ATK 6 DEF 0"
+        },
+        {
+          "describe" : "* 모자를 자랑스러워 한다."
+        }
+      ],
+      "mercyPoint" : 0
+    },
+    {
+      "act" : "* 칭찬하기", 
+      "describes" : [
+        {
+          "describe" : "* 당신은 모자를 칭찬했다!"
+        },
+        {
+          "describe" : "* 효과가 굉장했다."
+        }
+      ],
+      "mercyPoint" : 100
+    },
+    {
+      "act" : "* 뺏기", 
+      "describes" : [
+        {
+          "describe" : "* 당신은 모자를 빼앗았다!"
+        },
+        {
+          "describe" : "* 이 나쁜! 도둑놈!!"
+        }
+      ],
+      "mercyPoint" : -200
+    }    
+  ],
+  "attackPattern" : [
+    {
+      "name" : "Arrow",
+      "duration" : 5.0,
+      "bullets" : [
+        {
+          "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : 16.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 400.0, "delay" : 0.0, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_left.png", "PosX" : 621.0, "PosY" : 316.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 400.0, "delay" : 0.3, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_up.png", "PosX" : 321.0, "PosY" : 616.0, "DirX" : 0.0, "DirY" : -1.0,
+          "speed" : 400.0, "delay" : 0.6, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_right.png", "PosX" : 21.0, "PosY" : 316.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 400.0, "delay" : 0.9, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_up.png", "PosX" : 321.0, "PosY" : 616.0, "DirX" : 0.0, "DirY" : -1.0,
+          "speed" : 400.0, "delay" : 1.2, "damage" : 6
+        },  
+        {
+          "texId" : "graphics/spr_arrow_left.png", "PosX" : 621.0, "PosY" : 316.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 400.0, "delay" : 1.5, "damage" : 6
+        }, 
+        {
+          "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : 16.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 400.0, "delay" : 1.8, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_right.png", "PosX" : 21.0, "PosY" : 316.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 400.0, "delay" : 2.1, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_left.png", "PosX" : 621.0, "PosY" : 316.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 400.0, "delay" : 2.4, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : 16.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 600.0, "delay" : 3.0, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : 16.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 600.0, "delay" : 3.1, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : 16.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 600.0, "delay" : 3.2, "damage" : 6
+        }
+      ]
+    }
+  ],
+
+  "startDescribe": "* 아이스캡이 나타났다!"    
+}

@@ -1,0 +1,136 @@
+{  
+  "name": "아론",
+  "texId" : "graphics/spr_aaron_0.png",
+  "animationId" : "animations/aaron_idle.csv",
+  "bgmId" : "sounds/09 Enemy Approaching.flac",
+  "hp": 120,
+  "exp": 100,
+  "gold" : 20,
+  "lines" : [
+    "귀여운데, 응?",
+    "와! 씩씩해! 맘에 들어",
+    "들어와, 물 좋아",
+    "수영복은 필요 없지"
+  ],
+  "lineExistTime" : 2.5,
+  "FightDescribe" : "* 아론",
+  "ActDescribe" : [
+    {
+      "act" : "* 살펴보기", 
+      "describes" : [
+        {
+          "describe" : "* 아론 - ATK 8 DEF 0"
+        },
+        {
+          "describe" : "* 근육을 자랑스러워하는 해마."
+        }
+      ],
+      "mercyPoint" : 0
+    },
+    {
+      "act" : "* 유혹하기", 
+      "describes" : [
+        {
+          "describe" : "* 당신은 구애의 댄스를 쳤다."
+        },
+        {
+          "describe" : "* 아론은 넋이 나갔다."
+        }
+      ],
+      "mercyPoint" : 100
+    },
+    {
+      "act" : "* 겁주기", 
+      "describes" : [
+        {
+          "describe" : "* 당신은 뒤에 유령이 있다고 말했다."
+        },
+        {
+          "describe" : "* 아론은 겁에 질렸다."
+        }
+      ],
+      "mercyPoint" : -50
+    }    
+  ],
+  "attackPattern" : [
+    {
+      "name" : "Gravity",
+      "duration" : 7.0,
+      "bullets" : [
+        {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 200.0, "PosY" : 240.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 150.0, "delay" : 1.0, "damage" : 8
+        },
+        {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 270.0, "PosY" : 240.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 150.0, "delay" : 1.0, "damage" : 8
+        },
+        {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 340.0, "PosY" : 240.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 150.0, "delay" : 1.0, "damage" : 8
+        },
+        {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 410.0, "PosY" : 240.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 150.0, "delay" : 1.0, "damage" : 8
+        },
+        {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 236.0, "PosY" : 240.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 150.0, "delay" : 2.0, "damage" : 8
+        },
+        {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 306.0, "PosY" : 240.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 150.0, "delay" : 2.0, "damage" : 8
+        },
+        {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 376.0, "PosY" : 240.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 150.0, "delay" : 2.0, "damage" : 8
+        },
+        {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 446.0, "PosY" : 240.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 150.0, "delay" : 2.0, "damage" : 8
+        }, {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 200.0, "PosY" : 240.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 150.0, "delay" : 3.0, "damage" : 8
+        },
+        {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 270.0, "PosY" : 240.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 150.0, "delay" : 3.0, "damage" : 8
+        },
+        {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 340.0, "PosY" : 240.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 150.0, "delay" : 3.0, "damage" : 8
+        },
+        {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 410.0, "PosY" : 240.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 150.0, "delay" : 3.0, "damage" : 8
+        },
+        {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 236.0, "PosY" : 240.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 150.0, "delay" : 4.0, "damage" : 8
+        },
+        {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 306.0, "PosY" : 240.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 150.0, "delay" : 4.0, "damage" : 8
+        },
+        {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 376.0, "PosY" : 240.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 150.0, "delay" : 4.0, "damage" : 8
+        },
+        {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 446.0, "PosY" : 240.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 150.0, "delay" : 4.0, "damage" : 8
+        },
+        {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 150.0, "PosY" : 360.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 150.0, "delay" : 5.0, "damage" : 8
+        },
+        {
+          "texId" : "graphics/spr_heavybullet.png", "PosX" : 490.0, "PosY" : 360.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 150.0, "delay" : 5.0, "damage" : 8
+        }
+      ]
+    }
+  ],
+
+  "startDescribe": "* 아론이 길을 막아섰다!"    
+}

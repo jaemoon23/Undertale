@@ -1,0 +1,6 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)		",,
+aaron_idle,1,1,,
+"				",,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
+graphics/spr_aaron_0.png,0,0,57,99
+graphics/spr_aaron_1.png,0,0,57,99

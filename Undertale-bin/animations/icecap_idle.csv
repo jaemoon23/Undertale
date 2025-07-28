@@ -1,0 +1,8 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)		",,
+icecap_idle,2,1,,
+"				",,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
+graphics/spr_icecap_0.png,0,0,106,171
+graphics/spr_icecap_1.png,0,0,106,169
+graphics/spr_icecap_2.png,0,0,106,171
+graphics/spr_icecap_3.png,0,0,106,169
