@@ -99,3 +99,12 @@ void PlayerInfo::PlusExp(int e)
 	maxHp = 16 + 4 * lv;
 	hp += (lv - pastLv) * 4;
 }
+
+void PlayerInfo::Heal(int h)
+{
+	hp += h;
+	if (hp > maxHp)
+	{
+		hp = maxHp;
+	}
+}

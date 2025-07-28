@@ -1,0 +1,79 @@
+{  
+  "name": "papyrus",
+  "texId" : "graphics/spr_papyrusboss_0.png",
+  "animationId" : "animations/papyrus_idle.csv",
+  "bgmId" : "sounds/16 Nyeh Heh Heh!.flac",
+  "hp": 140,
+  "exp": 7777,
+  "gold" : 77,
+  "lines" : [
+    "녜 헤 헤!",
+    "흐음... 뭘\n입어야 할 지\n모르겠는걸...",
+    "녜 헤 헤\n헤 헤 헤 헤\n헤 헤 헤!!!",
+    "해골이 축구를 하면? ",
+    "\"골\"키퍼",
+    "죽은 해골이 가는 나라는?",
+    "사\"골\"국",
+    "녜 헤 헤!",
+    "녜 헤 헤!",
+    "녜 헤 헤!",
+    "녜 헤 헤!",
+    "녜 헤 헤!",
+    "녜 헤 헤!",
+    "녜 헤 헤!"
+  ],
+  "lineExistTime" : 3.5,
+  "FightDescribe" : "* 파피루스",
+  "ActDescribe" : [
+    {
+      "act" : "* 살펴보기", 
+      "describes" : [
+        {
+          "describe" : "* 파피루스 - ATK 4 DEF 0"
+        },
+        {
+          "describe" : "* \"녜헤헤!\" 라고 말하는 걸\n좋아한다."
+        }
+      ],
+      "mercyPoint" : 0
+    },
+    {
+      "act" : "* 유혹하기", 
+      "describes" : [
+        {
+          "describe" : "* 뭣!? 추, 추파를 던지다니!?"
+        },
+        {
+          "describe" : "* 드디어 네 궁극의 감정을 드러내는\n구나."
+        }
+      ],
+      "mercyPoint" : 50
+    },
+    {
+      "act" : "* 응원하기", 
+      "describes" : [
+        {
+          "describe" : "* 녜 헤 헤! 드디어 나 위대한"
+        },
+        {
+          "describe" : "* 파피루스 님을 알아주는구나."
+        }
+      ],
+      "mercyPoint" : 50
+    }    
+  ],
+  "attackPattern" : [
+    {
+      "name" : "Normal",
+      "duration" : 7.5,
+      "bullets" : [
+        {
+          "texId" : "graphics/spr_eggbullet.png", "PosX" : 100.0, "PosY" : 350.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 1.0, "damage" : 4
+        }
+      ]
+    }
+  ],
+
+  "startDescribe": "* 파피루스가 길을 막아섰다!"    
+}

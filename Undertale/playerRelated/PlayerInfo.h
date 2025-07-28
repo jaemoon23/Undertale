@@ -11,5 +11,6 @@ public:
 	static int Moral;
 
 	static void PlusExp(int e);
+	static void Heal(int h);
 };
 

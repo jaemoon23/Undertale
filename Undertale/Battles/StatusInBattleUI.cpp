@@ -78,7 +78,7 @@ void StatusInBattleUI::Reset()
 	soul = ((SceneBattle*)SCENE_MGR.GetCurrentScene())->GetSoul();
 	Hp = &(PlayerInfo::hp);
 	maxHp = &(PlayerInfo::maxHp);
-	statusText.setString(playerName + "   LV" + std::to_string(PlayerInfo::lv) + "    HP");
+	statusText.setString(playerName + "   LV" + std::to_string(PlayerInfo::lv) + "   HP");
 	hpText.setString(std::to_string(*Hp) + "/" + std::to_string(*maxHp));
 	hpBar.setSize({ 2.f * *Hp, 30.f });
 	maxhpBar.setSize({ 2.f * *maxHp, 30.f });

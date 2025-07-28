@@ -1,10 +1,10 @@
 {  
-  "name": "샌즈",
+  "name": "sans",
   "texId" : "graphics/spr_sans_battle.png",
   "animationId" : "animations/sans_idle.csv",
   "bgmId" : "sounds/100 MEGALOVANIA.flac",
   "hp": 350,
-  "exp": 10000,
+  "exp": 99999,
   "gold" : 100,
   "lines" : [
     "어느 날, 난 갑자기 깨달았어.",

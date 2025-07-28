@@ -5,7 +5,7 @@
 #include "BattleBox.h"
 #include "Bullet.h"
 
-std::string SceneBattle::monsterJsonID = "jsons/frog.json";
+std::string SceneBattle::monsterJsonID = "jsons/papyrus.json";
 SceneIds SceneBattle::nextSceneId = SceneIds::test;
 
 SceneBattle::SceneBattle()
@@ -23,8 +23,10 @@ void SceneBattle::Init()
 	ANI_CLIP_MGR.Load("animations/migosp_idle.csv");
 	ANI_CLIP_MGR.Load("animations/icecap_idle.csv");
 	ANI_CLIP_MGR.Load("animations/aaron_idle.csv");
+	ANI_CLIP_MGR.Load("animations/papyrus_idle.csv");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("graphics/spr_battlebg_0.png");
+	texIds.push_back("graphics/spr_papyrusboss_0.png");
 	texIds.push_back("graphics/spr_heavybullet.png");
 	texIds.push_back("graphics/spr_aaron_0.png");
 	texIds.push_back("graphics/spr_aaron_1.png");
@@ -76,6 +78,7 @@ void SceneBattle::Init()
 	soundIds.push_back("sounds/09 Enemy Approaching.flac");
 	soundIds.push_back("sounds/11 Determination.flac");
 	soundIds.push_back("sounds/100 MEGALOVANIA.flac");
+	soundIds.push_back("sounds/16 Nyeh Heh Heh!.flac");
 	soundIds.push_back("sounds/snd_squeak.wav");
 	soundIds.push_back("sounds/snd_select.wav");
 	soundIds.push_back("sounds/snd_hurt1.wav");
@@ -128,6 +131,8 @@ void SceneBattle::Enter()
 	lineIndex = 0;
 	heartbreakTimer = 0.f;
 	fadeTimer = 0.f;
+	turnTimer = 0.f;
+	dialTimer = 0.f;
 
 	Scene::Enter();
 	// JSON 파일 불러오기	
@@ -347,7 +352,8 @@ void SceneBattle::Draw(sf::RenderWindow& window)
 {
 	if (!isGameOver)
 	{
-		window.draw(background);
+		if (data["name"] != "sans" && data["name"] != "papyrus")
+			window.draw(background);
 		window.draw(monster);
 		Scene::Draw(window);
 	}
@@ -434,6 +440,7 @@ void SceneBattle::TryMercy()
 		btBox->SetStartDescribe();
 		soul->SetPosition({ -100.f,-100.f });
 		PlayerInfo::gold += gold;
+		PlayerInfo::Moral += 1;
 		SOUND_MGR.PlaySfx("sounds/snd_vaporized.wav");
 		SOUND_MGR.StopBgm();
 	}
@@ -481,6 +488,7 @@ void SceneBattle::MonsterDie()
 	btBox->startStr = L"* 승리! " + std::to_wstring(exp) + L" XP와 " + std::to_wstring(gold) + L"G 를 얻었다.";
 	PlayerInfo::PlusExp(exp);
 	PlayerInfo::gold += gold;
+	PlayerInfo::Moral -= 1;
 	statusUI->Reset();
 	btBox->SetStartDescribe();
 	btState = ButtonState::None;
