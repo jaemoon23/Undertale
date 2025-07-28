@@ -58,7 +58,7 @@ void StatusInBattleUI::SetOrigin(Origins preset)
 
 void StatusInBattleUI::Init()
 {
-	statusText.setString(playerName + "   LV" + std::to_string(level) + "    HP");
+	statusText.setString(playerName + "   LV" + std::to_string(PlayerInfo::lv) + "    HP");
 	statusText.setCharacterSize(30.f);
 
 	hpText.setCharacterSize(30.f);
@@ -76,8 +76,9 @@ void StatusInBattleUI::Reset()
 	statusText.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	hpText.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	soul = ((SceneBattle*)SCENE_MGR.GetCurrentScene())->GetSoul();
-	Hp = &(soul->hp);
-	maxHp = &(soul->maxHp);
+	Hp = &(PlayerInfo::hp);
+	maxHp = &(PlayerInfo::maxHp);
+	statusText.setString(playerName + "   LV" + std::to_string(PlayerInfo::lv) + "    HP");
 	hpText.setString(std::to_string(*Hp) + "/" + std::to_string(*maxHp));
 	hpBar.setSize({ 2.f * *Hp, 30.f });
 	maxhpBar.setSize({ 2.f * *maxHp, 30.f });

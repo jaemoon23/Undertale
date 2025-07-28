@@ -141,7 +141,7 @@ void BattleBox::Update(float dt)
 			float maxdistance = box.getGlobalBounds().width * 0.5f;
 			float distance = std::abs(fightLine.getPosition().x - (box.getGlobalBounds().left + maxdistance));
 			float ratio = Utils::Clamp01(1.f - (distance / maxdistance));
-			realDamage = scene->playerATK * ratio;
+			realDamage = PlayerInfo::ATK * ratio;
 			*monsterHp -= realDamage;
 			damageText.setString(std::to_string((int)realDamage));
 			damageText.setPosition({ size.x * 0.42f, size.y * 0.1f });

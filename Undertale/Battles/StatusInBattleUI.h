@@ -13,7 +13,6 @@ protected:
 	Soul* soul;
 
 	std::string playerName = "Frisk";
-	int level = 1;
 	int* Hp;
 	int* maxHp;
 

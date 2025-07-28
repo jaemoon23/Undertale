@@ -47,8 +47,6 @@ protected:
 	float maxJumpHoldTime = 0.33f;
 
 public:
-	int hp = 20;
-	int maxHp = 20;
 	bool isBlink = false;
 	bool isShieldBlink = false;
 	bool CanMove = true;

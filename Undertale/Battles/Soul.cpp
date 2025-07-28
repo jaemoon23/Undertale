@@ -292,10 +292,10 @@ void Soul::SetBoundary(sf::FloatRect bounds)
 
 void Soul::TakeDamage(int damage)
 {
-	hp -= damage;
-	if (hp <= 0)
+	PlayerInfo::hp -= damage;
+	if (PlayerInfo::hp <= 0)
 	{
-		hp = 0;
+		PlayerInfo::hp = 0;
 		scene->PlayerDie();
 	}
 	else

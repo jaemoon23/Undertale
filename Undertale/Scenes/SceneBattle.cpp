@@ -5,7 +5,7 @@
 #include "BattleBox.h"
 #include "Bullet.h"
 
-std::string SceneBattle::monsterJsonID = "jsons/aaron.json";
+std::string SceneBattle::monsterJsonID = "jsons/frog.json";
 SceneIds SceneBattle::nextSceneId = SceneIds::test;
 
 SceneBattle::SceneBattle()
@@ -407,7 +407,7 @@ void SceneBattle::TryUseItem()
 	{
 		int amount = itemData[itemChooseIndex]["healAmount"];
 		invenData["items"][itemChooseIndex]["itemId"] = "Null";
-		soul->hp = Utils::ClampInt(soul->hp + amount, 0, soul->maxHp);
+		PlayerInfo::hp = Utils::ClampInt(PlayerInfo::hp + amount, 0, PlayerInfo::maxHp);
 		statusUI->UpdateHpUI();
 		SetMonsterTurn();
 		itemData[itemChooseIndex].clear();
@@ -467,7 +467,12 @@ void SceneBattle::MonsterDie()
 {
 	isMyTurn = true;
 	soul->SetPosition({ size.x * 0.03f + size.x * 0.26f * btIndex, size.y * 0.93f });
-	btBox->startStr = L"* ½Â¸®!";
+	int exp = data["exp"];
+	int gold = data["gold"];
+	btBox->startStr = L"* ½Â¸®! " + std::to_wstring(exp) + L" XP¿Í " + std::to_wstring(gold) + L"G ¸¦ ¾ò¾ú´Ù.";
+	PlayerInfo::PlusExp(exp);
+	PlayerInfo::gold += gold;
+	statusUI->Reset();
 	btBox->SetStartDescribe();
 	btState = ButtonState::None;
 	sf::Color color = monster.getColor();

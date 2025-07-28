@@ -97,7 +97,6 @@ public:
 	int monsterHp = 100;
 	int monsterMaxHp = 100;
 
-	int playerATK = 50;
 	int mercyPoint = 0;
 	const int mercyCanPoint = 100;
 
