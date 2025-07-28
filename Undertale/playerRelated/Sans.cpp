@@ -56,7 +56,7 @@ void Sans::Reset()
 	sortingOrder = 0;
 
 	sans.setTexture(TEXTURE_MGR.Get(sanstexIds));
-	sans.setPosition(100.f, 100.f);
+	sans.setPosition(150.f, 263.f);
 	SetOrigin(Origins::MC);
 }
 

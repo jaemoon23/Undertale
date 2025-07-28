@@ -4,14 +4,21 @@
 #include "json.hpp"
 #include "Player.h"
 #include "SceneBattle.h"
+#include "TextGo.h"
+
+#include "UiChanger.h"
+#include "Sans.h"
+#include "InventoryUi.h"
+#include "DialogueBox.h"
+#include "PlayerInfoUi.h"
+#include "HealItem.h"
 
 test::test() : Scene(SceneIds::test)
 {
-
 }
 void test::Init()
 {
-	
+	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("Sprites/downwalking.png");
 	texIds.push_back("Sprites/upwalking.png");
@@ -23,6 +30,7 @@ void test::Init()
 	texIds.push_back("graphics/bg_innrooms_0.png");
 	texIds.push_back("graphics/bg_firstroom.png");
 	texIds.push_back("graphics/spr_cutetable_0.png");
+	texIds.push_back("Sprites/spr_sans_sleep_0.png");
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
@@ -31,16 +39,17 @@ void test::Init()
 	ANI_CLIP_MGR.Load("Animation/rightwalking.csv");
 
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
+	sans = (Sans*)AddGameObject(new Sans("Sprites/spr_sans_sleep_0.png"));
+	text = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
+	//uichanger = (UiChanger*)AddGameObject(new UiChanger("Sprites/backgroundui.png"));
+	background = (SpriteGo*)AddGameObject(new SpriteGo());
+	background->sortingLayer = SortingLayers::Background;
+	
 	Scene::Init();
 }
 
 void test::Enter()
 {
-	Scene::Enter();
-	auto size = FRAMEWORK.GetWindowSizeF();
-	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
-	worldView.setSize(size * 0.5f);
-
 	std::ifstream in("map0.json");
 	if (!in)
 	{
@@ -57,12 +66,23 @@ void test::Enter()
 	sf::Vector2f bgPos(mapData["background"]["position"][0], mapData["background"]["position"][1]);
 	sf::Vector2f scale(mapData["background"]["scale"][0], mapData["background"]["scale"][1]);
 
-	background = new SpriteGo(bgTex);
 	background->SetTextureId(bgTex);
 	background->SetOrigin(Origins::MC);
 	background->SetPosition(bgPos);
 	background->SetScale(scale);
-	background->Reset();
+	Scene::Enter();
+	sf::Vector2f size = {640.f, 480.f};
+	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
+	worldView.setSize(size * 0.5f);
+	uiView.setSize(size);
+	uiView.setCenter(center);
+	
+
+
+	text->SetString("me!");
+	text->sortingLayer = SortingLayers::UI;
+	text->SetCharacterSize(100);
+	text->SetPosition({ 100,100 });
 
 	// 오브젝트
 	bool playerPlaced = false;
@@ -120,6 +140,8 @@ void test::Enter()
 		rect->setOutlineThickness(1.f);
 		hitboxes.push_back({ rect, typeStr });
 	}
+
+
 }
 void test::Update(float dt)
 {
@@ -164,6 +186,11 @@ void test::Update(float dt)
 		}
 	}
 
+	if (Utils::CheckCollision(player->GetHitBox(), sans->GetHitBox()))
+	{
+		std::cout << "샌즈 충돌" << std::endl;
+	}
+
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num8))
 	{
 		SceneBattle::nextSceneId = SceneIds::test;
@@ -176,20 +203,42 @@ void test::Update(float dt)
 		SceneBattle::monsterJsonID = "jsons/sans.json";
 		SCENE_MGR.ChangeScene(SceneIds::Battle);
 	}
+	/*inventoryui->Update(dt);
+	uichanger->Update(dt);
+	playerinfoui->Update(dt);*/
+
+	//std::cout << sans->GetPosition().x << ", " << sans->GetPosition().y << std::endl;
+	/*std::cout << background->GetPosition().x << ", " << background->GetPosition().y << std::endl;*/
+
+
+	//if (sans)
+	//{
+	//	float distance = Utils::Distance(player->GetPosition(), sans->GetPosition());
+	//	float interactDistance = 35.f;
+
+	//	if (distance <= interactDistance)
+	//	{
+	//		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+	//		{
+	//			player->SansInteract();
+	//			std::cout << "z" << std::endl;
+	//		}
+	//		if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	//		{
+	//			dialoguebox->NextLine();
+	//		}
+	//	}
+	//	if (InputMgr::GetKeyDown(sf::Keyboard::X))
+	//	{
+	//		dialoguebox->SetActive(false);
+	//		inventoryui->SetActive(false);
+	//		//playerInfoUi->SetActive(false);
+	//	}
+	//}
 }
 
 void test::Draw(sf::RenderWindow& window)
 {
-	if (background)
-	{
-		background->Draw(window);
-	}
-
-	for (auto* obj : testObjects)
-	{
-		obj->Draw(window);
-	}
-
 	if (Variables::isDrawHitBox)
 	{
 		for (auto& hit : hitboxes)
@@ -197,6 +246,6 @@ void test::Draw(sf::RenderWindow& window)
 			window.draw(*hit.shape);
 		}
 	}
-	
+
 	Scene::Draw(window);
 }

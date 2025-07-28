@@ -56,6 +56,9 @@ void InventoryUi::Release()
 void InventoryUi::Reset()
 {
 	inventory.setTexture(TEXTURE_MGR.Get(inventorytexIds));
+	sortingLayer = SortingLayers::UI;
+	sortingOrder = 1;
+	SetActive(false);
 	inventory.setPosition(320.f, 230.f);
 	inventory.setScale(0.8f, 0.8f);
 	SetOrigin(Origins::MC);

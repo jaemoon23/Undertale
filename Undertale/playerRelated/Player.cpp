@@ -64,12 +64,12 @@ void Player::Reset()
 	body.setTexture(TEXTURE_MGR.Get(texId));
 	animator.Play("Animation/idle.csv");
 	direction = { 0.f, 0.f };
-	SetName(L"Frisk");
+	/*SetName(L"Frisk");
 	SetAtt(20);
 	SetDef(20);
 	SetHp(10);
 	SetLevel(1);
-	SetGold(0);
+	SetGold(0);*/
 
 	SetOrigin(Origins::MC);
 
@@ -79,36 +79,6 @@ void Player::Update(float dt)
 {
 	animator.Update(dt);
 	prevPosition = GetPosition();
-
-
-	if (sans)
-	{
-		float distance = Utils::Distance(GetPosition(), sans->GetPosition());
-		float interactDistance = 35.f;
-
-		if (distance <= interactDistance)
-		{
-			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
-			{
-				SansInteract();
-				std::cout << "z" << std::endl;
-			}
-			if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
-			{
-				dialoguebox->NextLine();
-			}
-		}
-		if (InputMgr::GetKeyDown(sf::Keyboard::X))
-		{
-			dialoguebox->SetActive(false);
-			inventoryui->SetActive(false);
-			playerInfoUi->SetActive(false);
-		}
-	}
-
-	
-	if (uichanger && uichanger->GetActive()) return; // UI 변경 중에는 플레이어 이동 불가
-	if (dialoguebox && dialoguebox->GetActive()) return; // 대화 중에는 플레이어 이동 불가
 
 	direction.x = InputMgr::GetAxis(Axis::Horizontal);
 	direction.y = InputMgr::GetAxis(Axis::Vertical);
@@ -138,95 +108,6 @@ void Player::Draw(sf::RenderWindow& window)
 {
 	window.draw(body);
 	hitBox.Draw(window);
-}
-
-void Player::SetHp(int h)
-{
-	hp = h;
-	if (playerInfoUi)
-	{
-		playerInfoUi->SetPlayerHp(std::to_wstring(hp));
-	}
-}
-
-void Player::SetAtt(int a)
-{
-	att = a;
-	if (playerInfoUi)
-	{
-		playerInfoUi->SetPlayerAttack(std::to_wstring(att));
-	}
-}
-
-void Player::SetDef(int d)
-{
-	def = d;
-	if (playerInfoUi)
-	{
-		playerInfoUi->SetPlayerDefence(std::to_wstring(def));
-	}
-}
-
-void Player::SetGold(int g)
-{
-	gold = g;
-	if (playerInfoUi)
-	{
-		playerInfoUi->SetPlayerGold(std::to_wstring(gold));
-	}
-}
-
-void Player::SetLevel(int l)
-{
-	level = l;
-	if (playerInfoUi)
-	{
-		playerInfoUi->SetPlayerLevel(std::to_wstring(level));
-	}
-}
-
-void Player::SetName(const std::wstring& n)
-{
-	name = n;
-	if (playerInfoUi)
-	{
-		playerInfoUi->SetPlayerName(n);
-	}
-}
-
-void Player::SansInteract()
-{
-	std::vector<std::wstring> testDialogues =
-	{ L"* hi", L"* potion" };
-	dialoguebox->StartDialogue(testDialogues);
-	GetHealItem("Potion");
-}
-
-void Player::Heal(int amount, int maxHp)
-{
-	int newHp = hp + amount;
-	if (newHp > maxHp)
-	{
-		newHp = maxHp;
-	}
-	if (playerInfoUi)
-	{
-		playerInfoUi->SetPlayerHp(std::to_wstring(hp));
-	}
-}
-
-void Player::GetHealItem(const std::string& healitemName)
-{
-	healItem = new HealItem(healitemName, 5); 
-	    if (inventoryui)
-    {
-        inventoryui->SetHealItem(healItem);
-    }
-}
-
-void Player::UseHealItem(HealItem* item)
-{
-	Heal(item->GetHealAmount(), maxHp);
 }
 
 const sf::RectangleShape& Player::GetHitBox() const

@@ -52,7 +52,7 @@ void SceneTest::Init()
 	playerinfoui = new PlayerInfoUi("playerinfoui");
 	healitem = new HealItem("potion", 5);
 
-	player->SetSans(sans);
+	//player->SetSans(sans);
 	player->SetBox(dialoguebox);
 	player->SetUiChanger(uichanger);
 	player->SetInventoryUi(inventoryui);
@@ -99,8 +99,6 @@ void SceneTest::Update(float dt)
 {	
 	worldView.setCenter(player->GetPosition().x, player->GetPosition().y);
 	player->Update(dt);
-	sans->Update(dt);
-	dialoguebox->Update(dt);
 	inventoryui->Update(dt);
 	uichanger->Update(dt);
 	playerinfoui->Update(dt);

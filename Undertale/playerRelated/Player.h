@@ -35,7 +35,7 @@ protected:
 	Animator animator;
 	HitBox hitBox;
 
-	Sans* sans;
+	
 	HpUi* hpui;
 	DialogueBox* dialoguebox;
 	UiChanger* uichanger;
@@ -70,11 +70,7 @@ public:
 
 	void SansInteract();
 
-	void SetSans(Sans* s) { sans = s; }
-	void SetBox(DialogueBox* dbox) { dialoguebox = dbox; }
-	void SetInventoryUi(InventoryUi* i) { inventoryui = i; }
-	void SetUiChanger(UiChanger* u) { uichanger = u; }	
-	void SetPlayerInfoUi(PlayerInfoUi* infoUi) { playerInfoUi = infoUi; }
+
 
 	void SetHealItem(HealItem* item) { healItem = item; }
 

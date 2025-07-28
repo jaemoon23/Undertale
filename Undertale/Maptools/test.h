@@ -8,7 +8,14 @@ struct HitBoxInfos
     std::string type;
 };
 
+class TextGo;
 class Player;
+class Sans;
+class InventoryUi;
+class DialogueBox;
+class UiChanger;
+class PlayerInfoUi;
+class HealItem;
 
 class test :
     public Scene
@@ -17,6 +24,7 @@ protected:
     float battleCheckTimer = 0.f;
     const float battleCheckInterval = 1.f; 
 
+    TextGo* text;
     SpriteGo* background = nullptr;
     Player* player;
     std::vector<SpriteGo*> testObjects;
@@ -24,6 +32,14 @@ protected:
 
     sf::Vector2f playerPos = { 0.f, 0.f };
     sf::Vector2f windowSize = { 640.f,480.f };
+
+    Sans* sans;
+
+    UiChanger* uichanger;
+    InventoryUi* inventoryui;
+    DialogueBox* dialoguebox;
+    PlayerInfoUi* playerinfoui;
+    HealItem* healitem;
 public:
     test();
     ~test() override = default;

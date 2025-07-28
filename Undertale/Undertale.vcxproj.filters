@@ -31,7 +31,6 @@
     <ClCompile Include="playerRelated\Player.cpp" />
     <ClCompile Include="playerRelated\PlayerInfoUi.cpp" />
     <ClCompile Include="playerRelated\Sans.cpp" />
-    <ClCompile Include="Scenes\SceneTest.cpp" />
     <ClCompile Include="Scenes\SceneBattle.cpp" />
     <ClCompile Include="Battles\Soul.cpp" />
     <ClCompile Include="Battles\StatusInBattleUI.cpp" />
@@ -149,7 +148,6 @@
     <ClInclude Include="playerRelated\Player.h" />
     <ClInclude Include="playerRelated\PlayerInfoUi.h" />
     <ClInclude Include="playerRelated\Sans.h" />
-    <ClInclude Include="Scenes\SceneTest.h" />
     <ClInclude Include="Scenes\SceneBattle.h" />
     <ClInclude Include="Scenes\SceneDev1.h" />
     <ClInclude Include="Battles\Soul.h" />
