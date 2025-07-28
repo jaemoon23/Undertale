@@ -69,6 +69,8 @@ void test::Init()
 	InventoryUi::healItem1.SetInfo(L"아이스크림", 15);
 	//InventoryUi::healItem1.GetName();
 	InventoryUi::healItem2.SetInfo(L"쿠키", 10);
+	InventoryUi::healItem3.SetInfo(L"아이스크림", 15);
+	InventoryUi::healItem4.SetInfo(L"쿠키", 10);
 }
 
 void test::Enter()

@@ -129,16 +129,25 @@ void InventoryUi::Reset()
 
 void InventoryUi::Update(float dt)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+
+	static bool prevDown = false;
+	static bool prevUp = false;
+
+	bool currDown = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+	bool currUp = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
+
+	if (currDown && !prevDown)
 	{
-		selectIndex = 1;
-		selectSprite.setPosition({ inventory.getPosition().x - 80.f, inventory.getPosition().y - 87.f });
+		selectIndex = (selectIndex + 1) % 4;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	else if (currUp && !prevUp)
 	{
-		selectIndex = 0;
-		selectSprite.setPosition({ inventory.getPosition().x - 80.f, inventory.getPosition().y - 40.f });
+		selectIndex = (selectIndex + 3) % 4;
 	}
+	prevDown = currDown;
+	prevUp = currUp;
+
+
 	if (selectIndex == 0)
 	{
 		itemText1.setFillColor(sf::Color::White);
@@ -153,24 +162,34 @@ void InventoryUi::Update(float dt)
 		itemText3.setFillColor(sf::Color(130, 130, 130));
 		itemText4.setFillColor(sf::Color(130, 130, 130));
 	}
-	//else
-	//{
-	//	healItem1.setFillColor(sf::Color(130, 130, 130));
-	//	statText.setFillColor(sf::Color::White);
-	//}
+	else if (selectIndex == 2)
+	{
+		itemText1.setFillColor(sf::Color(130, 130, 130));
+		itemText2.setFillColor(sf::Color(130, 130, 130));
+		itemText3.setFillColor(sf::Color::White);
+		itemText4.setFillColor(sf::Color(130, 130, 130));
+	}
+	else if (selectIndex == 3)
+	{
+		itemText1.setFillColor(sf::Color(130, 130, 130));
+		itemText2.setFillColor(sf::Color(130, 130, 130));
+		itemText3.setFillColor(sf::Color(130, 130, 130));
+		itemText4.setFillColor(sf::Color::White);
+	}
 
+	float selectY = inventory.getPosition().y - 87.f + selectIndex * 54.f; // sprite 위치 인덱스 따라 조정
+	selectSprite.setPosition({ inventory.getPosition().x - 80.f, selectY });
+	
+	if (isActive && InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	{
+		if (selectIndex == 0)
+		{
 
-	//if (isActive && InputMgr::GetKeyDown(sf::Keyboard::Enter))
-	//{
-	//	if (selectIndex == 0 && inventoryui)
-	//	{
-	//		inventoryui->SetActive(true);
-	//	}
-	//	if (selectIndex == 1 && playerinfoui)
-	//	{
-	//		playerinfoui->SetActive(true);
-	//	}
-	//}
+		}
+		if (selectIndex == 1)
+		{
+		}
+	}
 }
 
 
@@ -189,8 +208,8 @@ void InventoryUi::Draw(sf::RenderWindow& window)
 		 //힐 아이템 이름 표시
 		itemText1.setString(healItem1.GetName());
 		itemText2.setString(healItem2.GetName());
-		//itemText3.setString(healItem3 ? healItem3->GetName() : L"");
-		//itemText4.setString(healItem4 ? healItem4->GetName() : L"");
+		itemText3.setString(healItem3.GetName());
+		itemText4.setString(healItem4.GetName());
 
 		window.draw(itemText1);
 		window.draw(itemText2);

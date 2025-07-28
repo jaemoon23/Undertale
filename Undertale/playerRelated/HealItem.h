@@ -13,7 +13,8 @@ public:
     HealItem(const std::string& name, int healAmount);
     ~HealItem() override = default; 
 
-    void SetInfo(std::wstring str, int amount) {
+    void SetInfo(std::wstring str, int amount) 
+    {
         name = str;
         healAmount = amount;
     }
