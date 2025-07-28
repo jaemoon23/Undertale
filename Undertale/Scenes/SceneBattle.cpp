@@ -206,6 +206,8 @@ void SceneBattle::Update(float dt)
 	if (isPlaying)
 	{
 		Scene::Update(dt);
+		if (!isPlaying)
+			return;
 		animator.Update(dt);
 
 		if (isMonsterBlink)
@@ -424,7 +426,14 @@ void SceneBattle::TryMercy()
 	if (mercyChooseIndex == 0 && mercyPoint >= mercyCanPoint)
 	{
 		isPlaying = false;
+		isMyTurn = true;
 		monster.setColor(monsterblinkColor);
+		btState = ButtonState::None;
+		int gold = data["gold"];
+		btBox->startStr = L"* 승리! " + std::to_wstring(gold) + L"G 를 얻었다.";
+		btBox->SetStartDescribe();
+		soul->SetPosition({ -100.f,-100.f });
+		PlayerInfo::gold += gold;
 		SOUND_MGR.PlaySfx("sounds/snd_vaporized.wav");
 		SOUND_MGR.StopBgm();
 	}

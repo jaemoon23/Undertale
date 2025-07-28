@@ -3,7 +3,7 @@
   "texId" : "graphics/spr_icecap_0.png",
   "animationId" : "animations/icecap_idle.csv",
   "bgmId" : "sounds/09 Enemy Approaching.flac",
-  "hp": 180,
+  "hp": 140,
   "exp": 100,
   "gold" : 17,
   "lines" : [

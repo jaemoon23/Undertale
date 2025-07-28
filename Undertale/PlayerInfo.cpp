@@ -11,6 +11,7 @@ int PlayerInfo::Moral = 0;
 
 void PlayerInfo::PlusExp(int e)
 {
+	int pastLv = lv;
 	exp += e;
 	if (exp >= 99999)
 	{
@@ -96,4 +97,5 @@ void PlayerInfo::PlusExp(int e)
 		lv = 1;
 	}
 	maxHp = 16 + 4 * lv;
+	hp += (lv - pastLv) * 4;
 }
