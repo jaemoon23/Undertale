@@ -39,8 +39,7 @@ void test::Enter()
 	Scene::Enter();
 	auto size = FRAMEWORK.GetWindowSizeF();
 	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
-	worldView.setSize(size);
-	worldView.setCenter(center);
+	worldView.setSize(size * 0.5f);
 
 	std::ifstream in("map0.json");
 	if (!in)
@@ -125,6 +124,7 @@ void test::Enter()
 void test::Update(float dt)
 {
 	Scene::Update(dt);
+	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
 	for (auto& hit : hitboxes)
 	{
@@ -137,7 +137,7 @@ void test::Update(float dt)
 			else if (hit.type == "SceneChange")
 			{
 				std::cout << "씬 전환 트리거됨!" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Battle);
+				SCENE_MGR.ChangeScene(SceneIds::Dev1);
 			}
 			else if (hit.type == "Battle")
 			{
@@ -147,7 +147,7 @@ void test::Update(float dt)
 					battleCheckTimer = 0.f;
 
 					// 10% 확률
-					if (Utils::RandomRange(0.f, 1.f) < 0.1f)
+					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
 					{
 						std::cout << "랜덤 전투 발생!" << std::endl;
 						SceneBattle::nextSceneId = SceneIds::test;
