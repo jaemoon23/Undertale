@@ -5,7 +5,7 @@
 #include "BattleBox.h"
 #include "Bullet.h"
 
-std::string SceneBattle::monsterJsonID = "jsons/frog.json";
+std::string SceneBattle::monsterJsonID = "jsons/migosp.json";
 SceneIds SceneBattle::nextSceneId = SceneIds::test;
 
 SceneBattle::SceneBattle()
@@ -19,8 +19,16 @@ void SceneBattle::Init()
 	ANI_CLIP_MGR.Load("animations/sans_idle.csv");
 	ANI_CLIP_MGR.Load("animations/fist.csv");
 	ANI_CLIP_MGR.Load("animations/frogit_idle.csv");
+	ANI_CLIP_MGR.Load("animations/whimsun_idle.csv");
+	ANI_CLIP_MGR.Load("animations/migosp_idle.csv");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("graphics/spr_battlebg_0.png");
+	texIds.push_back("graphics/spr_clawbullet_1.png");
+	texIds.push_back("graphics/spr_migosp_0.png");
+	texIds.push_back("graphics/spr_migosp_1.png");
+	texIds.push_back("graphics/spr_bulletsm_0.png");
+	texIds.push_back("graphics/spr_whimsun_0.png");
+	texIds.push_back("graphics/spr_whimsun_1.png");
 	texIds.push_back("graphics/spr_heartbreak_0.png");
 	texIds.push_back("graphics/spr_gameoverbg_0.png");
 	texIds.push_back("graphics/spr_heart_blue.png");

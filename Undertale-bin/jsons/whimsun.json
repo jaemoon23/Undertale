@@ -1,0 +1,117 @@
+{  
+  "name": "윔선",
+  "texId" : "graphics/spr_whimsun_0.png",
+  "animationId" : "animations/whimsun_idle.csv",
+  "bgmId" : "sounds/09 Enemy Approaching.flac",
+  "hp": 50,
+  "exp": 10,
+  "gold" : 2,
+  "lines" : [
+    "미안해...",
+    "이런...",
+    "훌쩍훌쩍",
+    "용서해 줘"
+  ],
+  "lineExistTime" : 2.5,
+  "FightDescribe" : "* 윔선",
+  "ActDescribe" : [
+    {
+      "act" : "* 살펴보기", 
+      "describes" : [
+        {
+          "describe" : "* 윔선 - ATK 4 DEF 0"
+        },
+        {
+          "describe" : "* 이 괴물은 겁이 많다."
+        }
+      ],
+      "mercyPoint" : 0
+    },
+    {
+      "act" : "* 위로하기", 
+      "describes" : [
+        {
+          "describe" : "* 당신은 윔선을 위로했다!"
+        },
+        {
+          "describe" : "* 윔선의 기분이 나아졌다."
+        }
+      ],
+      "mercyPoint" : 100
+    },
+    {
+      "act" : "* 겁주기", 
+      "describes" : [
+        {
+          "describe" : "* 당신은 섬뜩한 미소를 짓는다."
+        },
+        {
+          "describe" : "* 윔선은 패닉에 빠졌다!"
+        }
+      ],
+      "mercyPoint" : -50
+    }    
+  ],
+  "attackPattern" : [
+    {
+      "name" : "Homing",
+      "duration" : 8.0,
+      "bullets" : [
+        {
+          "texId" : "graphics/spr_bulletsm_0.png", "PosX" : 200.0, "PosY" : 240.0, "DirX" : 0, "DirY" : 1.0,
+          "speed" : 100.0, "delay" : 1.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bulletsm_0.png", "PosX" : 220.0, "PosY" : 240.0, "DirX" : 0, "DirY" : 1.0,
+          "speed" : 100.0, "delay" : 1.5, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bulletsm_0.png", "PosX" : 240.0, "PosY" : 240.0, "DirX" : 0, "DirY" : 1.0,
+          "speed" : 100.0, "delay" : 2.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bulletsm_0.png", "PosX" : 260.0, "PosY" : 240.0, "DirX" : 0, "DirY" : 1.0,
+          "speed" : 100.0, "delay" : 2.5, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bulletsm_0.png", "PosX" : 280.0, "PosY" : 240.0, "DirX" : 0, "DirY" : 1.0,
+          "speed" : 100.0, "delay" : 3.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bulletsm_0.png", "PosX" : 300.0, "PosY" : 240.0, "DirX" : 0, "DirY" : 1.0,
+          "speed" : 100.0, "delay" : 3.5, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bulletsm_0.png", "PosX" : 320.0, "PosY" : 240.0, "DirX" : 0, "DirY" : 1.0,
+          "speed" : 100.0, "delay" : 4.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bulletsm_0.png", "PosX" : 340.0, "PosY" : 240.0, "DirX" : 0, "DirY" : 1.0,
+          "speed" : 100.0, "delay" : 4.5, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bulletsm_0.png", "PosX" : 360.0, "PosY" : 240.0, "DirX" : 0, "DirY" : 1.0,
+          "speed" : 100.0, "delay" : 5.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bulletsm_0.png", "PosX" : 380.0, "PosY" : 240.0, "DirX" : 0, "DirY" : 1.0,
+          "speed" : 100.0, "delay" : 5.5, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bulletsm_0.png", "PosX" : 400.0, "PosY" : 240.0, "DirX" : 0, "DirY" : 1.0,
+          "speed" : 100.0, "delay" : 6.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bulletsm_0.png", "PosX" : 420.0, "PosY" : 240.0, "DirX" : 0, "DirY" : 1.0,
+          "speed" : 100.0, "delay" : 6.5, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bulletsm_0.png", "PosX" : 440.0, "PosY" : 240.0, "DirX" : 0, "DirY" : 1.0,
+          "speed" : 100.0, "delay" : 7.0, "damage" : 4
+        }
+      ]
+    }
+  ],
+
+  "startDescribe": "* 윔선이 나타났다!"    
+}

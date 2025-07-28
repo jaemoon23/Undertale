@@ -1,0 +1,6 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)		",,
+migosp_idle,1,1,,
+"				",,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
+graphics/spr_migosp_0.png,0,0,72,98
+graphics/spr_migosp_1.png,0,0,72,98

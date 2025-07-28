@@ -3,7 +3,9 @@
   "texId" : "graphics/spr_froggit_2.png",
   "animationId" : "animations/frogit_idle.csv",
   "bgmId" : "sounds/09 Enemy Approaching.flac",
-  "hp": 150,
+  "hp": 100,
+  "exp": 10,
+  "gold" : 2,
   "lines" : [
     "개굴 ~",
     "멍 때리는 중",
