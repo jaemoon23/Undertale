@@ -13,7 +13,7 @@ void StatusInBattleUI::SetPosition(const sf::Vector2f& pos)
 	statusText.setPosition(pos);
 	hpBar.setPosition(pos + sf::Vector2f(265.f, 8.f));
 	maxhpBar.setPosition(pos + sf::Vector2f(265.f, 8.f));
-	sf::FloatRect hpbarRect = hpBar.getGlobalBounds();
+	sf::FloatRect hpbarRect = maxhpBar.getGlobalBounds();
 	hpText.setPosition({hpbarRect.left + hpbarRect.width + 55.f, hpbarRect.top - 8.f});
 }
 
@@ -82,6 +82,8 @@ void StatusInBattleUI::Reset()
 	hpText.setString(std::to_string(*Hp) + "/" + std::to_string(*maxHp));
 	hpBar.setSize({ 2.f * *Hp, 30.f });
 	maxhpBar.setSize({ 2.f * *maxHp, 30.f });
+	sf::FloatRect hpbarRect = maxhpBar.getGlobalBounds();
+	hpText.setPosition({ hpbarRect.left + hpbarRect.width + 15.f, hpbarRect.top - 8.f });
 }
 
 void StatusInBattleUI::Update(float dt)
