@@ -8,7 +8,6 @@ struct HitBoxInfos
     std::string type;
 };
 
-class TextGo;
 class Player;
 class Sans;
 class InventoryUi;
@@ -24,7 +23,6 @@ protected:
     float battleCheckTimer = 0.f;
     const float battleCheckInterval = 1.f; 
 
-    TextGo* text;
     SpriteGo* background = nullptr;
     Player* player;
     std::vector<SpriteGo*> testObjects;

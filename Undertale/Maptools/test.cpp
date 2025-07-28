@@ -18,7 +18,6 @@ test::test() : Scene(SceneIds::test)
 }
 void test::Init()
 {
-	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("Sprites/downwalking.png");
 	texIds.push_back("Sprites/upwalking.png");
@@ -40,8 +39,7 @@ void test::Init()
 
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
 	sans = (Sans*)AddGameObject(new Sans("Sprites/spr_sans_sleep_0.png"));
-	text = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
-	//uichanger = (UiChanger*)AddGameObject(new UiChanger("Sprites/backgroundui.png"));
+
 	background = (SpriteGo*)AddGameObject(new SpriteGo());
 	background->sortingLayer = SortingLayers::Background;
 	
@@ -78,11 +76,6 @@ void test::Enter()
 	uiView.setCenter(center);
 	
 
-
-	text->SetString("me!");
-	text->sortingLayer = SortingLayers::UI;
-	text->SetCharacterSize(100);
-	text->SetPosition({ 100,100 });
 
 	// 오브젝트
 	bool playerPlaced = false;
@@ -146,8 +139,6 @@ void test::Enter()
 void test::Update(float dt)
 {
 	Scene::Update(dt);
-	/*sf::View view(sf::FloatRect(0, 0, 320, 240));
-	FRAMEWORK.GetWindow().setView(view);*/
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
 	for (auto& hit : hitboxes)
@@ -205,38 +196,6 @@ void test::Update(float dt)
 		SceneBattle::monsterJsonID = "jsons/sans.json";
 		SCENE_MGR.ChangeScene(SceneIds::Battle);
 	}
-	/*inventoryui->Update(dt);
-	uichanger->Update(dt);
-	playerinfoui->Update(dt);*/
-
-	//std::cout << sans->GetPosition().x << ", " << sans->GetPosition().y << std::endl;
-	/*std::cout << background->GetPosition().x << ", " << background->GetPosition().y << std::endl;*/
-
-
-	//if (sans)
-	//{
-	//	float distance = Utils::Distance(player->GetPosition(), sans->GetPosition());
-	//	float interactDistance = 35.f;
-
-	//	if (distance <= interactDistance)
-	//	{
-	//		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
-	//		{
-	//			player->SansInteract();
-	//			std::cout << "z" << std::endl;
-	//		}
-	//		if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
-	//		{
-	//			dialoguebox->NextLine();
-	//		}
-	//	}
-	//	if (InputMgr::GetKeyDown(sf::Keyboard::X))
-	//	{
-	//		dialoguebox->SetActive(false);
-	//		inventoryui->SetActive(false);
-	//		//playerInfoUi->SetActive(false);
-	//	}
-	//}
 }
 
 void test::Draw(sf::RenderWindow& window)
