@@ -530,11 +530,25 @@ void MapTool::jsonInput()
 			});
 	}
 
-	// "map0", "map1" 같은 키로 저장
-	std::string mapName = "map0"; // 나중에 인덱스 넘기면 확장 가능
+	auto fileExists = [](const std::string& filename) {
+		std::ifstream file(filename);
+		return file.good();
+	};
+
+	int mapIndex = 0;
+	std::string mapName;
+
+	while (fileExists("map" + std::to_string(mapIndex) + ".json"))
+	{
+		mapIndex++;
+	}
+
+	mapName = "map" + std::to_string(mapIndex);
+
 	total[mapName] = map;
 
 	std::ofstream outFile(mapName + ".json");
 	outFile << total.dump(4);
 	std::cout << "맵 저장 완료: " << mapName << ".json" << std::endl;
+
 }

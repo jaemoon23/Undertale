@@ -95,7 +95,10 @@ void SceneDev1::Enter()
 void SceneDev1::Update(float dt)
 {
 	Scene::Update(dt);
-
+	if (InputMgr::GetKeyDown(sf::Keyboard::T))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::Title);
+	}
 	// 모드 전환 (Tab 키)
 	if (InputMgr::GetKeyDown(sf::Keyboard::Tab))
 	{
