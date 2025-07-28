@@ -45,7 +45,7 @@ void InventoryUi::SetOrigin(Origins preset)
 void InventoryUi::Init()
 {
 	sortingLayer = SortingLayers::UI;
-	sortingOrder = 1;
+	sortingOrder = 2;
 	SetActive(false);
 }
 
@@ -126,5 +126,4 @@ void InventoryUi::Draw(sf::RenderWindow& window)
 		itemText.setString( healItem->GetName());
 		window.draw(itemText);
 	}
-
 }

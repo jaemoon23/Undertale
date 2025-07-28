@@ -43,7 +43,7 @@ void PlayerInfoUi::SetOrigin(Origins preset)
 void PlayerInfoUi::Init()
 {
 	sortingLayer = SortingLayers::UI;
-	sortingOrder = 1;
+	sortingOrder = 2;
 	SetActive(false);
 }
 

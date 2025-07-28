@@ -52,7 +52,7 @@ void SceneTest::Init()
 	playerinfoui = new PlayerInfoUi("playerinfoui");
 	healitem = new HealItem("potion", 5);
 
-	//player->SetSans(sans);
+	player->SetSans(sans);
 	player->SetBox(dialoguebox);
 	player->SetUiChanger(uichanger);
 	player->SetInventoryUi(inventoryui);

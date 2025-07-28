@@ -103,6 +103,7 @@ void Player::Update(float dt)
 			dialoguebox->SetActive(false);
 			inventoryui->SetActive(false);
 			playerInfoUi->SetActive(false);
+			//uichanger->SetActive(false);
 		}
 	}
 

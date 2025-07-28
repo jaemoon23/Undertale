@@ -88,9 +88,12 @@ void UiChanger::Update(float dt)
 {
 	if (InputMgr::GetKeyDown(sf::Keyboard::I))
 	{
-		isActive = !isActive;
-		SetActive(true);
+		isActive = !isActive;	
+		SetActive(isActive);
+		std::cout << "I" << std::endl;
 	}
+	
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
 		selectIndex = 1;
@@ -128,10 +131,11 @@ void UiChanger::Draw(sf::RenderWindow& window)
 {
 	if (isActive)
 	{
-		window.draw(uiChanger);
+ 		window.draw(uiChanger);
 		window.draw(line);
 		window.draw(invenText);
 		window.draw(statText);
 	}
 
 }
+
