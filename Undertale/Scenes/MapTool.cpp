@@ -234,6 +234,10 @@ void MapTool::Update(float dt)
 	sf::Vector2i pixelPos = sf::Mouse::getPosition(FRAMEWORK.GetWindow());
 	sf::Vector2f worldPos = FRAMEWORK.GetWindow().mapPixelToCoords(pixelPos);
 
+	if (InputMgr::GetKeyDown(sf::Keyboard::T))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::Title);
+	}
 	// 그리드
 	if (InputMgr::GetKeyDown(sf::Keyboard::F2))
 	{
