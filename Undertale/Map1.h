@@ -14,6 +14,8 @@ struct HitBoxInfo2
 class Map1 : public Scene
 {
 protected:
+	float battleCheckTimer = 0.f;
+	const float battleCheckInterval = 1.f;
 	test test;
 	SpriteGo* background1 = nullptr;
 	Player* player;

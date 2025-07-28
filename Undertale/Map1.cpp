@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Map1.h"
+#include "SceneBattle.h"
 #include "Player.h"
 Map1::Map1() : Scene(SceneIds::Map1)
 {
@@ -104,6 +105,14 @@ void Map1::Enter()
 		{
 			rect->setOutlineColor(sf::Color(128, 0, 128));
 		}
+		else if (typeStr == "NextScene")
+		{
+			rect->setOutlineColor(sf::Color(255, 165, 0));
+		}
+		else if (typeStr == "PrevScene")
+		{
+			rect->setOutlineColor(sf::Color(135, 206, 250));
+		}
 		else if (typeStr == "Battle")
 		{
 			rect->setOutlineColor(sf::Color::Red);
@@ -116,9 +125,9 @@ void Map1::Enter()
 		{
 			rect->setOutlineColor(sf::Color::Yellow);
 		}
-		else if (typeStr == "swicth")
+		else if (typeStr == "Switch")
 		{
-			rect->setOutlineColor(sf::Color(170, 255, 195)); // ¹ÎÆ®»ö
+			rect->setOutlineColor(sf::Color(170, 255, 195));
 		}
 		else if (typeStr == "Signs")
 		{
@@ -126,7 +135,7 @@ void Map1::Enter()
 		}
 		else
 		{
-			rect->setOutlineColor(sf::Color::Green); // ±âº»°ª: Wall
+			rect->setOutlineColor(sf::Color::Green);
 		}
 
 		rect->setOutlineThickness(1.f);
@@ -137,6 +146,67 @@ void Map1::Enter()
 void Map1::Update(float dt)
 {
 	worldView.setCenter(player->GetPosition());
+	battleCheckTimer += dt;
+	for (auto& hit : hitboxes)
+	{
+		if (Utils::CheckCollision(player->GetHitBox(), *hit.shape))
+		{
+			if (hit.type == "Wall")
+			{
+				player->SetPosition(player->getPos());
+			}
+			else if (hit.type == "SceneChange")
+			{
+				std::cout << "¾À ÀüÈ¯ Æ®¸®°ÅµÊ!" << std::endl;
+				SCENE_MGR.ChangeScene(SceneIds::Dev1);
+			}
+			else if (hit.type == "Battle")
+			{
+				if (battleCheckTimer >= battleCheckInterval)
+				{
+					std::cout << "¹èÆ² È®·ü Ã¼Å©" << std::endl;
+					battleCheckTimer = 0.f;
+
+					// 10% È®·ü
+					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
+					{
+						std::cout << "·£´ý ÀüÅõ ¹ß»ý!" << std::endl;
+						SceneBattle::nextSceneId = SceneIds::test;
+						SceneBattle::monsterJsonID = "jsons/frog.json";
+						//SceneBattle::monsterJsonID = "jsons/sans.json";
+						SCENE_MGR.ChangeScene(SceneIds::Battle);
+					}
+					else
+					{
+						std::cout << "¹èÆ² ¾Æ´Ô" << std::endl;
+					}
+				}
+			}
+			else if (hit.type == "Event")
+			{
+				std::cout << "Event" << std::endl;
+				
+			}
+			else if (hit.type == "Switch")
+			{
+				std::cout << "Switch" << std::endl;
+			}
+			else if (hit.type == "NextScene")
+			{
+				std::cout << "NextScene" << std::endl;
+				SCENE_MGR.ChangeScene(SceneIds::Dev1);
+			}
+			else if (hit.type == "PrevScene")
+			{
+				std::cout << "PrevScene" << std::endl;
+				SCENE_MGR.ChangeScene(SceneIds::test);
+			}
+			else if (hit.type == "Signs")
+			{
+				std::cout << "Signs" << std::endl;
+			}
+		}
+	}
 	Scene::Update(dt);
 }
 

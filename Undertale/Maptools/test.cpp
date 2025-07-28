@@ -174,7 +174,7 @@ void test::Update(float dt)
 			else if (hit.type == "SceneChange")
 			{
 				std::cout << "씬 전환 트리거됨!" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Dev1);
+				SCENE_MGR.ChangeScene(SceneIds::Map1);
 			}
 			else if (hit.type == "Battle")
 			{
@@ -198,6 +198,7 @@ void test::Update(float dt)
 					}
 				}
 			}
+			
 		}
 	}
 

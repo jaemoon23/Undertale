@@ -27,10 +27,11 @@ enum class HitBoxType
     Battle,
     Event,
     Door,
-    Swicth,
+    Switch,
     Signs,
     SceneChanege,
-    
+    NextScene,
+    PrevScene
 };
 
 struct HitBoxInfo

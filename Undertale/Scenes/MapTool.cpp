@@ -341,6 +341,18 @@ void MapTool::Update(float dt)
 				boxType = HitBoxType::SceneChanege;
 				newRect->setOutlineColor(sf::Color(128, 0, 128)); // 보라색
 			}
+			else if (InputMgr::GetKey(sf::Keyboard::Q))
+			{
+				boxType = HitBoxType::NextScene;
+				fieldName = "NextScene";   
+				newRect->setOutlineColor(sf::Color(255, 165, 0));
+			}
+			else if (InputMgr::GetKey(sf::Keyboard::E))
+			{
+				boxType = HitBoxType::PrevScene;
+				fieldName = "PrevScene";   
+				newRect->setOutlineColor(sf::Color(135, 206, 250));
+			}
 			else if (InputMgr::GetKey(sf::Keyboard::Num2))
 			{
 				boxType = HitBoxType::Battle;
@@ -361,8 +373,8 @@ void MapTool::Update(float dt)
 			}
 			else if (InputMgr::GetKey(sf::Keyboard::Num5))
 			{
-				boxType = HitBoxType::Swicth;
-				fieldName = "swicth";
+				boxType = HitBoxType::Switch;
+				fieldName = "Switch";
 				newRect->setOutlineColor(sf::Color(170, 255, 195));
 			}
 			else if (InputMgr::GetKey(sf::Keyboard::Num6))
@@ -400,11 +412,17 @@ void MapTool::Update(float dt)
 			case HitBoxType::SceneChanege:
 				typeStr = "SceneChanege";
 				break;
+			case HitBoxType::NextScene:
+				typeStr = "NextScene";
+				break;
+			case HitBoxType::PrevScene:
+				typeStr = "PrevScene";
+				break;
 			case HitBoxType::Battle: 
 				typeStr = "Battle";
 				break;
-			case HitBoxType::Swicth:
-				typeStr = "swicth";
+			case HitBoxType::Switch:
+				typeStr = "Switch";
 				break;
 			case HitBoxType::Door:
 				typeStr = "Door";
@@ -554,11 +572,17 @@ void MapTool::jsonInput()
 		case HitBoxType::SceneChanege:
 			typeStr = "SceneChanege";
 			break;
+		case HitBoxType::NextScene:
+			typeStr = "NextScene";
+			break;
+		case HitBoxType::PrevScene:
+			typeStr = "PrevScene";
+			break;
 		case HitBoxType::Battle:
 			typeStr = "Battle";
 			break;
-		case HitBoxType::Swicth:
-			typeStr = "swicth";
+		case HitBoxType::Switch:
+			typeStr = "Switch";
 			break;
 		case HitBoxType::Door:
 			typeStr = "Door";
