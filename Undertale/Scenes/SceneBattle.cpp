@@ -430,7 +430,7 @@ void SceneBattle::TryMercy()
 		monster.setColor(monsterblinkColor);
 		btState = ButtonState::None;
 		int gold = data["gold"];
-		btBox->startStr = L"* 승리! " + std::to_wstring(gold) + L"G 를 얻었다.";
+		btBox->startStr = L"* 승리! 0 XP와 " + std::to_wstring(gold) + L"G 를 얻었다.";
 		btBox->SetStartDescribe();
 		soul->SetPosition({ -100.f,-100.f });
 		PlayerInfo::gold += gold;
