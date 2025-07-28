@@ -37,7 +37,6 @@ public:
 	Map1();
 	~Map1() override = default;
 
-	void SetPlayer(Player* player) { this->player = player; }
 	void Init() override;
 	void Enter() override;
 	void Update(float dt) override;

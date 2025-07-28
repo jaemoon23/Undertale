@@ -9,11 +9,13 @@
 //#include "SceneTest.h"
 #include "SceneTitle.h"
 #include "Map1.h"
+#include "Map2.h"
 
 void SceneMgr::Init()
 {
 	scenes.insert({ SceneIds::Intro, new SceneIntro() });
 	scenes.insert({ SceneIds::Map1, new Map1() });
+	scenes.insert({ SceneIds::Map2, new Map2() });
 	//scenes.insert({ SceneIds::Test ,new SceneTest() });
 	scenes.insert({ SceneIds::Dev1 ,new SceneDev1() });
 	scenes.insert({ SceneIds::test ,new test() });

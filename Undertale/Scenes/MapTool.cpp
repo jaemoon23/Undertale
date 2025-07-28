@@ -32,6 +32,7 @@ void MapTool::Init()
 
 	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton1"))));
 	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton2"))));
+	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton3"))));
 
 	hitBox = (Button*)AddGameObject(new Button("HitBox"));
 
@@ -70,7 +71,8 @@ void MapTool::Enter()
 	};
 	backgroundTexturePaths = {
 	   "graphics/bg_firstroom.png",
-	   "graphics/back2.png"
+	   "graphics/back2.png",
+	   "graphics/back3.png"
 	};
 
 	const int maxColumns = 5;
@@ -118,7 +120,7 @@ void MapTool::Enter()
 
 			btn->SetSize({ 300.f, 200.f });
 			btn->SetColor(sf::Color::Transparent, sf::Color::Red);
-			btn->SetPosition({ 1020.f + (x * 325), 170.f + (y * 125.f) });
+			btn->SetPosition({ 1700.f + (x * 325), 170.f + (y * 125.f) });
 			btn->SetOrigin({ btn->GetLocalBounds().width * 0.5f, btn->GetLocalBounds().height * 0.5f });
 			btn->setCallback([&, index]() {
 				std::cout << "버튼 " << index + 1 << " 누름" << std::endl;
@@ -172,7 +174,7 @@ void MapTool::Enter()
 	{
 		backgroundSprites[i]->SetTextureId(backgroundTexturePaths[i]);
 		backgroundSprites[i]->sortingOrder = 0;
-		backgroundSprites[i]->SetScale({ 0.5f,0.4f });
+		backgroundSprites[i]->SetScale({ 0.1f,0.1f });
 		backgroundSprites[i]->SetOrigin({ backgroundSprites[i]->GetLocalBounds().width * 0.5f, backgroundSprites[i]->GetLocalBounds().height });
 		backgroundSprites[i]->SetPosition({ backgroundButtons[i]->GetPosition().x + 150.f, backgroundButtons[i]->GetPosition().y + 150.f });
 	}
@@ -206,7 +208,7 @@ void MapTool::Enter()
 	backText->SetString("BackGround");
 	backText->SetCharacterSize(50.f);
 	backText->SetFillColor(sf::Color::White);
-	backText->SetPosition({ 1200.f, 100.f});
+	backText->SetPosition({ 1700.f, 100.f});
 
 	objectText->SetString("Object");
 	objectText->SetCharacterSize(50.f);
