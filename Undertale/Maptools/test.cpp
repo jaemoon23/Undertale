@@ -38,9 +38,8 @@ void test::Enter()
 {
 	Scene::Enter();
 	auto size = FRAMEWORK.GetWindowSizeF();
-	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
 	worldView.setSize(size * 0.5f);
-
+	
 	std::ifstream in("map0.json");
 	if (!in)
 	{
@@ -124,6 +123,8 @@ void test::Enter()
 void test::Update(float dt)
 {
 	Scene::Update(dt);
+	/*sf::View view(sf::FloatRect(0, 0, 320, 240));
+	FRAMEWORK.GetWindow().setView(view);*/
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
 	for (auto& hit : hitboxes)
@@ -164,6 +165,7 @@ void test::Update(float dt)
 		}
 	}
 
+	// test code
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num8))
 	{
 		SceneBattle::nextSceneId = SceneIds::test;
@@ -176,10 +178,13 @@ void test::Update(float dt)
 		SceneBattle::monsterJsonID = "jsons/sans.json";
 		SCENE_MGR.ChangeScene(SceneIds::Battle);
 	}
+	auto size = FRAMEWORK.GetWindowSizeF();
+	worldView.setSize(size * 0.5f);
 }
 
 void test::Draw(sf::RenderWindow& window)
 {
+	
 	if (background)
 	{
 		background->Draw(window);
