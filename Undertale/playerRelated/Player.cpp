@@ -115,33 +115,23 @@ void Player::Update(float dt)
 	SetPosition(GetPosition() + direction * speed * dt);
 	hitBox.UpdateTransform(body, body.getLocalBounds());
 
-	// 애니메이션 처리
-	if (InputMgr::GetKey(sf::Keyboard::Right))
-	{
-		if (animator.GetCurrentClipId() != "Animation/rightwalking.csv")
-			animator.Play("Animation/rightwalking.csv");
-	}
-	else if (InputMgr::GetKey(sf::Keyboard::Left))
-	{
-		if (animator.GetCurrentClipId() != "Animation/leftwalking.csv")
-			animator.Play("Animation/leftwalking.csv");
-	}
-	else if (InputMgr::GetKey(sf::Keyboard::Up))
-	{
-		if (animator.GetCurrentClipId() != "Animation/upwalking.csv")
-			animator.Play("Animation/upwalking.csv");
-	}
-	else if (InputMgr::GetKey(sf::Keyboard::Down))
-	{
-		if (animator.GetCurrentClipId() != "Animation/downwalking.csv")
-			animator.Play("Animation/downwalking.csv");
-	}
-	else
-	{
-		animator.Stop();
-	}
 	
-
+	if (InputMgr::GetKeyDown(sf::Keyboard::Right))
+	{
+		animator.Play("Animation/rightwalking.csv");
+	}
+	else if (InputMgr::GetKeyDown(sf::Keyboard::Left))
+	{
+		animator.Play("Animation/leftwalking.csv");
+	}
+	else if (InputMgr::GetKeyDown(sf::Keyboard::Up))
+	{
+		animator.Play("Animation/upwalking.csv");
+	}
+	else if (InputMgr::GetKeyDown(sf::Keyboard::Down))
+	{
+		animator.Play("Animation/downwalking.csv");
+	}
 }
 
 void Player::Draw(sf::RenderWindow& window)
