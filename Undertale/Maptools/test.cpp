@@ -163,6 +163,19 @@ void test::Update(float dt)
 			}
 		}
 	}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num8))
+	{
+		SceneBattle::nextSceneId = SceneIds::test;
+		SceneBattle::monsterJsonID = "jsons/frog.json";
+		SCENE_MGR.ChangeScene(SceneIds::Battle);
+	}
+	else if (InputMgr::GetKeyDown(sf::Keyboard::Num9))
+	{
+		SceneBattle::nextSceneId = SceneIds::test;
+		SceneBattle::monsterJsonID = "jsons/sans.json";
+		SCENE_MGR.ChangeScene(SceneIds::Battle);
+	}
 }
 
 void test::Draw(sf::RenderWindow& window)
