@@ -35,7 +35,7 @@ protected:
 	Animator animator;
 	HitBox hitBox;
 
-	
+	Sans* sans;
 	HpUi* hpui;
 	DialogueBox* dialoguebox;
 	UiChanger* uichanger;
@@ -51,7 +51,7 @@ public:
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;
 	void SetScale(const sf::Vector2f& s) override;
-	void SetOrigin(const sf::Vector2f& o) override; 
+	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
 
 	void Init() override;
@@ -70,7 +70,11 @@ public:
 
 	void SansInteract();
 
-
+	void SetSans(Sans* s) { sans = s; }
+	void SetBox(DialogueBox* dbox) { dialoguebox = dbox; }
+	void SetInventoryUi(InventoryUi* i) { inventoryui = i; }
+	void SetUiChanger(UiChanger* u) { uichanger = u; }
+	void SetPlayerInfoUi(PlayerInfoUi* infoUi) { playerInfoUi = infoUi; }
 
 	void SetHealItem(HealItem* item) { healItem = item; }
 
@@ -79,6 +83,6 @@ public:
 	void GetHealItem(const std::string& healitemName);
 
 	const sf::RectangleShape& GetHitBox() const;
-	sf::Vector2f getPos() { return prevPosition; }	
+	sf::Vector2f getPos() { return prevPosition; }
 };
 

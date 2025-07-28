@@ -146,6 +146,8 @@ void test::Enter()
 void test::Update(float dt)
 {
 	Scene::Update(dt);
+	/*sf::View view(sf::FloatRect(0, 0, 320, 240));
+	FRAMEWORK.GetWindow().setView(view);*/
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
 	for (auto& hit : hitboxes)
@@ -239,13 +241,15 @@ void test::Update(float dt)
 
 void test::Draw(sf::RenderWindow& window)
 {
+	Scene::Draw(window);
+	window.setView(worldView);
+	
 	if (Variables::isDrawHitBox)
 	{
 		for (auto& hit : hitboxes)
 		{
-			window.draw(*hit.shape);
+			window.draw(*hit.shape); // worldView 기준으로 그려짐
 		}
 	}
-
-	Scene::Draw(window);
+	
 }
