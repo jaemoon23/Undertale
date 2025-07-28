@@ -153,6 +153,7 @@
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="Framework\Variables.cpp" />
     <ClCompile Include="Maptools\InputText.cpp" />
+    <ClCompile Include="playerRelated\HealItem.cpp" />
     <ClCompile Include="playerRelated\InventoryUi.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scenes\SceneIntro.cpp" />

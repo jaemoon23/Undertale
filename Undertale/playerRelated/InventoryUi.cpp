@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "InventoryUi.h"
 #include "Player.h"
+#include "HealItem.h"
 
 
 InventoryUi::InventoryUi(const std::string& name)
@@ -92,6 +93,12 @@ void InventoryUi::Reset()
 	text.setString("Press [X] to Finish ");
 	text.setCharacterSize(20.f);
 	text.setPosition({ (invBounds.left + invBounds.width) *0.5f - 64.f ,invBounds.top + invBounds.height - 50.f});
+
+	healItem = nullptr;
+	itemText.setFont(fonts);
+	itemText.setFillColor(sf::Color::White);
+	itemText.setCharacterSize(22.f);
+	itemText.setPosition({ inventory.getPosition().x + 80.f, inventory.getPosition().y - 120.f });
 }
 
 void InventoryUi::Update(float dt)
@@ -109,5 +116,12 @@ void InventoryUi::Draw(sf::RenderWindow& window)
 		window.draw(inventext);
 		window.draw(boxtext);
 		window.draw(text);
+		window.draw(itemText);
 	}
+	if (healItem)
+	{
+		itemText.setString( healItem->GetName());
+		window.draw(itemText);
+	}
+
 }

@@ -19,6 +19,8 @@ protected:
 	sf::Text boxtext;
 	sf::Text text;
 
+	sf::Text itemText;
+
 	Player* player;
 	HealItem* healItem;
 	
@@ -31,13 +33,13 @@ public:
 	void SetScale(const sf::Vector2f& s) override;
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
+	
+	void SetHealItem(HealItem* item) { healItem = item; }
 
 	void Init() override;
 	void Release() override;
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
-
-
 };
 

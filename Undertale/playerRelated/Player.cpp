@@ -5,8 +5,7 @@
 #include "UiChanger.h"
 #include "InventoryUi.h"
 #include "PlayerInfoUi.h"
-
-
+#include "HealItem.h"
 
 Player::Player(const std::string& name)
 	: GameObject(name)
@@ -80,23 +79,7 @@ void Player::Update(float dt)
 {
 	animator.Update(dt);
 	prevPosition = GetPosition();
-	/*if (!dialoguebox->GetActive()&& !uichanger->GetActive())
-	if (!dialoguebox->GetActive() && !uichanger->GetActive())
-	{
-		direction.x = InputMgr::GetAxis(Axis::Horizontal);
-		direction.y = InputMgr::GetAxis(Axis::Vertical);
-		Utils::Normalize(direction);
-		SetPosition(GetPosition() + direction * speed * dt);
-		
-	}
-	else
-	{
-		animator.Stop();
-	}*/
-	direction.x = InputMgr::GetAxis(Axis::Horizontal);
-	direction.y = InputMgr::GetAxis(Axis::Vertical);
-	SetPosition(GetPosition() + direction * speed * dt);
-	hitBox.UpdateTransform(body, body.getLocalBounds());
+
 
 	if (sans)
 	{
@@ -123,32 +106,32 @@ void Player::Update(float dt)
 		}
 	}
 
+	
+	if (uichanger && uichanger->GetActive()) return; // UI 변경 중에는 플레이어 이동 불가
+	if (dialoguebox && dialoguebox->GetActive()) return; // 대화 중에는 플레이어 이동 불가
+
+	direction.x = InputMgr::GetAxis(Axis::Horizontal);
+	direction.y = InputMgr::GetAxis(Axis::Vertical);
+	SetPosition(GetPosition() + direction * speed * dt);
+	hitBox.UpdateTransform(body, body.getLocalBounds());
+
+	
 	if (InputMgr::GetKeyDown(sf::Keyboard::Right))
 	{
 		animator.Play("Animation/rightwalking.csv");
 	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Left))
+	else if (InputMgr::GetKeyDown(sf::Keyboard::Left))
 	{
 		animator.Play("Animation/leftwalking.csv");
 	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Up))
+	else if (InputMgr::GetKeyDown(sf::Keyboard::Up))
 	{
 		animator.Play("Animation/upwalking.csv");
 	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Down))
+	else if (InputMgr::GetKeyDown(sf::Keyboard::Down))
 	{
 		animator.Play("Animation/downwalking.csv");
 	}
-
-	//if (InputMgr::GetKey(sf::Keyboard::Up) == 0 &&
-	//	InputMgr::GetKey(sf::Keyboard::Down) == 0 &&
-	//	InputMgr::GetKey(sf::Keyboard::Left) == 0 &&
-	//	InputMgr::GetKey(sf::Keyboard::Right) == 0)
-	//{
-	//	animator.Stop();
-	//}
-
-	
 }
 
 void Player::Draw(sf::RenderWindow& window)
@@ -214,12 +197,39 @@ void Player::SetName(const std::wstring& n)
 void Player::SansInteract()
 {
 	std::vector<std::wstring> testDialogues =
-	{ L"* �ȳ�", L"* ȸ�� ������ �ٰ� " };
+	{ L"* hi", L"* potion" };
 	dialoguebox->StartDialogue(testDialogues);
-
+	GetHealItem("Potion");
 }
 
-const sf::RectangleShape& Player::GetHitBox() const 
+void Player::Heal(int amount, int maxHp)
+{
+	int newHp = hp + amount;
+	if (newHp > maxHp)
+	{
+		newHp = maxHp;
+	}
+	if (playerInfoUi)
+	{
+		playerInfoUi->SetPlayerHp(std::to_wstring(hp));
+	}
+}
+
+void Player::GetHealItem(const std::string& healitemName)
+{
+	healItem = new HealItem(healitemName, 5); 
+	    if (inventoryui)
+    {
+        inventoryui->SetHealItem(healItem);
+    }
+}
+
+void Player::UseHealItem(HealItem* item)
+{
+	Heal(item->GetHealAmount(), maxHp);
+}
+
+const sf::RectangleShape& Player::GetHitBox() const
 {
 	return hitBox.rect;
 }

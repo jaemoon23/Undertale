@@ -9,8 +9,7 @@ class DialogueBox;
 class UiChanger;
 class InventoryUi;
 class PlayerInfoUi;
-
-
+class HealItem;
 
 class Player : public GameObject
 {
@@ -42,6 +41,7 @@ protected:
 	UiChanger* uichanger;
 	InventoryUi* inventoryui;
 	PlayerInfoUi* playerInfoUi;
+	HealItem* healItem;
 
 
 public:
@@ -76,10 +76,13 @@ public:
 	void SetUiChanger(UiChanger* u) { uichanger = u; }	
 	void SetPlayerInfoUi(PlayerInfoUi* infoUi) { playerInfoUi = infoUi; }
 
+	void SetHealItem(HealItem* item) { healItem = item; }
+
+	void UseHealItem(HealItem* item);
+	void Heal(int amount, int maxHp);
+	void GetHealItem(const std::string& healitemName);
+
 	const sf::RectangleShape& GetHitBox() const;
-	sf::Vector2f getPos() { return prevPosition; }
-	
-	void Heal(int healamount);
-	void GiveItem(const std::string& itemName);
+	sf::Vector2f getPos() { return prevPosition; }	
 };
 

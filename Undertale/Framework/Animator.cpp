@@ -65,6 +65,7 @@ void Animator::Update(float dt)
 
 void Animator::Play(const std::string& clipId, bool clearQueue)
 {
+
 	Play(&ANI_CLIP_MGR.Get(clipId), clearQueue);
 }
 
