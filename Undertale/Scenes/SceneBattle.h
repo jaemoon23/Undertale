@@ -16,6 +16,8 @@ class SceneBattle : public Scene
 {
 protected:
 	sf::Sprite background;
+	sf::Sprite gameOver;
+	sf::Color gameOverColor;
 	Soul* soul;
 
 	sf::Sprite monster;
@@ -55,6 +57,7 @@ protected:
 	std::vector<Bullet*> bulletTemp;
 
 	bool isPlaying = true;
+	bool isGameOver = false;
 
 	sf::Color monsteroriginColor;
 	sf::Color monsterblinkColor;
@@ -65,6 +68,15 @@ protected:
 
 	float monsterShakeTimer = 0.f;
 	float monsterShakeInterval = 0.05f;
+
+	float heartbreakTimer = 0.f;
+	float heartbreakTime = 1.0f;
+
+	float fadeTimer = 0.f;
+	float fadeTime = 2.0f;
+	float fadeIntervalTimer = 0.f;
+	float fadeInterval = 0.2f;
+	bool isFadeIn = false;
 
 public:
 	bool isMonsterShaking = false;

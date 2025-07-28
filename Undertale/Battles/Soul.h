@@ -64,7 +64,7 @@ public:
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
 
-	void SetTexture(std::string texId) { sprite.setTexture(TEXTURE_MGR.Get(texId)); }
+	void SetTexture(std::string texId) { sprite.setTexture(TEXTURE_MGR.Get(texId), true); }
 	void SetShieldBlink()
 	{ 
 		shield.setColor(sf::Color::Red);

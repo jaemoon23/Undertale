@@ -14,12 +14,15 @@ SceneBattle::SceneBattle()
 }
 
 void SceneBattle::Init()
-{	
+{
+	
 	ANI_CLIP_MGR.Load("animations/sans_idle.csv");
 	ANI_CLIP_MGR.Load("animations/fist.csv");
 	ANI_CLIP_MGR.Load("animations/frogit_idle.csv");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("graphics/spr_battlebg_0.png");
+	texIds.push_back("graphics/spr_heartbreak_0.png");
+	texIds.push_back("graphics/spr_gameoverbg_0.png");
 	texIds.push_back("graphics/spr_heart_blue.png");
 	texIds.push_back("graphics/spr_barrier.png");
 	texIds.push_back("graphics/spr_heart_green.png");
@@ -92,7 +95,9 @@ void SceneBattle::Init()
 void SceneBattle::Enter()
 {
 	isPlaying = true;
+	isGameOver = false;
 	isMonsterShaking = false;
+	isFadeIn = false;
 	mercyPoint = 0;
 	btIndex = 0;
 	PatternIndex = 0; // 0으로 바꾸기
@@ -100,6 +105,8 @@ void SceneBattle::Enter()
 	actChooseIndex = 0;
 	mercyChooseIndex = 0;
 	lineIndex = 0;
+	heartbreakTimer = 0.f;
+	fadeTimer = 0.f;
 
 	Scene::Enter();
 	// JSON 파일 불러오기	
@@ -140,6 +147,13 @@ void SceneBattle::Enter()
 	Utils::SetOrigin(background, Origins::TC);
 	background.setPosition({ size.x * 0.5f,10.f });
 
+	gameOver.setTexture(TEXTURE_MGR.Get("graphics/spr_gameoverbg_0.png"));
+	Utils::SetOrigin(gameOver, Origins::TC);
+	gameOver.setPosition({ size.x * 0.5f, 40.f });
+	gameOverColor = gameOver.getColor();
+	gameOverColor.a = 0;
+	gameOver.setColor(gameOverColor);
+
 	monster.setTexture(TEXTURE_MGR.Get(monsterTexId));
 	animator.SetTarget(&monster);
 	Utils::SetOrigin(monster, Origins::TC);
@@ -151,6 +165,7 @@ void SceneBattle::Enter()
 	monsterblinkColor = monster.getColor();
 	monsterblinkColor.a = 100;
 	monster.setColor(monsteroriginColor);
+	soul->hp = 4; // 지우기
 }
 
 void SceneBattle::Exit()
@@ -247,11 +262,44 @@ void SceneBattle::Update(float dt)
 			}
 		}
 	}
+	else if (isGameOver)
+	{
+		heartbreakTimer += dt;
+		if (heartbreakTimer >= heartbreakTime)
+		{
+			isFadeIn = true;
+			soul->SetTexture("graphics/spr_heartbreak_0.png");			
+		}
+
+		if (isFadeIn)
+		{
+			fadeTimer += dt;
+			fadeIntervalTimer += dt;
+
+			if (fadeIntervalTimer > fadeInterval)
+			{
+				fadeIntervalTimer = 0.f;
+				float alpha = static_cast<float>(gameOverColor.a);
+				alpha += 255.f * fadeInterval / fadeTime;
+				gameOverColor.a = static_cast<sf::Uint8>(std::min(255.f, alpha));
+				gameOver.setColor(gameOverColor);
+			}
+
+			if (fadeTimer >= fadeTime || gameOverColor.a == 255.f)
+			{
+				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+				{
+					isFadeIn = false;
+					SCENE_MGR.ChangeScene(SceneIds::Battle);
+				}
+				fadeIntervalTimer = 0.f;
+			}
+		}
+	}
 	else
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 		{
-			std::cout << "씬탈출" << std::endl;
 			SCENE_MGR.ChangeScene(nextSceneId);
 		}
 	}
@@ -262,9 +310,17 @@ void SceneBattle::Update(float dt)
 
 void SceneBattle::Draw(sf::RenderWindow& window)
 {
-	window.draw(background);
-	window.draw(monster);
-	Scene::Draw(window);
+	if (!isGameOver)
+	{
+		window.draw(background);
+		window.draw(monster);
+		Scene::Draw(window);
+	}
+	else
+	{
+		soul->Draw(window);
+		window.draw(gameOver);
+	}
 }
 
 void SceneBattle::SetMonsterTurn()
@@ -397,7 +453,13 @@ void SceneBattle::PlayerDie()
 	btState = ButtonState::None;
 	btBox->startStr = L"* 패배!";
 	btBox->SetStartDescribe();
+	for (auto& b : bulletTemp)
+	{
+		RemoveGameObject(b);
+	}
+	bulletTemp.clear();
 	isPlaying = false;
+	isGameOver = true;
 	SOUND_MGR.StopBgm();
 }
 
