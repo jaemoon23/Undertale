@@ -224,11 +224,11 @@ void test::Update(float dt)
 		SceneBattle::monsterJsonID = "jsons/sans.json";
 		SCENE_MGR.ChangeScene(SceneIds::Battle);
 	}
-
+	//Scene::Update(dt);
 	player->Update(dt);
 	playerinfoui->Update(dt);
 	inventoryui->Update(dt);
-	//Scene::Update(dt);
+	
 	uichanger->Update(dt);
 
 }
@@ -237,7 +237,7 @@ void test::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
 	window.setView(worldView);
-	window.setView(uiView);
+	
 	
 	if (Variables::isDrawHitBox)
 	{
