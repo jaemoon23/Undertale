@@ -20,7 +20,7 @@ void SceneTitle::Init()
 void SceneTitle::Enter()
 {
 	Scene::Enter();
-
+	FRAMEWORK.SetWindowSize(640.f, 480.f);
 	SOUND_MGR.PlaySfx("sounds/mus_sfx_cinematiccut.wav");
 
 	worldView.setSize(size);
@@ -41,6 +41,10 @@ void SceneTitle::Update(float dt)
 	if (InputMgr::GetKeyDown(sf::Keyboard::Z) || InputMgr::GetKeyDown(sf::Keyboard::Enter))
 	{
 		SCENE_MGR.ChangeScene(SceneIds::test);
+	}
+	else if(InputMgr::GetKeyDown(sf::Keyboard::M))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::MapTool);
 	}
 }
 
