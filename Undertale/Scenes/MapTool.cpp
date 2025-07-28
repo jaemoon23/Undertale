@@ -70,7 +70,7 @@ void MapTool::Enter()
 	};
 	backgroundTexturePaths = {
 	   "graphics/bg_firstroom.png",
-	   "graphics/bg_innrooms_0.png"
+	   "graphics/back2.png"
 	};
 
 	const int maxColumns = 5;
@@ -347,6 +347,30 @@ void MapTool::Update(float dt)
 				fieldName = "BattleZone";   
 				newRect->setOutlineColor(sf::Color::Red); 
 			}
+			else if (InputMgr::GetKey(sf::Keyboard::Num3))
+			{
+				boxType = HitBoxType::Event;
+				fieldName = "Event";
+				newRect->setOutlineColor(sf::Color::Blue);
+			}
+			else if (InputMgr::GetKey(sf::Keyboard::Num4))
+			{
+				boxType = HitBoxType::Door;
+				fieldName = "Door";
+				newRect->setOutlineColor(sf::Color::Yellow);
+			}
+			else if (InputMgr::GetKey(sf::Keyboard::Num5))
+			{
+				boxType = HitBoxType::Swicth;
+				fieldName = "swicth";
+				newRect->setOutlineColor(sf::Color(170, 255, 195));
+			}
+			else if (InputMgr::GetKey(sf::Keyboard::Num6))
+			{
+				boxType = HitBoxType::Signs;
+				fieldName = "Signs";
+				newRect->setOutlineColor(sf::Color::White);
+			}
 			else
 			{
 				boxType = HitBoxType::Wall;
@@ -378,6 +402,18 @@ void MapTool::Update(float dt)
 				break;
 			case HitBoxType::Battle: 
 				typeStr = "Battle";
+				break;
+			case HitBoxType::Swicth:
+				typeStr = "swicth";
+				break;
+			case HitBoxType::Door:
+				typeStr = "Door";
+				break;
+			case HitBoxType::Event:
+				typeStr = "Event";
+				break;
+			case HitBoxType::Signs:
+				typeStr = "Signs";
 				break;
 			}
 
@@ -516,10 +552,22 @@ void MapTool::jsonInput()
 			typeStr = "Wall";
 			break;
 		case HitBoxType::SceneChanege:
-			typeStr = "SceneChange";
+			typeStr = "SceneChanege";
 			break;
-		case HitBoxType::Battle: // 또는 Battle
+		case HitBoxType::Battle:
 			typeStr = "Battle";
+			break;
+		case HitBoxType::Swicth:
+			typeStr = "swicth";
+			break;
+		case HitBoxType::Door:
+			typeStr = "Door";
+			break;
+		case HitBoxType::Event:
+			typeStr = "Event";
+			break;
+		case HitBoxType::Signs:
+			typeStr = "Signs";
 			break;
 		}
 

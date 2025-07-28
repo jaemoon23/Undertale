@@ -100,10 +100,6 @@ void test::Enter()
 	uiView.setSize(size);
 	uiView.setCenter(center);
 	
-
-
-	
-
 	// 오브젝트
 	bool playerPlaced = false;
 	for (auto& obj : mapData["objects"])
@@ -165,8 +161,6 @@ void test::Enter()
 }
 void test::Update(float dt)
 {
-	/*sf::View view(sf::FloatRect(0, 0, 320, 240));
-	FRAMEWORK.GetWindow().setView(view);*/
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
 	for (auto& hit : hitboxes)

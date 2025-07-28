@@ -25,6 +25,10 @@ enum class HitBoxType
 {
     Wall,
     Battle,
+    Event,
+    Door,
+    Swicth,
+    Signs,
     SceneChanege,
     
 };
@@ -79,7 +83,7 @@ protected:
     };
     std::vector<std::string> backgroundTexturePaths = {
        "graphics/bg_firstroom.png",
-       "graphics/bg_innrooms_0.png"
+       "graphics/back2.png"
     };
 
     sf::RectangleShape dragHitBox;
