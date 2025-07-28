@@ -66,12 +66,21 @@ public:
 	void SetLevel(int l);
 	void SetExp(int e) { exp = e; }
 	void SetName(const std::wstring& n);
+	
+	int GetHp() const { return hp; }
+	int GetMaxHp() const { return maxHp; }
 
 	void SansInteract();
 
 	void SetSans(Sans* s) { sans = s; }
+
 	void SetBox(DialogueBox* dbox) { dialoguebox = dbox; }
+	//DialogueBox* GetDialogueBox() const { return dialoguebox; }
+
 	void SetInventoryUi(InventoryUi* i) { inventoryui = i; }
+	//InventoryUi* GetInventoryUi() const { return inventoryui; }
+	
+
 	void SetUiChanger(UiChanger* u) { uichanger = u; }
 	void SetPlayerInfoUi(PlayerInfoUi* infoUi) { playerInfoUi = infoUi; }
 

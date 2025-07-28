@@ -47,6 +47,7 @@ void test::Init()
 	uichanger = new UiChanger("uichanger");
 	playerinfoui = new PlayerInfoUi("playerinfoui");
 
+
 	background = (SpriteGo*)AddGameObject(new SpriteGo());
 	background->sortingLayer = SortingLayers::Background;
 	
@@ -58,7 +59,9 @@ void test::Init()
 	uichanger->SetPlayer(player);
 	uichanger->SetInventoryUi(inventoryui);
 	uichanger->SetPlayerInfoUi(playerinfoui);
+	inventoryui->SetPlayer(player);
 	player->SetSans(sans);
+	inventoryui->SetBox(dialoguebox);
 	
 	AddGameObject(inventoryui);
 	AddGameObject(dialoguebox);
@@ -66,7 +69,7 @@ void test::Init()
 	AddGameObject(playerinfoui);
 	Scene::Init();
 
-	InventoryUi::healItem1.SetInfo(L"아이스크림", 15);
+	InventoryUi::healItem1.SetInfo(L"아이스크림", 15); // 아이템 이름과 회복량 설정
 	//InventoryUi::healItem1.GetName();
 	InventoryUi::healItem2.SetInfo(L"쿠키", 10);
 	InventoryUi::healItem3.SetInfo(L"아이스크림", 15);
@@ -162,8 +165,6 @@ void test::Enter()
 		rect->setOutlineThickness(1.f);
 		hitboxes.push_back({ rect, typeStr });
 	}
-
-
 }
 void test::Update(float dt)
 {
@@ -231,8 +232,6 @@ void test::Update(float dt)
 	playerinfoui->Update(dt);
 	inventoryui->Update(dt);
 	uichanger->Update(dt);
-
-
 }
 
 void test::Draw(sf::RenderWindow& window)

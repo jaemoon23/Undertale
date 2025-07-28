@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "DialogueBox.h"
 #include "Player.h"
+#include "InventoryUi.h"
 
 
 DialogueBox::DialogueBox(const std::string& name)
@@ -146,4 +147,5 @@ void DialogueBox::UpdateTypingEffect(float dt)
 		}
 	}
 }
+
 

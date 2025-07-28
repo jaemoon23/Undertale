@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 class Player;
+class InventoryUi;
 class DialogueBox : public GameObject
 {
 protected:
@@ -23,6 +24,7 @@ protected:
 	size_t charIndex = 0;
 
 	Player* player; 
+	InventoryUi* inventoryui;
 public:
 	DialogueBox(const std::string& name = "");
 	virtual ~DialogueBox() = default;
@@ -48,5 +50,6 @@ public:
 	void TypingEffect(const std::wstring& text, float speed = 0.5f);
 	void UpdateTypingEffect(float dt);
 	bool GetActive5() { return isActive; }
+
 };
 

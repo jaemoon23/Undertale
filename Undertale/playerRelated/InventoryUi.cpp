@@ -2,6 +2,7 @@
 #include "InventoryUi.h"
 #include "Player.h"
 #include "HealItem.h"
+#include "DialogueBox.h"
 
 HealItem InventoryUi::healItem1;
 HealItem InventoryUi::healItem2;
@@ -76,12 +77,6 @@ void InventoryUi::Reset()
 
 	sf::FloatRect invBounds = inventory.getGlobalBounds();
 
-	//line.setSize({ 1.f, invBounds.height * 0.7f });
-	//line.setFillColor(sf::Color(130, 130, 130));
-	//line.setOutlineColor(sf::Color(130, 130, 130));
-	//line.setPosition({ invBounds.left + invBounds.width * 0.5f, invBounds.top + 60.f});
-	//line.setOutlineThickness(2.5f);
-	
 	fonts.loadFromFile(fonttexIds);
 
 	inventext.setFont(fonts);
@@ -89,12 +84,6 @@ void InventoryUi::Reset()
 	inventext.setString("Inventory");
 	inventext.setCharacterSize(25.f);
 	inventext.setPosition({invBounds.getPosition().x + 200.f ,invBounds.getPosition().y + 20.f});
-
-	/*boxtext.setFont(fonts);
-	boxtext.setFillColor(sf::Color::White);
-	boxtext.setString("Box");
-	boxtext.setCharacterSize(25.f);
-	boxtext.setPosition({ invBounds.left + invBounds.width - 145.f ,invBounds.getPosition().y + 20.f });*/
 	
 	text.setFont(fonts);
 	text.setFillColor(sf::Color::White);
@@ -129,22 +118,23 @@ void InventoryUi::Reset()
 
 void InventoryUi::Update(float dt)
 {
+	if (!GetActive()) return; // 인벤토리가 활성화되지 않은 경우 업데이트 중지
 
-	static bool prevDown = false;
+	static bool prevDown = false; // 이전 프레임에서 Up,Down 키가 눌렸는지 여부
 	static bool prevUp = false;
 
 	bool currDown = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
 	bool currUp = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
 
-	if (currDown && !prevDown)
+	if (currDown && !prevDown) // 현재 프레임에서 Down 키가 눌렸고, 이전 프레임에서는 눌리지 않았을 때
 	{
 		selectIndex = (selectIndex + 1) % 4;
 	}
 	else if (currUp && !prevUp)
 	{
-		selectIndex = (selectIndex + 3) % 4;
+		selectIndex = (selectIndex + 3) % 4;  // selectIndex를 3으로 나눈 나머지로 설정하여 인덱스를 감소시킴
 	}
-	prevDown = currDown;
+	prevDown = currDown; // 현재 프레임에서 Down 키가 눌렸는지 여부를 저장
 	prevUp = currUp;
 
 
@@ -179,15 +169,30 @@ void InventoryUi::Update(float dt)
 
 	float selectY = inventory.getPosition().y - 87.f + selectIndex * 54.f; // sprite 위치 인덱스 따라 조정
 	selectSprite.setPosition({ inventory.getPosition().x - 80.f, selectY });
-	
-	if (isActive && InputMgr::GetKeyDown(sf::Keyboard::Enter))
-	{
-		if (selectIndex == 0)
-		{
 
-		}
-		if (selectIndex == 1)
+
+
+
+	// 2. 이제부터만 엔터 입력 처리
+	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	{
+		HealItem* selectedItem = nullptr;
+		switch (selectIndex)
 		{
+		case 0: selectedItem = &healItem1; break;
+		case 1: selectedItem = &healItem2; break;
+		case 2: selectedItem = &healItem3; break;
+		case 3: selectedItem = &healItem4; break;
+		}
+		if (selectedItem && selectedItem->GetHealAmount() > 0) // 
+		{
+			if (player)
+			{
+				player->UseHealItem(selectedItem);
+				// 회복 후 HP 출력
+				std::cout << "Player HP: " << player->GetHp() << " / " << player->GetMaxHp()<< std::endl;
+			}
+			selectedItem->SetInfo(L"", 0);
 		}
 	}
 }
@@ -217,3 +222,6 @@ void InventoryUi::Draw(sf::RenderWindow& window)
 		window.draw(itemText4);
 	}
 }
+
+
+

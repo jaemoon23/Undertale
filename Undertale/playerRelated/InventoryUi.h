@@ -11,6 +11,7 @@ enum class SelectedItem
 
 class Player;
 class HealItem;
+class DialogueBox;
 class InventoryUi : public GameObject
 {
 protected:
@@ -38,6 +39,7 @@ protected:
 	std::string selecttexIds = "Sprites/spr_heart_battle_pl_0.png";
 
 	Player* player;
+	DialogueBox* dialoguebox;
 	//HealItem* healItem;
 	
 public:
@@ -54,8 +56,10 @@ public:
 	void SetScale(const sf::Vector2f& s) override;
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
-	
+	void SetPlayer(Player* p) { player = p; }
+	Player* GetPlayer() const { return player; }
 	//void SetHealItem1(HealItem* item) { healItem1 = item; }
+	void SetBox(DialogueBox* db) { dialoguebox = db; }
 
 	void Init() override;
 	void Release() override;

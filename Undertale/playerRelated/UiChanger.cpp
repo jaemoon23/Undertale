@@ -86,13 +86,22 @@ void UiChanger::Reset()
 
 void UiChanger::Update(float dt)
 {
+
 	if (InputMgr::GetKeyDown(sf::Keyboard::I))
 	{
-		isActive = !isActive;	
+		isActive = !isActive;
 		SetActive(isActive);
 		std::cout << "I" << std::endl;
 	}
-	
+
+	if (!isActive) return;
+
+	// 하위 UI가 켜져 있으면 UiChanger 입력 무시
+	if ((inventoryui && inventoryui->GetActive()) || 
+		(playerinfoui && playerinfoui->GetActive()))
+	{
+		return;
+	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
@@ -126,6 +135,7 @@ void UiChanger::Update(float dt)
 			playerinfoui->SetActive(true);
 		}
 	}
+
 }
 
 void UiChanger::Draw(sf::RenderWindow& window)

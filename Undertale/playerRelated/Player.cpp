@@ -63,10 +63,11 @@ void Player::Reset()
 	body.setTexture(TEXTURE_MGR.Get(texId));
 	animator.Play("Animation/idle.csv");
 	direction = { 0.f, 0.f };
+	maxHp = 30;
 	SetName(L"Frisk");
 	SetAtt(20);
 	SetDef(20);
-	SetHp(10);
+	SetHp(5);
 	SetLevel(1);
 	SetGold(0);
 
@@ -207,6 +208,7 @@ void Player::Heal(int amount, int maxHp)
 	{
 		newHp = maxHp;
 	}
+	hp = newHp; // 실제로 HP를 회복
 	if (playerInfoUi)
 	{
 		playerInfoUi->SetPlayerHp(std::to_wstring(hp));
