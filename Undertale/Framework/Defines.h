@@ -61,5 +61,6 @@ enum class BulletPattern
 	Rotate,
 	Homing,
 	Arrow,
-	Split
+	Split,
+	Beam
 };

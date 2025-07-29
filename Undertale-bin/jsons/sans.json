@@ -729,6 +729,24 @@
           "speed" : 100.0, "delay" : 7.0, "damage" : 6
         }
       ]
+    },
+    {
+      "name" : "Beam",
+      "duration" : 10.5,
+      "bullets" : [
+        {
+          "texId" : "graphics/spr_sans_beam_0.png", "PosX" : 200.0, "PosY" : 250.0, "DirX" : 0.0, "DirY" : 0.0,
+          "speed" : 0.0, "delay" : 1.0, "damage" : 1, "animationId" : "animations/sans_beam.csv"
+        },
+        {
+          "texId" : "graphics/spr_sans_beam_0.png", "PosX" : 400.0, "PosY" : 250.0, "DirX" : 0.0, "DirY" : 0.0,
+          "speed" : 0.0, "delay" : 2.0, "damage" : 1, "animationId" : "animations/sans_beam.csv"
+        },
+        {
+          "texId" : "graphics/spr_sans_beam_0.png", "PosX" : 200.0, "PosY" : 350.0, "DirX" : 0.0, "DirY" : 0.0,
+          "speed" : 0.0, "delay" : 3.0, "damage" : 1, "animationId" : "animations/sans_beam.csv"
+        }
+      ]
     }
   ],
 

@@ -68,11 +68,15 @@ void Bullet::Reset()
 	sprite.setTexture(TEXTURE_MGR.Get(texId));
 	SetPosition(pos);
 	SetOrigin(Origins::MC);
+	animator.SetTarget(&sprite);
+	beam.setSize({ 640.f,30.f });
+	Utils::SetOrigin(beam, Origins::ML);
 }
 
 void Bullet::Update(float dt)
 {
 	hitBox.UpdateTransform(sprite, sprite.getLocalBounds());
+	beamHitBox.UpdateTransform(beam, beam.getLocalBounds());
 
 	timer += dt;
 	switch (pattern)
@@ -174,6 +178,52 @@ void Bullet::Update(float dt)
 			}
 		}
 		break;
+	case BulletPattern::Beam:
+		if (timer >= waitingTime)
+		{
+			if (!isAnimation && timer >= waitingTime + aniDelayTime)
+			{
+				isAnimation = true;
+				beam.setPosition(sprite.getPosition());
+				beam.setRotation(Utils::Angle(dir));
+				animator.Play("animations/sans_beam.csv");
+			}
+			if (!isDraw)
+			{
+				isDraw = true;
+				dir = Utils::GetNormal(soul->GetPosition() - GetPosition());
+				sprite.setRotation(Utils::Angle(dir) + -90.f);
+			}
+			if (isAnimation)
+			{
+				beamTimer += dt;
+				tickTimer += dt;	
+
+				if (beamTimer >= 0.2f && beamTimer <= beamTime)
+				{
+					sf::Vector2f beamSize = beam.getSize();
+					beamSize.y -= 30.f / beamTime * dt;
+					beam.setSize(beamSize);
+					Utils::SetOrigin(beam, Origins::ML);
+				}
+				else if (beamTimer > beamTime)
+				{
+					SetActive(false);
+				}
+
+				if (tickTimer >= tickTime && Utils::PolygonsIntersect(
+					Utils::GetShapePoints(beam), beam.getTransform(),
+					Utils::GetShapePoints(soul->GetSprite()), soul->GetSprite().getTransform()))
+				{
+					tickTimer = 0.f;
+					soul->isBlink = true;
+					soul->TakeDamage(damage);
+					scene->GetStatusUI()->UpdateHpUI();
+				}
+			}
+			animator.Update(dt);
+		}
+		break;
 	}
 }
 
@@ -181,6 +231,11 @@ void Bullet::Draw(sf::RenderWindow& window)
 {
 	if (isDraw)
 	{
+		if (isAnimation)
+		{
+			window.draw(beam);
+			beamHitBox.Draw(window);
+		}
 		window.draw(sprite);
 		hitBox.Draw(window);
 	}

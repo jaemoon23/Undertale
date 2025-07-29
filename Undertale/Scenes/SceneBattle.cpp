@@ -17,7 +17,7 @@ SceneBattle::SceneBattle()
 
 void SceneBattle::Init()
 {	
-	
+	ANI_CLIP_MGR.Load("animations/sans_beam.csv");
 	ANI_CLIP_MGR.Load("animations/sans_idle.csv");
 	ANI_CLIP_MGR.Load("animations/fist.csv");
 	ANI_CLIP_MGR.Load("animations/frogit_idle.csv");
@@ -132,7 +132,7 @@ void SceneBattle::Enter()
 	isBreak = false;
 	mercyPoint = 0;
 	btIndex = 0;
-	PatternIndex = 0; // 0으로 바꾸기
+	PatternIndex = 7; // 0으로 바꾸기
 	itemChooseIndex = 0;
 	actChooseIndex = 0;
 	mercyChooseIndex = 0;
@@ -629,6 +629,24 @@ void SceneBattle::SetBulletPattern()
 				b->Reset();
 				b->pattern = BulletPattern::Split;
 			}
+		}
+	}
+	else if ("Beam" == data["attackPattern"][PatternIndex]["name"])
+	{
+		for (int i = 0; i < bulletCount; ++i)
+		{
+			Bullet* b = (Bullet*)AddGameObject(new Bullet());
+			bulletTemp.push_back(b);
+			b->SetBulletState(data["attackPattern"][PatternIndex]["bullets"][i]["texId"],
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["PosX"], data["attackPattern"][PatternIndex]["bullets"][i]["PosY"] },
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["DirX"], data["attackPattern"][PatternIndex]["bullets"][i]["DirY"] },
+				data["attackPattern"][PatternIndex]["bullets"][i]["speed"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["delay"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["damage"]
+			);
+			b->aniId = data["attackPattern"][PatternIndex]["bullets"][i]["animationId"];
+			b->Reset();			
+			b->pattern = BulletPattern::Beam;
 		}
 	}
 
