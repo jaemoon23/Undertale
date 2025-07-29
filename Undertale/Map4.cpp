@@ -29,6 +29,12 @@ void Map4::Init()
 
 void Map4::Enter()
 {
+	wall.setSize({ 10.f,150.f });
+	wall.setFillColor(sf::Color::Transparent);
+	wall.setOutlineColor(sf::Color::Green);
+	wall.setOutlineThickness(1.f);
+	wall.setPosition({ 695.f, 220.f });
+
 	std::ifstream in("map4.json");
 	if (!in)
 	{
@@ -53,7 +59,7 @@ void Map4::Enter()
 
 	sf::Vector2f size = { 640.f, 480.f };
 	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
-	worldView.setSize(size);
+	worldView.setSize(size * 0.5f);
 	uiView.setSize(size);
 	uiView.setCenter(center);
 
@@ -172,10 +178,10 @@ void Map4::Update(float dt)
 			}
 			else if (hit.type == "Switch")
 			{
-				std::cout << "Switch" << std::endl;
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
 					puzzleSuccess = true;
+					std::cout << "스위치 누름" << std::endl;
 				}
 			}
 			else if (hit.type == "NextScene")
@@ -193,6 +199,14 @@ void Map4::Update(float dt)
 				std::cout << "Signs" << std::endl;
 			}
 		}
+		if (!puzzleSuccess)
+		{
+			if (Utils::CheckCollision(player->GetHitBox(), wall))
+			{
+				player->SetPosition(player->getPos());
+				std::cout << "알 수 없는 힘에 의해 막힘" << std::endl;
+			}
+		}
 	}
 	Scene::Update(dt);
 }
@@ -208,6 +222,7 @@ void Map4::Draw(sf::RenderWindow& window)
 		{
 			window.draw(*hit.shape); // worldView 기준으로 그려짐
 		}
+		window.draw(wall);
 	}
 }
 

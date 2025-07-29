@@ -29,16 +29,16 @@ void MapSans::Init()
 
 void MapSans::Enter()
 {
-	std::ifstream in("map8.json");
+	std::ifstream in("map7.json");
 	if (!in)
 	{
-		std::cerr << "map8.json 파일을 열 수 없습니다!" << std::endl;
+		std::cerr << "map7.json 파일을 열 수 없습니다!" << std::endl;
 		return;
 	}
 
 	nlohmann::json j;
 	in >> j;
-	auto& mapData = j["map8"];
+	auto& mapData = j["map7"];
 
 	// 배경
 	std::string bgTex = mapData["background"]["textureId"];
@@ -53,7 +53,7 @@ void MapSans::Enter()
 
 	sf::Vector2f size = { 640.f, 480.f };
 	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
-	worldView.setSize(size);
+	worldView.setSize(size * 0.5f);
 	uiView.setSize(size);
 	uiView.setCenter(center);
 

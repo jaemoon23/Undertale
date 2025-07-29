@@ -12,6 +12,7 @@ protected:
 
 	std::vector<SpriteGo*> testObjects;
 	std::vector<HitBoxInfo1> hitboxes;
+	sf::RectangleShape wall;
 
 	SpriteGo* background = nullptr;
 	Player* player;
