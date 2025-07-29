@@ -283,12 +283,20 @@ void Map2::Update(float dt)
 		if (Utils::CheckCollision(player->GetHitBox(), sans->GetHitBox()))
 		{
 			sans->SetMove(false);
-			player->SansInteract();
-
-			if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+			//player->SansInteract();
+			
+			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 			{
-				dialoguebox->NextLine();
+				std::vector<std::wstring> testDialogues =
+				{
+					L"* Ä£±¸ »ç±Í´Â ¹ýÀ» ¸ð¸£³ª?",
+					L"* ³ª¶û °°ÀÌ ³î·¡?"
+				};
+				dialoguebox->StartDialogue(testDialogues);
+				
 			}
+			dialoguebox->NextLine();
+			
 		}
 	}
 	//Scene::Update(dt);

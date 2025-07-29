@@ -139,7 +139,7 @@ void Player::Draw(sf::RenderWindow& window)
 void Player::SansInteract()
 {
 	std::vector<std::wstring> testDialogues =
-	{ L"* 왜 안나와  ", L"* 개같네"};
+	{ L"* 안녕  ", L"* 친구 사귀는 법을 모르나?"};
 	dialoguebox->StartDialogue(testDialogues);
 }
 
