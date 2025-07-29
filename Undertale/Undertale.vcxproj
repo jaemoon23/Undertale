@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="AniPlayer.cpp" />
     <ClCompile Include="Maptools\Button.cpp" />
+    <ClCompile Include="playerRelated\PlayerInfo.cpp" />
     <ClCompile Include="playerRelated\DialogueBox.cpp" />
     <ClCompile Include="Battles\BattleBox.cpp" />
     <ClCompile Include="Battles\BattleButton.cpp" />
@@ -177,6 +178,7 @@
   <ItemGroup>
     <ClInclude Include="AniPlayer.h" />
     <ClInclude Include="Maptools\Button.h" />
+    <ClInclude Include="playerRelated\PlayerInfo.h" />
     <ClInclude Include="playerRelated\DialogueBox.h" />
     <ClInclude Include="Battles\BattleBox.h" />
     <ClInclude Include="Battles\BattleButton.h" />

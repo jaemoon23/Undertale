@@ -47,8 +47,6 @@ protected:
 	float maxJumpHoldTime = 0.33f;
 
 public:
-	int hp = 20;
-	int maxHp = 20;
 	bool isBlink = false;
 	bool isShieldBlink = false;
 	bool CanMove = true;
@@ -64,7 +62,7 @@ public:
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
 
-	void SetTexture(std::string texId) { sprite.setTexture(TEXTURE_MGR.Get(texId)); }
+	void SetTexture(std::string texId) { sprite.setTexture(TEXTURE_MGR.Get(texId), true); }
 	void SetShieldBlink()
 	{ 
 		shield.setColor(sf::Color::Red);

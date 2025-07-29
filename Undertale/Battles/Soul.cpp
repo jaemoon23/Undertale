@@ -69,7 +69,7 @@ void Soul::Reset()
 	itemChooseIndex = &(scene->itemChooseIndex);
 	itemChooseCount = &(scene->itemChooseCount);
 	mercyChooseIndex = &(scene->mercyChooseIndex);
-	sprite.setTexture(TEXTURE_MGR.Get("graphics/spr_heart_battle_pl_0.png"));
+	sprite.setTexture(TEXTURE_MGR.Get("graphics/spr_heart_battle_pl_0.png"),true);
 	shield.setTexture(TEXTURE_MGR.Get("graphics/spr_barrier.png"));
 	shield.setOrigin({ 24.f,32.f });
 	shield.setPosition({ size.x * 0.505f,size.y * 0.655f });
@@ -292,10 +292,10 @@ void Soul::SetBoundary(sf::FloatRect bounds)
 
 void Soul::TakeDamage(int damage)
 {
-	hp -= damage;
-	if (hp <= 0)
+	PlayerInfo::hp -= damage;
+	if (PlayerInfo::hp <= 0)
 	{
-		hp = 0;
+		PlayerInfo::hp = 0;
 		scene->PlayerDie();
 	}
 	else

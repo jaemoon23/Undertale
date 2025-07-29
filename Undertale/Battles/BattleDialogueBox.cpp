@@ -61,7 +61,7 @@ void BattleDialogueBox::Reset()
 
 	text.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	sprite.setTexture(TEXTURE_MGR.Get("graphics/spr_dialogueBox.png"));
-	SetPosition({ size.x * 0.55f, size.y * 0.3f });
+	SetPosition({ size.x * 0.55f, size.y * 0.25f });
 }
 
 void BattleDialogueBox::Update(float dt)

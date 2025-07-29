@@ -1,0 +1,6 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)		",,
+whimsun_idle,1,1,,
+"				",,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
+graphics/spr_whimsun_0.png,0,0,96,92
+graphics/spr_whimsun_1.png,0,0,90,92

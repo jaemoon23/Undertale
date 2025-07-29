@@ -5,7 +5,7 @@
 #include "BattleBox.h"
 #include "Bullet.h"
 
-std::string SceneBattle::monsterJsonID = "jsons/frog.json";
+std::string SceneBattle::monsterJsonID = "jsons/papyrus.json";
 SceneIds SceneBattle::nextSceneId = SceneIds::test;
 
 SceneBattle::SceneBattle()
@@ -14,12 +14,34 @@ SceneBattle::SceneBattle()
 }
 
 void SceneBattle::Init()
-{	
+{
+	
 	ANI_CLIP_MGR.Load("animations/sans_idle.csv");
 	ANI_CLIP_MGR.Load("animations/fist.csv");
 	ANI_CLIP_MGR.Load("animations/frogit_idle.csv");
+	ANI_CLIP_MGR.Load("animations/whimsun_idle.csv");
+	ANI_CLIP_MGR.Load("animations/migosp_idle.csv");
+	ANI_CLIP_MGR.Load("animations/icecap_idle.csv");
+	ANI_CLIP_MGR.Load("animations/aaron_idle.csv");
+	ANI_CLIP_MGR.Load("animations/papyrus_idle.csv");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("graphics/spr_battlebg_0.png");
+	texIds.push_back("graphics/spr_papyrusboss_0.png");
+	texIds.push_back("graphics/spr_heavybullet.png");
+	texIds.push_back("graphics/spr_aaron_0.png");
+	texIds.push_back("graphics/spr_aaron_1.png");
+	texIds.push_back("graphics/spr_icecap_0.png");
+	texIds.push_back("graphics/spr_icecap_1.png");
+	texIds.push_back("graphics/spr_icecap_2.png");
+	texIds.push_back("graphics/spr_icecap_3.png");
+	texIds.push_back("graphics/spr_clawbullet_1.png");
+	texIds.push_back("graphics/spr_migosp_0.png");
+	texIds.push_back("graphics/spr_migosp_1.png");
+	texIds.push_back("graphics/spr_bulletsm_0.png");
+	texIds.push_back("graphics/spr_whimsun_0.png");
+	texIds.push_back("graphics/spr_whimsun_1.png");
+	texIds.push_back("graphics/spr_heartbreak_0.png");
+	texIds.push_back("graphics/spr_gameoverbg_0.png");
 	texIds.push_back("graphics/spr_heart_blue.png");
 	texIds.push_back("graphics/spr_barrier.png");
 	texIds.push_back("graphics/spr_heart_green.png");
@@ -52,9 +74,11 @@ void SceneBattle::Init()
 	texIds.push_back("graphics/spr_hyperfist_2.png");
 	texIds.push_back("graphics/spr_hyperfist_3.png");
 	texIds.push_back("graphics/spr_hyperfist_4.png");
-	texIds.push_back("graphics/spr_hyperfist_5.png");
+	texIds.push_back("graphics/spr_hyperfist_5.png"); 
 	soundIds.push_back("sounds/09 Enemy Approaching.flac");
+	soundIds.push_back("sounds/11 Determination.flac");
 	soundIds.push_back("sounds/100 MEGALOVANIA.flac");
+	soundIds.push_back("sounds/16 Nyeh Heh Heh!.flac");
 	soundIds.push_back("sounds/snd_squeak.wav");
 	soundIds.push_back("sounds/snd_select.wav");
 	soundIds.push_back("sounds/snd_hurt1.wav");
@@ -65,6 +89,7 @@ void SceneBattle::Init()
 	soundIds.push_back("sounds/snd_chug.wav");
 	soundIds.push_back("sounds/snd_bell.wav");
 	soundIds.push_back("sounds/snd_vaporized.wav");
+	soundIds.push_back("sounds/snd_break1_c.wav");
 	
 	statusUI = (StatusInBattleUI*)AddGameObject(new StatusInBattleUI());
 	statusUI->SetPosition({ size.x * 0.02f, size.y * 0.8f });
@@ -92,7 +117,11 @@ void SceneBattle::Init()
 void SceneBattle::Enter()
 {
 	isPlaying = true;
+	isGameOver = false;
 	isMonsterShaking = false;
+	isFadeIn = false;
+	isDrawGameOverText = false;
+	isBreak = false;
 	mercyPoint = 0;
 	btIndex = 0;
 	PatternIndex = 0; // 0으로 바꾸기
@@ -100,6 +129,10 @@ void SceneBattle::Enter()
 	actChooseIndex = 0;
 	mercyChooseIndex = 0;
 	lineIndex = 0;
+	heartbreakTimer = 0.f;
+	fadeTimer = 0.f;
+	turnTimer = 0.f;
+	dialTimer = 0.f;
 
 	Scene::Enter();
 	// JSON 파일 불러오기	
@@ -140,17 +173,30 @@ void SceneBattle::Enter()
 	Utils::SetOrigin(background, Origins::TC);
 	background.setPosition({ size.x * 0.5f,10.f });
 
+	gameOver.setTexture(TEXTURE_MGR.Get("graphics/spr_gameoverbg_0.png"));
+	Utils::SetOrigin(gameOver, Origins::TC);
+	gameOver.setPosition({ size.x * 0.5f, 40.f });
+	gameOverColor = gameOver.getColor();
+	gameOverColor.a = 0;
+	gameOver.setColor(gameOverColor);
+
+	gameOverText.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
+	gameOverText.setCharacterSize(30.f);
+	gameOverText.setPosition({ size.x * 0.25f, size.y * 0.55f });
+	gameOverText.setString(L"지금 끝낼 수는 없어!");
+
 	monster.setTexture(TEXTURE_MGR.Get(monsterTexId));
 	animator.SetTarget(&monster);
-	Utils::SetOrigin(monster, Origins::TC);
+	Utils::SetOrigin(monster, Origins::MC);
 	animator.Play(animationId);
-	monster.setPosition({ size.x * 0.45f, size.y * 0.27f });
+	monster.setPosition({ size.x * 0.45f, size.y * 0.35f });
 	monsterOriginalPos = monster.getPosition();
 	monsteroriginColor = monster.getColor();
 	monsteroriginColor.a = 255;
 	monsterblinkColor = monster.getColor();
 	monsterblinkColor.a = 100;
 	monster.setColor(monsteroriginColor);
+	statusUI->UpdateHpUI();
 }
 
 void SceneBattle::Exit()
@@ -165,6 +211,8 @@ void SceneBattle::Update(float dt)
 	if (isPlaying)
 	{
 		Scene::Update(dt);
+		if (!isPlaying)
+			return;
 		animator.Update(dt);
 
 		if (isMonsterBlink)
@@ -247,11 +295,51 @@ void SceneBattle::Update(float dt)
 			}
 		}
 	}
+	else if (isGameOver)
+	{
+		heartbreakTimer += dt;
+		if (heartbreakTimer >= heartbreakTime)
+		{
+			isFadeIn = true;
+			if (!isBreak)
+			{
+				isBreak = true;
+				soul->SetTexture("graphics/spr_heartbreak_0.png");
+				SOUND_MGR.PlaySfx("sounds/snd_break1_c.wav");
+				SOUND_MGR.PlayBgm("sounds/11 Determination.flac");
+			}
+		}
+
+		if (isFadeIn)
+		{
+			fadeTimer += dt;
+			fadeIntervalTimer += dt;
+
+			if (fadeIntervalTimer > fadeInterval)
+			{
+				fadeIntervalTimer = 0.f;
+				float alpha = static_cast<float>(gameOverColor.a);
+				alpha += 255.f * fadeInterval / fadeTime;
+				gameOverColor.a = static_cast<sf::Uint8>(std::min(255.f, alpha));
+				gameOver.setColor(gameOverColor);
+			}
+
+			if (fadeTimer >= fadeTime || gameOverColor.a == 255.f)
+			{
+				isDrawGameOverText = true;
+				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+				{
+					isFadeIn = false;
+					SCENE_MGR.ChangeScene(SceneIds::test);
+				}
+				fadeIntervalTimer = 0.f;
+			}
+		}
+	}
 	else
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 		{
-			std::cout << "씬탈출" << std::endl;
 			SCENE_MGR.ChangeScene(nextSceneId);
 		}
 	}
@@ -262,9 +350,20 @@ void SceneBattle::Update(float dt)
 
 void SceneBattle::Draw(sf::RenderWindow& window)
 {
-	window.draw(background);
-	window.draw(monster);
-	Scene::Draw(window);
+	if (!isGameOver)
+	{
+		if (data["name"] != "sans" && data["name"] != "papyrus")
+			window.draw(background);
+		window.draw(monster);
+		Scene::Draw(window);
+	}
+	else
+	{
+		soul->Draw(window);
+		window.draw(gameOver);
+		if (isDrawGameOverText)
+			window.draw(gameOverText);
+	}
 }
 
 void SceneBattle::SetMonsterTurn()
@@ -316,7 +415,7 @@ void SceneBattle::TryUseItem()
 	{
 		int amount = itemData[itemChooseIndex]["healAmount"];
 		invenData["items"][itemChooseIndex]["itemId"] = "Null";
-		soul->hp = Utils::ClampInt(soul->hp + amount, 0, soul->maxHp);
+		PlayerInfo::hp = Utils::ClampInt(PlayerInfo::hp + amount, 0, PlayerInfo::maxHp);
 		statusUI->UpdateHpUI();
 		SetMonsterTurn();
 		itemData[itemChooseIndex].clear();
@@ -333,7 +432,15 @@ void SceneBattle::TryMercy()
 	if (mercyChooseIndex == 0 && mercyPoint >= mercyCanPoint)
 	{
 		isPlaying = false;
+		isMyTurn = true;
 		monster.setColor(monsterblinkColor);
+		btState = ButtonState::None;
+		int gold = data["gold"];
+		btBox->startStr = L"* 승리! 0 XP와 " + std::to_wstring(gold) + L"G 를 얻었다.";
+		btBox->SetStartDescribe();
+		soul->SetPosition({ -100.f,-100.f });
+		PlayerInfo::gold += gold;
+		PlayerInfo::Moral += 1;
 		SOUND_MGR.PlaySfx("sounds/snd_vaporized.wav");
 		SOUND_MGR.StopBgm();
 	}
@@ -376,7 +483,13 @@ void SceneBattle::MonsterDie()
 {
 	isMyTurn = true;
 	soul->SetPosition({ size.x * 0.03f + size.x * 0.26f * btIndex, size.y * 0.93f });
-	btBox->startStr = L"* 승리!";
+	int exp = data["exp"];
+	int gold = data["gold"];
+	btBox->startStr = L"* 승리! " + std::to_wstring(exp) + L" XP와 " + std::to_wstring(gold) + L"G 를 얻었다.";
+	PlayerInfo::PlusExp(exp);
+	PlayerInfo::gold += gold;
+	PlayerInfo::Moral -= 1;
+	statusUI->Reset();
 	btBox->SetStartDescribe();
 	btState = ButtonState::None;
 	sf::Color color = monster.getColor();
@@ -397,7 +510,13 @@ void SceneBattle::PlayerDie()
 	btState = ButtonState::None;
 	btBox->startStr = L"* 패배!";
 	btBox->SetStartDescribe();
+	for (auto& b : bulletTemp)
+	{
+		RemoveGameObject(b);
+	}
+	bulletTemp.clear();
 	isPlaying = false;
+	isGameOver = true;
 	SOUND_MGR.StopBgm();
 }
 

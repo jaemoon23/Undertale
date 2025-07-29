@@ -1,0 +1,161 @@
+{  
+  "name": "미고습",
+  "texId" : "graphics/spr_migosp_0.png",
+  "animationId" : "animations/migosp_idle.csv",
+  "bgmId" : "sounds/09 Enemy Approaching.flac",
+  "hp": 90,
+  "exp": 20,
+  "gold" : 4,
+  "lines" : [
+    "음 챠 챠 챠",
+    "팔을 흔들어봐",
+    "안냐앙",
+    "혼자 있을 때가 최고지!"
+  ],
+  "lineExistTime" : 2.5,
+  "FightDescribe" : "* 미고습",
+  "ActDescribe" : [
+    {
+      "act" : "* 살펴보기", 
+      "describes" : [
+        {
+          "describe" : "* 미고습 - ATK 4 DEF 0"
+        },
+        {
+          "describe" : "* 보기와 달리 남의 눈치를 많이 본다."
+        }
+      ],
+      "mercyPoint" : 0
+    },
+    {
+      "act" : "* 대화하기", 
+      "describes" : [
+        {
+          "describe" : "* 당신은 미고습을 긍정했다!"
+        },
+        {
+          "describe" : "* 미고습은 자존감을 회복했다."
+        }
+      ],
+      "mercyPoint" : 100
+    }   
+  ],
+  "attackPattern" : [
+    {
+      "name" : "Rotate",
+      "duration" : 9.0,
+      "bullets" : [
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 180.0, "PosY" : 260.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 1.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 180.0, "PosY" : 280.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 1.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 180.0, "PosY" : 300.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 1.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 180.0, "PosY" : 320.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 1.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 180.0, "PosY" : 340.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 1.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 460.0, "PosY" : 300.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 2.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 460.0, "PosY" : 320.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 2.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 460.0, "PosY" : 340.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 2.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 460.0, "PosY" : 360.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 2.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 180.0, "PosY" : 260.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 3.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 180.0, "PosY" : 280.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 3.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 180.0, "PosY" : 300.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 3.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 180.0, "PosY" : 320.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 3.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 180.0, "PosY" : 340.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 3.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 460.0, "PosY" : 300.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 4.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 460.0, "PosY" : 320.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 4.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 460.0, "PosY" : 340.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 4.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 460.0, "PosY" : 360.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 4.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 180.0, "PosY" : 260.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 5.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 180.0, "PosY" : 280.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 5.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 180.0, "PosY" : 300.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 5.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 180.0, "PosY" : 320.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 5.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 180.0, "PosY" : 340.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 5.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 460.0, "PosY" : 300.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 6.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 460.0, "PosY" : 320.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 6.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 460.0, "PosY" : 340.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 6.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_clawbullet_1.png", "PosX" : 460.0, "PosY" : 360.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 6.0, "damage" : 4
+        }
+      ]
+    }
+  ],
+
+  "startDescribe": "* 미고습을 발견했다!"    
+}

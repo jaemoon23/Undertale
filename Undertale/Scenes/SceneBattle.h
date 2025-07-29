@@ -16,6 +16,9 @@ class SceneBattle : public Scene
 {
 protected:
 	sf::Sprite background;
+	sf::Sprite gameOver;
+	sf::Color gameOverColor;
+	sf::Text gameOverText;
 	Soul* soul;
 
 	sf::Sprite monster;
@@ -55,6 +58,7 @@ protected:
 	std::vector<Bullet*> bulletTemp;
 
 	bool isPlaying = true;
+	bool isGameOver = false;
 
 	sf::Color monsteroriginColor;
 	sf::Color monsterblinkColor;
@@ -65,6 +69,17 @@ protected:
 
 	float monsterShakeTimer = 0.f;
 	float monsterShakeInterval = 0.05f;
+
+	float heartbreakTimer = 0.f;
+	float heartbreakTime = 1.0f;
+
+	float fadeTimer = 0.f;
+	float fadeTime = 2.0f;
+	float fadeIntervalTimer = 0.f;
+	float fadeInterval = 0.2f;
+	bool isFadeIn = false;
+	bool isDrawGameOverText = false;
+	bool isBreak = false;
 
 public:
 	bool isMonsterShaking = false;
@@ -82,7 +97,6 @@ public:
 	int monsterHp = 100;
 	int monsterMaxHp = 100;
 
-	int playerATK = 50;
 	int mercyPoint = 0;
 	const int mercyCanPoint = 100;
 

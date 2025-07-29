@@ -1,0 +1,5 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)		",,
+papyrus_idle,1,1,,
+"				",,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
+graphics/spr_papyrusboss_0.png,0,0,74,104
