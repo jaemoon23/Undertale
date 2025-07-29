@@ -1,5 +1,5 @@
 ﻿#include "stdafx.h"
-#include "test.h"
+#include "Map0.h"
 #include <fstream>
 #include "json.hpp"
 #include "Player.h"
@@ -13,10 +13,10 @@
 #include "PlayerInfoUi.h"
 #include "HealItem.h"
 
-test::test() : Scene(SceneIds::test)
+Map0::Map0() : Scene(SceneIds::Map0)
 {
 }
-void test::Init()
+void Map0::Init()
 {
 
 	texIds.push_back("Sprites/idle.png");
@@ -46,7 +46,6 @@ void test::Init()
 	uichanger = new UiChanger("uichanger");
 	playerinfoui = new PlayerInfoUi("playerinfoui");
 
-
 	background = (SpriteGo*)AddGameObject(new SpriteGo());
 	background->sortingLayer = SortingLayers::Background;
 	
@@ -69,13 +68,12 @@ void test::Init()
 	Scene::Init();
 
 	InventoryUi::healItem[0].SetInfo(L"아이스크림", 15); // 아이템 이름과 회복량 설정
-	//InventoryUi::healItem1.GetName();
 	InventoryUi::healItem[1].SetInfo(L"쿠키", 10);
 	InventoryUi::healItem[2].SetInfo(L"아이스크림", 15);
 	InventoryUi::healItem[3].SetInfo(L"눈사탕", 5);
 }
 
-void test::Enter()
+void Map0::Enter()
 {
 	std::ifstream in("map0.json");
 	if (!in)
@@ -161,7 +159,7 @@ void test::Enter()
 		hitboxes.push_back({ rect, typeStr });
 	}
 }
-void test::Update(float dt)
+void Map0::Update(float dt)
 {
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
@@ -189,7 +187,7 @@ void test::Update(float dt)
 					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
 					{
 						std::cout << "랜덤 전투 발생!" << std::endl;
-						SceneBattle::nextSceneId = SceneIds::test;
+						SceneBattle::nextSceneId = SceneIds::Map0;
 						SceneBattle::monsterJsonID = "jsons/frog.json";
 						//SceneBattle::monsterJsonID = "jsons/sans.json";
 						//SCENE_MGR.ChangeScene(SceneIds::Battle);
@@ -211,19 +209,19 @@ void test::Update(float dt)
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num8))
 	{
-		SceneBattle::nextSceneId = SceneIds::test;
+		SceneBattle::nextSceneId = SceneIds::Map0;
 		SceneBattle::monsterJsonID = "jsons/frog.json";
 		SCENE_MGR.ChangeScene(SceneIds::Battle);
 	}
 	else if (InputMgr::GetKeyDown(sf::Keyboard::Num9))
 	{
-		SceneBattle::nextSceneId = SceneIds::test;
+		SceneBattle::nextSceneId = SceneIds::Map0;
 		SceneBattle::monsterJsonID = "jsons/sans.json";
 		SCENE_MGR.ChangeScene(SceneIds::Battle);
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num5))
 	{
-		SCENE_MGR.ChangeScene(SceneIds::test);
+		SCENE_MGR.ChangeScene(SceneIds::Map0);
 	}
 	//Scene::Update(dt);
 	player->Update(dt);
@@ -232,7 +230,7 @@ void test::Update(float dt)
 	uichanger->Update(dt);
 }
 
-void test::Draw(sf::RenderWindow& window)
+void Map0::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
 	window.setView(worldView);

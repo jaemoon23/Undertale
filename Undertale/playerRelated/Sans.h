@@ -7,11 +7,11 @@ class Sans : public GameObject
 protected:
 	sf::Sprite sans;
 	std::string sanstexIds = "Sprites/spr_sans_r_dark_2.png";
-
+	sf::Vector2f direction;
 	HitBox hitBox;	
 	
-
 	bool isActive = false;
+	bool move = true;
 public:
 	Animator animator;
 	Sans(const std::string& name = "");
@@ -32,5 +32,6 @@ public:
 	const sf::RectangleShape& GetHitBox() const;
 	sf::Vector2f GetPosition() const;
 	void SetActive(bool active);
+	void SetMove(bool a);
 };
 

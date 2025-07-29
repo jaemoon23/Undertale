@@ -172,7 +172,7 @@
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Maptools\test.cpp" />
+    <ClCompile Include="Maptools\Map0.cpp" />
     <ClCompile Include="playerRelated\TestBackGround.cpp" />
     <ClCompile Include="playerRelated\UiChanger.cpp" />
     <ClCompile Include="WrappedText.cpp" />
@@ -221,7 +221,7 @@
     <ClInclude Include="Battles\StatusInBattleUI.h" />
     <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Maptools\test.h" />
+    <ClInclude Include="Maptools\Map0.h" />
     <ClInclude Include="playerRelated\TestBackGround.h" />
     <ClInclude Include="playerRelated\UiChanger.h" />
     <ClInclude Include="WrappedText.h" />

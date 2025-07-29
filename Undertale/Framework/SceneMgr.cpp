@@ -3,7 +3,7 @@
 #include "SceneDev1.h"
 #include "SceneIntro.h"
 #include "MapTool.h"
-#include "test.h"
+#include "Map0.h"
 //#include "SceneDev2.h"
 #include "SceneBattle.h"
 //#include "SceneTest.h"
@@ -18,7 +18,7 @@ void SceneMgr::Init()
 	scenes.insert({ SceneIds::Map2, new Map2() });
 	//scenes.insert({ SceneIds::Test ,new SceneTest() });
 	scenes.insert({ SceneIds::Dev1 ,new SceneDev1() });
-	scenes.insert({ SceneIds::test ,new test() });
+	scenes.insert({ SceneIds::Map0 ,new Map0() });
 	scenes.insert({ SceneIds::MapTool ,new MapTool() });
 	scenes.insert({ SceneIds::Title ,new SceneTitle() });
 	scenes.insert({ SceneIds::Battle ,new SceneBattle() });

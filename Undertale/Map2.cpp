@@ -2,6 +2,7 @@
 #include "Map2.h"
 #include "Player.h"
 #include "SceneBattle.h"
+#include "DialogueBox.h"
 
 #include <fstream>
 #include "json.hpp"
@@ -15,6 +16,8 @@ Map2::Map2() : Scene(SceneIds::Map2)
 
 void Map2::Init()
 {
+	font.loadFromFile("fonts/DungGeunMo.ttf");
+
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("graphics/back3.png");
 	texIds.push_back("Sprites/downwalking.png");
@@ -24,6 +27,10 @@ void Map2::Init()
 	texIds.push_back("Sprites/sprite_sheet_dark.png");
 	texIds.push_back("Sprites/spr_sans_r_dark_2.png");
 
+	texIds.push_back("Sprites/backgroundui.png");
+	texIds.push_back("Sprites/spr_sans_sleep_0.png");
+
+
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/upwalking.csv");
@@ -31,8 +38,15 @@ void Map2::Init()
 	ANI_CLIP_MGR.Load("Animation/rightwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/sansdarkwalking.csv");
 
+
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
 	sans = (Sans*)AddGameObject(new Sans("Sprites/spr_sans_r_dark_2.png"));
+	dialogueBox = new DialogueBox("dialogueBox");
+
+	AddGameObject(dialogueBox);
+	player->SetBox(dialogueBox);
+	dialogueBox->SetPlayer(player);
+	player->SetSans(sans);
 
 	background2 = (SpriteGo*)AddGameObject(new SpriteGo());
 	background2->sortingLayer = SortingLayers::Background;
@@ -145,13 +159,20 @@ void Map2::Enter()
 		hitboxes.push_back({ rect, typeStr });
 
 	}
-
+	sans->SetPosition({ 220.f, 355.f });
 	sans->SetActive(false);
 
 }
 
 void Map2::Update(float dt)
 {
+	if (dialogueBox && dialogueBox->GetActive())
+	{
+		if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+		{
+			dialogueBox->NextLine();
+		}
+	}
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
 	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
@@ -201,23 +222,50 @@ void Map2::Update(float dt)
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::test);
+				SCENE_MGR.ChangeScene(SceneIds::Map0);
 			}
 
 		}
 	}
-	sans->SetPosition({ 200.f, 355.f });
+
 	if (Utils::CheckCollision(player->GetHitBox(), wall))
 	{
-		sans->SetActive(true);
-		sans->animator.Play("Animation/sansdarkwalking.csv");
-	}
+		//dialogueBox->SetActive(true);
+		player->SetMove(false);
+		animationPlay = true;
+		if (animationPlay)
+		{
+			sans->SetActive(true);
+			sans->animator.Play("Animation/sansdarkwalking.csv");
+			animationPlay = false;
+		}
+		
+		sf::Vector2f sansPos = sans->GetPosition();
+		sf::Vector2f playerPos = player->GetPosition();
 
-	if (Utils::CheckCollision(player->GetHitBox(), sans->GetHitBox()))
-	{
-		//std::cout << "샌즈 충돌" << std::endl;
+		sf::Vector2f direction = playerPos - sansPos;
+		Utils::Normalize(direction); // 방향 벡터 정규화
+
+		float sansSpeed = 100.f; // 샌즈 이동 속도 (원하는 값으로 조정)
+		sansPos += direction * sansSpeed * dt;
+		sans->SetPosition(sansPos);
+
+
+		if (Utils::CheckCollision(player->GetHitBox(), sans->GetHitBox()))
+		{
+			sans->SetMove(false);
+			player->SansInteract();
+
+			if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+			{
+				dialogueBox->NextLine();
+			}
+		}
 	}
 	Scene::Update(dt);
+	//player->Update(dt);
+	dialogueBox->Update(dt);
+	//sans->Update(dt);
 }
 
 void Map2::Draw(sf::RenderWindow& window)

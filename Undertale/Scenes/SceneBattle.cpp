@@ -8,7 +8,7 @@
 #include "HealItem.h"
 
 std::string SceneBattle::monsterJsonID = "jsons/papyrus.json";
-SceneIds SceneBattle::nextSceneId = SceneIds::test;
+SceneIds SceneBattle::nextSceneId = SceneIds::Map0;
 
 SceneBattle::SceneBattle()
 	: Scene(SceneIds::Battle)
@@ -322,7 +322,7 @@ void SceneBattle::Update(float dt)
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
 					isFadeIn = false;
-					SCENE_MGR.ChangeScene(SceneIds::test);
+					SCENE_MGR.ChangeScene(SceneIds::Map0);
 				}
 				fadeIntervalTimer = 0.f;
 			}

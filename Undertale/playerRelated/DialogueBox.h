@@ -25,6 +25,7 @@ protected:
 
 	Player* player; 
 	InventoryUi* inventoryui;
+
 public:
 	DialogueBox(const std::string& name = "");
 	virtual ~DialogueBox() = default;
@@ -49,7 +50,7 @@ public:
 
 	void TypingEffect(const std::wstring& text, float speed = 0.5f);
 	void UpdateTypingEffect(float dt);
-	bool GetActive5() { return isActive; }
+	bool GetActive() { return isActive; }
 
 };
 

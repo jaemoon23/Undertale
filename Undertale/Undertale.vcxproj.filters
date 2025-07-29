@@ -34,7 +34,7 @@
     <ClCompile Include="Scenes\SceneBattle.cpp" />
     <ClCompile Include="Battles\Soul.cpp" />
     <ClCompile Include="Battles\StatusInBattleUI.cpp" />
-    <ClCompile Include="Maptools\test.cpp" />
+    <ClCompile Include="Maptools\Map0.cpp" />
     <ClCompile Include="playerRelated\TestBackGround.cpp" />
     <ClCompile Include="playerRelated\UiChanger.cpp" />
     <ClCompile Include="WrappedText.cpp" />
@@ -43,6 +43,7 @@
     <ClCompile Include="playerRelated\HealItem.cpp" />
     <ClCompile Include="Map1.cpp" />
     <ClCompile Include="Map2.cpp" />
+    <ClCompile Include="playerRelated\PlayerInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AniPlayer.cpp">
@@ -155,7 +156,7 @@
     <ClInclude Include="Battles\Soul.h" />
     <ClInclude Include="Battles\StatusInBattleUI.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Maptools\test.h" />
+    <ClInclude Include="Maptools\Map0.h" />
     <ClInclude Include="playerRelated\TestBackGround.h" />
     <ClInclude Include="playerRelated\UiChanger.h" />
     <ClInclude Include="playerRelated\HealItem.h" />
@@ -164,5 +165,6 @@
     <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="Map1.h" />
     <ClInclude Include="Map2.h" />
+    <ClInclude Include="playerRelated\PlayerInfo.h" />
   </ItemGroup>
 </Project>

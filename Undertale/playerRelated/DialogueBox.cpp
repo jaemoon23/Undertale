@@ -77,21 +77,29 @@ void DialogueBox::Reset()
 
 void DialogueBox::Update(float dt)
 {
-	if (!GetActive()) return;
+	if (GetActive()) 
 	{
 		UpdateTypingEffect(dt);
-		dialogueText.setString(currentText);
+		dialogueText.setString(sf::String(currentText));
 	}
 }
 
 void DialogueBox::Draw(sf::RenderWindow& window)
 {
+	//if (GetActive())
+	//{
+	//	window.draw(dialogueBox);
+	//	window.draw(line);
+	//	window.draw(dialogueText);
+	//}
+
 	if (!GetActive()) return;
 	{
 		window.draw(dialogueBox);
 		window.draw(line);
 		window.draw(dialogueText);
 	}
+
 
 }
 
@@ -104,7 +112,7 @@ void DialogueBox::StartDialogue(const std::vector<std::wstring>& lines)
 
 	if (!dialogueLines.empty())
 	{
-		dialogueText.setString(dialogueLines[currentLineIndex]);
+		dialogueText.setString(sf::String(dialogueLines[currentLineIndex]));
 	}
 	SetActive(true);
 }
@@ -115,7 +123,7 @@ void DialogueBox::NextLine()
 	{
 		isActive = true;
 		currentLineIndex++;
-		dialogueText.setString(dialogueLines[currentLineIndex]);
+		dialogueText.setString(sf::String(dialogueLines[currentLineIndex]));
 		TypingEffect(dialogueLines[currentLineIndex], typingSpeed);
 	}
 	else
@@ -144,6 +152,8 @@ void DialogueBox::UpdateTypingEffect(float dt)
 			typingTimer = 0.f;
 			currentText += fullText[charIndex];
 			charIndex++;
+
+			//std::wcout << currentText << std::endl;
 		}
 	}
 }

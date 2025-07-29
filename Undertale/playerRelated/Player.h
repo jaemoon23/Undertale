@@ -88,6 +88,6 @@ public:
 	sf::Vector2f getPos() { return prevPosition; }
 
 
-	void SetMove(bool a) { move = a; }
+	void SetMove(bool a);
 };
 

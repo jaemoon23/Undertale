@@ -2,5 +2,5 @@ ID,FPS,"LoopType (0: Single, 1: Loop)",,,
 Run,10,1,,,
 ,,,,,
 TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
-sprite_sheet_dark.png,0,0,17,30,0
-sprite_sheet_dark.png,17,0,17,30,0
+Sprites/sprite_sheet_dark.png,0,0,17,30,0
+Sprites/sprite_sheet_dark.png,17,0,17,30,0

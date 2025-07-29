@@ -7,6 +7,7 @@
 
 class Player;
 class Sans;
+class DialogueBox;
 
 struct HitBoxInfo3
 {
@@ -19,6 +20,9 @@ class Map2 :
 protected:
     SpriteGo* background2 = nullptr;
     Player* player;
+
+    sf::Font font;
+    
     std::vector<SpriteGo*> testObjects;
     std::vector<HitBoxInfo3> hitboxes;
 
@@ -28,7 +32,10 @@ protected:
     const float battleCheckInterval = 1.f;
 
     Sans* sans;
+    DialogueBox* dialogueBox;
 public:
+    bool animationPlay = false;
+
     Map2();
     ~Map2() override = default;
 

@@ -9,12 +9,14 @@ Sans::Sans(const std::string& name)
 
 void Sans::SetPosition(const sf::Vector2f& pos)
 {
+	if (!move) return;
 	GameObject::SetPosition(pos);
 	sans.setPosition(pos);
 }
 
 void Sans::SetRotation(float rot)
 {
+	if (!move) return;
 	GameObject::SetRotation(rot);
 	sans.setRotation(rot);
 }
@@ -61,14 +63,13 @@ void Sans::Reset()
 	SetActive(false);
 
 	//animator.Play("Animation/idle.csv");
-
+	animator.SetTarget(&sans); // 애니메이션 플레이 하려면 해줘야함
 }
 
 void Sans::Update(float dt)
 {
 	animator.Update(dt);
 	hitBox.UpdateTransform(sans, sans.getLocalBounds());
-
 
 }
 
@@ -95,4 +96,10 @@ sf::Vector2f Sans::GetPosition() const
 void Sans::SetActive(bool active)
 {
 	isActive = active;
+}
+
+void Sans::SetMove(bool a)
+{
+	move = a;
+	if (!a) direction = sf::Vector2f(0.f, 0.f);
 }

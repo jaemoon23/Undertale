@@ -16,7 +16,7 @@ class UiChanger;
 class PlayerInfoUi;
 class HealItem;
 
-class test :
+class Map0 :
     public Scene
 {
 protected:
@@ -39,8 +39,8 @@ protected:
     DialogueBox* dialoguebox;
     PlayerInfoUi* playerinfoui;
 public:
-    test();
-    ~test() override = default;
+    Map0();
+    ~Map0() override = default;
 
     Player* GetPlayer() { return player; }
     void Init() override;
