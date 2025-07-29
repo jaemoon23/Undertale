@@ -2,6 +2,7 @@
 #include "Map5.h"
 #include "Player.h"
 #include "TextGo.h"
+#include "SceneBattle.h"
 
 Map5::Map5() : Scene(SceneIds::Map5)
 {
@@ -120,13 +121,11 @@ void Map5::Enter()
 		{
 			rect->setOutlineColor(sf::Color(135, 206, 250));
 		}
-		if (battle)
+		else if (typeStr == "Battle")
 		{
-			if (typeStr == "Battle")
-			{
-				rect->setOutlineColor(sf::Color::Red);
-			}
+			rect->setOutlineColor(sf::Color::Red);
 		}
+		
 		
 
 		rect->setOutlineThickness(1.f);
@@ -255,24 +254,27 @@ void Map5::Update(float dt)
 			}
 			else if (hit.type == "Battle")
 			{
-				if (battleCheckTimer >= battleCheckInterval)
+				if (battle)
 				{
-					std::cout << "¹èÆ² È®·ü Ã¼Å©" << std::endl;
-					battleCheckTimer = 0.f;
+					if (battleCheckTimer >= battleCheckInterval)
+					{
+						std::cout << "¹èÆ² È®·ü Ã¼Å©" << std::endl;
+						battleCheckTimer = 0.f;
 
-					// 1% È®·ü
-					//if (Utils::RandomRange(0.f, 1.f) < 0.01f)
-					//{
-					//	std::cout << "·£´ý ÀüÅõ ¹ß»ý!" << std::endl;
-					//	SceneBattle::nextSceneId = SceneIds::test;
-					//	SceneBattle::monsterJsonID = "jsons/frog.json";
-					//	//SceneBattle::monsterJsonID = "jsons/sans.json";
-					//	SCENE_MGR.ChangeScene(SceneIds::Battle);
-					//}
-					//else
-					//{
-					//	std::cout << "¹èÆ² ¾Æ´Ô" << std::endl;
-					//}
+						// 1% È®·ü
+						if (Utils::RandomRange(0.f, 1.f) < 0.5f)
+						{
+							std::cout << "·£´ý ÀüÅõ ¹ß»ý!" << std::endl;
+							SceneBattle::nextSceneId = SceneIds::Map0;
+							SceneBattle::monsterJsonID = "jsons/frog.json";
+							//SceneBattle::monsterJsonID = "jsons/sans.json";
+							SCENE_MGR.ChangeScene(SceneIds::Battle);
+						}
+						else
+						{
+							std::cout << "¹èÆ² ¾Æ´Ô" << std::endl;
+						}
+					}
 				}
 			}
 			else if (hit.type == "NextScene")
