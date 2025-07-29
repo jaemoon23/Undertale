@@ -33,6 +33,7 @@ void MapTool::Init()
 	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton1"))));
 	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton2"))));
 	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton3"))));
+	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton4"))));
 
 	hitBox = (Button*)AddGameObject(new Button("HitBox"));
 
@@ -72,7 +73,8 @@ void MapTool::Enter()
 	backgroundTexturePaths = {
 	   "graphics/bg_firstroom.png",
 	   "graphics/back2.png",
-	   "graphics/back3.png"
+	   "graphics/back3.png",
+	   "graphics/back4.png"
 	};
 
 	const int maxColumns = 5;

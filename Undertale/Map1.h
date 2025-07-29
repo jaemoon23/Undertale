@@ -6,11 +6,6 @@
 #include "test.h"
 class Player;
 
-struct HitBoxInfo2
-{
-	sf::RectangleShape* shape;
-	std::string type;
-};
 class Map1 : public Scene
 {
 protected:
@@ -20,7 +15,7 @@ protected:
 	SpriteGo* background1 = nullptr;
 	Player* player;
 	std::vector<SpriteGo*> testObjects;
-	std::vector<HitBoxInfo2> hitboxes;
+	std::vector<HitBoxInfo1> hitboxes;
 
 	sf::RectangleShape wall;
 	sf::Vector2f direction;

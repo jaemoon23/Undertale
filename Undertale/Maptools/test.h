@@ -2,12 +2,6 @@
 #include "Scene.h"
 #include "SpriteGo.h"
 
-struct HitBoxInfo1
-{
-    sf::RectangleShape* shape;
-    std::string type;
-};
-
 class Player;
 class Sans;
 class InventoryUi;
