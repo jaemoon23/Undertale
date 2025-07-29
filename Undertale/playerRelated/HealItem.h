@@ -5,8 +5,8 @@
 class HealItem : public GameObject 
 {
 private:
-    std::wstring name;
-    int healAmount;
+    std::wstring name = L"";
+    int healAmount = 0;
 
 public:
     HealItem();
@@ -17,6 +17,11 @@ public:
     {
         name = str;
         healAmount = amount;
+    }
+    void SetUse()
+    {
+        name = L"";
+        healAmount = 0;
     }
 
     void SetName(std::wstring str) { name = str; }

@@ -4,6 +4,8 @@
 #include "BattleDialogueBox.h"
 #include "BattleBox.h"
 #include "Bullet.h"
+#include "InventoryUi.h"
+#include "HealItem.h"
 
 std::string SceneBattle::monsterJsonID = "jsons/papyrus.json";
 SceneIds SceneBattle::nextSceneId = SceneIds::test;
@@ -139,16 +141,6 @@ void SceneBattle::Enter()
 	std::ifstream file(monsterJsonID);
 	std::ifstream file2("jsons/testInventory.json");
 	file >> data;
-	file2 >> invenData;
-	for (int i = 0; i < 4; i++)
-	{
-		std::string temp = invenData["items"][i]["itemId"];
-		if (temp != "Null")
-		{
-			std::ifstream f(temp);
-			f >> itemData[i];
-		}		
-	}
 
 	dialExistTime = data["lineExistTime"];
 	dialBox->SetString(data["lines"][lineIndex]);
@@ -248,15 +240,15 @@ void SceneBattle::Update(float dt)
 						itemChooseIndex = 0;
 						for (int i = 0; i < itemChooseCount; ++i)
 						{
-							std::string temp = invenData["items"][i]["itemId"];
-							if (temp == "Null")
+							std::wstring temp = InventoryUi::healItem[i].GetName();
+							if (temp == L"")
 							{
 								btBox->describeStr[i] = L"== 비어 있음 ==";
 							}
 							else
 							{
-								btBox->describeStr[i] = utf8_to_wstring(itemData[i]["name"]);
-								healAmount[i] = itemData[i]["healAmount"];
+								btBox->describeStr[i] = temp;
+								healAmount[i] = InventoryUi::healItem[i].GetHealAmount();
 							}
 						}
 						break;
@@ -410,15 +402,13 @@ void SceneBattle::SetActDescribe()
 
 void SceneBattle::TryUseItem()
 {
-	// "jsons/TestItem.json"
-	if (!itemData[itemChooseIndex].empty())
+	if(InventoryUi::healItem[itemChooseIndex].GetName() != L"")
 	{
-		int amount = itemData[itemChooseIndex]["healAmount"];
-		invenData["items"][itemChooseIndex]["itemId"] = "Null";
-		PlayerInfo::hp = Utils::ClampInt(PlayerInfo::hp + amount, 0, PlayerInfo::maxHp);
+		InventoryUi::healItem[itemChooseIndex].SetUse();
+		PlayerInfo::hp = Utils::ClampInt(PlayerInfo::hp + healAmount[itemChooseIndex], 0, PlayerInfo::maxHp);
+		healAmount[itemChooseIndex] = 0;
 		statusUI->UpdateHpUI();
 		SetMonsterTurn();
-		itemData[itemChooseIndex].clear();
 		SOUND_MGR.PlaySfx("sounds/snd_heal_c.wav");
 	}
 	else

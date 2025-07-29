@@ -49,8 +49,6 @@ protected:
 	float turnDuration;
 
 	json data;
-	json invenData;
-	json itemData[4];
 	int healAmount[4];
 
 	int PatternIndex = 0;

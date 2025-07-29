@@ -4,11 +4,7 @@
 #include "HealItem.h"
 #include "DialogueBox.h"
 
-HealItem InventoryUi::healItem1;
-HealItem InventoryUi::healItem2;
-HealItem InventoryUi::healItem3;
-HealItem InventoryUi::healItem4;
-
+HealItem InventoryUi::healItem[4];
 
 InventoryUi::InventoryUi(const std::string& name)
 	: GameObject(name)
@@ -179,10 +175,10 @@ void InventoryUi::Update(float dt)
 		HealItem* selectedItem = nullptr;
 		switch (selectIndex)
 		{
-		case 0: selectedItem = &healItem1; break;
-		case 1: selectedItem = &healItem2; break;
-		case 2: selectedItem = &healItem3; break;
-		case 3: selectedItem = &healItem4; break;
+		case 0: selectedItem = &healItem[0]; break;
+		case 1: selectedItem = &healItem[1]; break;
+		case 2: selectedItem = &healItem[2]; break;
+		case 3: selectedItem = &healItem[3]; break;
 		}
 		if (selectedItem && selectedItem->GetHealAmount() > 0) // 
 		{
@@ -211,10 +207,10 @@ void InventoryUi::Draw(sf::RenderWindow& window)
 		window.draw(selectSprite);
 
 		 //힐 아이템 이름 표시
-		itemText1.setString(healItem1.GetName());
-		itemText2.setString(healItem2.GetName());
-		itemText3.setString(healItem3.GetName());
-		itemText4.setString(healItem4.GetName());
+		itemText1.setString(healItem[0].GetName());
+		itemText2.setString(healItem[1].GetName());
+		itemText3.setString(healItem[2].GetName());
+		itemText4.setString(healItem[3].GetName());
 
 		window.draw(itemText1);
 		window.draw(itemText2);

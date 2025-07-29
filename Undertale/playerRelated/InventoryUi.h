@@ -40,13 +40,9 @@ protected:
 
 	Player* player;
 	DialogueBox* dialoguebox;
-	//HealItem* healItem;
 	
 public:
-	static HealItem healItem1;
-	static HealItem healItem2;
-	static HealItem healItem3;
-	static HealItem healItem4;
+	static HealItem healItem[4];
 
 	InventoryUi(const std::string& name = "");
 	virtual ~InventoryUi() = default;
