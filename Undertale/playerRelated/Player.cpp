@@ -63,16 +63,13 @@ void Player::Reset()
 	body.setTexture(TEXTURE_MGR.Get(texId));
 	animator.Play("Animation/idle.csv");
 	direction = { 0.f, 0.f };
-	maxHp = 30;
+	
 	SetName(L"Frisk");
-	SetAtt(20);
-	SetDef(20);
-	SetHp(5);
-	SetLevel(1);
-	SetGold(0);
-
+	SetAtt(PlayerInfo::ATK);
+	SetHp(PlayerInfo::hp);
+	SetLevel(PlayerInfo::lv);
+	SetGold(PlayerInfo::gold);
 	SetOrigin(Origins::MC);
-
 }
 
 void Player::Update(float dt)
@@ -162,15 +159,6 @@ void Player::SetAtt(int a)
 	}
 }
 
-void Player::SetDef(int d)
-{
-	def = d;
-	if (playerInfoUi)
-	{
-		playerInfoUi->SetPlayerDefence(std::to_wstring(def));
-	}
-}
-
 void Player::SetGold(int g)
 {
 	gold = g;
@@ -189,6 +177,15 @@ void Player::SetLevel(int l)
 	}
 }
 
+void Player::SetMoral(int m)
+{
+	moral = m;
+	if (playerInfoUi)
+	{
+		playerInfoUi->SetPlayerMoral(std::to_wstring(level));
+	}
+}
+
 void Player::SetName(const std::wstring& n)
 {
 	name = n;
@@ -197,6 +194,8 @@ void Player::SetName(const std::wstring& n)
 		playerInfoUi->SetPlayerName(n);
 	}
 }
+
+
 
 void Player::SansInteract()
 {
@@ -221,7 +220,7 @@ void Player::Heal(int amount, int maxHp)
 
 void Player::UseHealItem(HealItem* item)
 {
-	Heal(item->GetHealAmount(), maxHp);
+	Heal(item->GetHealAmount(), PlayerInfo::maxHp);
 }
 
 const sf::RectangleShape& Player::GetHitBox() const

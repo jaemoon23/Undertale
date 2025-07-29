@@ -3,6 +3,7 @@
 #include "Animator.h"
 #include "HitBox.h"
 #include "Map1.h"
+#include "PlayerInfo.h"
 
 class HpUi;
 class Sans;
@@ -11,7 +12,7 @@ class UiChanger;
 class InventoryUi;
 class PlayerInfoUi;
 class HealItem;
-
+class PlayerInfo;
 class Player : public GameObject
 {
 protected:
@@ -29,6 +30,7 @@ protected:
 	int maxexp = 100;
 	int gold = 0;
 	int level = 0;
+	int moral = 0;
 
 	float speed = 80.f;
 	sf::Vector2f direction;
@@ -43,6 +45,8 @@ protected:
 	InventoryUi* inventoryui;
 	PlayerInfoUi* playerInfoUi;
 	HealItem* healItem;
+	PlayerInfo playerInfo;
+	
 
 	bool move = true;
 public:
@@ -63,9 +67,9 @@ public:
 
 	void SetHp(int h);
 	void SetAtt(int a);
-	void SetDef(int d);
 	void SetGold(int g);
 	void SetLevel(int l);
+	void SetMoral(int m);
 	void SetExp(int e) { exp = e; }
 	void SetName(const std::wstring& n);
 	

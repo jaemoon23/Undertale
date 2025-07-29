@@ -8,11 +8,11 @@ protected:
 	{
 		std::wstring name;
 		int att;
-		int def;
 		int hp;
 		int maxhp;
 		int level;
 		int gold;
+		int moral;
 	};
 
 	PlayerInformation info;
@@ -25,7 +25,7 @@ protected:
 
 	sf::Text name;
 	sf::Text att;
-	sf::Text def;
+	sf::Text moral;
 	sf::Text hp;
 	sf::Text maxhp;
 	sf::Text gold;
@@ -53,9 +53,9 @@ public:
 
 	void SetPlayerName(const std::wstring& playerName);
 	void SetPlayerAttack(const std::wstring& playerAtt);
-	void SetPlayerDefence(const std::wstring& playerDef);
 	void SetPlayerHp(const std::wstring& playerHp);
 	void SetPlayerLevel(const std::wstring& playerLevel);
 	void SetPlayerGold(const std::wstring& playergold);
+	void SetPlayerMoral(const std::wstring& playermoral);
 };
 

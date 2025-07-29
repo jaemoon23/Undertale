@@ -83,11 +83,11 @@ void PlayerInfoUi::Reset()
 	att.setPosition(390.f, 180.f);
 	att.setString(L"ATK : " + std::to_wstring(info.att));
 
-	def.setFont(font);
-	def.setCharacterSize(18);
-	def.setFillColor(sf::Color::White);
-	def.setPosition(390.f, 210.f);
-	def.setString(L"DEF : " + std::to_wstring(info.def));
+	moral.setFont(font);
+	moral.setCharacterSize(18);
+	moral.setFillColor(sf::Color::White);
+	moral.setPosition(390.f, 210.f);
+	moral.setString(L"MORAL : " + std::to_wstring(info.moral));
 
 	hp.setFont(font);
 	hp.setCharacterSize(18);
@@ -115,7 +115,7 @@ void PlayerInfoUi::Draw(sf::RenderWindow& window)
 		window.draw(line);
 		window.draw(name);
 		window.draw(att);
-		window.draw(def);
+		window.draw(moral);
 		window.draw(hp);
 		window.draw(level);
 		window.draw(gold);
@@ -134,18 +134,11 @@ void PlayerInfoUi::SetPlayerAttack(const std::wstring& playerAtt)
 	att.setString(L"ATK : " + playerAtt);
 }
 
-void PlayerInfoUi::SetPlayerDefence(const std::wstring& playerDef)
-{
-	info.def = std::stoi(playerDef); // (std::stoi = string to int)
-	def.setString(L"DEF : " + playerDef);
-}
-
 void PlayerInfoUi::SetPlayerHp(const std::wstring& playerHp)
 {
 	info.hp = std::stoi(playerHp);
 	hp.setString(L"HP : " + playerHp);
 }
-
 
 void PlayerInfoUi::SetPlayerLevel(const std::wstring& playerLevel)
 {
@@ -157,5 +150,11 @@ void PlayerInfoUi::SetPlayerGold(const std::wstring& playergold)
 {
 	info.gold = std::stoi(playergold);
 	gold.setString(L"GOLD : " + playergold);
+}
+
+void PlayerInfoUi::SetPlayerMoral(const std::wstring& playermoral)
+{
+	info.moral = std::stoi(playermoral);
+	moral.setString(L"MORAL : " + playermoral);
 }
 
