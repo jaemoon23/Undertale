@@ -87,11 +87,10 @@ void UiChanger::Reset()
 void UiChanger::Update(float dt)
 {
 
-	if (InputMgr::GetKeyDown(sf::Keyboard::I))
+	if (InputMgr::GetKeyDown(sf::Keyboard::C))
 	{
 		isActive = !isActive;
 		SetActive(isActive);
-		std::cout << "I" << std::endl;
 	}
 
 	if (!isActive) return;

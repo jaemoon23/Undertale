@@ -65,13 +65,13 @@ void InventoryUi::Reset()
 	sortingLayer = SortingLayers::UI;
 	sortingOrder = 1;
 	SetActive(false);
-	inventory.setPosition(320.f, 230.f);
-	inventory.setScale(0.8f, 0.8f);
+	inventory.setPosition(420.f, 230.f);
+	inventory.setScale(0.45f, 0.6f);
 	SetOrigin(Origins::MC);
 
-	square.setSize({ 502.f, 374.f });
+	square.setSize({ 282.f, 278.f });
 	square.setFillColor(sf::Color::Transparent);
-	square.setPosition({ inventory.getPosition().x - 251.f ,inventory.getPosition().y - 187.f });
+	square.setPosition({ inventory.getPosition().x - 139.f ,inventory.getPosition().y - 139.f });
 	square.setOutlineColor(sf::Color::White);
 	square.setOutlineThickness(5.f);
 
@@ -82,38 +82,38 @@ void InventoryUi::Reset()
 	inventext.setFont(fonts);
 	inventext.setFillColor(sf::Color::White);
 	inventext.setString("Inventory");
-	inventext.setCharacterSize(25.f);
-	inventext.setPosition({invBounds.getPosition().x + 200.f ,invBounds.getPosition().y + 20.f});
+	inventext.setCharacterSize(22.f);
+	inventext.setPosition({invBounds.getPosition().x + 95.f ,invBounds.getPosition().y + 14.f});
 	
 	text.setFont(fonts);
 	text.setFillColor(sf::Color::White);
 	text.setString("Press [X] to Finish ");
-	text.setCharacterSize(20.f);
-	text.setPosition({ (invBounds.left + invBounds.width) *0.5f - 64.f ,invBounds.top + invBounds.height - 50.f});
+	text.setCharacterSize(18.f);
+	text.setPosition({ (invBounds.left + invBounds.width) *0.5f + 56.f ,invBounds.top + invBounds.height - 35.f});
 
 	//healItem = nullptr;
 	itemText1.setFont(fonts);
 	itemText1.setFillColor(sf::Color::White);
-	itemText1.setCharacterSize(22.f);
-	itemText1.setPosition({ inventory.getPosition().x - 45.f, inventory.getPosition().y - 95.f });
+	itemText1.setCharacterSize(20.f);
+	itemText1.setPosition({ inventory.getPosition().x - 45.f, inventory.getPosition().y - 85.f });
 
 	itemText2.setFont(fonts);
 	itemText2.setFillColor(sf::Color::White);
-	itemText2.setCharacterSize(22.f);
-	itemText2.setPosition({ inventory.getPosition().x - 45.f, inventory.getPosition().y  -40.f});
+	itemText2.setCharacterSize(20.f);
+	itemText2.setPosition({ inventory.getPosition().x - 45.f, inventory.getPosition().y  -30.f});
 
 	itemText3.setFont(fonts);
 	itemText3.setFillColor(sf::Color::White);
-	itemText3.setCharacterSize(22.f);
-	itemText3.setPosition({ inventory.getPosition().x - 45.f, inventory.getPosition().y + 15.f });
+	itemText3.setCharacterSize(20.f);
+	itemText3.setPosition({ inventory.getPosition().x - 45.f, inventory.getPosition().y + 25.f });
 
 	itemText4.setFont(fonts);
 	itemText4.setFillColor(sf::Color::White);
-	itemText4.setCharacterSize(22.f);
-	itemText4.setPosition({ inventory.getPosition().x - 45.f, inventory.getPosition().y + 70.f });
+	itemText4.setCharacterSize(20.f);
+	itemText4.setPosition({ inventory.getPosition().x - 45.f, inventory.getPosition().y + 80.f });
 
 	selectSprite.setTexture(TEXTURE_MGR.Get(selecttexIds));
-	selectSprite.setPosition({ inventory.getPosition().x - 80.f, inventory.getPosition().y - 87.f });
+	//selectSprite.setPosition({ inventory.getPosition().x - 80.f, inventory.getPosition().y - 47.f });
 }
 
 void InventoryUi::Update(float dt)
@@ -168,7 +168,7 @@ void InventoryUi::Update(float dt)
 	}
 
 	float selectY = inventory.getPosition().y - 87.f + selectIndex * 54.f; // sprite 위치 인덱스 따라 조정
-	selectSprite.setPosition({ inventory.getPosition().x - 80.f, selectY });
+	selectSprite.setPosition({ inventory.getPosition().x - 80.f, selectY + 10.f });
 
 
 
