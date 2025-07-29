@@ -3,7 +3,7 @@
 #include "SceneDev1.h"
 #include "SceneIntro.h"
 #include "MapTool.h"
-#include "test.h"
+#include "Map0.h"
 //#include "SceneDev2.h"
 #include "SceneBattle.h"
 //#include "SceneTest.h"
@@ -11,16 +11,24 @@
 #include "Map1.h"
 #include "Map2.h"
 #include "Map3.h"
+#include "Map4.h"
+#include "Map5.h"
+#include "MapPapyrus.h"
+#include "MapSans.h"
 
 void SceneMgr::Init()
 {
 	scenes.insert({ SceneIds::Intro, new SceneIntro() });
+	scenes.insert({ SceneIds::Map0 ,new Map0() });
 	scenes.insert({ SceneIds::Map1, new Map1() });
 	scenes.insert({ SceneIds::Map2, new Map2() });
 	scenes.insert({ SceneIds::Map3, new Map3() });
-	//scenes.insert({ SceneIds::Test ,new SceneTest() });
+	scenes.insert({ SceneIds::Map4, new Map4() });
+	scenes.insert({ SceneIds::Map5, new Map5() });
+	scenes.insert({ SceneIds::MapPapyrus, new MapPapyrus() });
+	scenes.insert({ SceneIds::MapSans, new MapSans() });
+	
 	scenes.insert({ SceneIds::Dev1 ,new SceneDev1() });
-	scenes.insert({ SceneIds::test ,new test() });
 	scenes.insert({ SceneIds::MapTool ,new MapTool() });
 	scenes.insert({ SceneIds::Title ,new SceneTitle() });
 	scenes.insert({ SceneIds::Battle ,new SceneBattle() });

@@ -40,7 +40,7 @@ void SceneTitle::Update(float dt)
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Z) || InputMgr::GetKeyDown(sf::Keyboard::Enter))
 	{
-		SCENE_MGR.ChangeScene(SceneIds::test);
+		SCENE_MGR.ChangeScene(SceneIds::Map0);
 	}
 	else if(InputMgr::GetKeyDown(sf::Keyboard::M))
 	{

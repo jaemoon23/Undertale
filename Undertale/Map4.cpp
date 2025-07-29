@@ -1,15 +1,15 @@
 #include "stdafx.h"
-#include "Map3.h"
+#include "Map4.h"
 #include "Player.h"
 
-Map3::Map3() : Scene(SceneIds::Map3)
+Map4::Map4() : Scene(SceneIds::Map4)
 {
 }
 
-void Map3::Init()
+void Map4::Init()
 {
 	texIds.push_back("Sprites/idle.png");
-	texIds.push_back("graphics/back4.png");
+	texIds.push_back("graphics/back5.png");
 	texIds.push_back("Sprites/downwalking.png");
 	texIds.push_back("Sprites/upwalking.png");
 	texIds.push_back("Sprites/leftwalking.png");
@@ -27,18 +27,18 @@ void Map3::Init()
 	Scene::Init();
 }
 
-void Map3::Enter()
+void Map4::Enter()
 {
-	std::ifstream in("map3.json");
+	std::ifstream in("map4.json");
 	if (!in)
 	{
-		std::cerr << "map3.json 파일을 열 수 없습니다!" << std::endl;
+		std::cerr << "map4.json 파일을 열 수 없습니다!" << std::endl;
 		return;
 	}
 
 	nlohmann::json j;
 	in >> j;
-	auto& mapData = j["map3"];
+	auto& mapData = j["map4"];
 
 	// 배경
 	std::string bgTex = mapData["background"]["textureId"];
@@ -127,7 +127,7 @@ void Map3::Enter()
 	}
 }
 
-void Map3::Update(float dt)
+void Map4::Update(float dt)
 {
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
@@ -197,7 +197,7 @@ void Map3::Update(float dt)
 	Scene::Update(dt);
 }
 
-void Map3::Draw(sf::RenderWindow& window)
+void Map4::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
 	window.setView(worldView);

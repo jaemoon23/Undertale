@@ -1,15 +1,15 @@
 #include "stdafx.h"
-#include "Map3.h"
+#include "Map5.h"
 #include "Player.h"
 
-Map3::Map3() : Scene(SceneIds::Map3)
+Map5::Map5() : Scene(SceneIds::Map5)
 {
 }
 
-void Map3::Init()
+void Map5::Init()
 {
 	texIds.push_back("Sprites/idle.png");
-	texIds.push_back("graphics/back4.png");
+	texIds.push_back("graphics/back6.png");
 	texIds.push_back("Sprites/downwalking.png");
 	texIds.push_back("Sprites/upwalking.png");
 	texIds.push_back("Sprites/leftwalking.png");
@@ -27,18 +27,18 @@ void Map3::Init()
 	Scene::Init();
 }
 
-void Map3::Enter()
+void Map5::Enter()
 {
-	std::ifstream in("map3.json");
+	std::ifstream in("map5.json");
 	if (!in)
 	{
-		std::cerr << "map3.json 파일을 열 수 없습니다!" << std::endl;
+		std::cerr << "map5.json 파일을 열 수 없습니다!" << std::endl;
 		return;
 	}
 
 	nlohmann::json j;
 	in >> j;
-	auto& mapData = j["map3"];
+	auto& mapData = j["map5"];
 
 	// 배경
 	std::string bgTex = mapData["background"]["textureId"];
@@ -127,7 +127,7 @@ void Map3::Enter()
 	}
 }
 
-void Map3::Update(float dt)
+void Map5::Update(float dt)
 {
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
@@ -176,6 +176,7 @@ void Map3::Update(float dt)
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
 					puzzleSuccess = true;
+					std::cout << "스위치 " << std::endl;
 				}
 			}
 			else if (hit.type == "NextScene")
@@ -197,7 +198,7 @@ void Map3::Update(float dt)
 	Scene::Update(dt);
 }
 
-void Map3::Draw(sf::RenderWindow& window)
+void Map5::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
 	window.setView(worldView);

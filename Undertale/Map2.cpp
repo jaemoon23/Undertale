@@ -33,7 +33,7 @@ void Map2::Enter()
 	std::ifstream in("map2.json");
 	if (!in)
 	{
-		std::cerr << "map1.json 파일을 열 수 없습니다!" << std::endl;
+		std::cerr << "map2.json 파일을 열 수 없습니다!" << std::endl;
 		return;
 	}
 
@@ -160,7 +160,7 @@ void Map2::Update(float dt)
 					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
 					{
 						std::cout << "랜덤 전투 발생!" << std::endl;
-						SceneBattle::nextSceneId = SceneIds::test;
+						SceneBattle::nextSceneId = SceneIds::Map0;
 						SceneBattle::monsterJsonID = "jsons/frog.json";
 						//SceneBattle::monsterJsonID = "jsons/sans.json";
 						SCENE_MGR.ChangeScene(SceneIds::Battle);
@@ -179,7 +179,7 @@ void Map2::Update(float dt)
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::test);
+				SCENE_MGR.ChangeScene(SceneIds::Map0);
 			}
 		}
 	}

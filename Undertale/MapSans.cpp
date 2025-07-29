@@ -1,15 +1,15 @@
 #include "stdafx.h"
-#include "Map3.h"
+#include "MapSans.h"
 #include "Player.h"
 
-Map3::Map3() : Scene(SceneIds::Map3)
+MapSans::MapSans() : Scene(SceneIds::MapSans)
 {
 }
 
-void Map3::Init()
+void MapSans::Init()
 {
 	texIds.push_back("Sprites/idle.png");
-	texIds.push_back("graphics/back4.png");
+	texIds.push_back("graphics/SansBack.png");
 	texIds.push_back("Sprites/downwalking.png");
 	texIds.push_back("Sprites/upwalking.png");
 	texIds.push_back("Sprites/leftwalking.png");
@@ -27,18 +27,18 @@ void Map3::Init()
 	Scene::Init();
 }
 
-void Map3::Enter()
+void MapSans::Enter()
 {
-	std::ifstream in("map3.json");
+	std::ifstream in("map8.json");
 	if (!in)
 	{
-		std::cerr << "map3.json 파일을 열 수 없습니다!" << std::endl;
+		std::cerr << "map8.json 파일을 열 수 없습니다!" << std::endl;
 		return;
 	}
 
 	nlohmann::json j;
 	in >> j;
-	auto& mapData = j["map3"];
+	auto& mapData = j["map8"];
 
 	// 배경
 	std::string bgTex = mapData["background"]["textureId"];
@@ -117,17 +117,13 @@ void Map3::Enter()
 		{
 			rect->setOutlineColor(sf::Color::Red);
 		}
-		else if (typeStr == "Switch")
-		{
-			rect->setOutlineColor(sf::Color(170, 255, 195));
-		}
 
 		rect->setOutlineThickness(1.f);
 		hitboxes.push_back({ rect, typeStr });
 	}
 }
 
-void Map3::Update(float dt)
+void MapSans::Update(float dt)
 {
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
@@ -148,36 +144,6 @@ void Map3::Update(float dt)
 				std::cout << "씬 전환 트리거됨!" << std::endl;
 				SCENE_MGR.ChangeScene(SceneIds::Dev1);
 			}
-			else if (hit.type == "Battle")
-			{
-				if (battleCheckTimer >= battleCheckInterval)
-				{
-					std::cout << "배틀 확률 체크" << std::endl;
-					battleCheckTimer = 0.f;
-
-					// 1% 확률
-					//if (Utils::RandomRange(0.f, 1.f) < 0.01f)
-					//{
-					//	std::cout << "랜덤 전투 발생!" << std::endl;
-					//	SceneBattle::nextSceneId = SceneIds::test;
-					//	SceneBattle::monsterJsonID = "jsons/frog.json";
-					//	//SceneBattle::monsterJsonID = "jsons/sans.json";
-					//	SCENE_MGR.ChangeScene(SceneIds::Battle);
-					//}
-					//else
-					//{
-					//	std::cout << "배틀 아님" << std::endl;
-					//}
-				}
-			}
-			else if (hit.type == "Switch")
-			{
-				std::cout << "Switch" << std::endl;
-				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
-				{
-					puzzleSuccess = true;
-				}
-			}
 			else if (hit.type == "NextScene")
 			{
 				std::cout << "NextScene" << std::endl;
@@ -188,16 +154,12 @@ void Map3::Update(float dt)
 				std::cout << "PrevScene" << std::endl;
 				SCENE_MGR.ChangeScene(SceneIds::Map0);
 			}
-			else if (hit.type == "Signs")
-			{
-				std::cout << "Signs" << std::endl;
-			}
 		}
 	}
 	Scene::Update(dt);
 }
 
-void Map3::Draw(sf::RenderWindow& window)
+void MapSans::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
 	window.setView(worldView);

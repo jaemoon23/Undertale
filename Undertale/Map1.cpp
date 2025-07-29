@@ -209,7 +209,7 @@ void Map1::Update(float dt)
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::test);
+				SCENE_MGR.ChangeScene(SceneIds::Map0);
 			}
 			else if (hit.type == "Signs")
 			{

@@ -1,5 +1,5 @@
 ﻿#include "stdafx.h"
-#include "test.h"
+#include "Map0.h"
 #include <fstream>
 #include "json.hpp"
 #include "Player.h"
@@ -13,10 +13,10 @@
 #include "PlayerInfoUi.h"
 #include "HealItem.h"
 
-test::test() : Scene(SceneIds::test)
+Map0::Map0() : Scene(SceneIds::Map0)
 {
 }
-void test::Init()
+void Map0::Init()
 {
 
 	texIds.push_back("Sprites/idle.png");
@@ -76,7 +76,7 @@ void test::Init()
 	InventoryUi::healItem4.SetInfo(L"쿠키", 10);
 }
 
-void test::Enter()
+void Map0::Enter()
 {
 	std::ifstream in("map0.json");
 	if (!in)
@@ -162,7 +162,7 @@ void test::Enter()
 		hitboxes.push_back({ rect, typeStr });
 	}
 }
-void test::Update(float dt)
+void Map0::Update(float dt)
 {
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
@@ -190,7 +190,7 @@ void test::Update(float dt)
 					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
 					{
 						std::cout << "랜덤 전투 발생!" << std::endl;
-						SceneBattle::nextSceneId = SceneIds::test;
+						SceneBattle::nextSceneId = SceneIds::Map0;
 						SceneBattle::monsterJsonID = "jsons/frog.json";
 						//SceneBattle::monsterJsonID = "jsons/sans.json";
 						SCENE_MGR.ChangeScene(SceneIds::Battle);
@@ -212,13 +212,13 @@ void test::Update(float dt)
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num8))
 	{
-		SceneBattle::nextSceneId = SceneIds::test;
+		SceneBattle::nextSceneId = SceneIds::Map0;
 		SceneBattle::monsterJsonID = "jsons/frog.json";
 		SCENE_MGR.ChangeScene(SceneIds::Battle);
 	}
 	else if (InputMgr::GetKeyDown(sf::Keyboard::Num9))
 	{
-		SceneBattle::nextSceneId = SceneIds::test;
+		SceneBattle::nextSceneId = SceneIds::Map0;
 		SceneBattle::monsterJsonID = "jsons/sans.json";
 		SCENE_MGR.ChangeScene(SceneIds::Battle);
 	}
@@ -229,7 +229,7 @@ void test::Update(float dt)
 	uichanger->Update(dt);
 }
 
-void test::Draw(sf::RenderWindow& window)
+void Map0::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
 	window.setView(worldView);

@@ -3,7 +3,7 @@
 #include <fstream>
 #include "json.hpp"
 #include "SpriteGo.h"
-#include "test.h"
+#include "Map0.h"
 class Player;
 
 class Map1 : public Scene
@@ -11,7 +11,7 @@ class Map1 : public Scene
 protected:
 	float battleCheckTimer = 0.f;
 	const float battleCheckInterval = 1.f;
-	test test;
+	Map0 Map0;
 	SpriteGo* background1 = nullptr;
 	Player* player;
 	std::vector<SpriteGo*> testObjects;
