@@ -24,6 +24,7 @@ protected:
 
 	float timer = 0.f;
 	float waitingTime = 1.5f;
+	float splitStartTime = 1.0f;
 
 	int damage = 4;
 
@@ -31,6 +32,7 @@ protected:
 	bool isDraw = false;
 
 public:
+	sf::Vector2f splitDir = { 0.f,0.f };
 	BulletPattern pattern = BulletPattern::Normal;
 	Bullet(const std::string& name = "");
 	virtual ~Bullet() = default;

@@ -155,6 +155,25 @@ void Bullet::Update(float dt)
 			}
 		}
 		break;
+	case BulletPattern::Split:
+		if (timer >= waitingTime)
+		{
+			isDraw = true;
+			sf::Vector2f position = sprite.getPosition();
+			if (timer < waitingTime + splitStartTime)
+				position += dir * moveSpeed * dt;
+			else
+				position += splitDir * moveSpeed * dt;
+			SetPosition(position);
+			if (soul->GetGlobalBounds().intersects(sprite.getGlobalBounds()) && !(soul->isBlink))
+			{
+				soul->isBlink = true;
+				soul->TakeDamage(damage);
+				scene->GetStatusUI()->UpdateHpUI();
+				SetActive(false);
+			}
+		}
+		break;
 	}
 }
 

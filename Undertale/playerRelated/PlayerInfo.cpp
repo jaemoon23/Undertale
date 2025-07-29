@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "PlayerInfo.h"
 
-
-
 int PlayerInfo::hp = 20;
 int PlayerInfo::maxHp = 20;
 int PlayerInfo::ATK = 50;
