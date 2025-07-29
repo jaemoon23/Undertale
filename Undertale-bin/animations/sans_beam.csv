@@ -1,0 +1,15 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)		",,
+sans_beam,11,0,,
+"				",,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
+graphics/spr_sans_beam_0.png,0,0,43,57
+graphics/spr_sans_beam_1.png,0,0,43,57
+graphics/spr_sans_beam_2.png,0,0,43,57
+graphics/spr_sans_beam_3.png,0,0,43,57
+graphics/spr_sans_beam_1.png,0,0,43,57
+graphics/spr_sans_beam_2.png,0,0,43,57
+graphics/spr_sans_beam_3.png,0,0,43,57
+graphics/spr_sans_beam_1.png,0,0,43,57
+graphics/spr_sans_beam_2.png,0,0,43,57
+graphics/spr_sans_beam_3.png,0,0,43,57
+graphics/spr_sans_beam_0.png,0,0,43,57

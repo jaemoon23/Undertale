@@ -7,7 +7,7 @@
 #include "InventoryUi.h"
 #include "HealItem.h"
 
-std::string SceneBattle::monsterJsonID = "jsons/papyrus.json";
+std::string SceneBattle::monsterJsonID = "jsons/sans.json";
 SceneIds SceneBattle::nextSceneId = SceneIds::test;
 
 SceneBattle::SceneBattle()
@@ -16,7 +16,7 @@ SceneBattle::SceneBattle()
 }
 
 void SceneBattle::Init()
-{
+{	
 	
 	ANI_CLIP_MGR.Load("animations/sans_idle.csv");
 	ANI_CLIP_MGR.Load("animations/fist.csv");
@@ -28,6 +28,11 @@ void SceneBattle::Init()
 	ANI_CLIP_MGR.Load("animations/papyrus_idle.csv");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("graphics/spr_battlebg_0.png");
+	texIds.push_back("graphics/spr_sans_beam_0.png");
+	texIds.push_back("graphics/spr_sans_beam_1.png");
+	texIds.push_back("graphics/spr_sans_beam_2.png");
+	texIds.push_back("graphics/spr_sans_beam_3.png");
+	texIds.push_back("graphics/spr_firebullet.png");
 	texIds.push_back("graphics/spr_kissbullet_0.png");
 	texIds.push_back("graphics/spr_papyrusboss_0.png");
 	texIds.push_back("graphics/spr_heavybullet.png");
@@ -127,7 +132,7 @@ void SceneBattle::Enter()
 	isBreak = false;
 	mercyPoint = 0;
 	btIndex = 0;
-	PatternIndex = 1; // 0으로 바꾸기
+	PatternIndex = 0; // 0으로 바꾸기
 	itemChooseIndex = 0;
 	actChooseIndex = 0;
 	mercyChooseIndex = 0;
