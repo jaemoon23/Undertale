@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "SpriteGo.h"
 class Player;
+class TextGo;
 
 class Map5 :
 	public Scene
@@ -13,10 +14,25 @@ protected:
 	std::vector<SpriteGo*> testObjects;
 	std::vector<HitBoxInfo1> hitboxes;
 
+	std::vector<sf::Keyboard::Key> targetKeys;
+
 	SpriteGo* background = nullptr;
 	Player* player;
 
 	bool puzzleSuccess = false;
+
+	TextGo* textQ;
+	TextGo* textW;
+	TextGo* textE;
+	TextGo* textR;
+
+	bool ran = true;
+	int r = 0;
+	float maxTime = 1.f;
+	float currentTime = 0.f;
+
+	float maxTime2 = 1.f;
+	float currentTime2 = 0.f;
 public:
 	Map5();
 	~Map5() override = default;
@@ -25,6 +41,8 @@ public:
 	void Enter() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void GenerateRandomKeySequence(float dt);
 
 };
 
