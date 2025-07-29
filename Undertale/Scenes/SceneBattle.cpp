@@ -135,7 +135,7 @@ void SceneBattle::Enter()
 	isBreak = false;
 	mercyPoint = 0;
 	btIndex = 0;
-	PatternIndex = 7; // 0으로 바꾸기
+	PatternIndex = 0; // 0으로 바꾸기
 	itemChooseIndex = 0;
 	actChooseIndex = 0;
 	mercyChooseIndex = 0;

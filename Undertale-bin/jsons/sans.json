@@ -67,7 +67,33 @@
       "mercyPoint" : 0
     }    
   ],
-  "attackPattern" : [
+  "attackPattern" : [    
+    {
+      "name" : "Beam",
+      "duration" : 10.5,
+      "bullets" : [
+        {
+          "texId" : "graphics/spr_sans_beam_0.png", "PosX" : 150.0, "PosY" : 360.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 0.0, "delay" : 1.0, "damage" : 1, "animationId" : "animations/sans_beam.csv"
+        },
+        {
+          "texId" : "graphics/spr_sans_beam_0.png", "PosX" : 490.0, "PosY" : 360.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 0.0, "delay" : 2.0, "damage" : 1, "animationId" : "animations/sans_beam.csv"
+        },
+        {
+          "texId" : "graphics/spr_sans_beam_0.png", "PosX" : 490.0, "PosY" : 320.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 0.0, "delay" : 2.5, "damage" : 1, "animationId" : "animations/sans_beam.csv"
+        },
+        {
+          "texId" : "graphics/spr_sans_beam_0.png", "PosX" : 150.0, "PosY" : 280.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 0.0, "delay" : 4.5, "damage" : 1, "animationId" : "animations/sans_beam.csv"
+        },
+        {
+          "texId" : "graphics/spr_sans_beam_0.png", "PosX" : 490.0, "PosY" : 320.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 0.0, "delay" : 5.0, "damage" : 1, "animationId" : "animations/sans_beam.csv"
+        }
+      ]
+    },
     {
       "name" : "Normal",
       "duration" : 10.5,
@@ -745,32 +771,6 @@
         {
           "texId" : "graphics/spr_sans_beam_0.png", "PosX" : 200.0, "PosY" : 350.0, "DirX" : 0.0, "DirY" : 0.0,
           "speed" : 0.0, "delay" : 3.0, "damage" : 1, "animationId" : "animations/sans_beam.csv"
-        }
-      ]
-    },
-    {
-      "name" : "Beam",
-      "duration" : 10.5,
-      "bullets" : [
-        {
-          "texId" : "graphics/spr_sans_beam_0.png", "PosX" : 150.0, "PosY" : 360.0, "DirX" : 1.0, "DirY" : 0.0,
-          "speed" : 0.0, "delay" : 1.0, "damage" : 1, "animationId" : "animations/sans_beam.csv"
-        },
-        {
-          "texId" : "graphics/spr_sans_beam_0.png", "PosX" : 490.0, "PosY" : 360.0, "DirX" : -1.0, "DirY" : 0.0,
-          "speed" : 0.0, "delay" : 2.0, "damage" : 1, "animationId" : "animations/sans_beam.csv"
-        },
-        {
-          "texId" : "graphics/spr_sans_beam_0.png", "PosX" : 490.0, "PosY" : 320.0, "DirX" : -1.0, "DirY" : 0.0,
-          "speed" : 0.0, "delay" : 2.5, "damage" : 1, "animationId" : "animations/sans_beam.csv"
-        },
-        {
-          "texId" : "graphics/spr_sans_beam_0.png", "PosX" : 150.0, "PosY" : 280.0, "DirX" : 1.0, "DirY" : 0.0,
-          "speed" : 0.0, "delay" : 4.5, "damage" : 1, "animationId" : "animations/sans_beam.csv"
-        },
-        {
-          "texId" : "graphics/spr_sans_beam_0.png", "PosX" : 490.0, "PosY" : 320.0, "DirX" : -1.0, "DirY" : 0.0,
-          "speed" : 0.0, "delay" : 5.0, "damage" : 1, "animationId" : "animations/sans_beam.csv"
         }
       ]
     }
