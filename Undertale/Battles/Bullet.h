@@ -29,15 +29,17 @@ protected:
 	float timer = 0.f;
 	float beamTimer = 0.f;
 	float tickTimer = 0.f;
+	float beamMoveTime = 0.5f;
 	float tickTime = 0.1f;
 	float beamTime = 1.0f;
 	float waitingTime = 1.5f;
 	float splitStartTime = 1.0f;
-	float aniDelayTime = 1.0f;
+	float aniDelayTime = 0.7f;
 
 	int damage = 4;
 
 	bool isHoming = false;
+	bool isBeamMoving = false;
 	bool isAnimation = false;
 	bool isDraw = false;
 

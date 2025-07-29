@@ -98,6 +98,9 @@ void SceneBattle::Init()
 	soundIds.push_back("sounds/snd_bell.wav");
 	soundIds.push_back("sounds/snd_vaporized.wav");
 	soundIds.push_back("sounds/snd_break1_c.wav");
+	soundIds.push_back("sounds/mus_sfx_segapower.wav");
+	soundIds.push_back("sounds/snd_grab.wav");
+	soundIds.push_back("sounds/snd_bombsplosion.wav");
 	
 	statusUI = (StatusInBattleUI*)AddGameObject(new StatusInBattleUI());
 	statusUI->SetPosition({ size.x * 0.02f, size.y * 0.8f });
@@ -645,8 +648,26 @@ void SceneBattle::SetBulletPattern()
 				data["attackPattern"][PatternIndex]["bullets"][i]["damage"]
 			);
 			b->aniId = data["attackPattern"][PatternIndex]["bullets"][i]["animationId"];
-			b->Reset();			
+			b->Reset();
 			b->pattern = BulletPattern::Beam;
+		}
+	}
+	else if ("BeamHoming" == data["attackPattern"][PatternIndex]["name"])
+	{
+		for (int i = 0; i < bulletCount; ++i)
+		{
+			Bullet* b = (Bullet*)AddGameObject(new Bullet());
+			bulletTemp.push_back(b);
+			b->SetBulletState(data["attackPattern"][PatternIndex]["bullets"][i]["texId"],
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["PosX"], data["attackPattern"][PatternIndex]["bullets"][i]["PosY"] },
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["DirX"], data["attackPattern"][PatternIndex]["bullets"][i]["DirY"] },
+				data["attackPattern"][PatternIndex]["bullets"][i]["speed"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["delay"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["damage"]
+			);
+			b->aniId = data["attackPattern"][PatternIndex]["bullets"][i]["animationId"];
+			b->Reset();			
+			b->pattern = BulletPattern::BeamHoming;
 		}
 	}
 
