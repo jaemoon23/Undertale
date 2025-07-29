@@ -41,6 +41,8 @@
     <ClCompile Include="Scenes\SceneIntro.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="playerRelated\HealItem.cpp" />
+    <ClCompile Include="Map1.cpp" />
+    <ClCompile Include="Map2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AniPlayer.cpp">
@@ -160,5 +162,7 @@
     <ClInclude Include="WrappedText.h" />
     <ClInclude Include="Scenes\SceneIntro.h" />
     <ClInclude Include="SceneTitle.h" />
+    <ClInclude Include="Map1.h" />
+    <ClInclude Include="Map2.h" />
   </ItemGroup>
 </Project>

@@ -25,6 +25,8 @@ enum class SceneIds
 	Intro,
 	Title,
 	test,
+	Map1,
+	Map2,
 	MapTool,
 	Game,
 	Battle,
