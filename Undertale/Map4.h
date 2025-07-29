@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "SpriteGo.h"
+#include "TextGo.h"
 class Player;
 
 class Map4 :
@@ -14,10 +15,14 @@ protected:
 	std::vector<HitBoxInfo1> hitboxes;
 	sf::RectangleShape wall;
 
+	SpriteGo* textWindow = nullptr;
 	SpriteGo* background = nullptr;
+
+	TextGo* text = nullptr;
 	Player* player;
 
 	bool puzzleSuccess = false;
+	bool showText = false;
 public:
 	Map4();
 	~Map4() override = default;

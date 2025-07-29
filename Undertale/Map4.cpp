@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Map4.h"
 #include "Player.h"
+#include "SceneBattle.h"
 
 Map4::Map4() : Scene(SceneIds::Map4)
 {
@@ -8,12 +9,14 @@ Map4::Map4() : Scene(SceneIds::Map4)
 
 void Map4::Init()
 {
+	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("graphics/back5.png");
 	texIds.push_back("Sprites/downwalking.png");
 	texIds.push_back("Sprites/upwalking.png");
 	texIds.push_back("Sprites/leftwalking.png");
 	texIds.push_back("Sprites/rightwalking.png");
+	texIds.push_back("Sprites/TextWindow.png");
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
@@ -24,6 +27,8 @@ void Map4::Init()
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
 	background = (SpriteGo*)AddGameObject(new SpriteGo());
 	background->sortingLayer = SortingLayers::Background;
+	textWindow = (SpriteGo*)AddGameObject(new SpriteGo("Sprites/TextWindow.png"));
+	text = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
 	Scene::Init();
 }
 
@@ -34,6 +39,16 @@ void Map4::Enter()
 	wall.setOutlineColor(sf::Color::Green);
 	wall.setOutlineThickness(1.f);
 	wall.setPosition({ 695.f, 220.f });
+
+	textWindow->sortingLayer = SortingLayers::UI;
+	textWindow->SetPosition({ 35.f, 300.f });
+	textWindow->SetActive(false);
+
+	text->sortingLayer = SortingLayers::UI;
+	text->SetString(L"¾Ë ¼ö ¾ø´Â Èû¿¡ ÀÇÇØ ¸·Èû");
+	text->SetCharacterSize(35.f);
+	text->SetPosition({ textWindow->GetPosition().x + 10, textWindow->GetPosition().y + 5});
+	text->SetActive(false);
 
 	std::ifstream in("map4.json");
 	if (!in)
@@ -162,18 +177,18 @@ void Map4::Update(float dt)
 					battleCheckTimer = 0.f;
 
 					// 1% È®·ü
-					//if (Utils::RandomRange(0.f, 1.f) < 0.01f)
-					//{
-					//	std::cout << "·£´ý ÀüÅõ ¹ß»ý!" << std::endl;
-					//	SceneBattle::nextSceneId = SceneIds::test;
-					//	SceneBattle::monsterJsonID = "jsons/frog.json";
-					//	//SceneBattle::monsterJsonID = "jsons/sans.json";
-					//	SCENE_MGR.ChangeScene(SceneIds::Battle);
-					//}
-					//else
-					//{
-					//	std::cout << "¹èÆ² ¾Æ´Ô" << std::endl;
-					//}
+					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
+					{
+						std::cout << "·£´ý ÀüÅõ ¹ß»ý!" << std::endl;
+						SceneBattle::nextSceneId = SceneIds::Map0;
+						SceneBattle::monsterJsonID = "jsons/frog.json";
+						//SceneBattle::monsterJsonID = "jsons/sans.json";
+						SCENE_MGR.ChangeScene(SceneIds::Battle);
+					}
+					else
+					{
+						std::cout << "¹èÆ² ¾Æ´Ô" << std::endl;
+					}
 				}
 			}
 			else if (hit.type == "Switch")
@@ -204,8 +219,26 @@ void Map4::Update(float dt)
 			if (Utils::CheckCollision(player->GetHitBox(), wall))
 			{
 				player->SetPosition(player->getPos());
+				showText = true;
 				std::cout << "¾Ë ¼ö ¾ø´Â Èû¿¡ ÀÇÇØ ¸·Èû" << std::endl;
 			}
+			else
+			{
+				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+				{
+					showText = false;
+				}
+			}
+		}
+		if (showText)
+		{
+			textWindow->SetActive(true);
+			text->SetActive(true);
+		}
+		else
+		{
+			textWindow->SetActive(false);
+			text->SetActive(false);
 		}
 	}
 	Scene::Update(dt);
