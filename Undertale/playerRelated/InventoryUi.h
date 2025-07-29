@@ -12,6 +12,7 @@ enum class SelectedItem
 class Player;
 class HealItem;
 class DialogueBox;
+class PlayerInfo;
 class InventoryUi : public GameObject
 {
 protected:
@@ -40,7 +41,8 @@ protected:
 
 	Player* player;
 	DialogueBox* dialoguebox;
-	
+	PlayerInfo* playerinfo;
+
 public:
 	static HealItem healItem[4];
 

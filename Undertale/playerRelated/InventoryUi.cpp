@@ -166,9 +166,6 @@ void InventoryUi::Update(float dt)
 	float selectY = inventory.getPosition().y - 87.f + selectIndex * 54.f; // sprite 위치 인덱스 따라 조정
 	selectSprite.setPosition({ inventory.getPosition().x - 80.f, selectY + 10.f });
 
-
-
-
 	// 2. 이제부터만 엔터 입력 처리
 	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
 	{
@@ -180,19 +177,21 @@ void InventoryUi::Update(float dt)
 		case 2: selectedItem = &healItem[2]; break;
 		case 3: selectedItem = &healItem[3]; break;
 		}
-		if (selectedItem && selectedItem->GetHealAmount() > 0) // 
+		if (selectedItem && selectedItem->GetHealAmount() > 0)
 		{
 			if (player)
 			{
-				player->UseHealItem(selectedItem);
-				// 회복 후 HP 출력
+				for (int i = 0; i<4; ++i)
+				{
+					PlayerInfo::Heal(InventoryUi::healItem[i].GetHealAmount());
+				}
+
 				std::cout << "Player HP: " << player->GetHp() << " / " << player->GetMaxHp()<< std::endl;
 			}
-			selectedItem->SetInfo(L"", 0);
+			selectedItem->SetInfo(L"", 0);			
 		}
 	}
 }
-
 
 void InventoryUi::Draw(sf::RenderWindow& window)
 {

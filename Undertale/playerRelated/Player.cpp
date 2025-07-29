@@ -64,11 +64,6 @@ void Player::Reset()
 	animator.Play("Animation/idle.csv");
 	direction = { 0.f, 0.f };
 	
-	SetName(L"Frisk");
-	SetAtt(PlayerInfo::ATK);
-	SetHp(PlayerInfo::hp);
-	SetLevel(PlayerInfo::lv);
-	SetGold(PlayerInfo::gold);
 	SetOrigin(Origins::MC);
 }
 
@@ -76,7 +71,6 @@ void Player::Update(float dt)
 {
 	animator.Update(dt);
 	prevPosition = GetPosition();
-
 
 	if (sans)
 	{
@@ -115,8 +109,6 @@ void Player::Update(float dt)
 		hitBox.UpdateTransform(body, body.getLocalBounds());
 	}
 	
-
-
 	if (InputMgr::GetKeyDown(sf::Keyboard::Right))
 	{
 		animator.Play("Animation/rightwalking.csv");
@@ -141,62 +133,6 @@ void Player::Draw(sf::RenderWindow& window)
 	hitBox.Draw(window);
 }
 
-void Player::SetHp(int h)
-{
-	hp = h;
-	if (playerInfoUi)
-	{
-		playerInfoUi->SetPlayerHp(std::to_wstring(hp));
-	}
-}
-
-void Player::SetAtt(int a)
-{
-	att = a;
-	if (playerInfoUi)
-	{
-		playerInfoUi->SetPlayerAttack(std::to_wstring(att));
-	}
-}
-
-void Player::SetGold(int g)
-{
-	gold = g;
-	if (playerInfoUi)
-	{
-		playerInfoUi->SetPlayerGold(std::to_wstring(gold));
-	}
-}
-
-void Player::SetLevel(int l)
-{
-	level = l;
-	if (playerInfoUi)
-	{
-		playerInfoUi->SetPlayerLevel(std::to_wstring(level));
-	}
-}
-
-void Player::SetMoral(int m)
-{
-	moral = m;
-	if (playerInfoUi)
-	{
-		playerInfoUi->SetPlayerMoral(std::to_wstring(level));
-	}
-}
-
-void Player::SetName(const std::wstring& n)
-{
-	name = n;
-	if (playerInfoUi)
-	{
-		playerInfoUi->SetPlayerName(n);
-	}
-}
-
-
-
 void Player::SansInteract()
 {
 	std::vector<std::wstring> testDialogues =
@@ -204,24 +140,21 @@ void Player::SansInteract()
 	dialoguebox->StartDialogue(testDialogues);
 }
 
-void Player::Heal(int amount, int maxHp)
-{
-	int newHp = hp + amount;
-	if (newHp > maxHp)
-	{
-		newHp = maxHp;
-	}
-	hp = newHp; // 실제로 HP를 회복
-	if (playerInfoUi)
-	{
-		playerInfoUi->SetPlayerHp(std::to_wstring(hp));
-	}
-}
 
-void Player::UseHealItem(HealItem* item)
-{
-	Heal(item->GetHealAmount(), PlayerInfo::maxHp);
-}
+//void Player::Heal(int amount, int maxHp)
+//{
+//	PlayerInfo::hp == 10;
+//	PlayerInfo::Heal(InventoryUi::healItem[0].GetHealAmount());
+//	PlayerInfo::hp == 20;
+//
+//	int newHp = PlayerInfo::hp + amount;
+//	if (newHp > maxHp)
+//	{
+//		newHp = maxHp;
+//	}
+//	PlayerInfo::hp = newHp; // 실제로 HP를 회복
+//}
+
 
 const sf::RectangleShape& Player::GetHitBox() const
 {

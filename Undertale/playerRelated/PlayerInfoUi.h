@@ -4,19 +4,6 @@
 class PlayerInfoUi : public GameObject
 {
 protected:
-	struct PlayerInformation
-	{
-		std::wstring name;
-		int att;
-		int hp;
-		int maxhp;
-		int level;
-		int gold;
-		int moral;
-	};
-
-	PlayerInformation info;
-
 	sf::Sprite playerInfo;
 
 	sf::RectangleShape line;
@@ -25,13 +12,11 @@ protected:
 
 	sf::Text name;
 	sf::Text att;
-	sf::Text moral;
 	sf::Text hp;
 	sf::Text maxhp;
 	sf::Text gold;
 	sf::Text exp;
 	sf::Text level;
-
 
 	bool isActive = true;
 
@@ -50,12 +35,5 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
-
-	void SetPlayerName(const std::wstring& playerName);
-	void SetPlayerAttack(const std::wstring& playerAtt);
-	void SetPlayerHp(const std::wstring& playerHp);
-	void SetPlayerLevel(const std::wstring& playerLevel);
-	void SetPlayerGold(const std::wstring& playergold);
-	void SetPlayerMoral(const std::wstring& playermoral);
 };
 

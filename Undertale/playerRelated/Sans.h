@@ -1,14 +1,19 @@
 #pragma once
 #include "GameObject.h"
 #include "HitBox.h"
+#include "Animator.h"
 class Sans : public GameObject
 {
 protected:
 	sf::Sprite sans;
-	std::string sanstexIds = "Sprites/spr_sans_sleep_0.png";
+	std::string sanstexIds = "Sprites/spr_sans_r_dark_2.png";
 
 	HitBox hitBox;	
+	
+
+	bool isActive = false;
 public:
+	Animator animator;
 	Sans(const std::string& name = "");
 	virtual ~Sans() = default;
 
@@ -26,5 +31,6 @@ public:
 
 	const sf::RectangleShape& GetHitBox() const;
 	sf::Vector2f GetPosition() const;
+	void SetActive(bool active);
 };
 

@@ -53,22 +53,34 @@ void Sans::Release()
 void Sans::Reset()
 {
 	sortingLayer = SortingLayers::Foreground;
-	sortingOrder = 0;
+	sortingOrder = 1;
 
 	sans.setTexture(TEXTURE_MGR.Get(sanstexIds));
-	sans.setPosition(150.f, 263.f);
+	sans.setPosition(250.f,625.f);
 	SetOrigin(Origins::MC);
+	SetActive(false);
+
+	//animator.Play("Animation/idle.csv");
+
 }
 
 void Sans::Update(float dt)
 {
+	animator.Update(dt);
 	hitBox.UpdateTransform(sans, sans.getLocalBounds());
+
+
 }
 
 void Sans::Draw(sf::RenderWindow& window)
 {
-	hitBox.Draw(window);
-	window.draw(sans);
+	if (isActive)
+	{
+		hitBox.Draw(window);
+		window.draw(sans);
+	}
+	//hitBox.Draw(window);
+	//window.draw(sans);
 }
 
 const sf::RectangleShape& Sans::GetHitBox() const
@@ -79,4 +91,8 @@ const sf::RectangleShape& Sans::GetHitBox() const
 sf::Vector2f Sans::GetPosition() const
 {
 	return sans.getPosition();
+}
+void Sans::SetActive(bool active)
+{
+	isActive = active;
 }

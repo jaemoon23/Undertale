@@ -107,4 +107,5 @@ void PlayerInfo::Heal(int h)
 	{
 		hp = maxHp;
 	}
+
 }

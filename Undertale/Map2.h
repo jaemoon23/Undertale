@@ -4,7 +4,10 @@
 #include "json.hpp"
 #include "SpriteGo.h"
 
+
 class Player;
+class Sans;
+
 struct HitBoxInfo3
 {
     sf::RectangleShape* shape;
@@ -19,8 +22,12 @@ protected:
     std::vector<SpriteGo*> testObjects;
     std::vector<HitBoxInfo3> hitboxes;
 
+    sf::RectangleShape wall;
+
     float battleCheckTimer = 0.f;
     const float battleCheckInterval = 1.f;
+
+    Sans* sans;
 public:
     Map2();
     ~Map2() override = default;

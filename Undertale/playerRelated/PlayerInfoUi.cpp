@@ -69,37 +69,38 @@ void PlayerInfoUi::Reset()
 	name.setCharacterSize(20);
 	name.setFillColor(sf::Color::White);
 	name.setPosition(390.f, 113.f);
-	name.setString(info.name);
+	name.setString("Frisk");
 
 	level.setFont(font);
 	level.setCharacterSize(18);
 	level.setFillColor(sf::Color::White);
-	level.setPosition(390.f, 147.f);
-	level.setString(L"LEVEL : " + std::to_wstring(info.level));
-
-	att.setFont(font);
-	att.setCharacterSize(18);
-	att.setFillColor(sf::Color::White);
-	att.setPosition(390.f, 180.f);
-	att.setString(L"ATK : " + std::to_wstring(info.att));
-
-	moral.setFont(font);
-	moral.setCharacterSize(18);
-	moral.setFillColor(sf::Color::White);
-	moral.setPosition(390.f, 210.f);
-	moral.setString(L"MORAL : " + std::to_wstring(info.moral));
+	level.setPosition(390.f, 157.f);
+	level.setString(L"LV " + std::to_wstring(PlayerInfo::lv));
 
 	hp.setFont(font);
 	hp.setCharacterSize(18);
 	hp.setFillColor(sf::Color::White);
-	hp.setPosition(390.f, 240.f);
-	hp.setString(L"HP : " + std::to_wstring(info.hp));
+	hp.setPosition(390.f, 200.f);
+	hp.setString(L"HP " + std::to_wstring(PlayerInfo::hp)+ L" / "+std::to_wstring(PlayerInfo::maxHp));
+
+	att.setFont(font);
+	att.setCharacterSize(18);
+	att.setFillColor(sf::Color::White);
+	att.setPosition(390.f, 243.f);
+	att.setString(L"AT : " + std::to_wstring(PlayerInfo::ATK));
+
+
+	exp.setFont(font);
+	exp.setCharacterSize(18);
+	exp.setFillColor(sf::Color::White);
+	exp.setPosition(390.f, 286.f);
+	exp.setString(L"EXP : " + std::to_wstring(PlayerInfo::exp));
 
 	gold.setFont(font);
 	gold.setCharacterSize(18);
 	gold.setFillColor(sf::Color::White);
-	gold.setPosition(390.f, 300.f);
-	gold.setString(L"GOLD : " + std::to_wstring(info.gold));
+	gold.setPosition(390.f, 329.f);
+	gold.setString(L"GOLD : " + std::to_wstring(PlayerInfo::gold));
 
 }
 
@@ -115,46 +116,10 @@ void PlayerInfoUi::Draw(sf::RenderWindow& window)
 		window.draw(line);
 		window.draw(name);
 		window.draw(att);
-		window.draw(moral);
 		window.draw(hp);
 		window.draw(level);
 		window.draw(gold);
+		window.draw(exp);
 	}
-}
-
-void PlayerInfoUi::SetPlayerName(const std::wstring& playerName)
-{
-	info.name = playerName;
-	name.setString(playerName);
-}
-
-void PlayerInfoUi::SetPlayerAttack(const std::wstring& playerAtt)
-{
-	info.att = std::stoi(playerAtt);
-	att.setString(L"ATK : " + playerAtt);
-}
-
-void PlayerInfoUi::SetPlayerHp(const std::wstring& playerHp)
-{
-	info.hp = std::stoi(playerHp);
-	hp.setString(L"HP : " + playerHp);
-}
-
-void PlayerInfoUi::SetPlayerLevel(const std::wstring& playerLevel)
-{
-	info.level = std::stoi(playerLevel);
-	level.setString(L"LEVEL : " + playerLevel);
-}
-
-void PlayerInfoUi::SetPlayerGold(const std::wstring& playergold)
-{
-	info.gold = std::stoi(playergold);
-	gold.setString(L"GOLD : " + playergold);
-}
-
-void PlayerInfoUi::SetPlayerMoral(const std::wstring& playermoral)
-{
-	info.moral = std::stoi(playermoral);
-	moral.setString(L"MORAL : " + playermoral);
 }
 

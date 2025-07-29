@@ -3,6 +3,12 @@
 #include "Player.h"
 #include "SceneBattle.h"
 
+#include <fstream>
+#include "json.hpp"
+#include "TextGo.h"
+#include "Sans.h"
+
+
 Map2::Map2() : Scene(SceneIds::Map2)
 {
 }
@@ -15,21 +21,34 @@ void Map2::Init()
 	texIds.push_back("Sprites/upwalking.png");
 	texIds.push_back("Sprites/leftwalking.png");
 	texIds.push_back("Sprites/rightwalking.png");
+	texIds.push_back("Sprites/sprite_sheet_dark.png");
+	texIds.push_back("Sprites/spr_sans_r_dark_2.png");
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/upwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/leftwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/rightwalking.csv");
+	ANI_CLIP_MGR.Load("Animation/sansdarkwalking.csv");
 
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
+	sans = (Sans*)AddGameObject(new Sans("Sprites/spr_sans_r_dark_2.png"));
+
 	background2 = (SpriteGo*)AddGameObject(new SpriteGo());
 	background2->sortingLayer = SortingLayers::Background;
+
+
 	Scene::Init();
 }
 
 void Map2::Enter()
 {
+	wall.setSize({ 14.f,100.f });
+	wall.setFillColor(sf::Color::Transparent);
+	wall.setOutlineColor(sf::Color::Green);
+	wall.setOutlineThickness(1.f);
+	wall.setPosition({ 470.f, 305.f });
+
 	std::ifstream in("map2.json");
 	if (!in)
 	{
@@ -54,7 +73,7 @@ void Map2::Enter()
 
 	sf::Vector2f size = { 640.f, 480.f };
 	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
-	worldView.setSize(size);
+	worldView.setSize(size * 0.5f);
 	uiView.setSize(size);
 	uiView.setCenter(center);
 
@@ -122,10 +141,13 @@ void Map2::Enter()
 		{
 			rect->setOutlineColor(sf::Color::Green);
 		}
-
 		rect->setOutlineThickness(1.f);
 		hitboxes.push_back({ rect, typeStr });
+
 	}
+
+	sans->SetActive(false);
+
 }
 
 void Map2::Update(float dt)
@@ -157,18 +179,18 @@ void Map2::Update(float dt)
 					battleCheckTimer = 0.f;
 
 					// 1% È®·ü
-					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
-					{
-						std::cout << "·£´ý ÀüÅõ ¹ß»ý!" << std::endl;
-						SceneBattle::nextSceneId = SceneIds::test;
-						SceneBattle::monsterJsonID = "jsons/frog.json";
-						//SceneBattle::monsterJsonID = "jsons/sans.json";
-						SCENE_MGR.ChangeScene(SceneIds::Battle);
-					}
-					else
-					{
-						std::cout << "¹èÆ² ¾Æ´Ô" << std::endl;
-					}
+					//if (Utils::RandomRange(0.f, 1.f) < 0.01f)
+					//{
+					//	std::cout << "·£´ý ÀüÅõ ¹ß»ý!" << std::endl;
+					//	SceneBattle::nextSceneId = SceneIds::test;
+					//	SceneBattle::monsterJsonID = "jsons/frog.json";
+					//	//SceneBattle::monsterJsonID = "jsons/sans.json";
+					//	SCENE_MGR.ChangeScene(SceneIds::Battle);
+					//}
+					//else
+					//{
+					//	std::cout << "¹èÆ² ¾Æ´Ô" << std::endl;
+					//}
 				}
 			}
 			else if (hit.type == "NextScene")
@@ -181,9 +203,20 @@ void Map2::Update(float dt)
 				std::cout << "PrevScene" << std::endl;
 				SCENE_MGR.ChangeScene(SceneIds::test);
 			}
+
 		}
 	}
+	sans->SetPosition({ 200.f, 355.f });
+	if (Utils::CheckCollision(player->GetHitBox(), wall))
+	{
+		sans->SetActive(true);
+		sans->animator.Play("Animation/sansdarkwalking.csv");
+	}
 
+	if (Utils::CheckCollision(player->GetHitBox(), sans->GetHitBox()))
+	{
+		//std::cout << "»÷Áî Ãæµ¹" << std::endl;
+	}
 	Scene::Update(dt);
 }
 
@@ -198,5 +231,9 @@ void Map2::Draw(sf::RenderWindow& window)
 		{
 			window.draw(*hit.shape); // worldView ±âÁØÀ¸·Î ±×·ÁÁü
 		}
+	}
+	if (sans)
+	{
+		sans->Draw(window);
 	}
 }

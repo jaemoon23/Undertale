@@ -22,17 +22,8 @@ protected:
 	std::string texId = "Sprites/idle.png";
 	sf::Sprite body;
 	std::wstring name;
-	int maxHp = 0;
-	int hp = 0;
-	int att = 0;
-	int def = 0;
-	int exp = 0;
-	int maxexp = 100;
-	int gold = 0;
-	int level = 0;
-	int moral = 0;
 
-	float speed = 80.f;
+	float speed = 300.f;
 	sf::Vector2f direction;
 
 	Animator animator;
@@ -65,16 +56,15 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void SetHp(int h);
+	/*void SetHp(int h);
 	void SetAtt(int a);
 	void SetGold(int g);
 	void SetLevel(int l);
-	void SetMoral(int m);
-	void SetExp(int e) { exp = e; }
-	void SetName(const std::wstring& n);
+	void SetExp(int e) { PlayerInfo::exp = e; }
+	void SetName(const std::wstring& n);*/
 	
-	int GetHp() const { return hp; }
-	int GetMaxHp() const { return maxHp; }
+	int GetHp() const { return PlayerInfo::hp; }
+	int GetMaxHp() const { return PlayerInfo::maxHp; }
 
 	void SansInteract();
 
@@ -91,8 +81,8 @@ public:
 	void SetPlayerInfoUi(PlayerInfoUi* infoUi) { playerInfoUi = infoUi; }
 
 	void SetHealItem(HealItem* item) { healItem = item; }
-	void UseHealItem(HealItem* item);
-	void Heal(int amount, int maxHp);
+	//void UseHealItem(HealItem* item);
+	//void Heal(int amount, int maxHp);
 
 	const sf::RectangleShape& GetHitBox() const;
 	sf::Vector2f getPos() { return prevPosition; }

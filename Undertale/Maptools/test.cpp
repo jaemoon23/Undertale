@@ -30,7 +30,6 @@ void test::Init()
 	texIds.push_back("graphics/bg_innrooms_0.png");
 	texIds.push_back("graphics/bg_firstroom.png");
 	texIds.push_back("graphics/spr_cutetable_0.png");
-	texIds.push_back("Sprites/spr_sans_sleep_0.png");
 	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
@@ -40,7 +39,7 @@ void test::Init()
 	ANI_CLIP_MGR.Load("Animation/rightwalking.csv");
 
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
-	sans = (Sans*)AddGameObject(new Sans("Sprites/spr_sans_sleep_0.png"));
+	//sans = (Sans*)AddGameObject(new Sans("Sprites/spr_sans_sleep_0.png"));
 	
 	inventoryui = new InventoryUi("InventoryUi");
 	dialoguebox = new DialogueBox("dialoguebox");
@@ -60,7 +59,7 @@ void test::Init()
 	uichanger->SetInventoryUi(inventoryui);
 	uichanger->SetPlayerInfoUi(playerinfoui);
 	inventoryui->SetPlayer(player);
-	player->SetSans(sans);
+	//player->SetSans(sans);
 	inventoryui->SetBox(dialoguebox);
 	
 	AddGameObject(inventoryui);
@@ -73,7 +72,7 @@ void test::Init()
 	//InventoryUi::healItem1.GetName();
 	InventoryUi::healItem[1].SetInfo(L"쿠키", 10);
 	InventoryUi::healItem[2].SetInfo(L"아이스크림", 15);
-	InventoryUi::healItem[3].SetInfo(L"쿠키", 10);
+	InventoryUi::healItem[3].SetInfo(L"눈사탕", 5);
 }
 
 void test::Enter()
@@ -193,7 +192,7 @@ void test::Update(float dt)
 						SceneBattle::nextSceneId = SceneIds::test;
 						SceneBattle::monsterJsonID = "jsons/frog.json";
 						//SceneBattle::monsterJsonID = "jsons/sans.json";
-						SCENE_MGR.ChangeScene(SceneIds::Battle);
+						//SCENE_MGR.ChangeScene(SceneIds::Battle);
 					}
 					else
 					{
@@ -205,10 +204,10 @@ void test::Update(float dt)
 		}
 	}
 
-	if (Utils::CheckCollision(player->GetHitBox(), sans->GetHitBox()))
-	{
-		std::cout << "샌즈 충돌" << std::endl;
-	}
+	//if (Utils::CheckCollision(player->GetHitBox(), sans->GetHitBox()))
+	//{
+	//	std::cout << "샌즈 충돌" << std::endl;
+	//}
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num8))
 	{
@@ -221,6 +220,10 @@ void test::Update(float dt)
 		SceneBattle::nextSceneId = SceneIds::test;
 		SceneBattle::monsterJsonID = "jsons/sans.json";
 		SCENE_MGR.ChangeScene(SceneIds::Battle);
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num5))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::test);
 	}
 	//Scene::Update(dt);
 	player->Update(dt);
