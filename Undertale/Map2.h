@@ -7,7 +7,11 @@
 
 class Player;
 class Sans;
+class InventoryUi;
 class DialogueBox;
+class UiChanger;
+class PlayerInfoUi;
+class HealItem;
 
 struct HitBoxInfo3
 {
@@ -32,7 +36,10 @@ protected:
     const float battleCheckInterval = 1.f;
 
     Sans* sans;
-    DialogueBox* dialogueBox;
+    UiChanger* uichanger;
+    InventoryUi* inventoryui;
+    DialogueBox* dialoguebox;
+    PlayerInfoUi* playerinfoui;
 public:
     bool animationPlay = false;
 

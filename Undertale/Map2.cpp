@@ -9,6 +9,10 @@
 #include "TextGo.h"
 #include "Sans.h"
 
+#include "UiChanger.h"
+#include "InventoryUi.h"
+#include "PlayerInfoUi.h"
+#include "HealItem.h"
 
 Map2::Map2() : Scene(SceneIds::Map2)
 {
@@ -26,7 +30,7 @@ void Map2::Init()
 	texIds.push_back("Sprites/rightwalking.png");
 	texIds.push_back("Sprites/sprite_sheet_dark.png");
 	texIds.push_back("Sprites/spr_sans_r_dark_2.png");
-
+	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
 	texIds.push_back("Sprites/backgroundui.png");
 	texIds.push_back("Sprites/spr_sans_sleep_0.png");
 
@@ -41,16 +45,40 @@ void Map2::Init()
 
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
 	sans = (Sans*)AddGameObject(new Sans("Sprites/spr_sans_r_dark_2.png"));
-	dialogueBox = new DialogueBox("dialogueBox");
 
-	AddGameObject(dialogueBox);
-	player->SetBox(dialogueBox);
-	dialogueBox->SetPlayer(player);
+	inventoryui = new InventoryUi("InventoryUi");
+	dialoguebox = new DialogueBox("dialoguebox");
+	uichanger = new UiChanger("uichanger");
+	playerinfoui = new PlayerInfoUi("playerinfoui");
+
+	player->SetBox(dialoguebox);
+	player->SetUiChanger(uichanger);
+	player->SetInventoryUi(inventoryui);
+	player->SetPlayerInfoUi(playerinfoui);
+	dialoguebox->SetPlayer(player);
+	uichanger->SetPlayer(player);
+	uichanger->SetInventoryUi(inventoryui);
+	uichanger->SetPlayerInfoUi(playerinfoui);
+	inventoryui->SetPlayer(player);
+	player->SetSans(sans);
+	inventoryui->SetBox(dialoguebox);
+
+	AddGameObject(inventoryui);
+	AddGameObject(dialoguebox);
+	AddGameObject(uichanger);
+	AddGameObject(playerinfoui);
+
+	player->SetBox(dialoguebox);
+	dialoguebox->SetPlayer(player);
 	player->SetSans(sans);
 
 	background2 = (SpriteGo*)AddGameObject(new SpriteGo());
 	background2->sortingLayer = SortingLayers::Background;
 
+	InventoryUi::healItem[0].SetInfo(L"아이스크림", 15); // 아이템 이름과 회복량 설정
+	InventoryUi::healItem[1].SetInfo(L"쿠키", 10);
+	InventoryUi::healItem[2].SetInfo(L"아이스크림", 15);
+	InventoryUi::healItem[3].SetInfo(L"눈사탕", 5);
 
 	Scene::Init();
 }
@@ -162,15 +190,17 @@ void Map2::Enter()
 	sans->SetPosition({ 220.f, 355.f });
 	sans->SetActive(false);
 
+	uiView.setSize(size);
+	uiView.setCenter(center);
 }
 
 void Map2::Update(float dt)
 {
-	if (dialogueBox && dialogueBox->GetActive())
+	if (dialoguebox && dialoguebox->GetActive())
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
 		{
-			dialogueBox->NextLine();
+			dialoguebox->NextLine();
 		}
 	}
 	worldView.setCenter(player->GetPosition());
@@ -224,7 +254,6 @@ void Map2::Update(float dt)
 				std::cout << "PrevScene" << std::endl;
 				SCENE_MGR.ChangeScene(SceneIds::Map0);
 			}
-
 		}
 	}
 
@@ -258,14 +287,16 @@ void Map2::Update(float dt)
 
 			if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
 			{
-				dialogueBox->NextLine();
+				dialoguebox->NextLine();
 			}
 		}
 	}
-	Scene::Update(dt);
-	//player->Update(dt);
-	dialogueBox->Update(dt);
-	//sans->Update(dt);
+	//Scene::Update(dt);
+	sans->Update(dt);
+	player->Update(dt);
+	playerinfoui->Update(dt);
+	inventoryui->Update(dt);
+	uichanger->Update(dt);
 }
 
 void Map2::Draw(sf::RenderWindow& window)

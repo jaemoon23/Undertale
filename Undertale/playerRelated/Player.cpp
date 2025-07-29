@@ -91,14 +91,13 @@ void Player::Update(float dt)
 	//			dialoguebox->NextLine();
 	//		}
 	//	}
-	//	if (InputMgr::GetKeyDown(sf::Keyboard::X))
-	//	{
-	//		dialoguebox->SetActive(false);
-	//		inventoryui->SetActive(false);
-	//		playerInfoUi->SetActive(false);
-	//	}
 	//}
-
+	if (InputMgr::GetKeyDown(sf::Keyboard::X))
+	{
+		dialoguebox->SetActive(false);
+		inventoryui->SetActive(false);
+		playerInfoUi->SetActive(false);
+	}
 
 	if (uichanger && uichanger->GetActive()) return; // UI 변경 중에는 플레이어 이동 불가
 	if (dialoguebox && dialoguebox->GetActive()) return; // 대화 중에는 플레이어 이동 불가
