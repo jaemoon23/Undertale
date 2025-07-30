@@ -3,7 +3,7 @@
   "texId" : "graphics/spr_papyrusboss_0.png",
   "animationId" : "animations/papyrus_idle.csv",
   "bgmId" : "sounds/16 Nyeh Heh Heh!.flac",
-  "hp": 140,
+  "hp": 180,
   "exp": 7777,
   "gold" : 77,
   "lines" : [
@@ -22,7 +22,7 @@
     "녜 헤 헤!",
     "녜 헤 헤!"
   ],
-  "lineExistTime" : 3.5,
+  "lineExistTime" : 5.0,
   "FightDescribe" : "* 파피루스",
   "ActDescribe" : [
     {
@@ -64,12 +64,148 @@
   ],
   "attackPattern" : [
     {
-      "name" : "Normal",
-      "duration" : 7.5,
+      "name" : "Split",
+      "duration" : 9.0,
       "bullets" : [
         {
-          "texId" : "graphics/spr_eggbullet.png", "PosX" : 100.0, "PosY" : 350.0, "DirX" : 1.0, "DirY" : 0.0,
-          "speed" : 200.0, "delay" : 1.0, "damage" : 4
+          "texId" : "graphics/spr_kissbullet_0.png", "PosX" : 200.0, "PosY" : 350.0, "DirX" : 0.0, "DirY" : -1.0,
+          "speed" : 100.0, "delay" : 1.0, "damage" : 5
+        },
+        {
+          "texId" : "graphics/spr_kissbullet_0.png", "PosX" : 440.0, "PosY" : 350.0, "DirX" : 0.0, "DirY" : -1.0,
+          "speed" : 100.0, "delay" : 2.0, "damage" : 5
+        },
+        {
+          "texId" : "graphics/spr_kissbullet_0.png", "PosX" : 220.0, "PosY" : 350.0, "DirX" : 0.0, "DirY" : -1.0,
+          "speed" : 100.0, "delay" : 3.0, "damage" : 5
+        },
+        {
+          "texId" : "graphics/spr_kissbullet_0.png", "PosX" : 420.0, "PosY" : 350.0, "DirX" : 0.0, "DirY" : -1.0,
+          "speed" : 100.0, "delay" : 4.0, "damage" : 5
+        },
+        {
+          "texId" : "graphics/spr_kissbullet_0.png", "PosX" : 240.0, "PosY" : 350.0, "DirX" : 0.0, "DirY" : -1.0,
+          "speed" : 100.0, "delay" : 5.0, "damage" : 5
+        },
+        {
+          "texId" : "graphics/spr_kissbullet_0.png", "PosX" : 400.0, "PosY" : 350.0, "DirX" : 0.0, "DirY" : -1.0,
+          "speed" : 100.0, "delay" : 6.0, "damage" : 5
+        }
+      ]
+    },
+    {
+      "name" : "Arrow",
+      "duration" : 6.5,
+      "bullets" : [
+        {
+          "texId" : "graphics/spr_arrow_right.png", "PosX" : 21.0, "PosY" : 316.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 0.1, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_right.png", "PosX" : 21.0, "PosY" : 316.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 0.2, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_right.png", "PosX" : 21.0, "PosY" : 316.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 0.3, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : 16.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 100.0, "delay" : 1.0, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_left.png", "PosX" : 621.0, "PosY" : 316.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 50.0, "delay" : 0.3, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_up.png", "PosX" : 321.0, "PosY" : 616.0, "DirX" : 0.0, "DirY" : -1.0,
+          "speed" : 100.0, "delay" : 1.2, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_right.png", "PosX" : 21.0, "PosY" : 316.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 100.0, "delay" : 1.5, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_right.png", "PosX" : 21.0, "PosY" : 316.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 400.0, "delay" : 4.0, "damage" : 6
+        }
+      ]
+    },
+    {
+      "name" : "Gravity",
+      "duration" : 8.5,
+      "bullets" : [
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 113.0, "PosY" : 360.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 0.5, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 513.0, "PosY" : 360.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 0.5, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 113.0, "PosY" : 360.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 1.5, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 513.0, "PosY" : 360.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 1.5, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 113.0, "PosY" : 360.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 2.5, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 513.0, "PosY" : 360.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 2.5, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 113.0, "PosY" : 360.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 3.5, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 513.0, "PosY" : 360.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 3.5, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 113.0, "PosY" : 360.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 5.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 113.0, "PosY" : 360.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 5.1, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 113.0, "PosY" : 360.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 5.2, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 113.0, "PosY" : 360.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 5.3, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 113.0, "PosY" : 360.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 5.4, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 513.0, "PosY" : 360.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 6.0, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 513.0, "PosY" : 360.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 6.1, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 513.0, "PosY" : 360.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 6.2, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 513.0, "PosY" : 360.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 6.3, "damage" : 4
+        },
+        {
+          "texId" : "graphics/spr_bone_bullet.png", "PosX" : 513.0, "PosY" : 360.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 200.0, "delay" : 6.4, "damage" : 4
         }
       ]
     }

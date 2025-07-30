@@ -7,8 +7,8 @@
 #include "InventoryUi.h"
 #include "HealItem.h"
 
-std::string SceneBattle::monsterJsonID = "jsons/papyrus.json";
-SceneIds SceneBattle::nextSceneId = SceneIds::Map0;
+std::string SceneBattle::monsterJsonID = "jsons/frog.json";
+SceneIds SceneBattle::nextSceneId = SceneIds::Battle;
 
 SceneBattle::SceneBattle()
 	: Scene(SceneIds::Battle)
@@ -16,8 +16,8 @@ SceneBattle::SceneBattle()
 }
 
 void SceneBattle::Init()
-{
-	
+{	
+	ANI_CLIP_MGR.Load("animations/sans_beam.csv");
 	ANI_CLIP_MGR.Load("animations/sans_idle.csv");
 	ANI_CLIP_MGR.Load("animations/fist.csv");
 	ANI_CLIP_MGR.Load("animations/frogit_idle.csv");
@@ -28,6 +28,12 @@ void SceneBattle::Init()
 	ANI_CLIP_MGR.Load("animations/papyrus_idle.csv");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("graphics/spr_battlebg_0.png");
+	texIds.push_back("graphics/spr_sans_beam_0.png");
+	texIds.push_back("graphics/spr_sans_beam_1.png");
+	texIds.push_back("graphics/spr_sans_beam_2.png");
+	texIds.push_back("graphics/spr_sans_beam_3.png");
+	texIds.push_back("graphics/spr_firebullet.png");
+	texIds.push_back("graphics/spr_kissbullet_0.png");
 	texIds.push_back("graphics/spr_papyrusboss_0.png");
 	texIds.push_back("graphics/spr_heavybullet.png");
 	texIds.push_back("graphics/spr_aaron_0.png");
@@ -92,6 +98,9 @@ void SceneBattle::Init()
 	soundIds.push_back("sounds/snd_bell.wav");
 	soundIds.push_back("sounds/snd_vaporized.wav");
 	soundIds.push_back("sounds/snd_break1_c.wav");
+	soundIds.push_back("sounds/mus_sfx_segapower.wav");
+	soundIds.push_back("sounds/snd_grab.wav");
+	soundIds.push_back("sounds/snd_bombsplosion.wav");
 	
 	statusUI = (StatusInBattleUI*)AddGameObject(new StatusInBattleUI());
 	statusUI->SetPosition({ size.x * 0.02f, size.y * 0.8f });
@@ -322,7 +331,7 @@ void SceneBattle::Update(float dt)
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
 					isFadeIn = false;
-					SCENE_MGR.ChangeScene(SceneIds::Map0);
+					SCENE_MGR.ChangeScene(SceneIds::test);
 				}
 				fadeIntervalTimer = 0.f;
 			}
@@ -601,6 +610,64 @@ void SceneBattle::SetBulletPattern()
 			);
 			b->Reset();
 			b->pattern = BulletPattern::Normal;
+		}
+	}
+	else if ("Split" == data["attackPattern"][PatternIndex]["name"])
+	{
+		sf::Vector2f tempDir[8] = { { 1.0f,0.0f}, { 1.0f,1.0f}, { 0.0f,1.0f}, { -1.0f,1.0f}, { -1.0f,0.0f}, { -1.0f,-1.0f}, { 0.0f,-1.0f}, { 1.0f,-1.0f} };
+		for (int i = 0; i < bulletCount; ++i)
+		{
+			for (int j = 0; j < 8; ++j)
+			{
+				Bullet* b = (Bullet*)AddGameObject(new Bullet());
+				b->splitDir = Utils::GetNormal(tempDir[j]);
+				bulletTemp.push_back(b);
+				b->SetBulletState(data["attackPattern"][PatternIndex]["bullets"][i]["texId"],
+					{ data["attackPattern"][PatternIndex]["bullets"][i]["PosX"], data["attackPattern"][PatternIndex]["bullets"][i]["PosY"] },
+					{ data["attackPattern"][PatternIndex]["bullets"][i]["DirX"], data["attackPattern"][PatternIndex]["bullets"][i]["DirY"] },
+					data["attackPattern"][PatternIndex]["bullets"][i]["speed"],
+					data["attackPattern"][PatternIndex]["bullets"][i]["delay"],
+					data["attackPattern"][PatternIndex]["bullets"][i]["damage"]
+				);
+				b->Reset();
+				b->pattern = BulletPattern::Split;
+			}
+		}
+	}
+	else if ("Beam" == data["attackPattern"][PatternIndex]["name"])
+	{
+		for (int i = 0; i < bulletCount; ++i)
+		{
+			Bullet* b = (Bullet*)AddGameObject(new Bullet());
+			bulletTemp.push_back(b);
+			b->SetBulletState(data["attackPattern"][PatternIndex]["bullets"][i]["texId"],
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["PosX"], data["attackPattern"][PatternIndex]["bullets"][i]["PosY"] },
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["DirX"], data["attackPattern"][PatternIndex]["bullets"][i]["DirY"] },
+				data["attackPattern"][PatternIndex]["bullets"][i]["speed"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["delay"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["damage"]
+			);
+			b->aniId = data["attackPattern"][PatternIndex]["bullets"][i]["animationId"];
+			b->Reset();
+			b->pattern = BulletPattern::Beam;
+		}
+	}
+	else if ("BeamHoming" == data["attackPattern"][PatternIndex]["name"])
+	{
+		for (int i = 0; i < bulletCount; ++i)
+		{
+			Bullet* b = (Bullet*)AddGameObject(new Bullet());
+			bulletTemp.push_back(b);
+			b->SetBulletState(data["attackPattern"][PatternIndex]["bullets"][i]["texId"],
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["PosX"], data["attackPattern"][PatternIndex]["bullets"][i]["PosY"] },
+				{ data["attackPattern"][PatternIndex]["bullets"][i]["DirX"], data["attackPattern"][PatternIndex]["bullets"][i]["DirY"] },
+				data["attackPattern"][PatternIndex]["bullets"][i]["speed"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["delay"],
+				data["attackPattern"][PatternIndex]["bullets"][i]["damage"]
+			);
+			b->aniId = data["attackPattern"][PatternIndex]["bullets"][i]["animationId"];
+			b->Reset();			
+			b->pattern = BulletPattern::BeamHoming;
 		}
 	}
 

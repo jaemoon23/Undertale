@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "PlayerInfo.h"
 
-int PlayerInfo::hp = 10;
+int PlayerInfo::hp = 20;
 int PlayerInfo::maxHp = 20;
 int PlayerInfo::ATK = 50;
 int PlayerInfo::lv = 1;
@@ -17,6 +17,7 @@ void PlayerInfo::PlusExp(int e)
 	{
 		lv = 20;
 		maxHp = 99;
+		hp = 99;
 		exp = 99999;
 		return;
 	}

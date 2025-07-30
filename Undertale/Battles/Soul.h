@@ -69,6 +69,8 @@ public:
 		isShieldBlink = true;
 	}
 
+	sf::Sprite GetSprite() { return sprite; }
+
 	sf::FloatRect GetGlobalBounds() const override { return sprite.getGlobalBounds(); }
 	sf::FloatRect GetShieldGlobalBounds() { return shield.getGlobalBounds(); }
 

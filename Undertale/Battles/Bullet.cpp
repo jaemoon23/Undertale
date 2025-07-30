@@ -68,11 +68,15 @@ void Bullet::Reset()
 	sprite.setTexture(TEXTURE_MGR.Get(texId));
 	SetPosition(pos);
 	SetOrigin(Origins::MC);
+	animator.SetTarget(&sprite);
+	beam.setSize({ 640.f,30.f });
+	Utils::SetOrigin(beam, Origins::ML);
 }
 
 void Bullet::Update(float dt)
 {
 	hitBox.UpdateTransform(sprite, sprite.getLocalBounds());
+	beamHitBox.UpdateTransform(beam, beam.getLocalBounds());
 
 	timer += dt;
 	switch (pattern)
@@ -155,6 +159,136 @@ void Bullet::Update(float dt)
 			}
 		}
 		break;
+	case BulletPattern::Split:
+		if (timer >= waitingTime)
+		{
+			isDraw = true;
+			sf::Vector2f position = sprite.getPosition();
+			if (timer < waitingTime + splitStartTime)
+				position += dir * moveSpeed * dt;
+			else
+				position += splitDir * moveSpeed * dt;
+			SetPosition(position);
+			if (soul->GetGlobalBounds().intersects(sprite.getGlobalBounds()) && !(soul->isBlink))
+			{
+				soul->isBlink = true;
+				soul->TakeDamage(damage);
+				scene->GetStatusUI()->UpdateHpUI();
+				SetActive(false);
+			}
+		}
+		break;
+	case BulletPattern::Beam:
+		if (!isBeamMoving)
+		{			
+			isBeamMoving = true;
+			sf::Vector2f tempPos = sprite.getPosition();
+			tempPos.y = 0.f;
+			sprite.setPosition(tempPos);
+			sprite.setRotation(Utils::Angle(dir) + -90.f);
+			beam.setRotation(Utils::Angle(dir));
+		}
+		if (timer >= waitingTime)
+		{
+			if (timer <= waitingTime + beamMoveTime)
+			{
+				sf::Vector2f tempPos = sprite.getPosition();
+				tempPos.y += pos.y / beamMoveTime * dt;
+				sprite.setPosition(tempPos);
+			}
+
+			if (!isAnimation && timer >= waitingTime + beamMoveTime + aniDelayTime)
+			{
+				isAnimation = true;
+				SOUND_MGR.PlaySfx("sounds/snd_bombsplosion.wav");
+				beam.setPosition(sprite.getPosition());
+				animator.Play("animations/sans_beam.csv");
+			}
+
+			if (!isDraw)
+			{
+				isDraw = true;
+				SOUND_MGR.PlaySfx("sounds/mus_sfx_segapower.wav");
+			}
+
+			if (isAnimation)
+			{
+				beamTimer += dt;
+				tickTimer += dt;
+
+				if (beamTimer >= 0.2f && beamTimer <= beamTime)
+				{
+					sf::Vector2f beamSize = beam.getSize();
+					beamSize.y -= 30.f / beamTime * dt;
+					beam.setSize(beamSize);
+					Utils::SetOrigin(beam, Origins::ML);
+				}
+				else if (beamTimer > beamTime)
+				{
+					SetActive(false);
+				}
+
+				if (tickTimer >= tickTime && Utils::PolygonsIntersect(
+					Utils::GetShapePoints(beam), beam.getTransform(),
+					Utils::GetShapePoints(soul->GetSprite()), soul->GetSprite().getTransform()))
+				{
+					tickTimer = 0.f;
+					soul->isBlink = true;
+					soul->TakeDamage(damage);
+					scene->GetStatusUI()->UpdateHpUI();
+				}
+			}
+			animator.Update(dt);
+		}
+		break;
+	case BulletPattern::BeamHoming:
+		if (timer >= waitingTime)
+		{
+			if (!isAnimation && timer >= waitingTime + aniDelayTime)
+			{
+				isAnimation = true;
+				SOUND_MGR.PlaySfx("sounds/snd_bombsplosion.wav");
+				beam.setPosition(sprite.getPosition());
+				beam.setRotation(Utils::Angle(dir));
+				animator.Play("animations/sans_beam.csv");
+			}
+			if (!isDraw)
+			{
+				isDraw = true;
+				SOUND_MGR.PlaySfx("sounds/mus_sfx_segapower.wav");
+				dir = Utils::GetNormal(soul->GetPosition() - GetPosition());
+				sprite.setRotation(Utils::Angle(dir) + -90.f);
+			}
+			if (isAnimation)
+			{
+				beamTimer += dt;
+				tickTimer += dt;	
+
+				if (beamTimer >= 0.2f && beamTimer <= beamTime)
+				{
+					sf::Vector2f beamSize = beam.getSize();
+					beamSize.y -= 30.f / beamTime * dt;
+					beam.setSize(beamSize);
+					Utils::SetOrigin(beam, Origins::ML);
+				}
+				else if (beamTimer > beamTime)
+				{
+					SetActive(false);
+				}
+
+				if (tickTimer >= tickTime && Utils::PolygonsIntersect(
+					Utils::GetShapePoints(beam), beam.getTransform(),
+					Utils::GetShapePoints(soul->GetSprite()), soul->GetSprite().getTransform()))
+				{
+					tickTimer = 0.f;
+					soul->isBlink = true;
+					soul->TakeDamage(damage);
+					scene->GetStatusUI()->UpdateHpUI();
+				}
+			}
+			animator.Update(dt);
+		}
+		break;
 	}
 }
 
@@ -162,6 +296,11 @@ void Bullet::Draw(sf::RenderWindow& window)
 {
 	if (isDraw)
 	{
+		if (isAnimation)
+		{
+			window.draw(beam);
+			beamHitBox.Draw(window);
+		}
 		window.draw(sprite);
 		hitBox.Draw(window);
 	}

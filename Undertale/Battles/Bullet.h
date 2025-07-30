@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "HitBox.h"
 #include "Soul.h"
+#include "Animator.h"
 
 class SceneBattle;
 
@@ -9,7 +10,10 @@ class Bullet : public GameObject
 {
 protected:
 	sf::Sprite sprite;
+	sf::RectangleShape beam;
 	HitBox hitBox;
+	HitBox beamHitBox;;
+	Animator animator;
 
 	SceneBattle* scene;
 	Soul* soul;
@@ -23,14 +27,25 @@ protected:
 	float rotationSpeed = 180.f;
 
 	float timer = 0.f;
+	float beamTimer = 0.f;
+	float tickTimer = 0.f;
+	float beamMoveTime = 0.5f;
+	float tickTime = 0.1f;
+	float beamTime = 1.0f;
 	float waitingTime = 1.5f;
+	float splitStartTime = 1.0f;
+	float aniDelayTime = 0.7f;
 
 	int damage = 4;
 
 	bool isHoming = false;
+	bool isBeamMoving = false;
+	bool isAnimation = false;
 	bool isDraw = false;
 
 public:
+	std::string aniId = "";
+	sf::Vector2f splitDir = { 0.f,0.f };
 	BulletPattern pattern = BulletPattern::Normal;
 	Bullet(const std::string& name = "");
 	virtual ~Bullet() = default;
