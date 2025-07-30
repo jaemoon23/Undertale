@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Map2.h"
 #include "Player.h"
 #include "SceneBattle.h"
@@ -90,10 +90,10 @@ void Map2::Init()
 	background2 = (SpriteGo*)AddGameObject(new SpriteGo());
 	background2->sortingLayer = SortingLayers::Background;
 
-	InventoryUi::healItem[0].SetInfo(L"¾ÆÀÌ½ºÅ©¸²", 15); // ¾ÆÀÌÅÛ ÀÌ¸§°ú È¸º¹·® ¼³Á¤
-	InventoryUi::healItem[1].SetInfo(L"ÄíÅ°", 10);
-	InventoryUi::healItem[2].SetInfo(L"¾ÆÀÌ½ºÅ©¸²", 15);
-	InventoryUi::healItem[3].SetInfo(L"´«»çÅÁ", 5);
+	InventoryUi::healItem[0].SetInfo(L"ì•„ì´ìŠ¤í¬ë¦¼", 15); // ì•„ì´í…œ ì´ë¦„ê³¼ íšŒë³µëŸ‰ ì„¤ì •
+	InventoryUi::healItem[1].SetInfo(L"ì¿ í‚¤", 10);
+	InventoryUi::healItem[2].SetInfo(L"ì•„ì´ìŠ¤í¬ë¦¼", 15);
+	InventoryUi::healItem[3].SetInfo(L"ëˆˆì‚¬íƒ•", 5);
 
 	Scene::Init();
 }
@@ -109,7 +109,7 @@ void Map2::Enter()
 	std::ifstream in("map2.json");
 	if (!in)
 	{
-		std::cerr << "map1.json ÆÄÀÏÀ» ¿­ ¼ö ¾ø½À´Ï´Ù!" << std::endl;
+		std::cerr << "map1.json íŒŒì¼ì„ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!" << std::endl;
 		return;
 	}
 
@@ -117,7 +117,7 @@ void Map2::Enter()
 	in >> j;
 	auto& mapData = j["map2"];
 
-	// ¹è°æ
+	// ë°°ê²½
 	std::string bgTex = mapData["background"]["textureId"];
 	sf::Vector2f bgPos(mapData["background"]["position"][0], mapData["background"]["position"][1]);
 	sf::Vector2f scale(mapData["background"]["scale"][0], mapData["background"]["scale"][1]);
@@ -134,7 +134,7 @@ void Map2::Enter()
 	uiView.setSize(size);
 	uiView.setCenter(center);
 
-	// ¿ÀºêÁ§Æ®
+	// ì˜¤ë¸Œì íŠ¸
 	bool playerPlaced = false;
 	for (auto& obj : mapData["objects"])
 	{
@@ -163,7 +163,7 @@ void Map2::Enter()
 		}
 	}
 
-	//  È÷Æ®¹Ú½º ·Îµå
+	//  íˆíŠ¸ë°•ìŠ¤ ë¡œë“œ
 	for (auto& box : mapData["hitboxes"])
 	{
 		sf::Vector2f pos(box["position"][0], box["position"][1]);
@@ -234,20 +234,20 @@ void Map2::Update(float dt)
 			}
 			else if (hit.type == "SceneChange")
 			{
-				std::cout << "¾À ÀüÈ¯ Æ®¸®°ÅµÊ!" << std::endl;
+				std::cout << "ì”¬ ì „í™˜ íŠ¸ë¦¬ê±°ë¨!" << std::endl;
 				SCENE_MGR.ChangeScene(SceneIds::Dev1);
 			}
 			else if (hit.type == "Battle")
 			{
 				if (battleCheckTimer >= battleCheckInterval)
 				{
-					std::cout << "¹èÆ² È®·ü Ã¼Å©" << std::endl;
+					std::cout << "ë°°í‹€ í™•ë¥  ì²´í¬" << std::endl;
 					battleCheckTimer = 0.f;
 
-					// 1% È®·ü
+					// 1% í™•ë¥ 
 					//if (Utils::RandomRange(0.f, 1.f) < 0.01f)
 					//{
-					//	std::cout << "·£´ı ÀüÅõ ¹ß»ı!" << std::endl;
+					//	std::cout << "ëœë¤ ì „íˆ¬ ë°œìƒ!" << std::endl;
 					//	SceneBattle::nextSceneId = SceneIds::test;
 					//	SceneBattle::monsterJsonID = "jsons/frog.json";
 					//	//SceneBattle::monsterJsonID = "jsons/sans.json";
@@ -255,7 +255,7 @@ void Map2::Update(float dt)
 					//}
 					//else
 					//{
-					//	std::cout << "¹èÆ² ¾Æ´Ô" << std::endl;
+					//	std::cout << "ë°°í‹€ ì•„ë‹˜" << std::endl;
 					//}
 				}
 			}
@@ -288,9 +288,9 @@ void Map2::Update(float dt)
 		sf::Vector2f playerPos = player->GetPosition();
 
 		sf::Vector2f direction = playerPos - sansPos;
-		Utils::Normalize(direction); // ¹æÇâ º¤ÅÍ Á¤±ÔÈ­
+		Utils::Normalize(direction); // ë°©í–¥ ë²¡í„° ì •ê·œí™”
 
-		float sansSpeed = 100.f; // »÷Áî ÀÌµ¿ ¼Óµµ (¿øÇÏ´Â °ªÀ¸·Î Á¶Á¤)
+		float sansSpeed = 100.f; // ìƒŒì¦ˆ ì´ë™ ì†ë„ (ì›í•˜ëŠ” ê°’ìœ¼ë¡œ ì¡°ì •)
 		sansPos += direction * sansSpeed * dt;
 		sans->SetPosition(sansPos);
 
@@ -348,7 +348,7 @@ void Map2::Draw(sf::RenderWindow& window)
 	{
 		for (auto& hit : hitboxes)
 		{
-			window.draw(*hit.shape); // worldView ±âÁØÀ¸·Î ±×·ÁÁü
+			window.draw(*hit.shape); // worldView ê¸°ì¤€ìœ¼ë¡œ ê·¸ë ¤ì§
 		}
 	}
 }

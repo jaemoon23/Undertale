@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Scene.h"
 #include <fstream>
 #include "json.hpp"
@@ -43,7 +43,7 @@ protected:
 
     float imageChangeTimer = 0.f;
     int currentImageIndex = 0;
-    std::vector<sf::Texture> images; // ±³Ã¼ÇÒ ÀÌ¹ÌÁöµé
+    std::vector<sf::Texture> images; // êµì²´í•  ì´ë¯¸ì§€ë“¤
 
 public:
     bool animationPlay = false;
