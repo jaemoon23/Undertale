@@ -40,8 +40,15 @@ protected:
     InventoryUi* inventoryui;
     DialogueBox* dialoguebox;
     PlayerInfoUi* playerinfoui;
+
+    float imageChangeTimer = 0.f;
+    int currentImageIndex = 0;
+    std::vector<sf::Texture> images; // 교체할 이미지들
+
 public:
     bool animationPlay = false;
+    bool InteractedSans = false;
+    bool firstInteractedEnds = false;
 
     Map2();
     ~Map2() override = default;

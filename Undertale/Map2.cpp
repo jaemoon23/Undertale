@@ -33,6 +33,21 @@ void Map2::Init()
 	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
 	texIds.push_back("Sprites/backgroundui.png");
 	texIds.push_back("Sprites/spr_sans_sleep_0.png");
+	texIds.push_back("Sprites/spr_f_maincharad_0.png");
+	texIds.push_back("Sprites/spr_f_maincharal_0.png");
+
+	images.clear();
+	sf::Texture tex1;
+	sf::Texture tex2;
+	sf::Texture tex3;
+	sf::Texture tex4;
+
+	if (tex1.loadFromFile("Sprites/spr_f_maincharad_0.png"))
+		images.push_back(tex1);
+	if (tex2.loadFromFile("Sprites/spr_f_maincharal_0.png"))
+		images.push_back(tex2);
+	if (tex2.loadFromFile("Sprites/spr_f_maincharal_0.png"))
+		images.push_back(tex2);
 
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
@@ -259,8 +274,8 @@ void Map2::Update(float dt)
 
 	if (Utils::CheckCollision(player->GetHitBox(), wall))
 	{
-		//dialogueBox->SetActive(true);
 		player->SetMove(false);
+		
 		animationPlay = true;
 		if (animationPlay)
 		{
@@ -283,22 +298,39 @@ void Map2::Update(float dt)
 		if (Utils::CheckCollision(player->GetHitBox(), sans->GetHitBox()))
 		{
 			sans->SetMove(false);
-			//player->SansInteract();
-			
+			if (!InteractedSans)
+			{
+				InteractedSans = true;
+				player->SansInteract();
+			}
+	
 			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 			{
-				std::vector<std::wstring> testDialogues =
-				{
-					L"* 친구 사귀는 법을 모르나?",
-					L"* 나랑 같이 놀래?"
-				};
-				dialoguebox->StartDialogue(testDialogues);
-				
+				dialoguebox->NextLine();
+			}		
+		}
+		if (InteractedSans && !firstInteractedEnds)
+		{
+			if (!dialoguebox->GetActive())
+			{
+				firstInteractedEnds = true;
+				imageChangeTimer = 0.f;
 			}
-			dialoguebox->NextLine();
-			
+		}
+
+		if (firstInteractedEnds)
+		{
+			imageChangeTimer += dt;
+			if (imageChangeTimer >= 1.f)
+			{
+				imageChangeTimer = 0.f;
+				currentImageIndex = (currentImageIndex + 1) % images.size();
+				sans->GetSprite().setTexture(images[currentImageIndex]);
+			}
 		}
 	}
+
+
 	//Scene::Update(dt);
 	sans->Update(dt);
 	player->Update(dt);
@@ -318,9 +350,5 @@ void Map2::Draw(sf::RenderWindow& window)
 		{
 			window.draw(*hit.shape); // worldView 기준으로 그려짐
 		}
-	}
-	if (sans)
-	{
-		sans->Draw(window);
 	}
 }
