@@ -195,7 +195,7 @@ void InventoryUi::Update(float dt)
 
 void InventoryUi::Draw(sf::RenderWindow& window)
 {
-	if (isActive)
+	if (!GetActive()) return;
 	{
 		window.draw(inventory);
 		window.draw(square);

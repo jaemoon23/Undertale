@@ -15,7 +15,7 @@ class DialogueBox;
 class UiChanger : public GameObject
 {
 protected:
-	bool isActive = false; 
+	//bool isActive = false; 
 	sf::Font font;
 	std::string fonttexIds = "fonts/DungGeunMo.ttf";
 
@@ -52,6 +52,6 @@ public:
 	void SetDialogueBox(DialogueBox* d) { dialogueBox = d; }
 	void SetInventoryUi(InventoryUi* i) { inventoryui = i; }
 	void SetPlayerInfoUi(PlayerInfoUi* info) { playerinfoui = info; }
-	bool GetActive() {return isActive; }
+
 };
 

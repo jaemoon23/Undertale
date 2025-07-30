@@ -110,7 +110,7 @@ void PlayerInfoUi::Update(float dt)
 
 void PlayerInfoUi::Draw(sf::RenderWindow& window)
 {
-	if (isActive)
+	if (!GetActive()) return;
 	{
 		window.draw(playerInfo);
 		window.draw(line);

@@ -5,7 +5,7 @@ class InventoryUi;
 class DialogueBox : public GameObject
 {
 protected:
-	bool isActive = false;
+	//bool isActive = false;
 
 	sf::Sprite dialogueBox;
 	std::string dialogueboxtexIds = "Sprites/backgroundui.png";
@@ -50,7 +50,7 @@ public:
 
 	void TypingEffect(const std::wstring& text, float speed = 0.5f);
 	void UpdateTypingEffect(float dt);
-	bool GetActive() { return isActive; }
+	//bool GetActive() { return isActive; }
 
 };
 

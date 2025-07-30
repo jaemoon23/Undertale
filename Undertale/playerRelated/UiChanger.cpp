@@ -47,7 +47,7 @@ void UiChanger::Init()
 {
 	sortingLayer = SortingLayers::UI;
 	sortingOrder = 0;
-	isActive = false;
+	SetActive(false);
 }
 
 void UiChanger::Release()
@@ -87,18 +87,7 @@ void UiChanger::Reset()
 
 void UiChanger::Update(float dt)
 {
-
-	if (InputMgr::GetKeyDown(sf::Keyboard::C))
-	{
-		if (!dialogueBox->GetActive())
-		{
-			SetActive(true);
-			isActive = !isActive;
-		}
-		
-	}
-
-	if (!isActive) return;
+	if (!GetActive()) return;
 
 	// 하위 UI가 켜져 있으면 UiChanger 입력 무시
 	if ((inventoryui && inventoryui->GetActive()) || 
@@ -128,7 +117,7 @@ void UiChanger::Update(float dt)
 	}
 
 
-	if (isActive && InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	if (GetActive() && InputMgr::GetKeyDown(sf::Keyboard::Enter))
 	{
 		if (selectIndex == 0 && inventoryui)
 		{
@@ -143,13 +132,9 @@ void UiChanger::Update(float dt)
 
 void UiChanger::Draw(sf::RenderWindow& window)
 {
-	if (isActive)
-	{
- 		window.draw(uiChanger);
-		window.draw(line);
-		window.draw(invenText);
-		window.draw(statText);
-	}
-
+	window.draw(uiChanger);
+	window.draw(line);
+	window.draw(invenText);
+	window.draw(statText);
 }
 

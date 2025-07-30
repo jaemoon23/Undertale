@@ -17,7 +17,7 @@ class InventoryUi : public GameObject
 {
 protected:
 	int selectIndex = 0;
-	bool isActive = true;
+	//bool isActive = true;
 
 	sf::Sprite inventory;
 	sf::Font fonts;

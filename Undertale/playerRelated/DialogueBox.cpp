@@ -106,7 +106,6 @@ void DialogueBox::Draw(sf::RenderWindow& window)
 
 void DialogueBox::StartDialogue(const std::vector<std::wstring>& lines)
 {
-	isActive = true;
 	dialogueLines = lines;
 	currentLineIndex = 0;
 	TypingEffect(dialogueLines[currentLineIndex], typingSpeed);
@@ -122,14 +121,13 @@ void DialogueBox::NextLine()
 {
 	if (currentLineIndex + 1 < dialogueLines.size())
 	{
-		isActive = true;
 		currentLineIndex++;
 		dialogueText.setString(sf::String(dialogueLines[currentLineIndex]));
 		TypingEffect(dialogueLines[currentLineIndex], typingSpeed);
+		SetActive(true);
 	}
 	else
 	{
-		isActive = false;
 		SetActive(false);
 	}
 }

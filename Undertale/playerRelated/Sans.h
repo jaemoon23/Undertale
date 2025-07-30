@@ -10,7 +10,7 @@ protected:
 	sf::Vector2f direction;
 	HitBox hitBox;	
 	
-	bool isActive = false;
+	//bool isActive = false;
 	bool move = true;
 public:
 	Animator animator;

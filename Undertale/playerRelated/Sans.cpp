@@ -75,13 +75,11 @@ void Sans::Update(float dt)
 
 void Sans::Draw(sf::RenderWindow& window)
 {
-	if (isActive)
+	if (GetActive())
 	{
 		hitBox.Draw(window);
 		window.draw(sans);
 	}
-	//hitBox.Draw(window);
-	//window.draw(sans);
 }
 
 const sf::RectangleShape& Sans::GetHitBox() const
@@ -95,7 +93,7 @@ sf::Vector2f Sans::GetPosition() const
 }
 void Sans::SetActive(bool active)
 {
-	isActive = active;
+	GameObject::SetActive(active);
 }
 
 void Sans::SetMove(bool a)

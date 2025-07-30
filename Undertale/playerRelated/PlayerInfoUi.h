@@ -18,7 +18,7 @@ protected:
 	sf::Text exp;
 	sf::Text level;
 
-	bool isActive = true;
+	//bool isActive = true;
 
 public:
 	PlayerInfoUi(const std::string& name = "");

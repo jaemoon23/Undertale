@@ -245,6 +245,11 @@ void Map2::Enter()
 
 void Map2::Update(float dt)
 {
+	if (InputMgr::GetKeyDown(sf::Keyboard::C))
+	{
+		uichanger->SetActive(!uichanger->GetActive());
+	}
+
 	if (dialoguebox && dialoguebox->GetActive())
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
@@ -449,8 +454,6 @@ void Map2::Update(float dt)
 		player->SetMove(true);
 		//animationPlay = false;		
 	}
-
-	
 
 	Scene::Update(dt);
 	//sans->Update(dt);
