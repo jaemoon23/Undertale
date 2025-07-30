@@ -26,7 +26,7 @@ protected:
 	float speed = 300.f;
 	sf::Vector2f direction;
 
-	Animator animator;
+	//Animator animator;
 	HitBox hitBox;
 
 	Sans* sans;
@@ -43,7 +43,7 @@ protected:
 public:
 	Player(const std::string& name = "");
 	virtual ~Player() = default;
-
+	
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;
 	void SetScale(const sf::Vector2f& s) override;
@@ -56,6 +56,7 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
+	Animator animator;
 	/*void SetHp(int h);
 	void SetAtt(int a);
 	void SetGold(int g);
@@ -67,6 +68,7 @@ public:
 	int GetMaxHp() const { return PlayerInfo::maxHp; }
 
 	void SansInteract();
+	void SansSecondsInteract();
 
 	void SetSans(Sans* s) { sans = s; }
 
@@ -87,7 +89,7 @@ public:
 	const sf::RectangleShape& GetHitBox() const;
 	sf::Vector2f getPos() { return prevPosition; }
 
-
+	sf::Sprite& GetSprite() { return body; }
 	void SetMove(bool a);
 };
 

@@ -43,12 +43,28 @@ protected:
 
     float imageChangeTimer = 0.f;
     int currentImageIndex = 0;
-    std::vector<sf::Texture> images; // 교체할 이미지들
+    std::vector<sf::Texture*> images; // 교체할 이미지들
+    std::vector<sf::Texture*> sansimages;
 
-public:
+    int playerImageIndex = 0;
+    int sansImageIndex = 0;
+
     bool animationPlay = false;
     bool InteractedSans = false;
     bool firstInteractedEnds = false;
+    bool imageChangedOnce = false;
+
+    float afterTurnTimer = 0.f;
+    bool charaTurn = false;
+
+    float reactivateTimer = 0.f;
+    bool reactivated = false; // 플레이어와 샌즈가 다시 active 할때 
+
+    float sansSecondInteractTimer = 0.f; // 샌즈와 다시 대화할 때 
+    bool isWaitingSansSecondInteract = false;
+    bool wallDisabled = false;
+
+public:
 
     Map2();
     ~Map2() override = default;

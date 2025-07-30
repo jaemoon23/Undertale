@@ -19,7 +19,7 @@ protected:
 
 	std::wstring fullText;
 	std::wstring currentText;
-	float typingSpeed = 0.03f;
+	float typingSpeed = 0.5f;
 	float typingTimer = 0.f;
 	size_t charIndex = 0;
 

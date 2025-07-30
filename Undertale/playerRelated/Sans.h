@@ -33,5 +33,6 @@ public:
 	sf::Vector2f GetPosition() const;
 	void SetActive(bool active);
 	void SetMove(bool a);
+	sf::Sprite& GetSprite() { return sans; }
 };
 

@@ -143,6 +143,16 @@ void Player::SansInteract()
 	dialoguebox->StartDialogue(testDialogues);
 }
 
+void Player::SansSecondsInteract()
+{
+	std::vector<std::wstring> testDialogues =
+	{ L"* 난 샌즈야. 뼈다귀 샌즈.",
+		L"* 원래 인간들을 감시하는 일을 해야 하는데.",
+		L"*내 동생인 파피루스에게 맡겨놨어.",
+		L"* 나가고 싶다면 저 밖의 파피루스와\n 싸워서 이겨야 할거야." };
+	dialoguebox->StartDialogue(testDialogues);
+}
+
 
 //void Player::Heal(int amount, int maxHp)
 //{
