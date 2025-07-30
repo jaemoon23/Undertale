@@ -325,7 +325,7 @@ void Map2::Update(float dt)
 			{
 				imageChangeTimer = 0.f;
 				currentImageIndex = (currentImageIndex + 1) % images.size();
-				sans->GetSprite().setTexture(images[currentImageIndex]);
+				//sans->GetSprite().setTexture(images[currentImageIndex]);
 			}
 		}
 	}

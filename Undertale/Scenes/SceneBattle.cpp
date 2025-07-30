@@ -331,7 +331,7 @@ void SceneBattle::Update(float dt)
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
 					isFadeIn = false;
-					SCENE_MGR.ChangeScene(SceneIds::test);
+					SCENE_MGR.ChangeScene(SceneIds::Battle);
 				}
 				fadeIntervalTimer = 0.f;
 			}
