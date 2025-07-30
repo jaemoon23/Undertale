@@ -2,6 +2,7 @@
 #include "Map4.h"
 #include "Player.h"
 #include "SceneBattle.h"
+#include "InventoryUi.h"
 
 Map4::Map4() : Scene(SceneIds::Map4)
 {
@@ -32,6 +33,16 @@ void Map4::Init()
 	background->sortingLayer = SortingLayers::Background;
 	textWindow = (SpriteGo*)AddGameObject(new SpriteGo("Sprites/TextWindow.png"));
 	text = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
+
+	textWindow->sortingLayer = SortingLayers::UI;
+	textWindow->SetPosition({ 35.f, 300.f });
+	textWindow->SetActive(false);
+
+	text->sortingLayer = SortingLayers::UI;
+	text->SetString(L"¾Ë ¼ö ¾ø´Â Èû¿¡ ÀÇÇØ ¸·Èû");
+	text->SetCharacterSize(35.f);
+	text->SetPosition({ textWindow->GetPosition().x + 10, textWindow->GetPosition().y + 5 });
+	text->SetActive(false);
 	Scene::Init();
 }
 
@@ -44,15 +55,7 @@ void Map4::Enter()
 	wall.setOutlineThickness(1.f);
 	wall.setPosition({ 695.f, 220.f });
 
-	textWindow->sortingLayer = SortingLayers::UI;
-	textWindow->SetPosition({ 35.f, 300.f });
-	textWindow->SetActive(false);
-
-	text->sortingLayer = SortingLayers::UI;
-	text->SetString(L"¾Ë ¼ö ¾ø´Â Èû¿¡ ÀÇÇØ ¸·Èû");
-	text->SetCharacterSize(35.f);
-	text->SetPosition({ textWindow->GetPosition().x + 10, textWindow->GetPosition().y + 5});
-	text->SetActive(false);
+	
 
 	std::ifstream in("map4.json");
 	if (!in)
@@ -182,7 +185,7 @@ void Map4::Update(float dt)
 						SceneBattle::nextSceneId = SceneIds::Map4;
 						SceneBattle::monsterJsonID = "jsons/frog.json";
 						//SceneBattle::monsterJsonID = "jsons/sans.json";
-						SCENE_MGR.ChangeScene(SceneIds::Battle);
+						player->StartBattle();
 					}
 					else
 					{
