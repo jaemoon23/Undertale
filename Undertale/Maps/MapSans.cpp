@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "MapSans.h"
 #include "Player.h"
+#include "SceneBattle.h"
 
 MapSans::MapSans() : Scene(SceneIds::MapSans)
 {
@@ -157,6 +158,14 @@ void MapSans::Update(float dt)
 		}
 	}
 	Scene::Update(dt);
+
+	// 테스트 코드
+	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad5))
+	{
+		SceneBattle::nextSceneId = SceneIds::MapSans;
+		SceneBattle::monsterJsonID = "jsons/sans.json";
+		player->StartBattle();
+	}
 }
 
 void MapSans::Draw(sf::RenderWindow& window)

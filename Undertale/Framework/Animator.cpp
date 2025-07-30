@@ -65,7 +65,7 @@ void Animator::Update(float dt)
 
 void Animator::Play(const std::string& clipId, bool clearQueue)
 {
-
+	currentClipPath = clipId;
 	Play(&ANI_CLIP_MGR.Get(clipId), clearQueue);
 }
 
@@ -99,6 +99,8 @@ void Animator::PlayQueue(const std::string& clipId)
 void Animator::Stop()
 {
 	isPlaying = false;
+	SetFrame(currentClip->frames[0]);
+	currentClipPath = "";
 }
 
 void Animator::SetFrame(const AnimationFrame& frame)

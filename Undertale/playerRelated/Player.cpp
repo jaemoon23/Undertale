@@ -161,29 +161,29 @@ void Player::Update(float dt)
 			SetPosition(GetPosition() + direction * speed * dt);
 			hitBox.UpdateTransform(body, body.getLocalBounds());
 
-			std::string currentClipId = animator.GetCurrentClipId();
+			std::string currentClipPath = animator.currentClipPath;
 			if (direction.x == 0 && direction.y == 0)
 			{
 				animator.Stop();
 			}
 			else if (std::abs(direction.x) > std::abs(direction.y))
 			{
-				if (direction.x > 0 && currentClipId != "rightwalking")
+				if (direction.x > 0 && currentClipPath != "Animation/rightwalking.csv")
 				{
 					animator.Play("Animation/rightwalking.csv");
 				}
-				else if (direction.x < 0 && currentClipId != "leftwalking")
+				else if (direction.x < 0 && currentClipPath != "Animation/leftwalking.csv")
 				{
 					animator.Play("Animation/leftwalking.csv");
 				}
 			}
 			else
 			{
-				if (direction.y > 0 && currentClipId != "downwalking")
+				if (direction.y > 0 && currentClipPath != "Animation/downwalking.csv")
 				{
 					animator.Play("Animation/downwalking.csv");
 				}
-				else if (direction.y < 0 && currentClipId != "upwalking")
+				else if (direction.y < 0 && currentClipPath != "Animation/upwalking.csv")
 				{
 					animator.Play("Animation/upwalking.csv");
 				}

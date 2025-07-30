@@ -45,6 +45,7 @@ protected:
 	float speed = 0.5f;
 
 public:
+	std::string currentClipPath = "";
 	Animator() = default;
 	~Animator() = default;
 

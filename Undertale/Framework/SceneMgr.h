@@ -9,7 +9,7 @@ protected:
 
 	std::unordered_map<SceneIds, Scene*> scenes;
 
-	SceneIds startScene = SceneIds::Map4;
+	SceneIds startScene = SceneIds::MapSans;
 	SceneIds currentScene = SceneIds::None;
 	SceneIds nextScene = SceneIds::None;
 
@@ -26,4 +26,3 @@ public:
 };
 
 #define SCENE_MGR (SceneMgr::Instance())
-
