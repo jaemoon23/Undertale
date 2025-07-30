@@ -8,7 +8,7 @@
 #include "HealItem.h"
 
 std::string SceneBattle::monsterJsonID = "jsons/frog.json";
-SceneIds SceneBattle::nextSceneId = SceneIds::test;
+SceneIds SceneBattle::nextSceneId = SceneIds::Battle;
 
 SceneBattle::SceneBattle()
 	: Scene(SceneIds::Battle)
