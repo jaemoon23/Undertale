@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include <fstream>
 #include "SceneBattle.h"
 #include "BattleDialogueBox.h"
@@ -135,7 +135,7 @@ void SceneBattle::Enter()
 	isBreak = false;
 	mercyPoint = 0;
 	btIndex = 0;
-	PatternIndex = 0; // 0À¸·Î ¹Ù²Ù±â
+	PatternIndex = 0; // 0ìœ¼ë¡œ ë°”ê¾¸ê¸°
 	itemChooseIndex = 0;
 	actChooseIndex = 0;
 	mercyChooseIndex = 0;
@@ -146,7 +146,7 @@ void SceneBattle::Enter()
 	dialTimer = 0.f;
 
 	Scene::Enter();
-	// JSON ÆÄÀÏ ºÒ·¯¿À±â	
+	// JSON íŒŒì¼ ë¶ˆëŸ¬ì˜¤ê¸°	
 	std::ifstream file(monsterJsonID);
 	std::ifstream file2("jsons/testInventory.json");
 	file >> data;
@@ -184,7 +184,7 @@ void SceneBattle::Enter()
 	gameOverText.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	gameOverText.setCharacterSize(30.f);
 	gameOverText.setPosition({ size.x * 0.25f, size.y * 0.55f });
-	gameOverText.setString(L"Áö±Ý ³¡³¾ ¼ö´Â ¾ø¾î!");
+	gameOverText.setString(L"ì§€ê¸ˆ ëë‚¼ ìˆ˜ëŠ” ì—†ì–´!");
 
 	monster.setTexture(TEXTURE_MGR.Get(monsterTexId));
 	animator.SetTarget(&monster);
@@ -252,7 +252,7 @@ void SceneBattle::Update(float dt)
 							std::wstring temp = InventoryUi::healItem[i].GetName();
 							if (temp == L"")
 							{
-								btBox->describeStr[i] = L"== ºñ¾î ÀÖÀ½ ==";
+								btBox->describeStr[i] = L"== ë¹„ì–´ ìžˆìŒ ==";
 							}
 							else
 							{
@@ -264,8 +264,8 @@ void SceneBattle::Update(float dt)
 					case 3:
 						btState = ButtonState::ChooseMercy;
 						mercyChooseIndex = 0;
-						btBox->describeStr[0] = L"* »ì·ÁÁÖ±â";
-						btBox->describeStr[2] = L"* µµ¸Á";
+						btBox->describeStr[0] = L"* ì‚´ë ¤ì£¼ê¸°";
+						btBox->describeStr[2] = L"* ë„ë§";
 						break;
 					}
 					soul->SetPosition({ size.x * 0.05f, size.y * 0.57f });
@@ -435,7 +435,7 @@ void SceneBattle::TryMercy()
 		monster.setColor(monsterblinkColor);
 		btState = ButtonState::None;
 		int gold = data["gold"];
-		btBox->startStr = L"* ½Â¸®! 0 XP¿Í " + std::to_wstring(gold) + L"G ¸¦ ¾ò¾ú´Ù.";
+		btBox->startStr = L"* ìŠ¹ë¦¬! 0 XPì™€ " + std::to_wstring(gold) + L"G ë¥¼ ì–»ì—ˆë‹¤.";
 		btBox->SetStartDescribe();
 		soul->SetPosition({ -100.f,-100.f });
 		PlayerInfo::gold += gold;
@@ -446,7 +446,7 @@ void SceneBattle::TryMercy()
 	else if (mercyChooseIndex == 1)
 	{		
 		isPlaying = false;
-		std::cout << "µµ¸Á°¡±â ½ÇÇà" << std::endl;
+		std::cout << "ë„ë§ê°€ê¸° ì‹¤í–‰" << std::endl;
 		SOUND_MGR.PlaySfx("sounds/snd_escaped.wav");
 		SOUND_MGR.StopBgm();
 	}
@@ -484,7 +484,7 @@ void SceneBattle::MonsterDie()
 	soul->SetPosition({ size.x * 0.03f + size.x * 0.26f * btIndex, size.y * 0.93f });
 	int exp = data["exp"];
 	int gold = data["gold"];
-	btBox->startStr = L"* ½Â¸®! " + std::to_wstring(exp) + L" XP¿Í " + std::to_wstring(gold) + L"G ¸¦ ¾ò¾ú´Ù.";
+	btBox->startStr = L"* ìŠ¹ë¦¬! " + std::to_wstring(exp) + L" XPì™€ " + std::to_wstring(gold) + L"G ë¥¼ ì–»ì—ˆë‹¤.";
 	PlayerInfo::PlusExp(exp);
 	PlayerInfo::gold += gold;
 	PlayerInfo::Moral -= 1;
@@ -494,7 +494,7 @@ void SceneBattle::MonsterDie()
 	sf::Color color = monster.getColor();
 	color.a = 100;
 	monster.setColor(color);
-	std::cout << "¸ó½ºÅÍ »ç¸Á" << std::endl;
+	std::cout << "ëª¬ìŠ¤í„° ì‚¬ë§" << std::endl;
 	isPlaying = false;
 	isMonsterShaking = false;
 	monsterShakeTimer = 0.f;
@@ -507,7 +507,7 @@ void SceneBattle::PlayerDie()
 {
 	isMyTurn = true;
 	btState = ButtonState::None;
-	btBox->startStr = L"* ÆÐ¹è!";
+	btBox->startStr = L"* íŒ¨ë°°!";
 	btBox->SetStartDescribe();
 	for (auto& b : bulletTemp)
 	{
