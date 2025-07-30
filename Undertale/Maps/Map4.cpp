@@ -1,19 +1,25 @@
 #include "stdafx.h"
-#include "Map3.h"
+#include "Map4.h"
 #include "Player.h"
+#include "SceneBattle.h"
 
-Map3::Map3() : Scene(SceneIds::Map3)
+Map4::Map4() : Scene(SceneIds::Map4)
 {
 }
 
-void Map3::Init()
+void Map4::Init()
 {
+	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("Sprites/idle.png");
-	texIds.push_back("graphics/back4.png");
+	texIds.push_back("graphics/back5.png");
 	texIds.push_back("Sprites/downwalking.png");
 	texIds.push_back("Sprites/upwalking.png");
 	texIds.push_back("Sprites/leftwalking.png");
 	texIds.push_back("Sprites/rightwalking.png");
+	texIds.push_back("Sprites/TextWindow.png");
+
+	SOUNDBUFFER_MGR.Load("sounds/Map4/31 Waterfall.flac");
+	SOUNDBUFFER_MGR.Load("sounds/Map4/sw.wav");
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
@@ -24,21 +30,40 @@ void Map3::Init()
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
 	background = (SpriteGo*)AddGameObject(new SpriteGo());
 	background->sortingLayer = SortingLayers::Background;
+	textWindow = (SpriteGo*)AddGameObject(new SpriteGo("Sprites/TextWindow.png"));
+	text = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
 	Scene::Init();
 }
 
-void Map3::Enter()
+void Map4::Enter()
 {
-	std::ifstream in("map3.json");
+	SOUND_MGR.PlayBgm("sounds/Map4/31 Waterfall.flac");
+	wall.setSize({ 10.f,150.f });
+	wall.setFillColor(sf::Color::Transparent);
+	wall.setOutlineColor(sf::Color::Green);
+	wall.setOutlineThickness(1.f);
+	wall.setPosition({ 695.f, 220.f });
+
+	textWindow->sortingLayer = SortingLayers::UI;
+	textWindow->SetPosition({ 35.f, 300.f });
+	textWindow->SetActive(false);
+
+	text->sortingLayer = SortingLayers::UI;
+	text->SetString(L"알 수 없는 힘에 의해 막힘");
+	text->SetCharacterSize(35.f);
+	text->SetPosition({ textWindow->GetPosition().x + 10, textWindow->GetPosition().y + 5});
+	text->SetActive(false);
+
+	std::ifstream in("map4.json");
 	if (!in)
 	{
-		std::cerr << "map3.json 파일을 열 수 없습니다!" << std::endl;
+		std::cerr << "map4.json 파일을 열 수 없습니다!" << std::endl;
 		return;
 	}
 
 	nlohmann::json j;
 	in >> j;
-	auto& mapData = j["map3"];
+	auto& mapData = j["map4"];
 
 	// 배경
 	std::string bgTex = mapData["background"]["textureId"];
@@ -53,7 +78,7 @@ void Map3::Enter()
 
 	sf::Vector2f size = { 640.f, 480.f };
 	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
-	worldView.setSize(size);
+	worldView.setSize(size * 0.5f);
 	uiView.setSize(size);
 	uiView.setCenter(center);
 
@@ -127,7 +152,7 @@ void Map3::Enter()
 	}
 }
 
-void Map3::Update(float dt)
+void Map4::Update(float dt)
 {
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
@@ -151,48 +176,75 @@ void Map3::Update(float dt)
 					battleCheckTimer = 0.f;
 
 					// 1% 확률
-					//if (Utils::RandomRange(0.f, 1.f) < 0.01f)
-					//{
-					//	std::cout << "랜덤 전투 발생!" << std::endl;
-					//	SceneBattle::nextSceneId = SceneIds::test;
-					//	SceneBattle::monsterJsonID = "jsons/frog.json";
-					//	//SceneBattle::monsterJsonID = "jsons/sans.json";
-					//	SCENE_MGR.ChangeScene(SceneIds::Battle);
-					//}
-					//else
-					//{
-					//	std::cout << "배틀 아님" << std::endl;
-					//}
+					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
+					{
+						std::cout << "랜덤 전투 발생!" << std::endl;
+						SceneBattle::nextSceneId = SceneIds::Map4;
+						SceneBattle::monsterJsonID = "jsons/frog.json";
+						//SceneBattle::monsterJsonID = "jsons/sans.json";
+						SCENE_MGR.ChangeScene(SceneIds::Battle);
+					}
+					else
+					{
+						std::cout << "배틀 아님" << std::endl;
+					}
 				}
 			}
 			else if (hit.type == "Switch")
 			{
-				std::cout << "Switch" << std::endl;
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
+					SOUND_MGR.PlaySfx("sounds/Map4/sw.wav");
 					puzzleSuccess = true;
+					std::cout << "스위치 누름" << std::endl;
 				}
 			}
 			else if (hit.type == "NextScene")
 			{
 				std::cout << "NextScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Map4);
+				SCENE_MGR.ChangeScene(SceneIds::Map5);
 			}
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Map2);
+				SCENE_MGR.ChangeScene(SceneIds::Map3);
 			}
 			else if (hit.type == "Signs")
 			{
 				std::cout << "Signs" << std::endl;
 			}
 		}
+		if (!puzzleSuccess)
+		{
+			if (Utils::CheckCollision(player->GetHitBox(), wall))
+			{
+				player->SetPosition(player->getPos());
+				showText = true;
+				std::cout << "알 수 없는 힘에 의해 막힘" << std::endl;
+			}
+			else
+			{
+				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+				{
+					showText = false;
+				}
+			}
+		}
+		if (showText)
+		{
+			textWindow->SetActive(true);
+			text->SetActive(true);
+		}
+		else
+		{
+			textWindow->SetActive(false);
+			text->SetActive(false);
+		}
 	}
 	Scene::Update(dt);
 }
 
-void Map3::Draw(sf::RenderWindow& window)
+void Map4::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
 	window.setView(worldView);
@@ -203,6 +255,7 @@ void Map3::Draw(sf::RenderWindow& window)
 		{
 			window.draw(*hit.shape); // worldView 기준으로 그려짐
 		}
+		window.draw(wall);
 	}
 }
 

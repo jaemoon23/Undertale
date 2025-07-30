@@ -132,13 +132,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AniPlayer.cpp" />
-    <ClCompile Include="Map1.cpp" />
-    <ClCompile Include="Map2.cpp" />
-    <ClCompile Include="Map3.cpp" />
-    <ClCompile Include="Map4.cpp" />
-    <ClCompile Include="Map5.cpp" />
-    <ClCompile Include="MapPapyrus.cpp" />
-    <ClCompile Include="MapSans.cpp" />
+    <ClCompile Include="Maps\Map1.cpp" />
+    <ClCompile Include="Maps\Map2.cpp" />
+    <ClCompile Include="Maps\Map3.cpp" />
+    <ClCompile Include="Maps\Map4.cpp" />
+    <ClCompile Include="Maps\Map5.cpp" />
+    <ClCompile Include="Maps\MapPapyrus.cpp" />
+    <ClCompile Include="Maps\MapSans.cpp" />
     <ClCompile Include="Maptools\Button.cpp" />
     <ClCompile Include="playerRelated\PlayerInfo.cpp" />
     <ClCompile Include="playerRelated\DialogueBox.cpp" />
@@ -177,20 +177,20 @@
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Maptools\Map0.cpp" />
+    <ClCompile Include="Maps\Map0.cpp" />
     <ClCompile Include="playerRelated\TestBackGround.cpp" />
     <ClCompile Include="playerRelated\UiChanger.cpp" />
     <ClCompile Include="WrappedText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AniPlayer.h" />
-    <ClInclude Include="Map1.h" />
-    <ClInclude Include="Map2.h" />
-    <ClInclude Include="Map3.h" />
-    <ClInclude Include="Map4.h" />
-    <ClInclude Include="Map5.h" />
-    <ClInclude Include="MapPapyrus.h" />
-    <ClInclude Include="MapSans.h" />
+    <ClInclude Include="Maps\Map1.h" />
+    <ClInclude Include="Maps\Map2.h" />
+    <ClInclude Include="Maps\Map3.h" />
+    <ClInclude Include="Maps\Map4.h" />
+    <ClInclude Include="Maps\Map5.h" />
+    <ClInclude Include="Maps\MapPapyrus.h" />
+    <ClInclude Include="Maps\MapSans.h" />
     <ClInclude Include="Maptools\Button.h" />
     <ClInclude Include="playerRelated\PlayerInfo.h" />
     <ClInclude Include="playerRelated\DialogueBox.h" />
@@ -231,7 +231,7 @@
     <ClInclude Include="Battles\StatusInBattleUI.h" />
     <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Maptools\Map0.h" />
+    <ClInclude Include="Maps\Map0.h" />
     <ClInclude Include="playerRelated\TestBackGround.h" />
     <ClInclude Include="playerRelated\UiChanger.h" />
     <ClInclude Include="WrappedText.h" />

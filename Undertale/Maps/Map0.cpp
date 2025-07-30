@@ -177,28 +177,28 @@ void Map0::Update(float dt)
 				std::cout << "씬 전환 트리거됨!" << std::endl;
 				SCENE_MGR.ChangeScene(SceneIds::Map1);
 			}
-			else if (hit.type == "Battle")
-			{
-				if (battleCheckTimer >= battleCheckInterval)
-				{
-					std::cout << "배틀 확률 체크" << std::endl;
-					battleCheckTimer = 0.f;
+			//else if (hit.type == "Battle")
+			//{
+			//	if (battleCheckTimer >= battleCheckInterval)
+			//	{
+			//		std::cout << "배틀 확률 체크" << std::endl;
+			//		battleCheckTimer = 0.f;
 
-					// 10% 확률
-					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
-					{
-						std::cout << "랜덤 전투 발생!" << std::endl;
-						SceneBattle::nextSceneId = SceneIds::Map0;
-						SceneBattle::monsterJsonID = "jsons/frog.json";
-						//SceneBattle::monsterJsonID = "jsons/sans.json";
-						//SCENE_MGR.ChangeScene(SceneIds::Battle);
-					}
-					else
-					{
-						std::cout << "배틀 아님" << std::endl;
-					}
-				}
-			}
+			//		// 10% 확률
+			//		if (Utils::RandomRange(0.f, 1.f) < 0.01f)
+			//		{
+			//			std::cout << "랜덤 전투 발생!" << std::endl;
+			//			SceneBattle::nextSceneId = SceneIds::Map0;
+			//			SceneBattle::monsterJsonID = "jsons/frog.json";
+			//			//SceneBattle::monsterJsonID = "jsons/sans.json";
+			//			//SCENE_MGR.ChangeScene(SceneIds::Battle);
+			//		}
+			//		else
+			//		{
+			//			std::cout << "배틀 아님" << std::endl;
+			//		}
+			//	}
+			//}
 			
 		}
 	}
