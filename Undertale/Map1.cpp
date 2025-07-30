@@ -60,7 +60,7 @@ void Map1::Enter()
 
 	sf::Vector2f size = { 640.f, 480.f };
 	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
-	worldView.setSize(size);
+	worldView.setSize(size * 0.5f);
 	uiView.setSize(size);
 	uiView.setCenter(center);
 

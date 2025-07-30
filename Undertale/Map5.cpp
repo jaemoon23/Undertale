@@ -262,13 +262,13 @@ void Map5::Update(float dt)
 						battleCheckTimer = 0.f;
 
 						// 1% È®·ü
-						if (Utils::RandomRange(0.f, 1.f) < 0.5f)
+						if (Utils::RandomRange(0.f, 1.f) < 0.1f)
 						{
-							std::cout << "·£´ý ÀüÅõ ¹ß»ý!" << std::endl;
-							SceneBattle::nextSceneId = SceneIds::Map0;
-							SceneBattle::monsterJsonID = "jsons/frog.json";
-							//SceneBattle::monsterJsonID = "jsons/sans.json";
-							SCENE_MGR.ChangeScene(SceneIds::Battle);
+							//std::cout << "·£´ý ÀüÅõ ¹ß»ý!" << std::endl;
+							//SceneBattle::nextSceneId = SceneIds::Map0;
+							//SceneBattle::monsterJsonID = "jsons/frog.json";
+							////SceneBattle::monsterJsonID = "jsons/sans.json";
+							//SCENE_MGR.ChangeScene(SceneIds::Battle);
 						}
 						else
 						{

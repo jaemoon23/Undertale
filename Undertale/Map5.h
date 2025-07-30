@@ -29,10 +29,10 @@ protected:
 	bool battle = true;
 	bool ran = true;
 	int r = 0;
-	float maxTime = 5.f;
+	float maxTime = 1.f;
 	float currentTime = 0.f;
 
-	float maxTime2 = 5.f;
+	float maxTime2 = 1.f;
 	float currentTime2 = 0.f;
 public:
 	Map5();
