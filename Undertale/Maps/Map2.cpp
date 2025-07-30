@@ -113,21 +113,22 @@ void Map2::Enter()
 	int playerImageIndex = 0;
 	int sansImageIndex = 0;
 
-	bool animationPlay = false;
-	bool InteractedSans = false;
-	bool firstInteractedEnds = false;
-	bool imageChangedOnce = false;
+	animationPlay = false;
+	InteractedSans = false;
+	firstInteractedEnds = false;
+	imageChangedOnce = false;
 
-	float afterTurnTimer = 0.f;
-	bool charaTurn = false;
+	afterTurnTimer = 0.f;
+	charaTurn = false;
 
-	float reactivateTimer = 0.f;
-	bool reactivated = false; // 플레이어와 샌즈가 다시 active 할때 
+	reactivateTimer = 0.f;
+	reactivated = false; // 플레이어와 샌즈가 다시 active 할때 
 
-	float sansSecondInteractTimer = 0.f; // 샌즈와 다시 대화할 때 
-	bool isWaitingSansSecondInteract = false;
-	bool wallDisabled = false;
+	sansSecondInteractTimer = 0.f; // 샌즈와 다시 대화할 때 
+	isWaitingSansSecondInteract = false;
+	wallDisabled = false;
 
+	isPlayerColliding = false;
 
 	doorwall.setSize({ 14.f,100.f });
 	doorwall.setFillColor(sf::Color::Transparent);
@@ -235,7 +236,6 @@ void Map2::Enter()
 	sans->SetActive(false);
 
 	// test code
-	std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
 	player->SetPosition({ 400.f,320.f });
 	//
 
@@ -295,7 +295,7 @@ void Map2::Update(float dt)
 						}
 					}
 				}
-				
+
 			}
 			else if (hit.type == "NextScene")
 			{
@@ -347,7 +347,7 @@ void Map2::Update(float dt)
 
 			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 			{
-				dialoguebox->NextLine();				
+				dialoguebox->NextLine();
 			}
 		}
 
@@ -415,7 +415,7 @@ void Map2::Update(float dt)
 				sprite.setOrigin(texSize.x / 2.f, texSize.y / 2.f);
 
 				reactivated = true; // 한 번만 실행
-				
+
 				sansSecondInteractTimer = 0.f;
 				isWaitingSansSecondInteract = true;
 			}
@@ -426,11 +426,11 @@ void Map2::Update(float dt)
 			if (sansSecondInteractTimer >= 2.f)
 			{
 				player->SansSecondsInteract();
-				isWaitingSansSecondInteract = false;			
+				isWaitingSansSecondInteract = false;
 				isCheck = true;
 			}
 		}
-		if (isCheck) 
+		if (isCheck)
 		{
 			if (!dialoguebox->GetActive())
 			{
@@ -456,11 +456,6 @@ void Map2::Update(float dt)
 	}
 
 	Scene::Update(dt);
-	//sans->Update(dt);
-	//player->Update(dt);
-	//playerinfoui->Update(dt);
-	//inventoryui->Update(dt);
-	//uichanger->Update(dt);
 }
 
 void Map2::Draw(sf::RenderWindow& window)

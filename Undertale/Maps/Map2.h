@@ -70,6 +70,8 @@ protected:
     bool isBattleInetrected = true; // 대화중 전투 못 발생나게 하려는 변수 
     bool isCheck = false;
 
+    bool isPlayerColliding = false; // ui창들 못띄우게 하려는 변수
+
 public:
 
     Map2();
