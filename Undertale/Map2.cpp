@@ -420,7 +420,7 @@ void Map2::Update(float dt)
 
 			}
 		}
-		if (isWaitingSansSecondInteract)
+		/*if (isWaitingSansSecondInteract)
 		{
 			sansSecondInteractTimer += dt;
 			if (sansSecondInteractTimer >= 2.f)
@@ -432,7 +432,7 @@ void Map2::Update(float dt)
 			{
 				dialoguebox->NextLine();
 			}
-		}
+		}*/
 	}
 	else
 	{
