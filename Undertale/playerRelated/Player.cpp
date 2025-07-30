@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Player.h"
 #include "Sans.h"
 #include "DialogueBox.h"
@@ -97,7 +97,7 @@ void Player::Reset()
 
 void Player::Update(float dt)
 {
-	// ¹èÆ² ÀÔÀå ¿¬Ãâ
+	// ë°°í‹€ ì…ì¥ ì—°ì¶œ
 	if (isBattleEnter)
 	{
 		timer += dt;
@@ -151,8 +151,8 @@ void Player::Update(float dt)
 			playerInfoUi->SetActive(false);
 		}
 
-		if (uichanger && uichanger->GetActive()) return; // UI º¯°æ Áß¿¡´Â ÇÃ·¹ÀÌ¾î ÀÌµ¿ ºÒ°¡
-		if (dialoguebox && dialoguebox->GetActive()) return; // ´ëÈ­ Áß¿¡´Â ÇÃ·¹ÀÌ¾î ÀÌµ¿ ºÒ°¡
+		if (uichanger && uichanger->GetActive()) return; // UI ë³€ê²½ ì¤‘ì—ëŠ” í”Œë ˆì´ì–´ ì´ë™ ë¶ˆê°€
+		if (dialoguebox && dialoguebox->GetActive()) return; // ëŒ€í™” ì¤‘ì—ëŠ” í”Œë ˆì´ì–´ ì´ë™ ë¶ˆê°€
 
 		if (move)
 		{
@@ -209,7 +209,7 @@ void Player::Draw(sf::RenderWindow& window)
 void Player::SansInteract()
 {
 	std::vector<std::wstring> testDialogues =
-	{ L"* ÀÎ°£.  ", L"* »õ·Î¿î Ä£±¸¿Í »ç±Í´Â ¹ıÀ» ¸ğ¸£´Â°Ç°¡?", L"*µ¹¾Æ¼­¼­ ³ª¿Í ¾Ç¼öÇØ."};
+	{ L"* ì¸ê°„.  ", L"* ìƒˆë¡œìš´ ì¹œêµ¬ì™€ ì‚¬ê·€ëŠ” ë²•ì„ ëª¨ë¥´ëŠ”ê±´ê°€?", L"*ëŒì•„ì„œì„œ ë‚˜ì™€ ì•…ìˆ˜í•´."};
 	dialoguebox->StartDialogue(testDialogues);
 }
 
