@@ -180,21 +180,22 @@ void Map0::Update(float dt)
 			{
 				if (battleCheckTimer >= battleCheckInterval)
 				{
-					std::cout << "배틀 확률 체크" << std::endl;
+					//std::cout << "배틀 확률 체크" << std::endl;
 					battleCheckTimer = 0.f;
 
 					// 10% 확률
 					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
 					{
-						std::cout << "랜덤 전투 발생!" << std::endl;
+						//std::cout << "랜덤 전투 발생!" << std::endl;
 						SceneBattle::nextSceneId = SceneIds::Map0;
 						SceneBattle::monsterJsonID = "jsons/frog.json";
+						player->StartBattle();
 						//SceneBattle::monsterJsonID = "jsons/sans.json";
 						//SCENE_MGR.ChangeScene(SceneIds::Battle);
 					}
 					else
 					{
-						std::cout << "배틀 아님" << std::endl;
+						//std::cout << "배틀 아님" << std::endl;
 					}
 				}
 			}
@@ -211,13 +212,13 @@ void Map0::Update(float dt)
 	{
 		SceneBattle::nextSceneId = SceneIds::Map0;
 		SceneBattle::monsterJsonID = "jsons/frog.json";
-		SCENE_MGR.ChangeScene(SceneIds::Battle);
+		player->StartBattle();
 	}
 	else if (InputMgr::GetKeyDown(sf::Keyboard::Num9))
 	{
 		SceneBattle::nextSceneId = SceneIds::Map0;
 		SceneBattle::monsterJsonID = "jsons/sans.json";
-		SCENE_MGR.ChangeScene(SceneIds::Battle);
+		player->StartBattle();
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num5))
 	{
