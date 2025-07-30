@@ -23,7 +23,7 @@ protected:
 	sf::Sprite body;
 	std::wstring name;
 
-	float speed = 300.f;
+	float speed = 100.f;
 	sf::Vector2f direction;
 
 	Animator animator;

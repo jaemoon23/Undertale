@@ -14,14 +14,14 @@ Player::Player(const std::string& name)
 
 void Player::SetPosition(const sf::Vector2f& pos)
 {
-	if (!move) return;
+	/*if (!move) return;*/
 	GameObject::SetPosition(pos);
 	body.setPosition(pos);
 }
 
 void Player::SetRotation(float rot)
 {
-	if (!move) return;
+	/*if (!move) return;*/
 	GameObject::SetRotation(rot);
 	body.setRotation(rot);
 }
@@ -74,24 +74,6 @@ void Player::Update(float dt)
 	animator.Update(dt);
 	prevPosition = GetPosition();
 
-	//if (sans)
-	//{
-	//	float distance = Utils::Distance(GetPosition(), sans->GetPosition());
-	//	float interactDistance = 35.f;
-
-	//	if (distance <= interactDistance)
-	//	{
-	//		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
-	//		{
-	//			SansInteract();
-	//			std::cout << "z" << std::endl;
-	//		}
-	//		if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
-	//		{
-	//			dialoguebox->NextLine();
-	//		}
-	//	}
-	//}
 	if (InputMgr::GetKeyDown(sf::Keyboard::X))
 	{
 		dialoguebox->SetActive(false);
@@ -142,22 +124,6 @@ void Player::SansInteract()
 	{ L"* 인간.  ", L"* 새로운 친구와 사귀는 법을 모르는건가?", L"*돌아서서 나와 악수해."};
 	dialoguebox->StartDialogue(testDialogues);
 }
-
-
-//void Player::Heal(int amount, int maxHp)
-//{
-//	PlayerInfo::hp == 10;
-//	PlayerInfo::Heal(InventoryUi::healItem[0].GetHealAmount());
-//	PlayerInfo::hp == 20;
-//
-//	int newHp = PlayerInfo::hp + amount;
-//	if (newHp > maxHp)
-//	{
-//		newHp = maxHp;
-//	}
-//	PlayerInfo::hp = newHp; // 실제로 HP를 회복
-//}
-
 
 const sf::RectangleShape& Player::GetHitBox() const
 {

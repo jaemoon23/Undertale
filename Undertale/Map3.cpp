@@ -143,11 +143,6 @@ void Map3::Update(float dt)
 			{
 				player->SetPosition(player->getPos());
 			}
-			else if (hit.type == "SceneChange")
-			{
-				std::cout << "¾À ÀüÈ¯ Æ®¸®°ÅµÊ!" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Dev1);
-			}
 			else if (hit.type == "Battle")
 			{
 				if (battleCheckTimer >= battleCheckInterval)
@@ -181,12 +176,12 @@ void Map3::Update(float dt)
 			else if (hit.type == "NextScene")
 			{
 				std::cout << "NextScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Dev1);
+				SCENE_MGR.ChangeScene(SceneIds::Map4);
 			}
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Map0);
+				SCENE_MGR.ChangeScene(SceneIds::Map2);
 			}
 			else if (hit.type == "Signs")
 			{

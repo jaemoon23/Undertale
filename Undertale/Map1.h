@@ -5,6 +5,7 @@
 #include "SpriteGo.h"
 #include "Map0.h"
 class Player;
+class TextGo;
 
 class Map1 : public Scene
 {
@@ -28,6 +29,10 @@ protected:
 	bool moveEvent = false;
 	bool puzzleSuccess = false;
 
+	SpriteGo* textWindow = nullptr;
+	TextGo* text = nullptr;
+
+	bool showText = false;
 public:
 	Map1();
 	~Map1() override = default;

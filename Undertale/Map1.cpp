@@ -2,18 +2,25 @@
 #include "Map1.h"
 #include "SceneBattle.h"
 #include "Player.h"
+#include "TextGo.h"
 Map1::Map1() : Scene(SceneIds::Map1)
 {
 }
 
 void Map1::Init()
 {
+	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("graphics/back2.png");
 	texIds.push_back("Sprites/downwalking.png");
 	texIds.push_back("Sprites/upwalking.png");
 	texIds.push_back("Sprites/leftwalking.png");
 	texIds.push_back("Sprites/rightwalking.png");
+	texIds.push_back("Sprites/TextWindow.png");
+
+	SOUNDBUFFER_MGR.Load("sounds/Map1/05 Ruins.flac");
+	SOUNDBUFFER_MGR.Load("sounds/Map1/Fall2.wav");
+	SOUNDBUFFER_MGR.Load("sounds/Map1/sw.wav");
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
@@ -24,17 +31,32 @@ void Map1::Init()
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
 	background1 = (SpriteGo*)AddGameObject(new SpriteGo());
 	background1->sortingLayer = SortingLayers::Background;
-	Scene::Init();
-}
+	textWindow = (SpriteGo*)AddGameObject(new SpriteGo("Sprites/TextWindow.png"));
+	text = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
 
-void Map1::Enter()
-{
-	direction = { 0.f,1.f };
 	wall.setSize({ 10.f,70.f });
 	wall.setFillColor(sf::Color::Transparent);
 	wall.setOutlineColor(sf::Color::Green);
 	wall.setOutlineThickness(1.f);
 	wall.setPosition({ 640.f, -10.f });
+
+	textWindow->sortingLayer = SortingLayers::UI;
+	textWindow->SetPosition({ 35.f, 300.f });
+	textWindow->SetActive(false);
+
+	text->sortingLayer = SortingLayers::UI;
+	text->SetString(L"알 수 없는 힘에 의해 막힘");
+	text->SetCharacterSize(35.f);
+	text->SetPosition({ textWindow->GetPosition().x + 10, textWindow->GetPosition().y + 5 });
+	text->SetActive(false);
+	Scene::Init();
+}
+
+void Map1::Enter()
+{
+	SOUND_MGR.PlayBgm("sounds/Map1/05 Ruins.flac");
+	direction = { 0.f,1.f };
+	
 
 	std::ifstream in("map1.json");
 	if (!in)
@@ -198,13 +220,14 @@ void Map1::Update(float dt)
 				std::cout << "Switch" << std::endl;
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
+					SOUND_MGR.PlaySfx("sounds/Map1/sw.wav");
 					puzzleSuccess = true;
 				}
 			}
 			else if (hit.type == "NextScene")
 			{
 				std::cout << "NextScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Dev1);
+				SCENE_MGR.ChangeScene(SceneIds::Map2);
 			}
 			else if (hit.type == "PrevScene")
 			{
@@ -224,6 +247,7 @@ void Map1::Update(float dt)
 			{
 				if (hit.type == "Event")
 				{
+					SOUND_MGR.PlaySfx("sounds/Map1/Fall2.wav");
 					std::cout << "Event" << std::endl;
 					eventMoveRemaining = 420.f;
 					event = true;
@@ -254,7 +278,6 @@ void Map1::Update(float dt)
 			float actualStep = std::min(moveStep, eventMoveRemaining);
 			player->SetPosition(player->GetPosition() + direction * actualStep);
 			eventMoveRemaining -= actualStep;
-
 			std::cout << "남은 거리: " << eventMoveRemaining << ", 이번 이동: " << actualStep << std::endl;
 		}
 	}
@@ -263,8 +286,28 @@ void Map1::Update(float dt)
 		if (Utils::CheckCollision(player->GetHitBox(), wall))
 		{
 			player->SetPosition(player->getPos());
+			showText = true;
+			std::cout << "알 수 없는 힘에 의해 막힘" << std::endl;
+		}
+		else
+		{
+			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+			{
+				showText = false;
+			}
 		}
 	}
+	if (showText)
+	{
+		textWindow->SetActive(true);
+		text->SetActive(true);
+	}
+	else
+	{
+		textWindow->SetActive(false);
+		text->SetActive(false);
+	}
+
 	Scene::Update(dt);
 }
 

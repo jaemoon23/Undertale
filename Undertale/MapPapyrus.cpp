@@ -147,12 +147,12 @@ void MapPapyrus::Update(float dt)
 			else if (hit.type == "NextScene")
 			{
 				std::cout << "NextScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Dev1);
+				SCENE_MGR.ChangeScene(SceneIds::MapSans);
 			}
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Map0);
+				SCENE_MGR.ChangeScene(SceneIds::Map5);
 			}
 		}
 	}

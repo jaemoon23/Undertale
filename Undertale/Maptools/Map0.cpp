@@ -75,6 +75,7 @@ void Map0::Init()
 
 void Map0::Enter()
 {
+	SOUND_MGR.StopBgm();
 	std::ifstream in("map0.json");
 	if (!in)
 	{

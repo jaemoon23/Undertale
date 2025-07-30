@@ -152,7 +152,7 @@ void MapSans::Update(float dt)
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Map0);
+				SCENE_MGR.ChangeScene(SceneIds::MapPapyrus);
 			}
 		}
 	}

@@ -18,6 +18,10 @@ void Map5::Init()
 	texIds.push_back("Sprites/leftwalking.png");
 	texIds.push_back("Sprites/rightwalking.png");
 
+	SOUNDBUFFER_MGR.Load("sounds/Map5/47 Ooo.flac");
+	SOUNDBUFFER_MGR.Load("sounds/Map5/sw.wav");
+	SOUNDBUFFER_MGR.Load("sounds/Map5/bell.wav");
+
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/upwalking.csv");
@@ -38,6 +42,7 @@ void Map5::Init()
 
 void Map5::Enter()
 {
+	SOUND_MGR.PlayBgm("sounds/Map5/47 Ooo.flac");
 	std::srand(time(0));
 	targetKeys = { sf::Keyboard::Q, sf::Keyboard::W, sf::Keyboard::E, sf::Keyboard::R };
 	
@@ -200,6 +205,7 @@ void Map5::Update(float dt)
 		
 		if (maxTime < currentTime)
 		{
+			SOUND_MGR.PlaySfx("sounds/Map5/sw.wav");
 			std::cout << "시간 초과!" << std::endl;
 			currentTime = 0.f;
 			currentTime2 = 0.f;
@@ -210,6 +216,7 @@ void Map5::Update(float dt)
 		}
 		if (InputMgr::GetKeyDown(targetKeys[r]))
 		{
+			SOUND_MGR.PlaySfx("sounds/Map5/bell.wav");
 			std::cout << "정답 입력" << std::endl;
 			currentTime = 0.f;
 			currentTime2 = 0.f;
@@ -223,6 +230,7 @@ void Map5::Update(float dt)
 			InputMgr::GetKeyDown(sf::Keyboard::E)||
 			InputMgr::GetKeyDown(sf::Keyboard::R))
 		{
+			SOUND_MGR.PlaySfx("sounds/Map5/sw.wav");
 			std::cout << "입력 실패" << std::endl;
 			player->SetMove(true);
 			player->SetPosition({ -134.f, 273.f });
@@ -280,12 +288,12 @@ void Map5::Update(float dt)
 			else if (hit.type == "NextScene")
 			{
 				std::cout << "NextScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Dev1);
+				SCENE_MGR.ChangeScene(SceneIds::MapPapyrus);
 			}
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Map0);
+				SCENE_MGR.ChangeScene(SceneIds::Map4);
 			}
 			else if (hit.type == "Signs")
 			{

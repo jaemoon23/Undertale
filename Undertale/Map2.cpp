@@ -232,11 +232,6 @@ void Map2::Update(float dt)
 			{
 				player->SetPosition(player->getPos());
 			}
-			else if (hit.type == "SceneChange")
-			{
-				std::cout << "씬 전환 트리거됨!" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Dev1);
-			}
 			else if (hit.type == "Battle")
 			{
 				if (battleCheckTimer >= battleCheckInterval)
@@ -262,12 +257,12 @@ void Map2::Update(float dt)
 			else if (hit.type == "NextScene")
 			{
 				std::cout << "NextScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Dev1);
+				SCENE_MGR.ChangeScene(SceneIds::Map3);
 			}
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Map0);
+				SCENE_MGR.ChangeScene(SceneIds::Map1);
 			}
 		}
 	}

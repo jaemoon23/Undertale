@@ -18,6 +18,9 @@ void Map4::Init()
 	texIds.push_back("Sprites/rightwalking.png");
 	texIds.push_back("Sprites/TextWindow.png");
 
+	SOUNDBUFFER_MGR.Load("sounds/Map4/31 Waterfall.flac");
+	SOUNDBUFFER_MGR.Load("sounds/Map4/sw.wav");
+
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/upwalking.csv");
@@ -34,6 +37,7 @@ void Map4::Init()
 
 void Map4::Enter()
 {
+	SOUND_MGR.PlayBgm("sounds/Map4/31 Waterfall.flac");
 	wall.setSize({ 10.f,150.f });
 	wall.setFillColor(sf::Color::Transparent);
 	wall.setOutlineColor(sf::Color::Green);
@@ -164,11 +168,6 @@ void Map4::Update(float dt)
 			{
 				player->SetPosition(player->getPos());
 			}
-			else if (hit.type == "SceneChange")
-			{
-				std::cout << "씬 전환 트리거됨!" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Dev1);
-			}
 			else if (hit.type == "Battle")
 			{
 				if (battleCheckTimer >= battleCheckInterval)
@@ -195,6 +194,7 @@ void Map4::Update(float dt)
 			{
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
+					SOUND_MGR.PlaySfx("sounds/Map4/sw.wav");
 					puzzleSuccess = true;
 					std::cout << "스위치 누름" << std::endl;
 				}
@@ -202,12 +202,12 @@ void Map4::Update(float dt)
 			else if (hit.type == "NextScene")
 			{
 				std::cout << "NextScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Dev1);
+				SCENE_MGR.ChangeScene(SceneIds::Map5);
 			}
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Map0);
+				SCENE_MGR.ChangeScene(SceneIds::Map3);
 			}
 			else if (hit.type == "Signs")
 			{
