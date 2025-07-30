@@ -271,6 +271,7 @@ void Map2::Update(float dt)
 			}
 			else if (hit.type == "Battle")
 			{
+				
 				if (battleCheckTimer >= battleCheckInterval)
 				{
 					std::cout << "배틀 확률 체크" << std::endl;
@@ -290,6 +291,7 @@ void Map2::Update(float dt)
 						std::cout << "배틀 아님" << std::endl;
 					}
 				}
+				
 			}
 			else if (hit.type == "NextScene")
 			{

@@ -180,6 +180,7 @@
     <ClCompile Include="Maps\Map0.cpp" />
     <ClCompile Include="playerRelated\TestBackGround.cpp" />
     <ClCompile Include="playerRelated\UiChanger.cpp" />
+    <ClCompile Include="TemMie.cpp" />
     <ClCompile Include="WrappedText.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -234,6 +235,7 @@
     <ClInclude Include="Maps\Map0.h" />
     <ClInclude Include="playerRelated\TestBackGround.h" />
     <ClInclude Include="playerRelated\UiChanger.h" />
+    <ClInclude Include="TemMie.h" />
     <ClInclude Include="WrappedText.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
