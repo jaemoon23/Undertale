@@ -97,10 +97,6 @@ void Player::Reset()
 
 void Player::Update(float dt)
 {
-	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad5)) // 테스트코드
-	{
-		StartBattle();
-	}
 	// 배틀 입장 연출
 	if (isBattleEnter)
 	{
