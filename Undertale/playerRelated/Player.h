@@ -21,9 +21,11 @@ protected:
 
 	std::string texId = "Sprites/idle.png";
 	sf::Sprite body;
+	sf::Sprite soul;
+	sf::Sprite battleSymbol;
 	std::wstring name;
 
-	float speed = 300.f;
+	float speed = 96.f;
 	sf::Vector2f direction;
 
 	//Animator animator;
@@ -40,6 +42,19 @@ protected:
 	
 
 	bool move = true;
+
+	sf::RectangleShape blackBackground;
+	sf::Vector2f destVec = { 0.f,0.f };
+	Scene* scene = nullptr;
+	float timer = 0;
+	float soulBlinkTimer = 0.f;
+	float symbolExistTime = 0.7f;
+	float soulBlinkTime = 0.5f;
+	float soulMoveTime = 1.0f;
+	bool isBattleEnter = false;
+	bool isDrawSymbol = false;
+	bool isDrawSoul = false;
+	bool isSoulMove = false;
 public:
 	Player(const std::string& name = "");
 	virtual ~Player() = default;
@@ -91,5 +106,6 @@ public:
 
 	sf::Sprite& GetSprite() { return body; }
 	void SetMove(bool a);
+	void StartBattle();
 };
 
