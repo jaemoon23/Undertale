@@ -1,0 +1,6 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)",,,
+Run,10,1,,,
+,,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
+Papyrus/spr_papyrus_dt_0.png,0,0,27,44,0
+Papyrus/spr_papyrus_dt_1.png,0,0,27,44,0

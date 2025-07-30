@@ -14,7 +14,7 @@ Player::Player(const std::string& name)
 
 void Player::SetPosition(const sf::Vector2f& pos)
 {
-	if (!move) return;
+	/*if (!move) return;*/
 	GameObject::SetPosition(pos);
 	body.setPosition(pos);
 	blackBackground.setPosition(pos);
@@ -24,7 +24,7 @@ void Player::SetPosition(const sf::Vector2f& pos)
 
 void Player::SetRotation(float rot)
 {
-	if (!move) return;
+	/*if (!move) return;*/
 	GameObject::SetRotation(rot);
 	body.setRotation(rot);
 }
