@@ -28,7 +28,7 @@ protected:
     sf::Font font;
     
     std::vector<SpriteGo*> testObjects;
-    std::vector<HitBoxInfo3> hitboxes;
+    std::vector<HitBoxInfo1> hitboxes;
 
     sf::RectangleShape wall;
 

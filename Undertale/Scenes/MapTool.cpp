@@ -33,6 +33,11 @@ void MapTool::Init()
 	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton1"))));
 	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton2"))));
 	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton3"))));
+	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton4"))));
+	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton5"))));
+	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton6"))));
+	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton7"))));
+	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton8"))));
 
 	hitBox = (Button*)AddGameObject(new Button("HitBox"));
 
@@ -72,7 +77,12 @@ void MapTool::Enter()
 	backgroundTexturePaths = {
 	   "graphics/bg_firstroom.png",
 	   "graphics/back2.png",
-	   "graphics/back3.png"
+	   "graphics/back3.png",
+	   "graphics/back4.png",
+	   "graphics/back5.png",
+	   "graphics/back6.png",
+	   "graphics/SansBack.png",
+	   "graphics/PapyrusBack.png"
 	};
 
 	const int maxColumns = 5;
@@ -120,7 +130,7 @@ void MapTool::Enter()
 
 			btn->SetSize({ 300.f, 200.f });
 			btn->SetColor(sf::Color::Transparent, sf::Color::Red);
-			btn->SetPosition({ 1700.f + (x * 325), 170.f + (y * 125.f) });
+			btn->SetPosition({ 1700.f + (x * 325), 170.f + (y * 220.f) });
 			btn->SetOrigin({ btn->GetLocalBounds().width * 0.5f, btn->GetLocalBounds().height * 0.5f });
 			btn->setCallback([&, index]() {
 				std::cout << "버튼 " << index + 1 << " 누름" << std::endl;
@@ -214,9 +224,6 @@ void MapTool::Enter()
 	objectText->SetCharacterSize(50.f);
 	objectText->SetFillColor(sf::Color::White);
 	objectText->SetPosition({ 1200.f, 600.f});
-
-	
-
 }
 
 void MapTool::Exit()

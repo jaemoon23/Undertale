@@ -2,6 +2,12 @@
 
 #define DEF_DEV
 
+struct HitBoxInfo1
+{
+	sf::RectangleShape* shape;
+	std::string type;
+};
+
 enum class SortingLayers
 {
 	Background,
@@ -27,6 +33,11 @@ enum class SceneIds
 	Map0,
 	Map1,
 	Map2,
+	Map3,
+	Map4,
+	Map5,
+	MapSans,
+	MapPapyrus,
 	MapTool,
 	Game,
 	Battle,

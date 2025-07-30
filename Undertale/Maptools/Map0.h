@@ -2,12 +2,13 @@
 #include "Scene.h"
 #include "SpriteGo.h"
 
-struct HitBoxInfo1
+struct HitBoxInfos
 {
     sf::RectangleShape* shape;
     std::string type;
 };
 
+class TextGo;
 class Player;
 class Sans;
 class InventoryUi;
@@ -23,11 +24,11 @@ protected:
     float battleCheckTimer = 0.f;
     const float battleCheckInterval = 1.f; 
 
-   
+    TextGo* text;
     SpriteGo* background = nullptr;
     Player* player;
     std::vector<SpriteGo*> testObjects;
-    std::vector<HitBoxInfo1> hitboxes;
+    std::vector<HitBoxInfos> hitboxes;
 
     sf::Vector2f playerPos = { 0.f, 0.f };
     sf::Vector2f windowSize = { 640.f,480.f };
@@ -38,6 +39,7 @@ protected:
     InventoryUi* inventoryui;
     DialogueBox* dialoguebox;
     PlayerInfoUi* playerinfoui;
+    HealItem* healitem;
 public:
     Map0();
     ~Map0() override = default;

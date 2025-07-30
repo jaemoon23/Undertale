@@ -85,7 +85,12 @@ protected:
     std::vector<std::string> backgroundTexturePaths = {
        "graphics/bg_firstroom.png",
        "graphics/back2.png",
-       "graphics/back3.png"
+       "graphics/back3.png",
+       "graphics/back4.png",
+       "graphics/back5.png",
+       "graphics/back6.png",
+       "graphics/SansBack.png",
+       "graphics/PapyrusBack.png"
     };
 
     sf::RectangleShape dragHitBox;

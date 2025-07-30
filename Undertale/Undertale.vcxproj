@@ -134,6 +134,11 @@
     <ClCompile Include="AniPlayer.cpp" />
     <ClCompile Include="Map1.cpp" />
     <ClCompile Include="Map2.cpp" />
+    <ClCompile Include="Map3.cpp" />
+    <ClCompile Include="Map4.cpp" />
+    <ClCompile Include="Map5.cpp" />
+    <ClCompile Include="MapPapyrus.cpp" />
+    <ClCompile Include="MapSans.cpp" />
     <ClCompile Include="Maptools\Button.cpp" />
     <ClCompile Include="playerRelated\PlayerInfo.cpp" />
     <ClCompile Include="playerRelated\DialogueBox.cpp" />
@@ -181,6 +186,11 @@
     <ClInclude Include="AniPlayer.h" />
     <ClInclude Include="Map1.h" />
     <ClInclude Include="Map2.h" />
+    <ClInclude Include="Map3.h" />
+    <ClInclude Include="Map4.h" />
+    <ClInclude Include="Map5.h" />
+    <ClInclude Include="MapPapyrus.h" />
+    <ClInclude Include="MapSans.h" />
     <ClInclude Include="Maptools\Button.h" />
     <ClInclude Include="playerRelated\PlayerInfo.h" />
     <ClInclude Include="playerRelated\DialogueBox.h" />
