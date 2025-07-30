@@ -85,6 +85,7 @@ void Player::Reset()
 	isDrawSymbol = false;
 	isDrawSoul = false;
 	isSoulMove = false;
+	isSansMap = false;
 	timer = 0.f;
 	soulBlinkTimer = 0.f;
 	blackBackground.setSize({ 640.f,480.f });
@@ -158,6 +159,8 @@ void Player::Update(float dt)
 		{
 			direction.x = InputMgr::GetAxis(Axis::Horizontal);
 			direction.y = InputMgr::GetAxis(Axis::Vertical);
+			if (isSansMap)
+				direction.y = 0;
 			SetPosition(GetPosition() + direction * speed * dt);
 			hitBox.UpdateTransform(body, body.getLocalBounds());
 

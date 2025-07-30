@@ -56,6 +56,7 @@ protected:
 	bool isDrawSoul = false;
 	bool isSoulMove = false;
 public:
+	bool isSansMap = false;
 	Player(const std::string& name = "");
 	virtual ~Player() = default;
 	
@@ -106,6 +107,7 @@ public:
 
 	sf::Sprite& GetSprite() { return body; }
 	void SetMove(bool a);
+	void SetColorBlack() { body.setColor(sf::Color::Black); }
 	void StartBattle();
 };
 
