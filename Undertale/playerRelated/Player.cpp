@@ -13,8 +13,7 @@ Player::Player(const std::string& name)
 }
 
 void Player::SetPosition(const sf::Vector2f& pos)
-{
-	/*if (!move) return;*/
+{	
 	GameObject::SetPosition(pos);
 	body.setPosition(pos);
 	blackBackground.setPosition(pos);
@@ -23,8 +22,7 @@ void Player::SetPosition(const sf::Vector2f& pos)
 }
 
 void Player::SetRotation(float rot)
-{
-	/*if (!move) return;*/
+{	
 	GameObject::SetRotation(rot);
 	body.setRotation(rot);
 }
@@ -149,6 +147,7 @@ void Player::Update(float dt)
 			dialoguebox->SetActive(false);
 			inventoryui->SetActive(false);
 			playerInfoUi->SetActive(false);
+			uichanger->SetActive(false);
 		}
 
 		if (uichanger && uichanger->GetActive()) return; // UI 변경 중에는 플레이어 이동 불가
@@ -190,6 +189,7 @@ void Player::Update(float dt)
 			}
 		}
 	}		
+
 }
 
 void Player::Draw(sf::RenderWindow& window)
@@ -209,7 +209,22 @@ void Player::Draw(sf::RenderWindow& window)
 void Player::SansInteract()
 {
 	std::vector<std::wstring> testDialogues =
-	{ L"* 인간.  ", L"* 새로운 친구와 사귀는 법을 모르는건가?", L"*돌아서서 나와 악수해."};
+	{ L"* 인간.  ", L"* 새로운 친구와 사귀는 법을 모르는건가?", L"* 돌아서서 나와 악수해."};
+	dialoguebox->StartDialogue(testDialogues);
+}
+
+void Player::SansSecondsInteract()
+{
+	std::vector<std::wstring> testDialogues =
+	{ L"* 난 샌즈야.\n* 뼈다귀 샌즈.",
+		L"* 원래 인간들을 감시하는\n* 일을 해야 하는데.",
+		L"* 내 동생인 파피루스에게 맡겨놨어.",
+		L"* 나가고 싶다면 저 밖의 파피루스와\n* 싸워서 이겨야 할거야.",
+		L"* 자 이걸 받아.\n* 파피루스와 싸울 때 도움이 될거야",
+	L"* 회복아이템: 아이스크림을 받았습니다!",
+	L"* 인벤토리를 확인해봐.\n* C키를 누르면 인벤토리를\n* 확인할 수 있을거야.",
+	L"* 행운을 빌어.\n* 다시 만나지는 않기를 바랄게."};
+	InventoryUi::healItem[0].SetInfo(L"아이스크림", 15);
 	dialoguebox->StartDialogue(testDialogues);
 }
 

@@ -10,6 +10,7 @@ enum class SelectedText
 class Player;
 class InventoryUi;
 class PlayerInfoUi;
+class DialogueBox;
 
 class UiChanger : public GameObject
 {
@@ -31,6 +32,7 @@ protected:
 	Player* player;
 	InventoryUi* inventoryui;
 	PlayerInfoUi* playerinfoui;
+	DialogueBox* dialogueBox;
 public:
 	UiChanger(const std::string& name = "");
 	virtual ~UiChanger() = default;
@@ -47,6 +49,7 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 	void SetPlayer(Player* p) { player = p; }
+	void SetDialogueBox(DialogueBox* d) { dialogueBox = d; }
 	void SetInventoryUi(InventoryUi* i) { inventoryui = i; }
 	void SetPlayerInfoUi(PlayerInfoUi* info) { playerinfoui = info; }
 	bool GetActive() {return isActive; }

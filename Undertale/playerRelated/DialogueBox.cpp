@@ -82,6 +82,7 @@ void DialogueBox::Update(float dt)
 		UpdateTypingEffect(dt);
 		dialogueText.setString(sf::String(currentText));
 	}
+
 }
 
 void DialogueBox::Draw(sf::RenderWindow& window)

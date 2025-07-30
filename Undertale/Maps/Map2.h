@@ -3,6 +3,7 @@
 #include <fstream>
 #include "json.hpp"
 #include "SpriteGo.h"
+#include "GameObject.h"
 
 
 class Player;
@@ -12,6 +13,7 @@ class DialogueBox;
 class UiChanger;
 class PlayerInfoUi;
 class HealItem;
+class PlayerInfo;
 
 struct HitBoxInfo3
 {
@@ -30,7 +32,7 @@ protected:
     std::vector<SpriteGo*> testObjects;
     std::vector<HitBoxInfo1> hitboxes;
 
-    sf::RectangleShape wall;
+    sf::RectangleShape doorwall;
 
     float battleCheckTimer = 0.f;
     const float battleCheckInterval = 1.f;
@@ -62,7 +64,11 @@ protected:
 
     float sansSecondInteractTimer = 0.f; // 샌즈와 다시 대화할 때 
     bool isWaitingSansSecondInteract = false;
+
     bool wallDisabled = false;
+
+    bool isBattleInetrected = true; // 대화중 전투 못 발생나게 하려는 변수 
+    bool isCheck = false;
 
 public:
 

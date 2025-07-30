@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "InventoryUi.h"
 #include "PlayerInfoUi.h"
+#include "DialogueBox.h"
 
 UiChanger::UiChanger(const std::string& name)
 	: GameObject(name)
@@ -89,8 +90,12 @@ void UiChanger::Update(float dt)
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::C))
 	{
-		isActive = !isActive;
-		SetActive(isActive);
+		if (!dialogueBox->GetActive())
+		{
+			SetActive(true);
+			isActive = !isActive;
+		}
+		
 	}
 
 	if (!isActive) return;
@@ -134,7 +139,6 @@ void UiChanger::Update(float dt)
 			playerinfoui->SetActive(true);
 		}
 	}
-
 }
 
 void UiChanger::Draw(sf::RenderWindow& window)

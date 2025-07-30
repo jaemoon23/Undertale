@@ -13,6 +13,7 @@
 #include "InventoryUi.h"
 #include "PlayerInfoUi.h"
 #include "HealItem.h"
+#include "GameObject.h"
 
 static sf::Texture tex1, tex2;
 static sf::Texture tex3, tex4;
@@ -80,12 +81,14 @@ void Map2::Init()
 	player->SetInventoryUi(inventoryui);
 	player->SetPlayerInfoUi(playerinfoui);
 	dialoguebox->SetPlayer(player);
+	uichanger->SetDialogueBox(dialoguebox);
 	uichanger->SetPlayer(player);
 	uichanger->SetInventoryUi(inventoryui);
 	uichanger->SetPlayerInfoUi(playerinfoui);
 	inventoryui->SetPlayer(player);
 	player->SetSans(sans);
 	inventoryui->SetBox(dialoguebox);
+
 
 	AddGameObject(inventoryui);
 	AddGameObject(dialoguebox);
@@ -98,11 +101,6 @@ void Map2::Init()
 
 	background2 = (SpriteGo*)AddGameObject(new SpriteGo());
 	background2->sortingLayer = SortingLayers::Background;
-
-	InventoryUi::healItem[0].SetInfo(L"아이스크림", 15); // 아이템 이름과 회복량 설정
-	InventoryUi::healItem[1].SetInfo(L"쿠키", 10);
-	InventoryUi::healItem[2].SetInfo(L"아이스크림", 15);
-	InventoryUi::healItem[3].SetInfo(L"눈사탕", 5);
 
 	Scene::Init();
 }
@@ -130,16 +128,12 @@ void Map2::Enter()
 	bool isWaitingSansSecondInteract = false;
 	bool wallDisabled = false;
 
-	InventoryUi::healItem[0].SetInfo(L"아이스크림", 15); // 아이템 이름과 회복량 설정
-	InventoryUi::healItem[1].SetInfo(L"쿠키", 10);
-	InventoryUi::healItem[2].SetInfo(L"아이스크림", 15);
-	InventoryUi::healItem[3].SetInfo(L"눈사탕", 5);
 
-	wall.setSize({ 14.f,100.f });
-	wall.setFillColor(sf::Color::Transparent);
-	wall.setOutlineColor(sf::Color::Green);
-	wall.setOutlineThickness(1.f);
-	wall.setPosition({ 470.f, 305.f });
+	doorwall.setSize({ 14.f,100.f });
+	doorwall.setFillColor(sf::Color::Transparent);
+	doorwall.setOutlineColor(sf::Color::Transparent);
+	doorwall.setOutlineThickness(1.f);
+	doorwall.setPosition({ 470.f, 305.f });
 
 	std::ifstream in("map2.json");
 	if (!in)
@@ -240,7 +234,10 @@ void Map2::Enter()
 	sans->SetPosition({ 220.f, 355.f });
 	sans->SetActive(false);
 
-	
+	// test code
+	std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
+	player->SetPosition({ 400.f,320.f });
+	//
 
 	uiView.setSize(size);
 	uiView.setCenter(center);
@@ -271,25 +268,29 @@ void Map2::Update(float dt)
 			}
 			else if (hit.type == "Battle")
 			{
-				if (battleCheckTimer >= battleCheckInterval)
+				if (isBattleInetrected)
 				{
-					std::cout << "배틀 확률 체크" << std::endl;
-					battleCheckTimer = 0.f;
+					if (battleCheckTimer >= battleCheckInterval)
+					{
+						std::cout << "배틀 확률 체크" << std::endl;
+						battleCheckTimer = 0.f;
 
-					// 1% 확률
-					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
-					{
-						std::cout << "랜덤 전투 발생!" << std::endl;
-						SceneBattle::nextSceneId = SceneIds::Map2;
-						SceneBattle::monsterJsonID = "jsons/frog.json";
-						//SceneBattle::monsterJsonID = "jsons/sans.json";
-						SCENE_MGR.ChangeScene(SceneIds::Battle);
-					}
-					else
-					{
-						std::cout << "배틀 아님" << std::endl;
+						// 1% 확률
+						if (Utils::RandomRange(0.f, 1.f) < 0.01f)
+						{
+							std::cout << "랜덤 전투 발생!" << std::endl;
+							SceneBattle::nextSceneId = SceneIds::Map2;
+							SceneBattle::monsterJsonID = "jsons/frog.json";
+							//SceneBattle::monsterJsonID = "jsons/sans.json";
+							//SCENE_MGR.ChangeScene(SceneIds::Battle);
+						}
+						else
+						{
+							std::cout << "배틀 아님" << std::endl;
+						}
 					}
 				}
+				
 			}
 			else if (hit.type == "NextScene")
 			{
@@ -304,10 +305,11 @@ void Map2::Update(float dt)
 		}
 	}
 
-	if (Utils::CheckCollision(player->GetHitBox(), wall))
+	if (Utils::CheckCollision(player->GetHitBox(), doorwall))
 	{
 		player->SetMove(false);
 		player->animator.Stop();
+		isBattleInetrected = false;
 
 		// 벽에 처음 닿았을 때만 1회 실행
 		if (!animationPlay)
@@ -340,7 +342,7 @@ void Map2::Update(float dt)
 
 			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 			{
-				dialoguebox->NextLine();
+				dialoguebox->NextLine();				
 			}
 		}
 
@@ -411,45 +413,58 @@ void Map2::Update(float dt)
 				
 				sansSecondInteractTimer = 0.f;
 				isWaitingSansSecondInteract = true;
-				
-
 			}
 		}
-		/*if (isWaitingSansSecondInteract)
+		if (isWaitingSansSecondInteract)
 		{
 			sansSecondInteractTimer += dt;
 			if (sansSecondInteractTimer >= 2.f)
 			{
 				player->SansSecondsInteract();
-				isWaitingSansSecondInteract = false;
+				isWaitingSansSecondInteract = false;			
+				isCheck = true;
 			}
-			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+		}
+		if (isCheck) 
+		{
+			if (!dialoguebox->GetActive())
 			{
-				dialoguebox->NextLine();
+				wallDisabled = true;
+				isCheck = false;
 			}
-		}*/
+		}
+		if (wallDisabled)
+		{
+			player->SetMove(true);
+			player->animator.Play("Animation/idle.csv");
+			isBattleInetrected = true;
+			doorwall.setSize({ 0.f, 0.f });
+			doorwall.setPosition({ -1000.f, -1000.f });
+			wallDisabled = false;
+		}
 	}
 	else
 	{
 		// 벽에서 떨어지면 다시 움직일 수 있게
 		player->SetMove(true);
-		animationPlay = false;
-		firstInteractedEnds = false; // 필요에 따라 초기화
-		currentImageIndex = 0;       // 필요에 따라 초기화
+		//animationPlay = false;		
 	}
 
-	//Scene::Update(dt);
-	sans->Update(dt);
-	player->Update(dt);
-	playerinfoui->Update(dt);
-	inventoryui->Update(dt);
-	uichanger->Update(dt);
+	
+
+	Scene::Update(dt);
+	//sans->Update(dt);
+	//player->Update(dt);
+	//playerinfoui->Update(dt);
+	//inventoryui->Update(dt);
+	//uichanger->Update(dt);
 }
 
 void Map2::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
 	window.setView(worldView);
+	window.draw(doorwall);
 
 	if (Variables::isDrawHitBox)
 	{
