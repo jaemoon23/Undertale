@@ -163,10 +163,22 @@ void Map3::Enter()
 	}
 
 	SOUND_MGR.PlayBgm("sounds/17 Snowy.flac");
+
+	player->SetPosition(startPos);
 }
 
 void Map3::Update(float dt)
 {
+	// 테스트 코드
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num5))
+	{
+		SceneBattle::nextSceneId = SceneIds::Map3;
+		SceneBattle::monsterJsonID = "jsons/migosp.json";
+		startPos = player->GetPosition();
+		player->StartBattle();
+	}
+	//
+
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
 
@@ -197,20 +209,15 @@ void Map3::Update(float dt)
 			{
 				if (battleCheckTimer >= battleCheckInterval)
 				{
-					std::cout << "배틀 확률 체크" << std::endl;
 					battleCheckTimer = 0.f;
 
 					// 1% 확률
 					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
 					{
-						std::cout << "랜덤 전투 발생!" << std::endl;
 						SceneBattle::nextSceneId = SceneIds::Map3;
-						SceneBattle::monsterJsonID = "jsons/frog.json";
+						SceneBattle::monsterJsonID = "jsons/migosp.json";
+						startPos = player->GetPosition();
 						player->StartBattle();
-					}
-					else
-					{
-						std::cout << "배틀 아님" << std::endl;
 					}
 				}
 			}

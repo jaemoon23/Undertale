@@ -186,7 +186,7 @@ void SceneBattle::Enter()
 	gameOverText.setCharacterSize(60.f);
 	gameOverText.setScale(0.5f, 0.5f);
 	gameOverText.setPosition({ size.x * 0.25f, size.y * 0.55f });
-	gameOverText.setString(L"지금 끝낼 수는 없어!");
+	gameOverText.setString(L"이렇게 끝낼 수는 없어!");
 
 	monster.setTexture(TEXTURE_MGR.Get(monsterTexId));
 	animator.SetTarget(&monster);
@@ -333,6 +333,7 @@ void SceneBattle::Update(float dt)
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
 					isFadeIn = false;
+					PlayerInfo::Heal(20);
 					SCENE_MGR.ChangeScene(SceneIds::Battle);
 				}
 				fadeIntervalTimer = 0.f;

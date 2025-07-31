@@ -34,9 +34,10 @@ void MapSans::Init()
 	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
 	texIds.push_back("Sprites/backgroundui.png");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
+	soundIds.push_back("sounds/snd_escaped.wav");
 	soundIds.push_back("sounds/snd_txtsans.wav");
 	soundIds.push_back("sounds/73 The Choice.flac");
-
+	
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/upwalking.csv");
@@ -203,6 +204,7 @@ void MapSans::Enter()
 	isSansEvent = false;
 	isSansTalking = false;
 	isEnd = false;
+	isBattleEnter = false;
 
 	textWindow.setTexture(TEXTURE_MGR.Get("Sprites/TextWindow.png"));
 	textWindow.setScale(0.395f, 0.4f);
@@ -228,9 +230,12 @@ void MapSans::Enter()
 
 void MapSans::Update(float dt)
 {
-	// test 코드
-	// 
-	//
+	if (isBattleEnter)
+	{
+		player->Update(dt);
+		return;
+	}
+
 	if (isSansEvent)
 	{
 		timer += dt;
@@ -270,7 +275,8 @@ void MapSans::Update(float dt)
 					{
 						SceneBattle::nextSceneId = SceneIds::MapSans;
 						SceneBattle::monsterJsonID = "jsons/sans.json";
-						SCENE_MGR.ChangeScene(SceneIds::Battle);
+						isBattleEnter = true;
+						player->StartBattle();
 						return;
 					}
 					isDrawingText = true;
@@ -371,6 +377,8 @@ void MapSans::Update(float dt)
 				}
 				else if (hit.type == "NextScene")
 				{
+					if(!isEnd)
+						SOUND_MGR.PlaySfx("sounds/snd_escaped.wav");
 					isEnd = true;
 				}
 				else if (hit.type == "PrevScene")
@@ -438,17 +446,19 @@ void MapSans::Draw(sf::RenderWindow& window)
 	}
 
 	window.setView(uiView);
-	for (int i = 0; i < columnCount; ++i)
+	if (!isBattleEnter)
 	{
-		window.draw(column[i]);
-	}
-
-	if (isSansTalking)
-	{
-		window.draw(textWindow);
-		window.draw(sansFace);
-		window.draw(text);
-	}
+		for (int i = 0; i < columnCount; ++i)
+		{
+			window.draw(column[i]);
+		}
+		if (isSansTalking)
+		{
+			window.draw(textWindow);
+			window.draw(sansFace);
+			window.draw(text);
+		}
+	}	
 }
 
 void MapSans::SetColumn()
