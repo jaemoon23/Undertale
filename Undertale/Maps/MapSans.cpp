@@ -265,13 +265,6 @@ void MapSans::Update(float dt)
 		uichanger->SetActive(!uichanger->GetActive());
 	}
 
-	worldView.setCenter(player->GetPosition());
-	uiView.setCenter(player->GetPosition());
-	battleCheckTimer += dt;
-	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
-	{
-		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
-	}
 	for (auto& hit : hitboxes)
 	{
 		if (Utils::CheckCollision(player->GetHitBox(), *hit.shape))
@@ -297,15 +290,7 @@ void MapSans::Update(float dt)
 			}
 		}
 	}
-	Scene::Update(dt);
 
-	// 테스트 코드
-	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad5))
-	{
-		SceneBattle::nextSceneId = SceneIds::MapSans;
-		SceneBattle::monsterJsonID = "jsons/sans.json";
-		player->StartBattle();
-	}
 	if (isSansEvent)
 	{
 		timer += dt;
@@ -416,7 +401,7 @@ void MapSans::Update(float dt)
 	{
 		worldView.setCenter(player->GetPosition() + sf::Vector2f(0.f,-25.f));
 		uiView.setCenter(player->GetPosition());
-		battleCheckTimer += dt;
+
 		if (InputMgr::GetKeyDown(sf::Keyboard::Return))
 		{
 			std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;

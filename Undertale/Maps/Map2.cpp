@@ -8,7 +8,6 @@
 #include "json.hpp"
 #include "TextGo.h"
 #include "Sans.h"
-
 #include "UiChanger.h"
 #include "InventoryUi.h"
 #include "PlayerInfoUi.h"

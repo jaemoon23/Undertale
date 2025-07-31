@@ -15,9 +15,6 @@ class MapSans : public Scene
 protected:
 	sf::Sprite sans;
 
-	float battleCheckTimer = 0.f;
-	const float battleCheckInterval = 1.f;
-
 	std::vector<SpriteGo*> testObjects;
 	std::vector<HitBoxInfo1> hitboxes;
 
