@@ -46,6 +46,10 @@ protected:
 
 	float maxY;
 
+	bool isEnd = false;
+	float endTimer = 0.f;
+	float endTime = 2.5f;
+
 public:
 	bool IsSansDie = false;
 	MapSans();

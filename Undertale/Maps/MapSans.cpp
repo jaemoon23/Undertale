@@ -176,6 +176,7 @@ void MapSans::Enter()
 
 	isSansEvent = false;
 	isSansTalking = false;
+	isEnd = false;
 
 	textWindow.setTexture(TEXTURE_MGR.Get("Sprites/TextWindow.png"));
 	textWindow.setScale(0.395f, 0.4f);
@@ -288,8 +289,7 @@ void MapSans::Update(float dt)
 				}
 				else if (hit.type == "NextScene")
 				{
-					std::cout << "NextScene" << std::endl;
-					SCENE_MGR.ChangeScene(SceneIds::Ending);
+					isEnd = true;
 				}
 				else if (hit.type == "PrevScene")
 				{
@@ -298,8 +298,22 @@ void MapSans::Update(float dt)
 				}
 			}
 		}
-		Scene::Update(dt);
+
+		if(!isEnd)
+			Scene::Update(dt);
 	}	
+
+	if (isEnd)
+	{
+		endTimer += dt;
+		sf::Vector2f playerPos = player->GetPosition();
+		playerPos.y -= 20.f / endTime * dt;
+		player->SetPosition(playerPos);
+		if (endTimer >= endTime)
+		{
+			SCENE_MGR.ChangeScene(SceneIds::Ending);
+		}
+	}
 
 	if (!IsSansDie && !isSansEvent && player->GetPosition().x >= 530.7)
 	{

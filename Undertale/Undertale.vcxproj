@@ -164,7 +164,7 @@
     <ClCompile Include="playerRelated\HealItem.cpp" />
     <ClCompile Include="playerRelated\InventoryUi.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SceneEnding.cpp" />
+    <ClCompile Include="Scenes\SceneEnding.cpp" />
     <ClCompile Include="Scenes\SceneIntro.cpp" />
     <ClCompile Include="Scenes\MapTool.cpp" />
     <ClCompile Include="playerRelated\Player.cpp" />
@@ -221,7 +221,7 @@
     <ClInclude Include="Framework\Variables.h" />
     <ClInclude Include="Maptools\InputText.h" />
     <ClInclude Include="json.hpp" />
-    <ClInclude Include="SceneEnding.h" />
+    <ClInclude Include="Scenes\SceneEnding.h" />
     <ClInclude Include="Scenes\SceneIntro.h" />
     <ClInclude Include="playerRelated\HealItem.h" />
     <ClInclude Include="Scenes\MapTool.h" />
