@@ -5,6 +5,12 @@
 
 class Player;
 class TemMie;
+class InventoryUi;
+class DialogueBox;
+class UiChanger;
+class PlayerInfoUi;
+class HealItem;
+class PlayerInfo;
 
 class Map4 :
     public Scene
@@ -25,14 +31,15 @@ protected:
 	Player* player;
 	TemMie* temMie;
 
+	UiChanger* uichanger;
+	InventoryUi* inventoryui;
+	DialogueBox* dialoguebox;
+	PlayerInfoUi* playerinfoui;
+
 	bool puzzleSuccess = false;
 	bool showText = false;
 
-	// 아이템 샵
-	int cost1 = 10; // 눈사탕 가격
-	int cost2 = 15; // 쿠키 가격
-	int cost3 = 20; // 아이스크림 가격
-	int cost4 = 100000;
+	
 
 
 

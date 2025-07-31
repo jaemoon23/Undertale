@@ -6,8 +6,9 @@ int PlayerInfo::maxHp = 20;
 int PlayerInfo::ATK = 50;
 int PlayerInfo::lv = 1;
 int PlayerInfo::exp = 0;
-int PlayerInfo::gold = 0;
+int PlayerInfo::gold = 100;
 int PlayerInfo::Moral = 0;
+int PlayerInfo::slot = 0;
 
 void PlayerInfo::PlusExp(int e)
 {
@@ -111,3 +112,5 @@ void PlayerInfo::Heal(int h)
 	}
 
 }
+
+

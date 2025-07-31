@@ -5,6 +5,10 @@
 #include "InventoryUi.h"
 #include "HealItem.h"
 #include "TemMie.h"
+
+#include "UiChanger.h"
+#include "PlayerInfoUi.h"
+#include "DialogueBox.h"
 Map4::Map4() : Scene(SceneIds::Map4)
 {
 }
@@ -20,6 +24,8 @@ void Map4::Init()
 	texIds.push_back("Sprites/rightwalking.png");
 	texIds.push_back("Sprites/TextWindow.png");
 	texIds.push_back("Sprites/Temmie_sheet.png");
+	texIds.push_back("Sprites/backgroundui.png");
+	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
 
 	SOUNDBUFFER_MGR.Load("sounds/Map4/31 Waterfall.flac");
 	SOUNDBUFFER_MGR.Load("sounds/Map4/sw.wav");
@@ -39,6 +45,32 @@ void Map4::Init()
 	text = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
 	temMie = (TemMie*)AddGameObject(new TemMie("Sprites/temmie/spr_temmie_lt_0.png"));
 
+	inventoryui = new InventoryUi("InventoryUi");
+	dialoguebox = new DialogueBox("dialoguebox");
+	uichanger = new UiChanger("uichanger");
+	playerinfoui = new PlayerInfoUi("playerinfoui");
+
+	player->SetBox(dialoguebox);
+	player->SetUiChanger(uichanger);
+	player->SetInventoryUi(inventoryui);
+	player->SetPlayerInfoUi(playerinfoui);
+	dialoguebox->SetPlayer(player);
+	uichanger->SetDialogueBox(dialoguebox);
+	uichanger->SetPlayer(player);
+	uichanger->SetInventoryUi(inventoryui);
+	uichanger->SetPlayerInfoUi(playerinfoui);
+	inventoryui->SetPlayer(player);
+	inventoryui->SetBox(dialoguebox);
+
+
+	AddGameObject(inventoryui);
+	AddGameObject(dialoguebox);
+	AddGameObject(uichanger);
+	AddGameObject(playerinfoui);
+
+	player->SetBox(dialoguebox);
+	dialoguebox->SetPlayer(player);
+
 	textWindow->sortingLayer = SortingLayers::UI;
 	textWindow->SetPosition({ 35.f, 300.f });
 	textWindow->SetActive(false);
@@ -50,8 +82,8 @@ void Map4::Init()
 	text->SetActive(false);
 	Scene::Init();
 
-	InventoryUi::healItem[0].SetInfo(L"¾ÆÀÌ½º", 15);
-	InventoryUi::healItem[0].GetName() == L"";
+	
+
 	PlayerInfo::gold;
 }
 
@@ -167,6 +199,16 @@ void Map4::Update(float dt)
 {
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
+	if (InputMgr::GetKeyDown(sf::Keyboard::C))
+	{
+		if ((inventoryui && inventoryui->GetActive()) ||
+			(playerinfoui && playerinfoui->GetActive()) ||
+			(dialoguebox && dialoguebox->GetActive()))
+		{
+			return;
+		}
+		uichanger->SetActive(!uichanger->GetActive());
+	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
 	{
 		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
