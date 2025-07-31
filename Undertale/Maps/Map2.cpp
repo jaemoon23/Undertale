@@ -452,7 +452,6 @@ void Map2::Update(float dt)
 	{
 		// 벽에서 떨어지면 다시 움직일 수 있게
 		player->SetMove(true);
-		//animationPlay = false;		
 	}
 
 	Scene::Update(dt);
