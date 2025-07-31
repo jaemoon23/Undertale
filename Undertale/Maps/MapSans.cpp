@@ -30,7 +30,8 @@ void MapSans::Init()
 	texIds.push_back("Sprites/rightwalking.png");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	soundIds.push_back("sounds/snd_txtsans.wav");
-
+	soundIds.push_back("sounds/73 The Choice.flac");
+	
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/upwalking.csv");
@@ -66,7 +67,24 @@ void MapSans::Init()
 		"graphics/spr_sans_bface_4.png",
 		"graphics/spr_sans_bface_5.png"
 	};
+
+	sansPeacefulLines = {
+		L"* 드디어 왔네.",
+		L"* 네 여정의 끝이\n  코 앞이야.",
+		L"* 지금까지 수고했어.",
+		L"* 네가 보여준 친절을\n  기억할게.",
+		L"* 안녕 작은 꼬마 친구."
+	};
+	sansPeacefulFaceIds = {
+		"graphics/spr_sans_bface_1.png",
+		"graphics/spr_sans_bface_0.png",
+		"graphics/spr_sans_bface_7.png",
+		"graphics/spr_sans_bface_0.png",
+		"graphics/spr_sans_bface_9.png"
+	};
+
 	lineCount = sansLines.size();
+	peacefullLineCount = sansPeacefulLines.size();
 }
 
 void MapSans::Enter()
@@ -172,7 +190,7 @@ void MapSans::Enter()
 
 	sans.setTexture(TEXTURE_MGR.Get("graphics/spr_sans_l_dark_0.png"));
 	Utils::SetOrigin(sans, Origins::MC);
-	sans.setPosition({ 702.f,287.934f });
+	sans.setPosition({ 702.f,295.934f });
 
 	isSansEvent = false;
 	isSansTalking = false;
@@ -190,7 +208,8 @@ void MapSans::Enter()
 	maxY = player->GetPosition().y;
 
 	// 지우기
-	PlayerInfo::PlusExp(99999);
+	//PlayerInfo::PlusExp(99999);
+	//PlayerInfo::Moral = 4;
 	//
 	if (PlayerInfo::lv == 20)
 		IsSansDie = true;
@@ -199,6 +218,8 @@ void MapSans::Enter()
 	{
 		player->SetPosition({ 500.f, player->GetPosition().y });
 	}
+
+	SOUND_MGR.PlayBgm("sounds/73 The Choice.flac");
 }
 
 void MapSans::Update(float dt)
@@ -225,42 +246,86 @@ void MapSans::Update(float dt)
 
 		if (isSansTalking)
 		{
-			if (lineIndex == 0)
+			if (PlayerInfo::Moral < JudgeMentPoint)
 			{
-				isDrawingText = true;
-				charIndex = 0;
-				typeTimer = 0.f;
-				tempLine = sansLines[lineIndex];
-				sansFace.setTexture(TEXTURE_MGR.Get(sansFaceIds[lineIndex++]));
-			}
-
-			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
-			{
-				if (lineIndex == lineCount)
+				if (lineIndex == 0)
 				{
-					SceneBattle::nextSceneId = SceneIds::MapSans;
-					SceneBattle::monsterJsonID = "jsons/sans.json";					
-					SCENE_MGR.ChangeScene(SceneIds::Battle);
-					return;
-				}
-				isDrawingText = true;
-				charIndex = 0;
-				typeTimer = 0.f;
-				tempLine = sansLines[lineIndex];
-				sansFace.setTexture(TEXTURE_MGR.Get(sansFaceIds[lineIndex++]));
-			}
-
-			if (isDrawingText)
-			{
-				typeTimer += dt;
-				if (charIndex < tempLine.size() && typeTimer > typeTime)
-				{
+					isDrawingText = true;
+					charIndex = 0;
 					typeTimer = 0.f;
-					charIndex++;
-					currentLine = tempLine.substr(0, charIndex);
-					text.setString(currentLine);
-					if(tempLine[charIndex - 1] != L' ')
-						SOUND_MGR.PlaySfx("sounds/snd_txtsans.wav");
+					tempLine = sansLines[lineIndex];
+					sansFace.setTexture(TEXTURE_MGR.Get(sansFaceIds[lineIndex++]));
+				}
+
+				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+				{
+					if (lineIndex == lineCount)
+					{
+						SceneBattle::nextSceneId = SceneIds::MapSans;
+						SceneBattle::monsterJsonID = "jsons/sans.json";
+						SCENE_MGR.ChangeScene(SceneIds::Battle);
+						return;
+					}
+					isDrawingText = true;
+					charIndex = 0;
+					typeTimer = 0.f;
+					tempLine = sansLines[lineIndex];
+					sansFace.setTexture(TEXTURE_MGR.Get(sansFaceIds[lineIndex++]));
+				}
+
+				if (isDrawingText)
+				{
+					typeTimer += dt;
+					if (charIndex < tempLine.size() && typeTimer > typeTime)
+					{
+						typeTimer = 0.f;
+						charIndex++;
+						currentLine = tempLine.substr(0, charIndex);
+						text.setString(currentLine);
+						if (tempLine[charIndex - 1] != L' ')
+							SOUND_MGR.PlaySfx("sounds/snd_txtsans.wav");
+					}
+				}
+			}
+			else
+			{
+				if (peacefullLineIndex == 0)
+				{
+					isDrawingText = true;
+					charIndex = 0;
+					typeTimer = 0.f;
+					tempLine = sansPeacefulLines[peacefullLineIndex];
+					sansFace.setTexture(TEXTURE_MGR.Get(sansPeacefulFaceIds[peacefullLineIndex++]));
+				}
+
+				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+				{
+					if (peacefullLineIndex == peacefullLineCount)
+					{
+						isSansEvent = false;
+						isSansTalking = false;
+						isTalkEnd = true;
+						return;
+					}
+					isDrawingText = true;
+					charIndex = 0;
+					typeTimer = 0.f;
+					tempLine = sansPeacefulLines[peacefullLineIndex];
+					sansFace.setTexture(TEXTURE_MGR.Get(sansPeacefulFaceIds[peacefullLineIndex++]));
+				}
+
+				if (isDrawingText)
+				{
+					typeTimer += dt;
+					if (charIndex < tempLine.size() && typeTimer > typeTime)
+					{
+						typeTimer = 0.f;
+						charIndex++;
+						currentLine = tempLine.substr(0, charIndex);
+						text.setString(currentLine);
+						if (tempLine[charIndex - 1] != L' ')
+							SOUND_MGR.PlaySfx("sounds/snd_txtsans.wav");
+					}
 				}
 			}
 		}
@@ -315,7 +380,7 @@ void MapSans::Update(float dt)
 		}
 	}
 
-	if (!IsSansDie && !isSansEvent && player->GetPosition().x >= 530.7)
+	if (!isTalkEnd && !IsSansDie && !isSansEvent && player->GetPosition().x >= 530.7)
 	{
 		timer = 0.f;
 		isSansEvent = true;

@@ -35,8 +35,12 @@ protected:
 	sf::Text text;
 	std::vector<std::wstring> sansLines;
 	std::vector<std::string> sansFaceIds;
+	std::vector<std::wstring> sansPeacefulLines;
+	std::vector<std::string> sansPeacefulFaceIds;
 	int lineIndex = 0;
 	int lineCount;
+	int peacefullLineIndex = 0;
+	int peacefullLineCount;
 
 	std::wstring tempLine;
 	std::wstring currentLine;
@@ -49,6 +53,11 @@ protected:
 	bool isEnd = false;
 	float endTimer = 0.f;
 	float endTime = 2.5f;
+
+	bool isTalkEnd = false;
+
+	// Moral이 point보다 작으면 전투 돌입
+	const int JudgeMentPoint = 3;
 
 public:
 	bool IsSansDie = false;
