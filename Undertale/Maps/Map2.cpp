@@ -40,9 +40,7 @@ void Map2::Init()
 	texIds.push_back("Sprites/spr_sans_sleep_0.png");
 	texIds.push_back("Sprites/spr_f_maincharad_0.png");
 	texIds.push_back("Sprites/spr_f_maincharal_0.png");
-	texIds.push_back("Sprites/spr_sans_r_darkhand_0.png");
 	texIds.push_back("Sprites/spr_sans_r_0.png");
-
 	texIds.push_back("Sprites/spr_sans_r_darkhand_2.png");
 	texIds.push_back("Sprites/spr_sans_r_dark_0.png");
 
@@ -52,12 +50,6 @@ void Map2::Init()
 	tex2.loadFromFile("Sprites/spr_f_maincharal_0.png");
 	images.push_back(&tex1);
 	images.push_back(&tex2);
-
-	sansimages.clear();
-	tex3.loadFromFile("Sprites/spr_sans_r_darkhand_0.png");
-	tex4.loadFromFile("Sprites/spr_sans_r_darkhand_2.png");
-	sansimages.push_back(&tex3);
-	sansimages.push_back(&tex4);
 
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
@@ -247,6 +239,12 @@ void Map2::Update(float dt)
 {
 	if (InputMgr::GetKeyDown(sf::Keyboard::C))
 	{
+		if ((inventoryui && inventoryui->GetActive()) ||
+			(playerinfoui && playerinfoui->GetActive()) ||
+			(dialoguebox && dialoguebox->GetActive()))
+		{
+			return;
+		}
 		uichanger->SetActive(!uichanger->GetActive());
 	}
 
@@ -308,149 +306,142 @@ void Map2::Update(float dt)
 	}
 
 	if (Utils::CheckCollision(player->GetHitBox(), doorwall))
-	{
-		player->SetMove(false);
-		player->animator.Stop();
-		isBattleInetrected = false;
+{
+    // 처음 충돌 시 설정
+    if (!animationPlay)
+    {
+        player->SetMove(false);
+        player->animator.Stop();
+        isBattleInetrected = false;
+        player->GetSprite().setTexture(TEXTURE_MGR.Get("Sprites/spr_f_maincharar_0.png"));
+        sans->SetActive(true);
+        sans->animator.Play("Animation/sansdarkwalking.csv");
+        animationPlay = true;
+    }
 
-		// 벽에 처음 닿았을 때만 1회 실행
-		if (!animationPlay)
-		{
-			player->GetSprite().setTexture(TEXTURE_MGR.Get("Sprites/spr_f_maincharar_0.png"));
-			sans->SetActive(true);
-			sans->animator.Play("Animation/sansdarkwalking.csv");
-			animationPlay = true;
-		}
+    // Sans 이동
+    sf::Vector2f sansPos = sans->GetPosition();
+    sf::Vector2f playerPos = player->GetPosition();
+    sf::Vector2f direction = playerPos - sansPos;
+    Utils::Normalize(direction);
+    float sansSpeed = 100.f;
+    sansPos += direction * sansSpeed * dt;
+    sans->SetPosition(sansPos);
 
-		// sans 이동
-		sf::Vector2f sansPos = sans->GetPosition();
-		sf::Vector2f playerPos = player->GetPosition();
-		sf::Vector2f direction = playerPos - sansPos;
-		Utils::Normalize(direction);
-		float sansSpeed = 100.f;
-		sansPos += direction * sansSpeed * dt;
-		sans->SetPosition(sansPos);
-
-		// sans와 플레이어 충돌 시 대화
-		if (Utils::CheckCollision(player->GetHitBox(), sans->GetHitBox()))
-		{
+    // 플레이어와 Sans 간 충돌 시 대화 처리
+    if (Utils::CheckCollision(player->GetHitBox(), sans->GetHitBox()))
+    {
+       
+        if (!InteractedSans)
+        {
+            InteractedSans = true;
 			sans->SetMove(false);
 			sans->animator.Stop();
-			if (!InteractedSans)
-			{
-				InteractedSans = true;
-				player->SansInteract();
-			}
+            player->SansInteract();
 
-			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
-			{
-				dialoguebox->NextLine();
-			}
-		}
+        }
 
-		// 대화가 끝났는지 체크
-		if (InteractedSans && !firstInteractedEnds)
-		{
-			if (!dialoguebox->GetActive())
-			{
-				firstInteractedEnds = true;
-				imageChangeTimer = 0.f;
-			}
-		}
+        if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+        {
+            dialoguebox->NextLine();
+        }
+    }
 
-		// 대화가 끝나면 1초마다 이미지 교체
-		if (firstInteractedEnds && !imageChangedOnce)
-		{
-			imageChangeTimer += dt;
-			if (imageChangeTimer >= 2.f)
-			{
-				imageChangeTimer = 0.f;
-				playerImageIndex = (playerImageIndex + 1) % images.size();
-				player->GetSprite().setTexture(*images[playerImageIndex]);
-				// TextureRect도 실제 크기로 (필요시)
-				sf::Vector2u texSize = images[playerImageIndex]->getSize();
-				player->GetSprite().setTextureRect(sf::IntRect(0, 0, texSize.x, texSize.y));
+    // 대화 종료 후 플래그 설정
+    if (InteractedSans && !firstInteractedEnds && !dialoguebox->GetActive())
+    {
+        firstInteractedEnds = true;
+        imageChangeTimer = 0.f;
+    }
 
-				imageChangedOnce = true;
-				afterTurnTimer = 0.f;
-				charaTurn = false;
-			}
-		}
-		else if (firstInteractedEnds && imageChangedOnce && !charaTurn)
-		{
-			imageChangeTimer += dt;
-			afterTurnTimer += dt;
-			if (afterTurnTimer >= 1.f && imageChangeTimer >= 2.f)
-			{
-				player->SetActive(false);
-				sansImageIndex = (sansImageIndex + 1) % sansimages.size();
-				sf::Texture* tex = sansimages[sansImageIndex];
-				auto& sprite = sans->GetSprite();
-				sprite.setTexture(*tex);
-				sf::Vector2u texSize = tex->getSize();
-				sprite.setTextureRect(sf::IntRect(0, 0, texSize.x, texSize.y));
-				sprite.setOrigin(texSize.x / 2.f, texSize.y / 2.f);
+    // [Phase 1] 플레이어 이미지 변경 (대화 종료 후 2초)
+    if (firstInteractedEnds && !imageChangedOnce)
+    {
+        imageChangeTimer += dt;
+        if (imageChangeTimer >= 2.f)
+        {
+            imageChangeTimer = 0.f;
+            playerImageIndex = (playerImageIndex + 1) % images.size();
+            player->GetSprite().setTexture(*images[playerImageIndex]);
+            sf::Vector2u texSize = images[playerImageIndex]->getSize();
+            player->GetSprite().setTextureRect(sf::IntRect(0, 0, texSize.x, texSize.y));
 
-				charaTurn = true;
-				reactivateTimer = 0.f;
-				reactivated = false;
-			}
-		}
-		else if (charaTurn && !reactivated)
-		{
-			reactivateTimer += dt;
-			if (reactivateTimer >= 2.f)
-			{
-				player->SetActive(true);
-				auto& sprite = sans->GetSprite();
-				auto& tex = TEXTURE_MGR.Get("Sprites/spr_sans_r_0.png");
-				sprite.setTexture(tex);
+            imageChangedOnce = true;
+            // Phase 2 시작을 위한 타이머 초기화
+            afterTurnTimer = 0.f;
+        }
+    }
 
-				// 텍스처 크기에 맞게 TextureRect와 Origin 재설정
-				sf::Vector2u texSize = tex.getSize();
-				sprite.setTextureRect(sf::IntRect(0, 0, texSize.x, texSize.y));
-				sprite.setOrigin(texSize.x / 2.f, texSize.y / 2.f);
+    // [Phase 2] 플레이어와 Sans 비활성화 및 Sans 이미지 변경 (2초 대기)
+    if (imageChangedOnce && !deactivationDone)
+    {
+        afterTurnTimer += dt;
+        if (afterTurnTimer >= 2.f)
+        {
+            player->SetActive(false);
+            //sans->SetActive(false);
+            sans->GetSprite().setTexture(TEXTURE_MGR.Get("Sprites/spr_sans_r_darkhand_2.png"));
+            sf::Vector2u sansTexSize = sans->GetSprite().getTexture()->getSize();
+            sans->GetSprite().setTextureRect(sf::IntRect(0, 0, sansTexSize.x, sansTexSize.y));
+            deactivationDone = true; // 비활성화 완료 플래그
+            reactivateTimer = 0.f;
+        }
+    }
 
-				reactivated = true; // 한 번만 실행
+    // [Phase 3] 플레이어와 Sans 재활성화 (추가 2초 대기)
+    if (deactivationDone && !reactivated)
+    {
+        reactivateTimer += dt;
+        if (reactivateTimer >= 2.f)
+        {
+            player->SetActive(true);
+            sans->SetActive(true);
+            sans->GetSprite().setTexture(TEXTURE_MGR.Get("Sprites/spr_sans_r_0.png"));
+            sf::Vector2u sansTexSize = sans->GetSprite().getTexture()->getSize();
+            sans->GetSprite().setTextureRect(sf::IntRect(0, 0, sansTexSize.x, sansTexSize.y));
+            reactivated = true;
+            // Sans 두번째 대화 시작을 위한 준비
+            reactivateTimer = 0.f;
+            sansSecondInteractTimer = 0.f;
+            isWaitingSansSecondInteract = true;
+        }
+    }
 
-				sansSecondInteractTimer = 0.f;
-				isWaitingSansSecondInteract = true;
-			}
-		}
-		if (isWaitingSansSecondInteract)
-		{
-			sansSecondInteractTimer += dt;
-			if (sansSecondInteractTimer >= 2.f)
-			{
-				player->SansSecondsInteract();
-				isWaitingSansSecondInteract = false;
-				isCheck = true;
-			}
-		}
-		if (isCheck)
-		{
-			if (!dialoguebox->GetActive())
-			{
-				wallDisabled = true;
-				isCheck = false;
-			}
-		}
-		if (wallDisabled)
-		{
-			player->SetMove(true);
-			player->animator.Play("Animation/idle.csv");
-			isBattleInetrected = true;
-			doorwall.setSize({ 0.f, 0.f });
-			doorwall.setPosition({ -1000.f, -1000.f });
-			wallDisabled = false;
-		}
-	}
-	else
-	{
-		// 벽에서 떨어지면 다시 움직일 수 있게
-		player->SetMove(true);
-	}
+    if (isWaitingSansSecondInteract)
+    {
+        sansSecondInteractTimer += dt;
+        if (sansSecondInteractTimer >= 2.f)
+        {
+            player->SansSecondsInteract();
+            isWaitingSansSecondInteract = false;
+            isCheck = true;
+        }
+    }
 
+    if (isCheck)
+    {
+        if (!dialoguebox->GetActive())
+        {
+            wallDisabled = true;
+            isCheck = false;
+        }
+    }
+
+    if (wallDisabled)
+    {
+        player->SetMove(true);
+        player->animator.Play("Animation/idle.csv");
+        isBattleInetrected = true;
+        doorwall.setSize({ 0.f, 0.f });
+        doorwall.setPosition({ -1000.f, -1000.f });
+        wallDisabled = false;
+    }
+}
+else
+{
+    // 벽에서 떨어지면 다시 움직일 수 있게
+    player->SetMove(true);
+}
 	Scene::Update(dt);
 }
 

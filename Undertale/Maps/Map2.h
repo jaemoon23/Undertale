@@ -46,7 +46,7 @@ protected:
     float imageChangeTimer = 0.f;
     int currentImageIndex = 0;
     std::vector<sf::Texture*> images; // 교체할 이미지들
-    std::vector<sf::Texture*> sansimages;
+
 
     int playerImageIndex = 0;
     int sansImageIndex = 0;
@@ -71,6 +71,8 @@ protected:
     bool isCheck = false;
 
     bool isPlayerColliding = false; // ui창들 못띄우게 하려는 변수
+    bool sansImageChange = false;
+    bool deactivationDone = false;
 
 public:
 
