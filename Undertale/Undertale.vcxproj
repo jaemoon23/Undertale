@@ -140,6 +140,7 @@
     <ClCompile Include="Maps\MapPapyrus.cpp" />
     <ClCompile Include="Maps\MapSans.cpp" />
     <ClCompile Include="Maptools\Button.cpp" />
+    <ClCompile Include="Papyrus.cpp" />
     <ClCompile Include="playerRelated\PlayerInfo.cpp" />
     <ClCompile Include="playerRelated\DialogueBox.cpp" />
     <ClCompile Include="Battles\BattleBox.cpp" />
@@ -194,7 +195,7 @@
     <ClInclude Include="Maps\MapPapyrus.h" />
     <ClInclude Include="Maps\MapSans.h" />
     <ClInclude Include="Maptools\Button.h" />
-    <ClInclude Include="playerRelated\PlayerInfo.h" />
+    <ClInclude Include="Papyrus.h" />
     <ClInclude Include="playerRelated\DialogueBox.h" />
     <ClInclude Include="Battles\BattleBox.h" />
     <ClInclude Include="Battles\BattleButton.h" />

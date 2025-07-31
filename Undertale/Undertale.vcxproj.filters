@@ -34,16 +34,24 @@
     <ClCompile Include="Scenes\SceneBattle.cpp" />
     <ClCompile Include="Battles\Soul.cpp" />
     <ClCompile Include="Battles\StatusInBattleUI.cpp" />
-    <ClCompile Include="Maptools\Map0.cpp" />
     <ClCompile Include="playerRelated\TestBackGround.cpp" />
     <ClCompile Include="playerRelated\UiChanger.cpp" />
     <ClCompile Include="WrappedText.cpp" />
     <ClCompile Include="Scenes\SceneIntro.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="playerRelated\HealItem.cpp" />
-    <ClCompile Include="Map1.cpp" />
-    <ClCompile Include="Map2.cpp" />
     <ClCompile Include="playerRelated\PlayerInfo.cpp" />
+    <ClCompile Include="Maps\Map1.cpp" />
+    <ClCompile Include="Maps\Map2.cpp" />
+    <ClCompile Include="Maps\Map3.cpp" />
+    <ClCompile Include="Maps\Map4.cpp" />
+    <ClCompile Include="Maps\Map5.cpp" />
+    <ClCompile Include="Maps\MapPapyrus.cpp" />
+    <ClCompile Include="Maps\MapSans.cpp" />
+    <ClCompile Include="Maps\Map0.cpp" />
+    <ClCompile Include="TemMie.cpp" />
+    <ClCompile Include="TemMieShop.cpp" />
+    <ClCompile Include="Papyrus.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AniPlayer.cpp">
@@ -156,15 +164,22 @@
     <ClInclude Include="Battles\Soul.h" />
     <ClInclude Include="Battles\StatusInBattleUI.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Maptools\Map0.h" />
     <ClInclude Include="playerRelated\TestBackGround.h" />
     <ClInclude Include="playerRelated\UiChanger.h" />
     <ClInclude Include="playerRelated\HealItem.h" />
     <ClInclude Include="WrappedText.h" />
     <ClInclude Include="Scenes\SceneIntro.h" />
     <ClInclude Include="SceneTitle.h" />
-    <ClInclude Include="Map1.h" />
-    <ClInclude Include="Map2.h" />
-    <ClInclude Include="playerRelated\PlayerInfo.h" />
+    <ClInclude Include="Maps\Map1.h" />
+    <ClInclude Include="Maps\Map2.h" />
+    <ClInclude Include="Maps\Map3.h" />
+    <ClInclude Include="Maps\Map4.h" />
+    <ClInclude Include="Maps\Map5.h" />
+    <ClInclude Include="Maps\MapPapyrus.h" />
+    <ClInclude Include="Maps\MapSans.h" />
+    <ClInclude Include="Maps\Map0.h" />
+    <ClInclude Include="TemMie.h" />
+    <ClInclude Include="TemMieShop.h" />
+    <ClInclude Include="Papyrus.h" />
   </ItemGroup>
 </Project>

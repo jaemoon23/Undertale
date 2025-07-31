@@ -259,10 +259,7 @@ void Map2::Update(float dt)
 	}
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
-	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
-	{
-		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
-	}
+
 	for (auto& hit : hitboxes)
 	{
 		if (Utils::CheckCollision(player->GetHitBox(), *hit.shape))

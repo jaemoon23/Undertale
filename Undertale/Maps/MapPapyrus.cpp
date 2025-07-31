@@ -1,8 +1,24 @@
 #include "stdafx.h"
 #include "MapPapyrus.h"
 #include "Player.h"
+#include "Papyrus.h"
 
-MapPapyrus::MapPapyrus() : Scene(SceneIds::MapSans)
+#include "DialogueBox.h"
+
+#include <fstream>
+#include "json.hpp"
+#include "TextGo.h"
+#include "Sans.h"
+
+#include "UiChanger.h"
+#include "InventoryUi.h"
+#include "PlayerInfoUi.h"
+#include "HealItem.h"
+#include "GameObject.h"
+#include <SceneBattle.h>
+
+
+MapPapyrus::MapPapyrus() : Scene(SceneIds::MapPapyrus)
 {
 }
 
@@ -14,16 +30,63 @@ void MapPapyrus::Init()
 	texIds.push_back("Sprites/upwalking.png");
 	texIds.push_back("Sprites/leftwalking.png");
 	texIds.push_back("Sprites/rightwalking.png");
+	texIds.push_back("Sprites/sprite_sheet_papyrus_cape.png");
+	texIds.push_back("Sprites/spr_papyrus_cape_0.png");
+	texIds.push_back("Sprites/backgroundui.png");
+	texIds.push_back("Sprites/spr_rainbowtarget_0.png");
+	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
+	texIds.push_back("Sprites/sprite_sheet_papyrus_toasted.png");
+	texIds.push_back("Sprites/sprite_sheet_papyrus_run.png");
+	
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/upwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/leftwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/rightwalking.csv");
+	ANI_CLIP_MGR.Load("Animation/papyrusidle.csv");
+	ANI_CLIP_MGR.Load("Animation/papyrustoasted.csv");
+	ANI_CLIP_MGR.Load("Animation/papyrusrun.csv");
+	
 
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
+	papyrus = (Papyrus*)AddGameObject(new Papyrus("papyrus"));
+	//exclamationmark.setTexture(TEXTURE_MGR.Get("Sprites/spr_rainbowtarget_0.png"));
+
 	background = (SpriteGo*)AddGameObject(new SpriteGo());
 	background->sortingLayer = SortingLayers::Background;
+
+	exclamationmark = (SpriteGo*)AddGameObject(new SpriteGo("spr_rainbowtarget_0"));
+	exclamationmark->SetTextureId("Sprites/spr_rainbowtarget_0.png");
+	exclamationmark->sortingLayer = SortingLayers::Foreground; // 원하는 layer로 변경
+	exclamationmark->sortingOrder = 1;
+	
+
+	inventoryui = new InventoryUi("InventoryUi");
+	dialoguebox = new DialogueBox("dialoguebox");
+	uichanger = new UiChanger("uichanger");
+	playerinfoui = new PlayerInfoUi("playerinfoui");
+
+	player->SetBox(dialoguebox);
+	player->SetUiChanger(uichanger);
+	player->SetInventoryUi(inventoryui);
+	player->SetPlayerInfoUi(playerinfoui);
+	dialoguebox->SetPlayer(player);
+	uichanger->SetDialogueBox(dialoguebox);
+	uichanger->SetPlayer(player);
+	uichanger->SetInventoryUi(inventoryui);
+	uichanger->SetPlayerInfoUi(playerinfoui);
+	inventoryui->SetPlayer(player);
+	inventoryui->SetBox(dialoguebox);
+
+	AddGameObject(inventoryui);
+	AddGameObject(dialoguebox);
+	AddGameObject(uichanger);
+	AddGameObject(playerinfoui);
+
+	player->SetBox(dialoguebox);
+	dialoguebox->SetPlayer(player);
+
 	Scene::Init();
 }
 
@@ -58,33 +121,37 @@ void MapPapyrus::Enter()
 	uiView.setCenter(center);
 
 	// 오브젝트
-	bool playerPlaced = false;
-	for (auto& obj : mapData["objects"])
+	if (!BattleEnd)
 	{
-		std::string texId = obj["textureId"];
-		sf::Vector2f pos(obj["position"][0], obj["position"][1]);
-		sf::Vector2f scale(1.f, 1.f);
-		if (obj.contains("scale"))
-			scale = { obj["scale"][0], obj["scale"][1] };
+		bool playerPlaced = false;
+		for (auto& obj : mapData["objects"])
+		{
+			std::string texId = obj["textureId"];
+			sf::Vector2f pos(obj["position"][0], obj["position"][1]);
+			sf::Vector2f scale(1.f, 1.f);
+			if (obj.contains("scale"))
+				scale = { obj["scale"][0], obj["scale"][1] };
 
-		if (!playerPlaced)
-		{
-			player->SetOrigin(Origins::MC);
-			player->SetPosition(pos);
-			playerPlaced = true;
-		}
-		else
-		{
-			auto sprite = new SpriteGo(texId);
-			sprite->SetTextureId(texId);
-			sprite->SetOrigin(Origins::MC);
-			sprite->SetPosition(pos);
-			sprite->SetScale(scale);
-			sprite->Reset();
-			AddGameObject(sprite);
-			testObjects.push_back(sprite);
+			if (!playerPlaced)
+			{
+				player->SetOrigin(Origins::MC);
+				player->SetPosition(pos);
+				playerPlaced = true;
+			}
+			else
+			{
+				auto sprite = new SpriteGo(texId);
+				sprite->SetTextureId(texId);
+				sprite->SetOrigin(Origins::MC);
+				sprite->SetPosition(pos);
+				sprite->SetScale(scale);
+				sprite->Reset();
+				AddGameObject(sprite);
+				testObjects.push_back(sprite);
+			}
 		}
 	}
+	
 
 	//  히트박스 로드
 	for (auto& box : mapData["hitboxes"])
@@ -121,6 +188,14 @@ void MapPapyrus::Enter()
 		rect->setOutlineThickness(1.f);
 		hitboxes.push_back({ rect, typeStr });
 	}
+
+	papyrus->SetPosition({ 430, 350 });
+
+	if (BattleEnd && !papyrusImageChange)
+	{
+		papyrus->animator.Play("Animation/papyrustoasted.csv");
+		papyrusImageChange = true;
+	}
 }
 
 void MapPapyrus::Update(float dt)
@@ -156,6 +231,103 @@ void MapPapyrus::Update(float dt)
 			}
 		}
 	}
+	if (!dialogueTriggered)
+	{
+		sf::Vector2f playerPos = player->GetPosition();
+		sf::Vector2f papyrusPos = papyrus->GetPosition();
+		float distance = Utils::Distance(playerPos, papyrusPos);
+
+		if (distance < 100.f)
+		{
+			isexclamationmarkActive = true;
+			exclamationmark->SetPosition({ 419, 300 });
+
+			dialogueTriggered = true;
+			player->PapyrusInteract();
+			player->SetMove(false);
+			player->animator.Stop();
+
+			exclamationmarkTimer = 0.f; // 타이머 초기화 
+		}
+	}
+
+	else if (dialogueTriggered && !dialogueEnd && !dialoguebox->GetActive())
+	{
+		dialogueEnd = true;
+		player->SetMove(true);
+	}
+
+	if (isexclamationmarkActive)
+	{
+		exclamationmarkTimer += dt;
+		if (exclamationmarkTimer >= 1.f)
+		{
+			isexclamationmarkActive = false;
+			exclamationmark->SetActive(false);
+		}
+	}
+
+	if (Utils::CheckCollision(player->GetHitBox(), papyrus->GetHitBox()))
+	{
+		player->SetPosition(player->getPos());
+	}
+
+	sf::Vector2f playerPos = player->GetPosition();
+	sf::Vector2f papyrusPos = papyrus->GetPosition();
+	float distance = Utils::Distance(playerPos, papyrusPos);
+
+	if (distance <= 30.f && InputMgr::GetKeyDown(sf::Keyboard::Z) && !BattleEnd)
+	{
+		SceneBattle::nextSceneId = SceneIds::MapPapyrus;
+		SceneBattle::monsterJsonID = "jsons/papyrus.json";
+		SCENE_MGR.ChangeScene(SceneIds::Battle);
+		BattleEnd = true;
+	}
+
+	if (BattleEnd && papyrusImageChange && !papyrusLastInteract)
+	{
+		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+		{
+			player->PapyrusBattleEndInteract();
+			player->SetMove(false);
+			player->animator.Stop();
+			papyrusLastInteract = true;
+		}
+	}
+	if (!dialoguebox->GetActive() && papyrusLastInteract)
+	{
+		player->SetMove(true);
+		papyrus->animator.Play("Animation/papyrusrun.csv");
+
+		sf::Vector2f papyrusPos = papyrus->GetPosition();
+		sf::Vector2f direction = { 1.f,0.f };
+		Utils::Normalize(direction);
+		float sansSpeed = 150.f;
+		papyrusPos += direction * sansSpeed * dt;
+		papyrus->SetPosition(papyrusPos);
+	}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::C))
+	{
+		if ((inventoryui && inventoryui->GetActive()) ||
+			(playerinfoui && playerinfoui->GetActive()) ||
+			(dialoguebox && dialoguebox->GetActive()))
+		{
+			return;
+		}
+		uichanger->SetActive(!uichanger->GetActive());
+	}
+
+	if (dialoguebox && dialoguebox->GetActive())
+	{
+		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+		{
+			dialoguebox->NextLine();
+		}
+	}
+
+
+
 	Scene::Update(dt);
 }
 
@@ -163,6 +335,11 @@ void MapPapyrus::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
 	window.setView(worldView);
+	//window.setView(uiView);
+	if (isexclamationmarkActive)
+	{
+		exclamationmark->Draw(window);
+	}
 
 	if (Variables::isDrawHitBox)
 	{

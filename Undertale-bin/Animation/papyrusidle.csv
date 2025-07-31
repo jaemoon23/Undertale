@@ -1,0 +1,9 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)",,,
+papyrusidle,10,1,,,
+,,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
+Sprites/sprite_sheet_papyrus_cape.png,0,0,25,42,0
+Sprites/sprite_sheet_papyrus_cape.png,25,0,25,42,0
+Sprites/sprite_sheet_papyrus_cape.png,50,0,25,42,0
+Sprites/sprite_sheet_papyrus_cape.png,75,0,25,42,0
+Sprites/sprite_sheet_papyrus_cape.png,100,0,25,42,0

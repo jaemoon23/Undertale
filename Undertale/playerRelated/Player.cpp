@@ -231,6 +231,50 @@ void Player::SansSecondsInteract()
 	dialoguebox->StartDialogue(testDialogues);
 }
 
+void Player::PapyrusInteract()
+{
+	std::vector<std::wstring> testDialogues =
+	{
+	L"* 너는 인간이군!",
+	L"* 드디어 내 첫 임무가 주어졌어!",
+	L"* 위대한 파피루스님이 직접\n* 너를 체포하겠다!",
+	L"* 하지만 먼저 테스트가 필요하지.",
+	L"* 나의 특별한 퍼즐을 풀어봐!",
+	L"* ...어라? 아직 준비가 안 됐네.",
+	L"* 그럼 이 위대한 파피루스님의\n* 말을 잘 들어!",
+	L"* 내 멋짐은 누구도 따라올 수 없지!",
+	L"* 내 형 샌즈는 게으르지만...",
+	L"* 나는 절대 쉬지 않고 정의를 실현한다!",
+	L"* 준비되면 나에게 다시 말을 걸어라!",
+	L"* 그때가 너와 나의\n* 운명적인 결투의 순간이 될 테니!"
+	};
+	dialoguebox->StartDialogue(testDialogues);
+}
+
+void Player::PapyrusBattleEndInteract()
+{
+	std::vector<std::wstring> testDialogues =
+	{
+		L"* 믿을 수 없어...",
+		L"* 내가... 졌다니...",
+		L"* 인간, 너는 생각보다 훨씬 강하군.",
+		L"* 하지만... 이걸로 끝난 게 아니야.",
+		L"* 진짜 마지막 시험이 남아있지.",
+		L"* 사실, 지금까지 너를 지켜본 자가 있어.",
+		L"* 바로... 내 형, 샌즈야.",
+		L"* 샌즈는 평소엔 농담만 하고 게으르지만...",
+		L"* 그 녀석... 진심을 숨기고 있어.",
+		L"* 네가 여기까지 온다면...\n* 반드시 마주치게 될 거야.",
+		L"* 그리고 그때...\n* 진짜 싸움이 시작될 거야.",
+		L"* 조심해, 인간.",
+		L"* 샌즈는 나와는 다르게...",
+		L"* 진심일지도 모르니까."
+	};
+	dialoguebox->StartDialogue(testDialogues);
+}
+
+
+
 const sf::RectangleShape& Player::GetHitBox() const
 {
 	return hitBox.rect;

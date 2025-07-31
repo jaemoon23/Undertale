@@ -2,7 +2,15 @@
 #include "Scene.h"
 #include "SpriteGo.h"
 
+
 class Player;
+class Papyrus;
+class InventoryUi;
+class DialogueBox;
+class UiChanger;
+class PlayerInfoUi;
+class HealItem;
+class PlayerInfo;
 
 class MapPapyrus : public Scene
 {
@@ -12,11 +20,31 @@ protected:
 
 	std::vector<SpriteGo*> testObjects;
 	std::vector<HitBoxInfo1> hitboxes;
+	sf::Font font;
 
 	SpriteGo* background = nullptr;
 	Player* player;
+	Papyrus* papyrus;
+
+	UiChanger* uichanger;
+	InventoryUi* inventoryui;
+	DialogueBox* dialoguebox;
+	PlayerInfoUi* playerinfoui;
+
+	SpriteGo* exclamationmark;
 
 	bool puzzleSuccess = false;
+	bool dialogueTriggered = false;
+	bool dialogueEnd = false; // 파피루스 대화 종료 시 움직일 수 있게 
+	bool isexclamationmarkActive = false;
+	bool BattleEnd = false;
+	bool papyrusImageChange = false;
+	bool papyrusLastInteract = false;
+
+	bool papyrusFight = false;
+	bool papyrusMercy = false;
+
+	float exclamationmarkTimer = 0.f;
 public:
 	MapPapyrus();
 	~MapPapyrus() override = default;
@@ -25,6 +53,5 @@ public:
 	void Enter() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
-
 };
 

@@ -79,6 +79,9 @@ public:
 
 	void SansInteract();
 	void SansSecondsInteract();
+	void PapyrusInteract();
+	void PapyrusBattleEndInteract();
+
 	void SetSans(Sans* s) { sans = s; }
 	void SetBox(DialogueBox* dbox) { dialoguebox = dbox; }
 	void SetInventoryUi(InventoryUi* i) { inventoryui = i; }
