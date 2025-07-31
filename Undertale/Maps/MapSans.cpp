@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "MapSans.h"
 #include "Player.h"
 #include "SceneBattle.h"
@@ -68,7 +68,7 @@ void MapSans::Enter()
 	std::ifstream in("map7.json");
 	if (!in)
 	{
-		std::cerr << "map7.json ÆÄÀÏÀ» ¿­ ¼ö ¾ø½À´Ï´Ù!" << std::endl;
+		std::cerr << "map7.json íŒŒì¼ì„ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!" << std::endl;
 		return;
 	}
 
@@ -76,7 +76,7 @@ void MapSans::Enter()
 	in >> j;
 	auto& mapData = j["map7"];
 
-	// ¹è°æ
+	// ë°°ê²½
 	std::string bgTex = mapData["background"]["textureId"];
 	sf::Vector2f bgPos(mapData["background"]["position"][0], mapData["background"]["position"][1]);
 	sf::Vector2f scale(mapData["background"]["scale"][0], mapData["background"]["scale"][1]);
@@ -93,7 +93,7 @@ void MapSans::Enter()
 	uiView.setSize(size * 0.4f);
 	uiView.setCenter(center);
 
-	// ¿ÀºêÁ§Æ®
+	// ì˜¤ë¸Œì íŠ¸
 	bool playerPlaced = false;
 	for (auto& obj : mapData["objects"])
 	{
@@ -122,7 +122,7 @@ void MapSans::Enter()
 		}
 	}
 
-	//  È÷Æ®¹Ú½º ·Îµå
+	//  íˆíŠ¸ë°•ìŠ¤ ë¡œë“œ
 	for (auto& box : mapData["hitboxes"])
 	{
 		sf::Vector2f pos(box["position"][0], box["position"][1]);
@@ -205,7 +205,7 @@ void MapSans::Update(float dt)
 			}
 			else if (hit.type == "SceneChange")
 			{
-				std::cout << "¾À ÀüÈ¯ Æ®¸®°ÅµÊ!" << std::endl;
+				std::cout << "ì”¬ ì „í™˜ íŠ¸ë¦¬ê±°ë¨!" << std::endl;
 				SCENE_MGR.ChangeScene(SceneIds::Dev1);
 			}
 			else if (hit.type == "NextScene")
@@ -222,7 +222,7 @@ void MapSans::Update(float dt)
 	}
 	Scene::Update(dt);
 
-	// Å×½ºÆ® ÄÚµå
+	// í…ŒìŠ¤íŠ¸ ì½”ë“œ
 	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad5))
 	{
 		SceneBattle::nextSceneId = SceneIds::MapSans;
@@ -240,7 +240,7 @@ void MapSans::Draw(sf::RenderWindow& window)
 	{
 		for (auto& hit : hitboxes)
 		{
-			window.draw(*hit.shape); // worldView ±âÁØÀ¸·Î ±×·ÁÁü
+			window.draw(*hit.shape); // worldView ê¸°ì¤€ìœ¼ë¡œ ê·¸ë ¤ì§
 		}
 	}
 
