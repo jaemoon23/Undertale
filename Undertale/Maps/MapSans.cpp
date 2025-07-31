@@ -1,13 +1,15 @@
 #include "stdafx.h"
 #include "MapSans.h"
 #include "Player.h"
+#include "SceneBattle.h"
 
 MapSans::MapSans() : Scene(SceneIds::MapSans)
 {
 }
 
 void MapSans::Init()
-{
+{	
+	texIds.push_back("graphics/column.png");
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("graphics/SansBack.png");
 	texIds.push_back("Sprites/downwalking.png");
@@ -54,7 +56,7 @@ void MapSans::Enter()
 	sf::Vector2f size = { 640.f, 480.f };
 	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
 	worldView.setSize(size * 0.5f);
-	uiView.setSize(size);
+	uiView.setSize(size * 0.4f);
 	uiView.setCenter(center);
 
 	// 오브젝트
@@ -121,11 +123,28 @@ void MapSans::Enter()
 		rect->setOutlineThickness(1.f);
 		hitboxes.push_back({ rect, typeStr });
 	}
+
+	//
+	player->SetColorBlack();
+	player->isSansMap = true;
+	for (int i = 0; i < columnCount; ++i)
+	{
+		sf::Sprite bg;
+		bg.setTexture(TEXTURE_MGR.Get("graphics/column.png"));
+		Utils::SetOrigin(bg, Origins::BC);
+		sf::Vector2f pos = player->GetPosition();
+		pos.x += 70.f;
+		pos.x += i * 180.f;
+		pos.y += 53.5f;
+		bg.setPosition(pos);
+		column.push_back(bg);
+	}
 }
 
 void MapSans::Update(float dt)
 {
 	worldView.setCenter(player->GetPosition());
+	uiView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
 	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
 	{
@@ -157,6 +176,14 @@ void MapSans::Update(float dt)
 		}
 	}
 	Scene::Update(dt);
+
+	// 테스트 코드
+	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad5))
+	{
+		SceneBattle::nextSceneId = SceneIds::MapSans;
+		SceneBattle::monsterJsonID = "jsons/sans.json";
+		player->StartBattle();
+	}
 }
 
 void MapSans::Draw(sf::RenderWindow& window)
@@ -170,6 +197,12 @@ void MapSans::Draw(sf::RenderWindow& window)
 		{
 			window.draw(*hit.shape); // worldView 기준으로 그려짐
 		}
+	}
+
+	window.setView(uiView);
+	for (int i = 0; i < columnCount; ++i)
+	{
+		window.draw(column[i]);
 	}
 }
 

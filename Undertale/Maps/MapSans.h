@@ -18,6 +18,10 @@ protected:
 	Player* player;
 
 	bool puzzleSuccess = false;
+
+	const int columnCount = 5;
+	std::vector<sf::Sprite> column;
+
 public:
 	MapSans();
 	~MapSans() override = default;
