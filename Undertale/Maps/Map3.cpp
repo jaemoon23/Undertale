@@ -15,7 +15,7 @@ void Map3::Init()
 	texIds.push_back("Sprites/upwalking.png");
 	texIds.push_back("Sprites/leftwalking.png");
 	texIds.push_back("Sprites/rightwalking.png");
-
+	soundIds.push_back("sounds/17 Snowy.flac");
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/upwalking.csv");
@@ -54,7 +54,7 @@ void Map3::Enter()
 
 	sf::Vector2f size = { 640.f, 480.f };
 	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
-	worldView.setSize(size);
+	worldView.setSize(size * 0.5f);
 	uiView.setSize(size);
 	uiView.setCenter(center);
 
@@ -126,6 +126,8 @@ void Map3::Enter()
 		rect->setOutlineThickness(1.f);
 		hitboxes.push_back({ rect, typeStr });
 	}
+
+	SOUND_MGR.PlayBgm("sounds/17 Snowy.flac");
 }
 
 void Map3::Update(float dt)
@@ -148,21 +150,14 @@ void Map3::Update(float dt)
 			{
 				if (battleCheckTimer >= battleCheckInterval)
 				{
-					std::cout << "¹èÆ² È®·ü Ã¼Å©" << std::endl;
 					battleCheckTimer = 0.f;
 
 					// 1% È®·ü
-					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
+					if (Utils::RandomRange(0.f, 1.f) < 0.05f)
 					{
-						std::cout << "·£´ý ÀüÅõ ¹ß»ý!" << std::endl;
 						SceneBattle::nextSceneId = SceneIds::Map3;
-						SceneBattle::monsterJsonID = "jsons/frog.json";
-						//SceneBattle::monsterJsonID = "jsons/sans.json";
-						SCENE_MGR.ChangeScene(SceneIds::Battle);
-					}
-					else
-					{
-						std::cout << "¹èÆ² ¾Æ´Ô" << std::endl;
+						SceneBattle::monsterJsonID = "jsons/migosp.json";
+						player->StartBattle();
 					}
 				}
 			}

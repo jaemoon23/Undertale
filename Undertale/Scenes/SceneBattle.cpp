@@ -490,6 +490,8 @@ void SceneBattle::MonsterDie()
 	PlayerInfo::PlusExp(exp);
 	PlayerInfo::gold += gold;
 	PlayerInfo::Moral -= 1;
+	if (data["name"] == "papyrus")
+		PlayerInfo::Moral -= 9;
 	statusUI->Reset();
 	btBox->SetStartDescribe();
 	btState = ButtonState::None;

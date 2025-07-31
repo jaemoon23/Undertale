@@ -8,8 +8,7 @@ MapSans::MapSans() : Scene(SceneIds::MapSans)
 }
 
 void MapSans::Init()
-{
-	
+{	
 	texIds.push_back("graphics/spr_sans_bface_0.png");
 	texIds.push_back("graphics/spr_sans_bface_1.png");
 	texIds.push_back("graphics/spr_sans_bface_2.png");
@@ -207,10 +206,6 @@ void MapSans::Enter()
 
 	maxY = player->GetPosition().y;
 
-	// 지우기
-	//PlayerInfo::PlusExp(99999);
-	//PlayerInfo::Moral = 4;
-	//
 	if (PlayerInfo::lv == 20)
 		IsSansDie = true;
 
@@ -395,26 +390,6 @@ void MapSans::Update(float dt)
 	{
 		player->isSansMap = true;
 		player->SetPosition({ player->GetPosition().x,maxY });
-	}
-
-	// 테스트 코드
-	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad5))
-	{
-		player->SetPosition({ 500.f, player->GetPosition().y });
-	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad6))
-	{
-		SceneBattle::nextSceneId = SceneIds::MapSans;
-		SceneBattle::monsterJsonID = "jsons/sans.json";
-		player->StartBattle();
-	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad7))
-	{
-		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
-	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad8))
-	{
-		SCENE_MGR.ChangeScene(SceneIds::Ending);
 	}
 }
 
