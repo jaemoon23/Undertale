@@ -15,6 +15,7 @@
 #include "Map5.h"
 #include "MapPapyrus.h"
 #include "MapSans.h"
+#include "TemMieShop.h"
 
 void SceneMgr::Init()
 {
@@ -27,6 +28,7 @@ void SceneMgr::Init()
 	scenes.insert({ SceneIds::Map5, new Map5() });
 	scenes.insert({ SceneIds::MapPapyrus, new MapPapyrus() });
 	scenes.insert({ SceneIds::MapSans, new MapSans() });
+	scenes.insert({ SceneIds::TemMieShop, new TemMieShop() });
 	
 	scenes.insert({ SceneIds::Dev1 ,new SceneDev1() });
 	scenes.insert({ SceneIds::MapTool ,new MapTool() });

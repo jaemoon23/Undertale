@@ -252,6 +252,14 @@ void Map4::Update(float dt)
 			text->SetActive(false);
 		}
 	}
+	if (Utils::CheckCollision(player->GetHitBox(), temMie->GetHitBox()))
+	{
+		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+		{
+			std::cout << "테미 z키 입력" << std::endl;
+			SCENE_MGR.ChangeScene(SceneIds::TemMieShop);
+		}
+	}
 	Scene::Update(dt);
 }
 

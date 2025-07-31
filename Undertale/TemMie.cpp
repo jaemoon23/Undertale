@@ -65,3 +65,7 @@ void TemMie::Draw(sf::RenderWindow& window)
 	window.draw(temMie);
 	hitBox.Draw(window);
 }
+const sf::RectangleShape& TemMie::GetHitBox() const
+{
+	return hitBox.rect;
+}

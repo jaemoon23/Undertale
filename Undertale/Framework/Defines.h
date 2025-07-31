@@ -38,6 +38,7 @@ enum class SceneIds
 	Map5,
 	MapSans,
 	MapPapyrus,
+	TemMieShop,
 	MapTool,
 	Game,
 	Battle,
