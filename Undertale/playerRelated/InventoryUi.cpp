@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "InventoryUi.h"
 #include "Player.h"
 #include "HealItem.h"
@@ -114,23 +114,23 @@ void InventoryUi::Reset()
 
 void InventoryUi::Update(float dt)
 {
-	if (!GetActive()) return; // ÀÎº¥Åä¸®°¡ È°¼ºÈ­µÇÁö ¾ÊÀº °æ¿ì ¾÷µ¥ÀÌÆ® ÁßÁö
+	if (!GetActive()) return; // ì¸ë²¤í† ë¦¬ê°€ í™œì„±í™”ë˜ì§€ ì•Šì€ ê²½ìš° ì—…ë°ì´íŠ¸ ì¤‘ì§€
 
-	static bool prevDown = false; // ÀÌÀü ÇÁ·¹ÀÓ¿¡¼­ Up,Down Å°°¡ ´­·È´ÂÁö ¿©ºÎ
+	static bool prevDown = false; // ì´ì „ í”„ë ˆì„ì—ì„œ Up,Down í‚¤ê°€ ëˆŒë ¸ëŠ”ì§€ ì—¬ë¶€
 	static bool prevUp = false;
 
 	bool currDown = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
 	bool currUp = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
 
-	if (currDown && !prevDown) // ÇöÀç ÇÁ·¹ÀÓ¿¡¼­ Down Å°°¡ ´­·È°í, ÀÌÀü ÇÁ·¹ÀÓ¿¡¼­´Â ´­¸®Áö ¾Ê¾ÒÀ» ¶§
+	if (currDown && !prevDown) // í˜„ì¬ í”„ë ˆì„ì—ì„œ Down í‚¤ê°€ ëˆŒë ¸ê³ , ì´ì „ í”„ë ˆì„ì—ì„œëŠ” ëˆŒë¦¬ì§€ ì•Šì•˜ì„ ë•Œ
 	{
 		selectIndex = (selectIndex + 1) % 4;
 	}
 	else if (currUp && !prevUp)
 	{
-		selectIndex = (selectIndex + 3) % 4;  // selectIndex¸¦ 3À¸·Î ³ª´« ³ª¸ÓÁö·Î ¼³Á¤ÇÏ¿© ÀÎµ¦½º¸¦ °¨¼Ò½ÃÅ´
+		selectIndex = (selectIndex + 3) % 4;  // selectIndexë¥¼ 3ìœ¼ë¡œ ë‚˜ëˆˆ ë‚˜ë¨¸ì§€ë¡œ ì„¤ì •í•˜ì—¬ ì¸ë±ìŠ¤ë¥¼ ê°ì†Œì‹œí‚´
 	}
-	prevDown = currDown; // ÇöÀç ÇÁ·¹ÀÓ¿¡¼­ Down Å°°¡ ´­·È´ÂÁö ¿©ºÎ¸¦ ÀúÀå
+	prevDown = currDown; // í˜„ì¬ í”„ë ˆì„ì—ì„œ Down í‚¤ê°€ ëˆŒë ¸ëŠ”ì§€ ì—¬ë¶€ë¥¼ ì €ì¥
 	prevUp = currUp;
 
 
@@ -163,10 +163,10 @@ void InventoryUi::Update(float dt)
 		itemText4.setFillColor(sf::Color::White);
 	}
 
-	float selectY = inventory.getPosition().y - 87.f + selectIndex * 54.f; // sprite À§Ä¡ ÀÎµ¦½º µû¶ó Á¶Á¤
+	float selectY = inventory.getPosition().y - 87.f + selectIndex * 54.f; // sprite ìœ„ì¹˜ ì¸ë±ìŠ¤ ë”°ë¼ ì¡°ì •
 	selectSprite.setPosition({ inventory.getPosition().x - 80.f, selectY + 10.f });
 
-	// 2. ÀÌÁ¦ºÎÅÍ¸¸ ¿£ÅÍ ÀÔ·Â Ã³¸®
+	// 2. ì´ì œë¶€í„°ë§Œ ì—”í„° ì…ë ¥ ì²˜ë¦¬
 	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
 	{
 		HealItem* selectedItem = nullptr;
@@ -186,7 +186,7 @@ void InventoryUi::Update(float dt)
 					
 					if (PlayerInfo::slot == 0)
 					{
-						std::cout << "¾ÆÀÌÅÛ ¾øÀ½" << std::endl;
+						std::cout << "ì•„ì´í…œ ì—†ìŒ" << std::endl;
 					}
 					else
 					{
@@ -216,7 +216,7 @@ void InventoryUi::Draw(sf::RenderWindow& window)
 		window.draw(text);
 		window.draw(selectSprite);
 
-		 //Èú ¾ÆÀÌÅÛ ÀÌ¸§ Ç¥½Ã
+		 //í ì•„ì´í…œ ì´ë¦„ í‘œì‹œ
 		itemText1.setString(healItem[0].GetName());
 		itemText2.setString(healItem[1].GetName());
 		itemText3.setString(healItem[2].GetName());

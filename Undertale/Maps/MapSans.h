@@ -1,30 +1,26 @@
-#pragma once
+ï»¿#pragma once
 #include "Scene.h"
 #include "SpriteGo.h"
 
 class Player;
+class UiChanger;
 class InventoryUi;
 class DialogueBox;
-class UiChanger;
 class PlayerInfoUi;
-class HealItem;
-class PlayerInfo;
 
 class MapSans : public Scene
 {
 protected:
 	sf::Sprite sans;
 
+	float battleCheckTimer = 0.f;
+	const float battleCheckInterval = 1.f;
+
 	std::vector<SpriteGo*> testObjects;
 	std::vector<HitBoxInfo1> hitboxes;
 
 	SpriteGo* background = nullptr;
 	Player* player;
-
-	UiChanger* uichanger;
-	InventoryUi* inventoryui;
-	DialogueBox* dialoguebox;
-	PlayerInfoUi* playerinfoui;
 
 	bool puzzleSuccess = false;
 
@@ -64,8 +60,16 @@ protected:
 
 	bool isTalkEnd = false;
 
-	// MoralÀÌ pointº¸´Ù ÀÛÀ¸¸é ÀüÅõ µ¹ÀÔ
+	// Moralì´ pointë³´ë‹¤ ì‘ìœ¼ë©´ ì „íˆ¬ ëŒì…
 	const int JudgeMentPoint = 3;
+
+	// ì¸ë²¤í† ë¦¬ ì¶”ê°€
+	UiChanger* uichanger;
+	InventoryUi* inventoryui;
+	DialogueBox* dialoguebox;
+	PlayerInfoUi* playerinfoui;
+	sf::Vector2f uiViewCenter;
+	//
 
 public:
 	bool IsSansDie = false;
@@ -78,5 +82,7 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetColumn();
+
+	void InventoryInit();
 };
 

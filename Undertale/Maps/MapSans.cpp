@@ -2,19 +2,17 @@
 #include "MapSans.h"
 #include "Player.h"
 #include "SceneBattle.h"
-
 #include "DialogueBox.h"
 #include "UiChanger.h"
 #include "InventoryUi.h"
 #include "PlayerInfoUi.h"
-#include "HealItem.h"
 
 MapSans::MapSans() : Scene(SceneIds::MapSans)
 {
 }
 
 void MapSans::Init()
-{	
+{
 	texIds.push_back("graphics/spr_sans_bface_0.png");
 	texIds.push_back("graphics/spr_sans_bface_1.png");
 	texIds.push_back("graphics/spr_sans_bface_2.png");
@@ -35,11 +33,10 @@ void MapSans::Init()
 	texIds.push_back("Sprites/rightwalking.png");
 	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
 	texIds.push_back("Sprites/backgroundui.png");
-
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	soundIds.push_back("sounds/snd_txtsans.wav");
 	soundIds.push_back("sounds/73 The Choice.flac");
-	
+
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/upwalking.csv");
@@ -50,30 +47,7 @@ void MapSans::Init()
 	background = (SpriteGo*)AddGameObject(new SpriteGo());
 	background->sortingLayer = SortingLayers::Background;
 
-	inventoryui = new InventoryUi("InventoryUi");
-	dialoguebox = new DialogueBox("dialoguebox");
-	uichanger = new UiChanger("uichanger");
-	playerinfoui = new PlayerInfoUi("playerinfoui");
-
-	player->SetBox(dialoguebox);
-	player->SetUiChanger(uichanger);
-	player->SetInventoryUi(inventoryui);
-	player->SetPlayerInfoUi(playerinfoui);
-	dialoguebox->SetPlayer(player);
-	uichanger->SetDialogueBox(dialoguebox);
-	uichanger->SetPlayer(player);
-	uichanger->SetInventoryUi(inventoryui);
-	uichanger->SetPlayerInfoUi(playerinfoui);
-	inventoryui->SetPlayer(player);
-	inventoryui->SetBox(dialoguebox);
-
-	AddGameObject(inventoryui);
-	AddGameObject(dialoguebox);
-	AddGameObject(uichanger);
-	AddGameObject(playerinfoui);
-
-	player->SetBox(dialoguebox);
-	dialoguebox->SetPlayer(player);
+	InventoryInit();
 
 	Scene::Init();
 
@@ -235,8 +209,8 @@ void MapSans::Enter()
 	Utils::SetOrigin(textWindow, Origins::TC);
 
 	text.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
-	text.setCharacterSize(100); 
-	text.setScale(0.12f, 0.12f); 
+	text.setCharacterSize(100);
+	text.setScale(0.12f, 0.12f);
 	lineIndex = 0;
 
 	maxY = player->GetPosition().y;
@@ -254,43 +228,9 @@ void MapSans::Enter()
 
 void MapSans::Update(float dt)
 {
-	if (InputMgr::GetKeyDown(sf::Keyboard::C))
-	{
-		if ((inventoryui && inventoryui->GetActive()) ||
-			(playerinfoui && playerinfoui->GetActive()) ||
-			(dialoguebox && dialoguebox->GetActive()))
-		{
-			return;
-		}
-		uichanger->SetActive(!uichanger->GetActive());
-	}
-
-	for (auto& hit : hitboxes)
-	{
-		if (Utils::CheckCollision(player->GetHitBox(), *hit.shape))
-		{
-			if (hit.type == "Wall")
-			{
-				player->SetPosition(player->getPos());
-			}
-			else if (hit.type == "SceneChange")
-			{
-				std::cout << "씬 전환 트리거됨!" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Dev1);
-			}
-			else if (hit.type == "NextScene")
-			{
-				std::cout << "NextScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Dev1);
-			}
-			else if (hit.type == "PrevScene")
-			{
-				std::cout << "PrevScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::MapPapyrus);
-			}
-		}
-	}
-
+	// test 코드
+	// 
+	//
 	if (isSansEvent)
 	{
 		timer += dt;
@@ -399,12 +339,22 @@ void MapSans::Update(float dt)
 	}
 	else
 	{
-		worldView.setCenter(player->GetPosition() + sf::Vector2f(0.f,-25.f));
+		worldView.setCenter(player->GetPosition() + sf::Vector2f(0.f, -25.f));
 		uiView.setCenter(player->GetPosition());
-
+		battleCheckTimer += dt;
 		if (InputMgr::GetKeyDown(sf::Keyboard::Return))
 		{
 			std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
+		}
+		if (InputMgr::GetKeyDown(sf::Keyboard::C))
+		{
+			if ((inventoryui && inventoryui->GetActive()) ||
+				(playerinfoui && playerinfoui->GetActive()) ||
+				(dialoguebox && dialoguebox->GetActive()))
+			{
+				return;
+			}
+			uichanger->SetActive(!uichanger->GetActive());
 		}
 		for (auto& hit : hitboxes)
 		{
@@ -431,9 +381,9 @@ void MapSans::Update(float dt)
 			}
 		}
 
-		if(!isEnd)
+		if (!isEnd)
 			Scene::Update(dt);
-	}	
+	}
 
 	if (isEnd)
 	{
@@ -458,19 +408,26 @@ void MapSans::Update(float dt)
 	{
 		player->isSansMap = false;
 	}
-	else if(player->GetPosition().y >= maxY)
+	else if (player->GetPosition().y >= maxY)
 	{
 		player->isSansMap = true;
 		player->SetPosition({ player->GetPosition().x,maxY });
 	}
+
+	uiViewCenter = uiView.getCenter();
 }
 
 void MapSans::Draw(sf::RenderWindow& window)
 {
+	sf::Vector2f size = { 640.f, 480.f };
+	uiView.setSize(size);
+	uiView.setCenter({ 320.f,240.f });
 	Scene::Draw(window);
-	if(!IsSansDie)
-		window.draw(sans);
+	uiView.setSize(size * 0.4f);
+	uiView.setCenter(uiViewCenter);
 	window.setView(worldView);
+	if (!IsSansDie)
+		window.draw(sans);
 
 	if (Variables::isDrawHitBox)
 	{
@@ -527,5 +484,25 @@ void MapSans::SetColumn()
 	pos.x += 180.f;
 	bg.setPosition(pos);
 	column.push_back(bg);
+}
+
+void MapSans::InventoryInit()
+{
+	inventoryui = (InventoryUi*)AddGameObject(new InventoryUi("InventoryUi"));
+	dialoguebox = (DialogueBox*)AddGameObject(new DialogueBox("dialoguebox"));
+	uichanger = (UiChanger*)AddGameObject(new UiChanger("uichanger"));
+	playerinfoui = (PlayerInfoUi*)AddGameObject(new PlayerInfoUi("playerinfoui"));
+
+	player->SetBox(dialoguebox);
+	player->SetUiChanger(uichanger);
+	player->SetInventoryUi(inventoryui);
+	player->SetPlayerInfoUi(playerinfoui);
+	dialoguebox->SetPlayer(player);
+	uichanger->SetDialogueBox(dialoguebox);
+	uichanger->SetPlayer(player);
+	uichanger->SetInventoryUi(inventoryui);
+	uichanger->SetPlayerInfoUi(playerinfoui);
+	inventoryui->SetPlayer(player);
+	inventoryui->SetBox(dialoguebox);
 }
 
