@@ -41,8 +41,6 @@ protected:
 	sf::RectangleShape CookieText_HitBox;
 	sf::RectangleShape IceText_HitBox;
 
-	int slot = 0;
-	int gold;
 	std::wstring fullText = L"* ¾È´¨!\n* Å×¹Ì ¼¥¿¡ ¿Â °É...\n * È­³çÇà!!!!";
 	std::wstring currentText = L"";
 	float textTimer = 0.f;

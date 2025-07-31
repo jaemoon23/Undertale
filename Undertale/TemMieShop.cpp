@@ -100,8 +100,7 @@ void TemMieShop::Enter()
 	exitText->SetPosition({ temShopTextWindow->GetPosition().x + 490.f, temShopTextWindow->GetPosition().y + 125.f });
 	exitText->SetActive(true);
 
-	gold = PlayerInfo::gold;
-	goldText->SetString("(" + std::to_string(gold) + "G)");
+	goldText->SetString("(" + std::to_string(PlayerInfo::gold) + "G)");
 	goldText->SetFillColor(sf::Color::Yellow);
 	goldText->SetCharacterSize(20.f);
 	goldText->sortingLayer = SortingLayers::UI;
@@ -197,9 +196,20 @@ void TemMieShop::Enter()
 
 	fullText = L"* 안뇽!\n* 테미 샵에 온 걸...\n* 화녕행!!!!";
 	currentText = L"";
-	currentIndex = 0;
-	textTimer = 0.f;
 
+	textTimer = 0.f;
+	textSpeed = 0.05f; // 글자당 시간 (초)
+	currentIndex = 0;
+
+	isIntro = true;
+	isIntroText = true;
+	menu = false;
+	isMenuSelect = true;
+	menuExit = false;
+	isBuy = false;
+	isSell = false;
+	selectItem = false;
+	sellItem = false;
 
 	textCount = 0;
 	textPos = 0.f;
@@ -207,18 +217,13 @@ void TemMieShop::Enter()
 	buyTextCount = 0;
 	buyTextPos = 0.f;
 
-	isIntroText = true;
-	isIntro = true;
-	menu = false;
-	isMenuSelect = true;
-	isBuy = false;
-	selectItem = false;
-	sellItem = false;
+	// 아이템 샵
+	snowManPrice = 10; // 눈사람 가격
+	cookiePrice = 15; // 쿠키 가격
+	icePrice = 20; // 아이스 가격
+	college_tuition = 100000;
+
 	itemName = L"";
-	snowManPrice = 10; // 눈사탕 가격
-	cookiePrice = 15;  // 쿠키 가격
-	icePrice = 20;	   // 아이스크림 가격
-	college_tuition = 100000; // 대학 등록금
 
 	sf::Vector2f size = { 640.f, 480.f };
 	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
@@ -335,9 +340,11 @@ void TemMieShop::Update(float dt)
 				isIntroText = true;
 				menu = false;
 				isBuy = false;
+				isSell = false;
 				IntroText(dt);
 				menuExit = false;
 				selectItem = false;
+				sellItem = false;
 			}
 		}
 	}
