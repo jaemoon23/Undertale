@@ -3,7 +3,8 @@
 #include "Player.h"
 #include "SceneBattle.h"
 #include "InventoryUi.h"
-
+#include "HealItem.h"
+#include "TemMie.h"
 Map4::Map4() : Scene(SceneIds::Map4)
 {
 }
@@ -18,6 +19,7 @@ void Map4::Init()
 	texIds.push_back("Sprites/leftwalking.png");
 	texIds.push_back("Sprites/rightwalking.png");
 	texIds.push_back("Sprites/TextWindow.png");
+	texIds.push_back("Sprites/Temmie_sheet.png");
 
 	SOUNDBUFFER_MGR.Load("sounds/Map4/31 Waterfall.flac");
 	SOUNDBUFFER_MGR.Load("sounds/Map4/sw.wav");
@@ -28,11 +30,14 @@ void Map4::Init()
 	ANI_CLIP_MGR.Load("Animation/leftwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/rightwalking.csv");
 
+	ANI_CLIP_MGR.Load("Animation/temmie/Temmie_Idle.csv");
+
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
 	background = (SpriteGo*)AddGameObject(new SpriteGo());
 	background->sortingLayer = SortingLayers::Background;
 	textWindow = (SpriteGo*)AddGameObject(new SpriteGo("Sprites/TextWindow.png"));
 	text = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
+	temMie = (TemMie*)AddGameObject(new TemMie("Sprites/temmie/spr_temmie_lt_0.png"));
 
 	textWindow->sortingLayer = SortingLayers::UI;
 	textWindow->SetPosition({ 35.f, 300.f });
@@ -44,6 +49,10 @@ void Map4::Init()
 	text->SetPosition({ textWindow->GetPosition().x + 10, textWindow->GetPosition().y + 5 });
 	text->SetActive(false);
 	Scene::Init();
+
+	InventoryUi::healItem[0].SetInfo(L"아이스", 15);
+	InventoryUi::healItem[0].GetName() == L"";
+	PlayerInfo::gold;
 }
 
 void Map4::Enter()
@@ -54,8 +63,6 @@ void Map4::Enter()
 	wall.setOutlineColor(sf::Color::Green);
 	wall.setOutlineThickness(1.f);
 	wall.setPosition({ 695.f, 220.f });
-
-	
 
 	std::ifstream in("map4.json");
 	if (!in)
@@ -99,6 +106,7 @@ void Map4::Enter()
 		{
 			player->SetOrigin(Origins::MC);
 			player->SetPosition(pos);
+			player->sortingOrder = 1;
 			playerPlaced = true;
 		}
 		else
@@ -242,6 +250,14 @@ void Map4::Update(float dt)
 		{
 			textWindow->SetActive(false);
 			text->SetActive(false);
+		}
+	}
+	if (Utils::CheckCollision(player->GetHitBox(), temMie->GetHitBox()))
+	{
+		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+		{
+			std::cout << "테미 z키 입력" << std::endl;
+			SCENE_MGR.ChangeScene(SceneIds::TemMieShop);
 		}
 	}
 	Scene::Update(dt);
