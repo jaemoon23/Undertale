@@ -55,7 +55,9 @@ protected:
 	bool isMenuSelect = true;
 	bool menuExit = false;
 	bool isBuy = false;
+	bool isSell = false;
 	bool selectItem = false;
+	bool sellItem = false;
 
 	int textCount = 0;
 	float textPos = 0.f;
@@ -64,10 +66,12 @@ protected:
 	float buyTextPos = 0.f;
 
 	// 아이템 샵
-	int snowManPrice = 10; // 눈사탕 가격
+	int snowManPrice = 10; // 눈사람 가격
 	int cookiePrice = 15; // 쿠키 가격
-	int icePrice = 20; // 아이스크림 가격
+	int icePrice = 20; // 아이스 가격
 	int college_tuition = 100000;
+
+	std::wstring itemName = L"";
 	
 public:
     TemMieShop();

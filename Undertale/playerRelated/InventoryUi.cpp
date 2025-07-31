@@ -183,7 +183,18 @@ void InventoryUi::Update(float dt)
 			{
 				for (int i = 0; i<4; ++i)
 				{
-					PlayerInfo::Heal(InventoryUi::healItem[i].GetHealAmount());
+					
+					if (PlayerInfo::slot == 0)
+					{
+						std::cout << "아이템 없음" << std::endl;
+					}
+					else
+					{
+						PlayerInfo::Heal(InventoryUi::healItem[i].GetHealAmount());
+						std::cout << PlayerInfo::slot-- << std::endl;
+						break;
+					}
+					
 				}
 
 				std::cout << "Player HP: " << player->GetHp() << " / " << player->GetMaxHp()<< std::endl;

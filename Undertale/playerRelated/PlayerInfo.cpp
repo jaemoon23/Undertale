@@ -8,6 +8,7 @@ int PlayerInfo::lv = 1;
 int PlayerInfo::exp = 0;
 int PlayerInfo::gold = 100;
 int PlayerInfo::Moral = 0;
+int PlayerInfo::slot = 0;
 
 void PlayerInfo::PlusExp(int e)
 {

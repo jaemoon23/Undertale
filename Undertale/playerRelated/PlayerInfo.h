@@ -9,7 +9,7 @@ public:
 	static int exp;
 	static int gold;
 	static int Moral;
-
+	static int slot;
 	static void PlusExp(int e);
 	static void Heal(int h);
 };

@@ -108,7 +108,7 @@ void TemMieShop::Enter()
 	goldText->sortingOrder = 1;
 	goldText->SetPosition({ temShopTextWindow->GetPosition().x + 470.f, temShopTextWindow->GetPosition().y + 175.f });
 
-	slotText->SetString(std::to_string(slot) + "/4");
+	slotText->SetString(std::to_string(PlayerInfo::slot) + "/4");
 	slotText->SetCharacterSize(20.f);
 	slotText->sortingLayer = SortingLayers::UI;
 	slotText->sortingOrder = 1;
@@ -213,7 +213,8 @@ void TemMieShop::Enter()
 	isMenuSelect = true;
 	isBuy = false;
 	selectItem = false;
-
+	sellItem = false;
+	itemName = L"";
 	snowManPrice = 10; // 눈사탕 가격
 	cookiePrice = 15;  // 쿠키 가격
 	icePrice = 20;	   // 아이스크림 가격
@@ -291,13 +292,14 @@ void TemMieShop::Update(float dt)
 				sellText->SetActive(false);
 				exitText->SetActive(false);
 				Selection_Icon->SetActive(false);
+
+				snowManText->SetActive(true);
+				cookieText->SetActive(true);
+				iceText->SetActive(true);
+				Buy_Selection_Icon->SetActive(true);
+				isSell = true;
 				menuExit = true;
 				currentText = L"";
-				if (!(slot <= 0))
-				{
-					slot--;
-					slotText->SetString(std::to_string(slot) + "/4");
-				}
 				isMenuSelect = false;
 			}
 			else if (Utils::CheckCollision(Selection_Icon_HitBox, exitText_HitBox))
@@ -340,6 +342,7 @@ void TemMieShop::Update(float dt)
 		}
 	}
 
+#pragma region 구매 시스템
 	// 구매창
 	if (isBuy)
 	{
@@ -367,7 +370,7 @@ void TemMieShop::Update(float dt)
 
 		if (InputMgr::GetKeyDown(sf::Keyboard::Z) && selectItem)
 		{
-			if (!(slot >= 4))
+			if (!(PlayerInfo::slot >= 4))
 			{
 				// 눈사람
 				if (Utils::CheckCollision(Buy_Selection_Icon_HitBox, SnowManText_HitBox) && PlayerInfo::gold >= snowManPrice)
@@ -379,7 +382,7 @@ void TemMieShop::Update(float dt)
 							std::cout << i << std::endl;
 							InventoryUi::healItem[i].SetInfo(L"눈사람", 5);
 							std::cout << "눈사람 구매" << std::endl;
-							slot++;
+							PlayerInfo::slot++;
 							PlayerInfo::gold -= snowManPrice;
 							goldText->SetString("(" + std::to_string(PlayerInfo::gold) + "G)");
 							break;
@@ -401,7 +404,7 @@ void TemMieShop::Update(float dt)
 							std::cout << i << std::endl;
 							InventoryUi::healItem[i].SetInfo(L"쿠키", 10);
 							std::cout << "쿠키 구매" << std::endl;
-							slot++;
+							PlayerInfo::slot++;
 							PlayerInfo::gold -= cookiePrice;
 							goldText->SetString("(" + std::to_string(PlayerInfo::gold) + "G)");
 							break;
@@ -423,7 +426,7 @@ void TemMieShop::Update(float dt)
 							std::cout << i << std::endl;
 							InventoryUi::healItem[i].SetInfo(L"아이스", 15);
 							std::cout << "아이스 구매" << std::endl;
-							slot++;
+							PlayerInfo::slot++;
 							PlayerInfo::gold -= icePrice;
 							goldText->SetString("(" + std::to_string(PlayerInfo::gold) + "G)");
 							break;
@@ -434,7 +437,7 @@ void TemMieShop::Update(float dt)
 				{
 					std::cout << "골드가 모자랍니다" << std::endl;
 				}
-				slotText->SetString(std::to_string(slot) + "/4");
+				slotText->SetString(std::to_string(PlayerInfo::slot) + "/4");
 			}
 			else
 			{
@@ -442,6 +445,95 @@ void TemMieShop::Update(float dt)
 			}
 		}
 	}
+#pragma endregion
+
+#pragma region 판매 시스템
+	if (isSell)
+	{
+		// 선택 아이콘
+		if (InputMgr::GetKeyDown(sf::Keyboard::Up))
+		{
+			sellItem = true;
+			if (!(buyTextCount <= 0))
+			{
+				buyTextCount--;
+				buyTextPos -= 50.f;
+			}
+		}
+		if (InputMgr::GetKeyDown(sf::Keyboard::Down))
+		{
+			sellItem = true;
+			if (!(textCount >= 2))
+			{
+				buyTextCount++;
+				buyTextPos += 50.f;
+			}
+		}
+		Buy_Selection_Icon->SetPosition({ snowManText->GetPosition().x + -25.f, snowManText->GetPosition().y + 15.f + textPos });
+		Buy_Selection_Icon_HitBox.setPosition(Buy_Selection_Icon->GetPosition());
+
+		if (InputMgr::GetKeyDown(sf::Keyboard::Z) && sellItem)
+		{
+			if (PlayerInfo::slot > 0)
+			{
+				// 눈사람
+				if (Utils::CheckCollision(Buy_Selection_Icon_HitBox, SnowManText_HitBox))
+				{
+					itemName = L"눈사람";
+					for (int i = 0; i < 4; ++i)
+					{
+						if (itemName == InventoryUi::healItem[i].GetName())
+						{
+							PlayerInfo::gold += 5;
+							PlayerInfo::slot--;
+							InventoryUi::healItem[i].SetInfo(L"", 0);
+							break;
+						}
+					}
+				}
+
+				// 쿠키
+				if (Utils::CheckCollision(Buy_Selection_Icon_HitBox, CookieText_HitBox))
+				{
+					itemName = L"쿠키";
+					for (int i = 0; i < 4; ++i)
+					{
+						if (itemName == InventoryUi::healItem[i].GetName())
+						{
+							PlayerInfo::gold += 10;
+							PlayerInfo::slot--;
+							InventoryUi::healItem[i].SetInfo(L"", 0);
+							break;
+						}
+					}
+				}
+
+				// 아이스
+				if (Utils::CheckCollision(Buy_Selection_Icon_HitBox, IceText_HitBox))
+				{
+					itemName = L"아이스";
+					for (int i = 0; i < 4; ++i)
+					{
+						if (itemName == InventoryUi::healItem[i].GetName())
+						{
+							PlayerInfo::gold += 15;
+							PlayerInfo::slot--;
+							InventoryUi::healItem[i].SetInfo(L"", 0);
+							break;
+						}
+					}
+				}
+				goldText->SetString("(" + std::to_string(PlayerInfo::gold) + "G)");
+				slotText->SetString(std::to_string(PlayerInfo::slot) + "/4");
+			}
+			else
+			{
+				std::cout << "판매할 아이템이 없습니다." << std::endl;
+			}
+		}
+	}
+#pragma endregion
+
 
 	
 	Scene::Update(dt);
