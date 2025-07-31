@@ -4,6 +4,13 @@
 class Player;
 class TextGo;
 
+class InventoryUi;
+class DialogueBox;
+class UiChanger;
+class PlayerInfoUi;
+class HealItem;
+class PlayerInfo;
+
 class Map5 :
 	public Scene
 {
@@ -18,6 +25,10 @@ protected:
 
 	SpriteGo* background = nullptr;
 	Player* player;
+	UiChanger* uichanger;
+	InventoryUi* inventoryui;
+	DialogueBox* dialoguebox;
+	PlayerInfoUi* playerinfoui;
 
 	bool puzzleSuccess = false;
 

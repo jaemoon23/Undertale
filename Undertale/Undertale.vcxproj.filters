@@ -181,5 +181,6 @@
     <ClInclude Include="TemMie.h" />
     <ClInclude Include="TemMieShop.h" />
     <ClInclude Include="Papyrus.h" />
+    <ClInclude Include="playerRelated\PlayerInfo.h" />
   </ItemGroup>
 </Project>

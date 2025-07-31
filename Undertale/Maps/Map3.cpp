@@ -3,6 +3,12 @@
 #include "Player.h"
 #include "SceneBattle.h"
 
+#include "DialogueBox.h"
+#include "UiChanger.h"
+#include "InventoryUi.h"
+#include "PlayerInfoUi.h"
+#include "HealItem.h"
+
 Map3::Map3() : Scene(SceneIds::Map3)
 {
 }
@@ -15,6 +21,8 @@ void Map3::Init()
 	texIds.push_back("Sprites/upwalking.png");
 	texIds.push_back("Sprites/leftwalking.png");
 	texIds.push_back("Sprites/rightwalking.png");
+	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
+	texIds.push_back("Sprites/backgroundui.png");
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
@@ -25,6 +33,32 @@ void Map3::Init()
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
 	background = (SpriteGo*)AddGameObject(new SpriteGo());
 	background->sortingLayer = SortingLayers::Background;
+
+	inventoryui = new InventoryUi("InventoryUi");
+	dialoguebox = new DialogueBox("dialoguebox");
+	uichanger = new UiChanger("uichanger");
+	playerinfoui = new PlayerInfoUi("playerinfoui");
+
+	player->SetBox(dialoguebox);
+	player->SetUiChanger(uichanger);
+	player->SetInventoryUi(inventoryui);
+	player->SetPlayerInfoUi(playerinfoui);
+	dialoguebox->SetPlayer(player);
+	uichanger->SetDialogueBox(dialoguebox);
+	uichanger->SetPlayer(player);
+	uichanger->SetInventoryUi(inventoryui);
+	uichanger->SetPlayerInfoUi(playerinfoui);
+	inventoryui->SetPlayer(player);
+	inventoryui->SetBox(dialoguebox);
+
+	AddGameObject(inventoryui);
+	AddGameObject(dialoguebox);
+	AddGameObject(uichanger);
+	AddGameObject(playerinfoui);
+
+	player->SetBox(dialoguebox);
+	dialoguebox->SetPlayer(player);
+
 	Scene::Init();
 }
 
@@ -132,6 +166,18 @@ void Map3::Update(float dt)
 {
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::C))
+	{
+		if ((inventoryui && inventoryui->GetActive()) ||
+			(playerinfoui && playerinfoui->GetActive()) ||
+			(dialoguebox && dialoguebox->GetActive()))
+		{
+			return;
+		}
+		uichanger->SetActive(!uichanger->GetActive());
+	}
+
 	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
 	{
 		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;

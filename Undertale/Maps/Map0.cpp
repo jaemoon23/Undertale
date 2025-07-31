@@ -66,15 +66,15 @@ void Map0::Init()
 	AddGameObject(uichanger);
 	AddGameObject(playerinfoui);
 	Scene::Init();
-
-	//InventoryUi::healItem[0].SetInfo(L"아이스크림", 15); // 아이템 이름과 회복량 설정
-	//InventoryUi::healItem[1].SetInfo(L"쿠키", 10);
-	//InventoryUi::healItem[2].SetInfo(L"아이스크림", 15);
-	//InventoryUi::healItem[3].SetInfo(L"눈사탕", 5);
 }
 
 void Map0::Enter()
 {
+	InventoryUi::healItem[0].SetInfo(L"", 0); // 아이템 이름과 회복량 설정
+	InventoryUi::healItem[1].SetInfo(L"", 0);
+	InventoryUi::healItem[2].SetInfo(L"", 0);
+	InventoryUi::healItem[3].SetInfo(L"", 0);
+
 	SOUND_MGR.StopBgm();
 	std::ifstream in("map0.json");
 	if (!in)
@@ -164,6 +164,18 @@ void Map0::Update(float dt)
 {
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::C))
+	{
+		if ((inventoryui && inventoryui->GetActive()) ||
+			(playerinfoui && playerinfoui->GetActive()) ||
+			(dialoguebox && dialoguebox->GetActive()))
+		{
+			return;
+		}
+		uichanger->SetActive(!uichanger->GetActive());
+	}
+
 	for (auto& hit : hitboxes)
 	{
 		if (Utils::CheckCollision(player->GetHitBox(), *hit.shape))

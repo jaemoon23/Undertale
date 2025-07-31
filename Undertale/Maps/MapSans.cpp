@@ -3,6 +3,12 @@
 #include "Player.h"
 #include "SceneBattle.h"
 
+#include "DialogueBox.h"
+#include "UiChanger.h"
+#include "InventoryUi.h"
+#include "PlayerInfoUi.h"
+#include "HealItem.h"
+
 MapSans::MapSans() : Scene(SceneIds::MapSans)
 {
 }
@@ -16,6 +22,8 @@ void MapSans::Init()
 	texIds.push_back("Sprites/upwalking.png");
 	texIds.push_back("Sprites/leftwalking.png");
 	texIds.push_back("Sprites/rightwalking.png");
+	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
+	texIds.push_back("Sprites/backgroundui.png");
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
@@ -26,6 +34,32 @@ void MapSans::Init()
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
 	background = (SpriteGo*)AddGameObject(new SpriteGo());
 	background->sortingLayer = SortingLayers::Background;
+
+	inventoryui = new InventoryUi("InventoryUi");
+	dialoguebox = new DialogueBox("dialoguebox");
+	uichanger = new UiChanger("uichanger");
+	playerinfoui = new PlayerInfoUi("playerinfoui");
+
+	player->SetBox(dialoguebox);
+	player->SetUiChanger(uichanger);
+	player->SetInventoryUi(inventoryui);
+	player->SetPlayerInfoUi(playerinfoui);
+	dialoguebox->SetPlayer(player);
+	uichanger->SetDialogueBox(dialoguebox);
+	uichanger->SetPlayer(player);
+	uichanger->SetInventoryUi(inventoryui);
+	uichanger->SetPlayerInfoUi(playerinfoui);
+	inventoryui->SetPlayer(player);
+	inventoryui->SetBox(dialoguebox);
+
+	AddGameObject(inventoryui);
+	AddGameObject(dialoguebox);
+	AddGameObject(uichanger);
+	AddGameObject(playerinfoui);
+
+	player->SetBox(dialoguebox);
+	dialoguebox->SetPlayer(player);
+
 	Scene::Init();
 }
 
@@ -143,6 +177,17 @@ void MapSans::Enter()
 
 void MapSans::Update(float dt)
 {
+	if (InputMgr::GetKeyDown(sf::Keyboard::C))
+	{
+		if ((inventoryui && inventoryui->GetActive()) ||
+			(playerinfoui && playerinfoui->GetActive()) ||
+			(dialoguebox && dialoguebox->GetActive()))
+		{
+			return;
+		}
+		uichanger->SetActive(!uichanger->GetActive());
+	}
+
 	worldView.setCenter(player->GetPosition());
 	uiView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;

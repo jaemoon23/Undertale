@@ -3,18 +3,15 @@
 #include "Player.h"
 #include "Papyrus.h"
 
-#include "DialogueBox.h"
-
 #include <fstream>
 #include "json.hpp"
 #include "TextGo.h"
-#include "Sans.h"
 
+#include "DialogueBox.h"
 #include "UiChanger.h"
 #include "InventoryUi.h"
 #include "PlayerInfoUi.h"
 #include "HealItem.h"
-#include "GameObject.h"
 #include <SceneBattle.h>
 
 
@@ -31,13 +28,13 @@ void MapPapyrus::Init()
 	texIds.push_back("Sprites/leftwalking.png");
 	texIds.push_back("Sprites/rightwalking.png");
 	texIds.push_back("Sprites/sprite_sheet_papyrus_cape.png");
-	texIds.push_back("Sprites/spr_papyrus_cape_0.png");
-	texIds.push_back("Sprites/backgroundui.png");
+	texIds.push_back("Sprites/spr_papyrus_cape_0.png");	
 	texIds.push_back("Sprites/spr_rainbowtarget_0.png");
-	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
 	texIds.push_back("Sprites/sprite_sheet_papyrus_toasted.png");
 	texIds.push_back("Sprites/sprite_sheet_papyrus_run.png");
-	
+
+	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
+	texIds.push_back("Sprites/backgroundui.png");
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
@@ -325,8 +322,6 @@ void MapPapyrus::Update(float dt)
 			dialoguebox->NextLine();
 		}
 	}
-
-
 
 	Scene::Update(dt);
 }

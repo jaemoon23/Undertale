@@ -221,6 +221,7 @@
     <ClInclude Include="Framework\Variables.h" />
     <ClInclude Include="Maptools\InputText.h" />
     <ClInclude Include="json.hpp" />
+    <ClInclude Include="playerRelated\PlayerInfo.h" />
     <ClInclude Include="Scenes\SceneIntro.h" />
     <ClInclude Include="playerRelated\HealItem.h" />
     <ClInclude Include="Scenes\MapTool.h" />

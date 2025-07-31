@@ -3,6 +3,12 @@
 #include "SpriteGo.h"
 
 class Player;
+class InventoryUi;
+class DialogueBox;
+class UiChanger;
+class PlayerInfoUi;
+class HealItem;
+class PlayerInfo;
 
 class MapSans :
     public Scene
@@ -16,6 +22,11 @@ protected:
 
 	SpriteGo* background = nullptr;
 	Player* player;
+
+	UiChanger* uichanger;
+	InventoryUi* inventoryui;
+	DialogueBox* dialoguebox;
+	PlayerInfoUi* playerinfoui;
 
 	bool puzzleSuccess = false;
 

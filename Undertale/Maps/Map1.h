@@ -7,6 +7,13 @@
 class Player;
 class TextGo;
 
+class InventoryUi;
+class DialogueBox;
+class UiChanger;
+class PlayerInfoUi;
+class HealItem;
+class PlayerInfo;
+
 class Map1 : public Scene
 {
 protected:
@@ -31,6 +38,11 @@ protected:
 
 	SpriteGo* textWindow = nullptr;
 	TextGo* text = nullptr;
+
+	UiChanger* uichanger;
+	InventoryUi* inventoryui;
+	DialogueBox* dialoguebox;
+	PlayerInfoUi* playerinfoui;
 
 	bool showText = false;
 public:

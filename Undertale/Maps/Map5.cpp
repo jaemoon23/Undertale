@@ -4,6 +4,12 @@
 #include "TextGo.h"
 #include "SceneBattle.h"
 
+#include "DialogueBox.h"
+#include "UiChanger.h"
+#include "InventoryUi.h"
+#include "PlayerInfoUi.h"
+#include "HealItem.h"
+
 Map5::Map5() : Scene(SceneIds::Map5)
 {
 }
@@ -17,6 +23,8 @@ void Map5::Init()
 	texIds.push_back("Sprites/upwalking.png");
 	texIds.push_back("Sprites/leftwalking.png");
 	texIds.push_back("Sprites/rightwalking.png");
+	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
+	texIds.push_back("Sprites/backgroundui.png");
 
 	SOUNDBUFFER_MGR.Load("sounds/Map5/47 Ooo.flac");
 	SOUNDBUFFER_MGR.Load("sounds/Map5/sw.wav");
@@ -36,6 +44,31 @@ void Map5::Init()
 	textW = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
 	textE = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
 	textR = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
+
+	inventoryui = new InventoryUi("InventoryUi");
+	dialoguebox = new DialogueBox("dialoguebox");
+	uichanger = new UiChanger("uichanger");
+	playerinfoui = new PlayerInfoUi("playerinfoui");
+
+	player->SetBox(dialoguebox);
+	player->SetUiChanger(uichanger);
+	player->SetInventoryUi(inventoryui);
+	player->SetPlayerInfoUi(playerinfoui);
+	dialoguebox->SetPlayer(player);
+	uichanger->SetDialogueBox(dialoguebox);
+	uichanger->SetPlayer(player);
+	uichanger->SetInventoryUi(inventoryui);
+	uichanger->SetPlayerInfoUi(playerinfoui);
+	inventoryui->SetPlayer(player);
+	inventoryui->SetBox(dialoguebox);
+
+	AddGameObject(inventoryui);
+	AddGameObject(dialoguebox);
+	AddGameObject(uichanger);
+	AddGameObject(playerinfoui);
+
+	player->SetBox(dialoguebox);
+	dialoguebox->SetPlayer(player);
 
 	Scene::Init();
 }
@@ -161,6 +194,17 @@ void Map5::Enter()
 
 void Map5::Update(float dt)
 {
+	if (InputMgr::GetKeyDown(sf::Keyboard::C))
+	{
+		if ((inventoryui && inventoryui->GetActive()) ||
+			(playerinfoui && playerinfoui->GetActive()) ||
+			(dialoguebox && dialoguebox->GetActive()))
+		{
+			return;
+		}
+		uichanger->SetActive(!uichanger->GetActive());
+	}
+
 	worldView.setCenter(player->GetPosition());
 
 	textQ->SetPosition({ player->GetPosition().x - 5.f, player->GetPosition().y - 40.f });

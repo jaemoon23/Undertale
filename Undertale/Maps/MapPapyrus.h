@@ -2,7 +2,6 @@
 #include "Scene.h"
 #include "SpriteGo.h"
 
-
 class Player;
 class Papyrus;
 class InventoryUi;

@@ -145,10 +145,14 @@ void Player::Update(float dt)
 
 		if (InputMgr::GetKeyDown(sf::Keyboard::X))
 		{
-			dialoguebox->SetActive(false);
-			inventoryui->SetActive(false);
-			playerInfoUi->SetActive(false);
-			uichanger->SetActive(false);
+			if (dialoguebox && dialoguebox->GetActive())
+				dialoguebox->SetActive(false);
+			else if (inventoryui && inventoryui->GetActive())
+				inventoryui->SetActive(false);
+			else if (playerInfoUi && playerInfoUi->GetActive())
+				playerInfoUi->SetActive(false);
+			else if (uichanger && uichanger->GetActive())
+				uichanger->SetActive(false);
 		}
 
 		if (uichanger && uichanger->GetActive()) return; // UI 변경 중에는 플레이어 이동 불가

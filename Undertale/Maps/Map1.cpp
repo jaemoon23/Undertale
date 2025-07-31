@@ -3,6 +3,12 @@
 #include "SceneBattle.h"
 #include "Player.h"
 #include "TextGo.h"
+#include "DialogueBox.h"
+#include "UiChanger.h"
+#include "InventoryUi.h"
+#include "PlayerInfoUi.h"
+#include "HealItem.h"
+
 Map1::Map1() : Scene(SceneIds::Map1)
 {
 }
@@ -17,6 +23,8 @@ void Map1::Init()
 	texIds.push_back("Sprites/leftwalking.png");
 	texIds.push_back("Sprites/rightwalking.png");
 	texIds.push_back("Sprites/TextWindow.png");
+	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
+	texIds.push_back("Sprites/backgroundui.png");
 
 	SOUNDBUFFER_MGR.Load("sounds/Map1/05 Ruins.flac");
 	SOUNDBUFFER_MGR.Load("sounds/Map1/Fall2.wav");
@@ -33,6 +41,32 @@ void Map1::Init()
 	background1->sortingLayer = SortingLayers::Background;
 	textWindow = (SpriteGo*)AddGameObject(new SpriteGo("Sprites/TextWindow.png"));
 	text = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
+
+	inventoryui = new InventoryUi("InventoryUi");
+	dialoguebox = new DialogueBox("dialoguebox");
+	uichanger = new UiChanger("uichanger");
+	playerinfoui = new PlayerInfoUi("playerinfoui");
+
+	player->SetBox(dialoguebox);
+	player->SetUiChanger(uichanger);
+	player->SetInventoryUi(inventoryui);
+	player->SetPlayerInfoUi(playerinfoui);
+	dialoguebox->SetPlayer(player);
+	uichanger->SetDialogueBox(dialoguebox);
+	uichanger->SetPlayer(player);
+	uichanger->SetInventoryUi(inventoryui);
+	uichanger->SetPlayerInfoUi(playerinfoui);
+	inventoryui->SetPlayer(player);
+	inventoryui->SetBox(dialoguebox);
+	player->SetBox(dialoguebox);
+	dialoguebox->SetPlayer(player);
+
+	AddGameObject(inventoryui);
+	AddGameObject(dialoguebox);
+	AddGameObject(uichanger);
+	AddGameObject(playerinfoui);
+
+
 
 	wall.setSize({ 10.f,70.f });
 	wall.setFillColor(sf::Color::Transparent);
@@ -174,6 +208,17 @@ void Map1::Enter()
 
 void Map1::Update(float dt)
 {
+	if (InputMgr::GetKeyDown(sf::Keyboard::C))
+	{
+		if ((inventoryui && inventoryui->GetActive()) ||
+			(playerinfoui && playerinfoui->GetActive()) ||
+			(dialoguebox && dialoguebox->GetActive()))
+		{
+			return;
+		}
+		uichanger->SetActive(!uichanger->GetActive());
+	}
+
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
 	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
