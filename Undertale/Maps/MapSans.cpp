@@ -9,6 +9,7 @@ MapSans::MapSans() : Scene(SceneIds::MapSans)
 
 void MapSans::Init()
 {	
+	texIds.push_back("graphics/spr_sans_l_dark_0.png");
 	texIds.push_back("graphics/column.png");
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("graphics/SansBack.png");
@@ -127,58 +128,91 @@ void MapSans::Enter()
 	//
 	player->SetColorBlack();
 	player->isSansMap = true;
-	for (int i = 0; i < columnCount; ++i)
-	{
-		sf::Sprite bg;
-		bg.setTexture(TEXTURE_MGR.Get("graphics/column.png"));
-		Utils::SetOrigin(bg, Origins::BC);
-		sf::Vector2f pos = player->GetPosition();
-		pos.x += 70.f;
-		pos.x += i * 180.f;
-		pos.y += 53.5f;
-		bg.setPosition(pos);
-		column.push_back(bg);
-	}
+	SetColumn();
+
+	sans.setTexture(TEXTURE_MGR.Get("graphics/spr_sans_l_dark_0.png"));
+	Utils::SetOrigin(sans, Origins::MC);
+	sans.setPosition({ 702.f,287.934f });
+
+	isSansEvent = false;
+	isSansTalking = false;
 }
 
 void MapSans::Update(float dt)
-{
-	worldView.setCenter(player->GetPosition());
-	uiView.setCenter(player->GetPosition());
-	battleCheckTimer += dt;
-	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
+{	
+	if (isSansEvent)
 	{
-		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
-	}
-	for (auto& hit : hitboxes)
-	{
-		if (Utils::CheckCollision(player->GetHitBox(), *hit.shape))
+		timer += dt;
+		if (timer >= waitingTime && timer <= waitingTime + screenMoveTime)
 		{
-			if (hit.type == "Wall")
-			{
-				player->SetPosition(player->getPos());
-			}
-			else if (hit.type == "SceneChange")
-			{
-				std::cout << "¾À ÀüÈ¯ Æ®¸®°ÅµÊ!" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Dev1);
-			}
-			else if (hit.type == "NextScene")
-			{
-				std::cout << "NextScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Dev1);
-			}
-			else if (hit.type == "PrevScene")
-			{
-				std::cout << "PrevScene" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::MapPapyrus);
-			}
+			sf::Vector2f worldViewCenter = worldView.getCenter();
+			sf::Vector2f uiViewCenter = uiView.getCenter();
+			worldViewCenter.x += 80.f / screenMoveTime * dt;
+			uiViewCenter.x += 136.f / screenMoveTime * dt;
+			worldView.setCenter(worldViewCenter);
+			uiView.setCenter(uiViewCenter);
+		}
+		else if (timer > waitingTime + screenMoveTime)
+		{
+			isSansTalking = true;
+		}
+
+		if (isSansTalking)
+		{
+
 		}
 	}
-	Scene::Update(dt);
+	else
+	{
+		worldView.setCenter(player->GetPosition());
+		uiView.setCenter(player->GetPosition());
+		battleCheckTimer += dt;
+		if (InputMgr::GetKeyDown(sf::Keyboard::Return))
+		{
+			std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
+		}
+		for (auto& hit : hitboxes)
+		{
+			if (Utils::CheckCollision(player->GetHitBox(), *hit.shape))
+			{
+				if (hit.type == "Wall")
+				{
+					player->SetPosition(player->getPos());
+				}
+				else if (hit.type == "SceneChange")
+				{
+					std::cout << "¾À ÀüÈ¯ Æ®¸®°ÅµÊ!" << std::endl;
+					SCENE_MGR.ChangeScene(SceneIds::Dev1);
+				}
+				else if (hit.type == "NextScene")
+				{
+					std::cout << "NextScene" << std::endl;
+					SCENE_MGR.ChangeScene(SceneIds::Dev1);
+				}
+				else if (hit.type == "PrevScene")
+				{
+					std::cout << "PrevScene" << std::endl;
+					SCENE_MGR.ChangeScene(SceneIds::MapPapyrus);
+				}
+			}
+		}
+		Scene::Update(dt);
+	}	
+
+	if (!isSansEvent && player->GetPosition().x >= 530.7)
+	{
+		timer = 0.f;
+		isSansEvent = true;
+		player->SetAnimatorStop();
+	}
 
 	// Å×½ºÆ® ÄÚµå
 	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad5))
+	{
+		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
+		player->SetPosition({ 500.f, player->GetPosition().y });
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad6))
 	{
 		SceneBattle::nextSceneId = SceneIds::MapSans;
 		SceneBattle::monsterJsonID = "jsons/sans.json";
@@ -189,6 +223,7 @@ void MapSans::Update(float dt)
 void MapSans::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
+	window.draw(sans);
 	window.setView(worldView);
 
 	if (Variables::isDrawHitBox)
@@ -204,5 +239,38 @@ void MapSans::Draw(sf::RenderWindow& window)
 	{
 		window.draw(column[i]);
 	}
+}
+
+void MapSans::SetColumn()
+{
+	for (int i = 0; i < columnCount - 3; ++i)
+	{
+		sf::Sprite bg;
+		bg.setTexture(TEXTURE_MGR.Get("graphics/column.png"));
+		Utils::SetOrigin(bg, Origins::BC);
+		sf::Vector2f pos = player->GetPosition();
+		pos.x += 70.f;
+		pos.x += i * 180.f;
+		pos.y += 53.5f;
+		bg.setPosition(pos);
+		column.push_back(bg);
+	}
+	for (int i = 0; i < 2; ++i)
+	{
+		sf::Sprite bg;
+		bg.setTexture(TEXTURE_MGR.Get("graphics/column.png"));
+		Utils::SetOrigin(bg, Origins::BC);
+		sf::Vector2f pos = column[columnCount - 4].getPosition();
+		pos.x += (i + 1) * 100.f;
+		bg.setPosition(pos);
+		column.push_back(bg);
+	}
+	sf::Sprite bg;
+	bg.setTexture(TEXTURE_MGR.Get("graphics/column.png"));
+	Utils::SetOrigin(bg, Origins::BC);
+	sf::Vector2f pos = column[columnCount - 2].getPosition();
+	pos.x += 180.f;
+	bg.setPosition(pos);
+	column.push_back(bg);
 }
 

@@ -4,10 +4,11 @@
 
 class Player;
 
-class MapSans :
-    public Scene
+class MapSans : public Scene
 {
 protected:
+	sf::Sprite sans;
+
 	float battleCheckTimer = 0.f;
 	const float battleCheckInterval = 1.f;
 
@@ -19,8 +20,15 @@ protected:
 
 	bool puzzleSuccess = false;
 
-	const int columnCount = 5;
+	const int columnCount = 8;
 	std::vector<sf::Sprite> column;
+
+	bool isSansEvent = false;
+	float timer = 0.f;
+	float waitingTime = 1.5f;
+	float screenMoveTime = 3.5f;
+
+	bool isSansTalking = false;
 
 public:
 	MapSans();
@@ -30,5 +38,7 @@ public:
 	void Enter() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void SetColumn();
 };
 

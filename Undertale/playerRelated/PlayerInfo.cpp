@@ -17,7 +17,8 @@ void PlayerInfo::PlusExp(int e)
 	{
 		lv = 20;
 		maxHp = 99;
-		hp = 99;
+		if(lv != pastLv)
+			hp += (lv - pastLv) * 4 + 3;
 		exp = 99999;
 		return;
 	}
