@@ -183,6 +183,7 @@
     <ClCompile Include="playerRelated\TestBackGround.cpp" />
     <ClCompile Include="playerRelated\UiChanger.cpp" />
     <ClCompile Include="TemMie.cpp" />
+    <ClCompile Include="TemMieBody.cpp" />
     <ClCompile Include="TemMieShop.cpp" />
     <ClCompile Include="WrappedText.cpp" />
   </ItemGroup>
@@ -241,6 +242,7 @@
     <ClInclude Include="playerRelated\TestBackGround.h" />
     <ClInclude Include="playerRelated\UiChanger.h" />
     <ClInclude Include="TemMie.h" />
+    <ClInclude Include="TemMieBody.h" />
     <ClInclude Include="TemMieShop.h" />
     <ClInclude Include="WrappedText.h" />
   </ItemGroup>

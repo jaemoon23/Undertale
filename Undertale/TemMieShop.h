@@ -6,11 +6,13 @@
 #include "HealItem.h"
 #include "HitBox.h"
 
+class TemMieBody;
+
 class TemMieShop : public Scene
 {
 protected:
 	SpriteGo* backGround = nullptr;
-	SpriteGo* temMieBody = nullptr;
+	TemMieBody* temMieBody = nullptr;
 	SpriteGo* temShopBox = nullptr;
 	SpriteGo* temShopTextWindow = nullptr;
 	SpriteGo* temShopItemWindow = nullptr;
@@ -67,7 +69,6 @@ protected:
 	int snowManPrice = 10; // 눈사람 가격
 	int cookiePrice = 15; // 쿠키 가격
 	int icePrice = 20; // 아이스 가격
-	int college_tuition = 100000;
 
 	std::wstring itemName = L"";
 	

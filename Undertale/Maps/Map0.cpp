@@ -188,6 +188,7 @@ void Map0::Update(float dt)
 			}			
 		}
 	}
+	
 	//Scene::Update(dt);
 	player->Update(dt);
 	playerinfoui->Update(dt);

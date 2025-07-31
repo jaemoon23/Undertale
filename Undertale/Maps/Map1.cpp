@@ -246,10 +246,10 @@ void Map1::Update(float dt)
 					battleCheckTimer = 0.f;
 
 					// 1% È®·ü
-					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
+					if (Utils::RandomRange(0.f, 1.f) < 0.5f)
 					{
 						SceneBattle::nextSceneId = SceneIds::Map1;
-						SceneBattle::monsterJsonID = "jsons/frog.json";
+						SceneBattle::monsterJsonID = "jsons/Sans.json";
 						player->StartBattle();
 					}
 					else

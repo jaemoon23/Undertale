@@ -2,6 +2,7 @@
 #include "TemMieShop.h"
 #include "SpriteGo.h"
 #include "TextGo.h"
+#include "TemMieBody.h"
 
 TemMieShop::TemMieShop() : Scene(SceneIds::TemMieShop)
 {
@@ -11,19 +12,31 @@ void TemMieShop::Init()
 {
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("Sprites/TemMieShop/TemMie_Shop.png");
+
 	texIds.push_back("Sprites/TemMieShop/TemMieBody.png");
+
 	texIds.push_back("Sprites/TemMieShop/TemMieBox.png");
 	texIds.push_back("Sprites/TemMieShop/TemMieShopTextWindow.png");
 	texIds.push_back("Sprites/TemMieShop/Selection_Icon.png");
+
+	texIds.push_back("Sprites/temmie/spr_5_tembody.png");
+	texIds.push_back("Sprites/temmie/Tembody1.png");
+	texIds.push_back("Sprites/TemMieShop/TemMieBody.png");
+	
+	ANI_CLIP_MGR.Load("Animation/temmie/Temmie_smiling.csv");
+	ANI_CLIP_MGR.Load("Animation/temmie/Temmie_shop_Idle.csv");
 
 	SOUNDBUFFER_MGR.Load("sounds/TemMie/44 Tem Shop.flac");
 	SOUNDBUFFER_MGR.Load("sounds/TemMie/temText.wav");
 	SOUNDBUFFER_MGR.Load("sounds/TemMie/temText2.wav");
 	SOUNDBUFFER_MGR.Load("sounds/TemMie/temText3.wav");
 	SOUNDBUFFER_MGR.Load("sounds/TemMie/temText4.wav");
+	SOUNDBUFFER_MGR.Load("sounds/TemMie/BuyItem.wav");
 
 	backGround = (SpriteGo*)AddGameObject(new SpriteGo("Sprites/TemMieShop/TemMie_Shop.png"));
-	temMieBody = (SpriteGo*)AddGameObject(new SpriteGo("Sprites/TemMieShop/TemMieBody.png"));
+
+	temMieBody = (TemMieBody*)AddGameObject(new TemMieBody("Sprites/temmie/spr_5_tembody.png"));
+
 	temShopBox = (SpriteGo*)AddGameObject(new SpriteGo("Sprites/TemMieShop/TemMieBox.png"));
 	temShopTextWindow = (SpriteGo*)AddGameObject(new SpriteGo("Sprites/TemMieShop/TemMieShopTextWindow.png"));
 	temShopItemWindow = (SpriteGo*)AddGameObject(new SpriteGo("Sprites/TemMieShop/TemMieShopTextWindow.png"));
@@ -221,7 +234,6 @@ void TemMieShop::Enter()
 	snowManPrice = 10; // 눈사람 가격
 	cookiePrice = 15; // 쿠키 가격
 	icePrice = 20; // 아이스 가격
-	college_tuition = 100000;
 
 	itemName = L"";
 
@@ -392,6 +404,9 @@ void TemMieShop::Update(float dt)
 							PlayerInfo::slot++;
 							PlayerInfo::gold -= snowManPrice;
 							goldText->SetString("(" + std::to_string(PlayerInfo::gold) + "G)");
+							SOUND_MGR.PlaySfx("sounds/TemMie/BuyItem.wav");
+							// set함수
+							temMieBody->SetSmiling(true);
 							break;
 						}
 					}
@@ -414,6 +429,8 @@ void TemMieShop::Update(float dt)
 							PlayerInfo::slot++;
 							PlayerInfo::gold -= cookiePrice;
 							goldText->SetString("(" + std::to_string(PlayerInfo::gold) + "G)");
+							SOUND_MGR.PlaySfx("sounds/TemMie/BuyItem.wav");
+							temMieBody->SetSmiling(true);
 							break;
 						}
 					}
@@ -436,6 +453,8 @@ void TemMieShop::Update(float dt)
 							PlayerInfo::slot++;
 							PlayerInfo::gold -= icePrice;
 							goldText->SetString("(" + std::to_string(PlayerInfo::gold) + "G)");
+							SOUND_MGR.PlaySfx("sounds/TemMie/BuyItem.wav");
+							temMieBody->SetSmiling(true);
 							break;
 						}
 					}
@@ -494,6 +513,7 @@ void TemMieShop::Update(float dt)
 							PlayerInfo::gold += 5;
 							PlayerInfo::slot--;
 							InventoryUi::healItem[i].SetInfo(L"", 0);
+							SOUND_MGR.PlaySfx("sounds/TemMie/BuyItem.wav");
 							break;
 						}
 					}
@@ -510,6 +530,7 @@ void TemMieShop::Update(float dt)
 							PlayerInfo::gold += 10;
 							PlayerInfo::slot--;
 							InventoryUi::healItem[i].SetInfo(L"", 0);
+							SOUND_MGR.PlaySfx("sounds/TemMie/BuyItem.wav");
 							break;
 						}
 					}
@@ -526,6 +547,7 @@ void TemMieShop::Update(float dt)
 							PlayerInfo::gold += 15;
 							PlayerInfo::slot--;
 							InventoryUi::healItem[i].SetInfo(L"", 0);
+							SOUND_MGR.PlaySfx("sounds/TemMie/BuyItem.wav");
 							break;
 						}
 					}
