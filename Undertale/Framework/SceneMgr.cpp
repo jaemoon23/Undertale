@@ -16,6 +16,7 @@
 #include "MapPapyrus.h"
 #include "MapSans.h"
 #include "TemMieShop.h"
+#include "SceneEnding.h"
 
 void SceneMgr::Init()
 {
@@ -34,6 +35,7 @@ void SceneMgr::Init()
 	scenes.insert({ SceneIds::MapTool ,new MapTool() });
 	scenes.insert({ SceneIds::Title ,new SceneTitle() });
 	scenes.insert({ SceneIds::Battle ,new SceneBattle() });
+	scenes.insert({ SceneIds::Ending ,new SceneEnding() });
 	
 	for (auto scene : scenes)
 	{

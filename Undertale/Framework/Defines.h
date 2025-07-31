@@ -42,6 +42,7 @@ enum class SceneIds
 	MapTool,
 	Game,
 	Battle,
+	Ending,
 	Dev1,
 	Dev2,
 	Count,

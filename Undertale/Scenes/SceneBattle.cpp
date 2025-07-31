@@ -87,6 +87,7 @@ void SceneBattle::Init()
 	soundIds.push_back("sounds/11 Determination.flac");
 	soundIds.push_back("sounds/100 MEGALOVANIA.flac");
 	soundIds.push_back("sounds/16 Nyeh Heh Heh!.flac");
+	soundIds.push_back("sounds/24 Bonetrousle.flac");
 	soundIds.push_back("sounds/snd_squeak.wav");
 	soundIds.push_back("sounds/snd_select.wav");
 	soundIds.push_back("sounds/snd_hurt1.wav");
@@ -182,7 +183,8 @@ void SceneBattle::Enter()
 	gameOver.setColor(gameOverColor);
 
 	gameOverText.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
-	gameOverText.setCharacterSize(30.f);
+	gameOverText.setCharacterSize(60.f);
+	gameOverText.setScale(0.5f, 0.5f);
 	gameOverText.setPosition({ size.x * 0.25f, size.y * 0.55f });
 	gameOverText.setString(L"지금 끝낼 수는 없어!");
 
@@ -488,6 +490,8 @@ void SceneBattle::MonsterDie()
 	PlayerInfo::PlusExp(exp);
 	PlayerInfo::gold += gold;
 	PlayerInfo::Moral -= 1;
+	if (data["name"] == "papyrus")
+		PlayerInfo::Moral -= 9;
 	statusUI->Reset();
 	btBox->SetStartDescribe();
 	btState = ButtonState::None;

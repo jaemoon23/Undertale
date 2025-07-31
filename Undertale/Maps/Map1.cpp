@@ -248,11 +248,9 @@ void Map1::Update(float dt)
 					// 1% È®·ü
 					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
 					{
-						std::cout << "·£´ý ÀüÅõ ¹ß»ý!" << std::endl;
 						SceneBattle::nextSceneId = SceneIds::Map1;
 						SceneBattle::monsterJsonID = "jsons/frog.json";
-						//SceneBattle::monsterJsonID = "jsons/sans.json";
-						SCENE_MGR.ChangeScene(SceneIds::Battle);
+						player->StartBattle();
 					}
 					else
 					{

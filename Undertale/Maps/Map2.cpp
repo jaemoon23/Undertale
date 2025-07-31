@@ -227,10 +227,6 @@ void Map2::Enter()
 	sans->SetPosition({ 220.f, 355.f });
 	sans->SetActive(false);
 
-	// test code
-	player->SetPosition({ 400.f,320.f });
-	//
-
 	uiView.setSize(size);
 	uiView.setCenter(center);
 }
@@ -280,9 +276,8 @@ void Map2::Update(float dt)
 						{
 							std::cout << "랜덤 전투 발생!" << std::endl;
 							SceneBattle::nextSceneId = SceneIds::Map2;
-							SceneBattle::monsterJsonID = "jsons/frog.json";
-							//SceneBattle::monsterJsonID = "jsons/sans.json";
-							//SCENE_MGR.ChangeScene(SceneIds::Battle);
+							SceneBattle::monsterJsonID = "jsons/whimsun.json";
+							player->StartBattle();
 						}
 						else
 						{

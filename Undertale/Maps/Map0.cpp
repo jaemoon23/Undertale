@@ -18,7 +18,6 @@ Map0::Map0() : Scene(SceneIds::Map0)
 }
 void Map0::Init()
 {
-
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("Sprites/downwalking.png");
 	texIds.push_back("Sprites/upwalking.png");
@@ -39,7 +38,6 @@ void Map0::Init()
 	ANI_CLIP_MGR.Load("Animation/rightwalking.csv");
 
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
-	//sans = (Sans*)AddGameObject(new Sans("Sprites/spr_sans_sleep_0.png"));
 	
 	inventoryui = new InventoryUi("InventoryUi");
 	dialoguebox = new DialogueBox("dialoguebox");
@@ -58,7 +56,6 @@ void Map0::Init()
 	uichanger->SetInventoryUi(inventoryui);
 	uichanger->SetPlayerInfoUi(playerinfoui);
 	inventoryui->SetPlayer(player);
-	//player->SetSans(sans);
 	inventoryui->SetBox(dialoguebox);
 	
 	AddGameObject(inventoryui);
@@ -188,54 +185,8 @@ void Map0::Update(float dt)
 			{
 				std::cout << "씬 전환 트리거됨!" << std::endl;
 				SCENE_MGR.ChangeScene(SceneIds::Map1);
-			}
-			else if (hit.type == "Battle")
-			{
-				if (battleCheckTimer >= battleCheckInterval)
-				{
-					//std::cout << "배틀 확률 체크" << std::endl;
-					battleCheckTimer = 0.f;
-
-					// 10% 확률
-					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
-					{
-						//std::cout << "랜덤 전투 발생!" << std::endl;
-						SceneBattle::nextSceneId = SceneIds::Map0;
-						SceneBattle::monsterJsonID = "jsons/frog.json";
-						player->StartBattle();
-						//SceneBattle::monsterJsonID = "jsons/sans.json";
-						//SCENE_MGR.ChangeScene(SceneIds::Battle);
-					}
-					else
-					{
-						//std::cout << "배틀 아님" << std::endl;
-					}
-				}
-			}
-			
+			}			
 		}
-	}
-
-	//if (Utils::CheckCollision(player->GetHitBox(), sans->GetHitBox()))
-	//{
-	//	std::cout << "샌즈 충돌" << std::endl;
-	//}
-
-	if (InputMgr::GetKeyDown(sf::Keyboard::Num8))
-	{
-		SceneBattle::nextSceneId = SceneIds::Map0;
-		SceneBattle::monsterJsonID = "jsons/frog.json";
-		player->StartBattle();
-	}
-	else if (InputMgr::GetKeyDown(sf::Keyboard::Num9))
-	{
-		SceneBattle::nextSceneId = SceneIds::Map0;
-		SceneBattle::monsterJsonID = "jsons/sans.json";
-		player->StartBattle();
-	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Num5))
-	{
-		SCENE_MGR.ChangeScene(SceneIds::Map0);
 	}
 	//Scene::Update(dt);
 	player->Update(dt);

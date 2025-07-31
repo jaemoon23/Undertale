@@ -2,7 +2,7 @@
   "name": "papyrus",
   "texId" : "graphics/spr_papyrusboss_0.png",
   "animationId" : "animations/papyrus_idle.csv",
-  "bgmId" : "sounds/16 Nyeh Heh Heh!.flac",
+  "bgmId" : "sounds/24 Bonetrousle.flac",
   "hp": 180,
   "exp": 7777,
   "gold" : 77,

@@ -60,15 +60,20 @@ void BattleBox::Init()
 	fightLine.setFillColor(sf::Color::White);
 	fightLine.setOutlineColor(sf::Color::White);
 	fightLine.setOutlineThickness(0.5f);
-
-	startDescribe.setCharacterSize(30.f);
-	describe1.setCharacterSize(30.f);
+	
+	startDescribe.setCharacterSize(60.f);
+	startDescribe.setScale(0.5f, 0.5f);
+	describe1.setCharacterSize(60.f);
+	describe1.setScale(0.5f, 0.5f);
 	describe1.setPosition({ size.x * 0.09f, size.y * 0.54f });
-	describe2.setCharacterSize(30.f);
+	describe2.setCharacterSize(60.f);
+	describe2.setScale(0.5f, 0.5f);
 	describe2.setPosition({ size.x * 0.59f, size.y * 0.54f });
-	describe3.setCharacterSize(30.f);
+	describe3.setCharacterSize(60.f);
+	describe3.setScale(0.5f, 0.5f);
 	describe3.setPosition({ size.x * 0.09f, size.y * 0.63f });
-	describe4.setCharacterSize(30.f);
+	describe4.setCharacterSize(60.f);
+	describe4.setScale(0.5f, 0.5f);
 	describe4.setPosition({ size.x * 0.59f, size.y * 0.63f });
 
 	maxHpBar.setFillColor(sf::Color(128, 128, 128));
@@ -79,7 +84,8 @@ void BattleBox::Init()
 	hpBar.setSize({ size.x * 0.3f, size.y * 0.05f });
 	hpBar.setPosition({ size.x * 0.3f, size.y * 0.2f });
 
-	damageText.setCharacterSize(40.f);
+	damageText.setCharacterSize(80.f);
+	damageText.setScale(0.5f, 0.5f);
 	damageText.setFillColor(sf::Color::Black);
 	damageText.setOutlineColor(sf::Color::Red);
 	damageText.setOutlineThickness(3.f);

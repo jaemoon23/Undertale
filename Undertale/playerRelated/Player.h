@@ -97,5 +97,7 @@ public:
 	void SetMove(bool a);
 	void SetColorBlack() { body.setColor(sf::Color::Black); }
 	void StartBattle();
+
+	void SetAnimatorStop() { animator.Stop(); }
 };
 

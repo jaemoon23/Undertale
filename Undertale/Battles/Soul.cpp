@@ -73,6 +73,13 @@ void Soul::Reset()
 	shield.setTexture(TEXTURE_MGR.Get("graphics/spr_barrier.png"));
 	shield.setOrigin({ 24.f,32.f });
 	shield.setPosition({ size.x * 0.505f,size.y * 0.655f });
+
+	isGravity = false;
+	isBlink = false;
+	isShieldBlink = false;
+	CanMove = true;
+	isGravity = false;
+	CanJump = false;
 }
 
 void Soul::Update(float dt)
