@@ -87,6 +87,7 @@ void SceneBattle::Init()
 	soundIds.push_back("sounds/11 Determination.flac");
 	soundIds.push_back("sounds/100 MEGALOVANIA.flac");
 	soundIds.push_back("sounds/16 Nyeh Heh Heh!.flac");
+	soundIds.push_back("sounds/24 Bonetrousle.flac");
 	soundIds.push_back("sounds/snd_squeak.wav");
 	soundIds.push_back("sounds/snd_select.wav");
 	soundIds.push_back("sounds/snd_hurt1.wav");

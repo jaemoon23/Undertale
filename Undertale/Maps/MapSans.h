@@ -29,11 +29,25 @@ protected:
 	float screenMoveTime = 3.5f;
 
 	bool isSansTalking = false;
+	bool isDrawingText = false;
 	sf::Sprite textWindow;
 	sf::Sprite sansFace;
 	sf::Text text;
+	std::vector<std::wstring> sansLines;
+	std::vector<std::string> sansFaceIds;
+	int lineIndex = 0;
+	int lineCount;
+
+	std::wstring tempLine;
+	std::wstring currentLine;
+	int charIndex = 0;
+	float typeTimer = 0.f;
+	float typeTime = 0.07f;
+
+	float maxY;
 
 public:
+	bool IsSansDie = false;
 	MapSans();
 	~MapSans() override = default;
 

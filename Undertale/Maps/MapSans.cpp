@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "MapSans.h"
 #include "Player.h"
 #include "SceneBattle.h"
@@ -9,6 +9,7 @@ MapSans::MapSans() : Scene(SceneIds::MapSans)
 
 void MapSans::Init()
 {
+	
 	texIds.push_back("graphics/spr_sans_bface_0.png");
 	texIds.push_back("graphics/spr_sans_bface_1.png");
 	texIds.push_back("graphics/spr_sans_bface_2.png");
@@ -28,6 +29,7 @@ void MapSans::Init()
 	texIds.push_back("Sprites/leftwalking.png");
 	texIds.push_back("Sprites/rightwalking.png");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
+	soundIds.push_back("sounds/snd_txtsans.wav");
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
@@ -39,6 +41,32 @@ void MapSans::Init()
 	background = (SpriteGo*)AddGameObject(new SpriteGo());
 	background->sortingLayer = SortingLayers::Background;
 	Scene::Init();
+
+	sansLines = {
+		L"* ì•ˆë…•",
+		L"* ê½¤ ë°”ë¹´ì—ˆì§€, ì‘?",
+		L"* ...",
+		L"* ê·¸ë˜, ë¬¼ì–´ë³¼ ê²Œ\n  í•˜ë‚˜ ìˆì–´",
+		L"* ê°€ì¥ ë‚˜ìœ ì‚¬ëŒì´ë¼ë„\n  ë°”ë€” ìˆ˜ ìˆì„ê¹Œ...?",
+		L"* ë…¸ë ¥ë§Œ í•œë‹¤ë©´,\n  ëª¨ë‘ê°€ ì°©í•œ ì‚¬ëŒì´\n  ë  ìˆ˜ ìˆì„ê¹Œ?",
+		L"* í—¤ í—¤ í—¤ í—¤...",
+		L"* ì¢‹ì•„.",
+		L"* ë­, ì—¬ê¸° ë” ê´œì°®ì€\n  ì§ˆë¬¸ì´ ìˆì–´.",
+		L"* ë”ì°í•œ ì‹œê°„ì„\n  ë³´ë‚´ê³  ì‹¶ì–´?"
+	};
+	sansFaceIds = {
+		"graphics/spr_sans_bface_0.png",
+		"graphics/spr_sans_bface_1.png",
+		"graphics/spr_sans_bface_1.png",
+		"graphics/spr_sans_bface_0.png",
+		"graphics/spr_sans_bface_4.png",
+		"graphics/spr_sans_bface_4.png",
+		"graphics/spr_sans_bface_4.png",
+		"graphics/spr_sans_bface_1.png",
+		"graphics/spr_sans_bface_4.png",
+		"graphics/spr_sans_bface_5.png"
+	};
+	lineCount = sansLines.size();
 }
 
 void MapSans::Enter()
@@ -46,7 +74,7 @@ void MapSans::Enter()
 	std::ifstream in("map7.json");
 	if (!in)
 	{
-		std::cerr << "map7.json ÆÄÀÏÀ» ¿­ ¼ö ¾ø½À´Ï´Ù!" << std::endl;
+		std::cerr << "map7.json íŒŒì¼ì„ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!" << std::endl;
 		return;
 	}
 
@@ -54,7 +82,7 @@ void MapSans::Enter()
 	in >> j;
 	auto& mapData = j["map7"];
 
-	// ¹è°æ
+	// ë°°ê²½
 	std::string bgTex = mapData["background"]["textureId"];
 	sf::Vector2f bgPos(mapData["background"]["position"][0], mapData["background"]["position"][1]);
 	sf::Vector2f scale(mapData["background"]["scale"][0], mapData["background"]["scale"][1]);
@@ -71,7 +99,7 @@ void MapSans::Enter()
 	uiView.setSize(size * 0.4f);
 	uiView.setCenter(center);
 
-	// ¿ÀºêÁ§Æ®
+	// ì˜¤ë¸Œì íŠ¸
 	bool playerPlaced = false;
 	for (auto& obj : mapData["objects"])
 	{
@@ -100,7 +128,7 @@ void MapSans::Enter()
 		}
 	}
 
-	//  È÷Æ®¹Ú½º ·Îµå
+	//  íˆíŠ¸ë°•ìŠ¤ ë¡œë“œ
 	for (auto& box : mapData["hitboxes"])
 	{
 		sf::Vector2f pos(box["position"][0], box["position"][1]);
@@ -156,9 +184,20 @@ void MapSans::Enter()
 	text.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	text.setCharacterSize(100); 
 	text.setScale(0.12f, 0.12f); 
+	lineIndex = 0;
+
+	maxY = player->GetPosition().y;
+
+	// ì§€ìš°ê¸°
+	PlayerInfo::PlusExp(99999);
 	//
-	sansFace.setTexture(TEXTURE_MGR.Get("graphics/spr_sans_bface_0.png"));
-	text.setString(L"* ²Ï ¹Ù»¦¾úÁö");
+	if (PlayerInfo::lv == 20)
+		IsSansDie = true;
+
+	if (IsSansDie)
+	{
+		player->SetPosition({ 500.f, player->GetPosition().y });
+	}
 }
 
 void MapSans::Update(float dt)
@@ -179,11 +218,50 @@ void MapSans::Update(float dt)
 		{
 			isSansTalking = true;
 			textWindow.setPosition(uiView.getCenter() + sf::Vector2f(0.f, -93.f));
+			sansFace.setPosition(uiView.getCenter() + sf::Vector2f(-100.f, -78.f));
+			text.setPosition(uiView.getCenter() + sf::Vector2f(-58.f, -87.f));
 		}
 
 		if (isSansTalking)
 		{
+			if (lineIndex == 0)
+			{
+				isDrawingText = true;
+				charIndex = 0;
+				typeTimer = 0.f;
+				tempLine = sansLines[lineIndex];
+				sansFace.setTexture(TEXTURE_MGR.Get(sansFaceIds[lineIndex++]));
+			}
 
+			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+			{
+				if (lineIndex == lineCount)
+				{
+					SceneBattle::nextSceneId = SceneIds::MapSans;
+					SceneBattle::monsterJsonID = "jsons/sans.json";					
+					SCENE_MGR.ChangeScene(SceneIds::Battle);
+					return;
+				}
+				isDrawingText = true;
+				charIndex = 0;
+				typeTimer = 0.f;
+				tempLine = sansLines[lineIndex];
+				sansFace.setTexture(TEXTURE_MGR.Get(sansFaceIds[lineIndex++]));
+			}
+
+			if (isDrawingText)
+			{
+				typeTimer += dt;
+				if (charIndex < tempLine.size() && typeTimer > typeTime)
+				{
+					typeTimer = 0.f;
+					charIndex++;
+					currentLine = tempLine.substr(0, charIndex);
+					text.setString(currentLine);
+					if(tempLine[charIndex - 1] != L' ')
+						SOUND_MGR.PlaySfx("sounds/snd_txtsans.wav");
+				}
+			}
 		}
 	}
 	else
@@ -205,13 +283,13 @@ void MapSans::Update(float dt)
 				}
 				else if (hit.type == "SceneChange")
 				{
-					std::cout << "¾À ÀüÈ¯ Æ®¸®°ÅµÊ!" << std::endl;
+					std::cout << "ì”¬ ì „í™˜ íŠ¸ë¦¬ê±°ë¨!" << std::endl;
 					SCENE_MGR.ChangeScene(SceneIds::Dev1);
 				}
 				else if (hit.type == "NextScene")
 				{
 					std::cout << "NextScene" << std::endl;
-					SCENE_MGR.ChangeScene(SceneIds::Dev1);
+					SCENE_MGR.ChangeScene(SceneIds::Ending);
 				}
 				else if (hit.type == "PrevScene")
 				{
@@ -223,17 +301,26 @@ void MapSans::Update(float dt)
 		Scene::Update(dt);
 	}	
 
-	if (!isSansEvent && player->GetPosition().x >= 530.7)
+	if (!IsSansDie && !isSansEvent && player->GetPosition().x >= 530.7)
 	{
 		timer = 0.f;
 		isSansEvent = true;
 		player->SetAnimatorStop();
 	}
 
-	// Å×½ºÆ® ÄÚµå
+	if ((player->GetPosition().x <= -300.f || player->GetPosition().x >= 900.f) && player->GetPosition().y <= maxY)
+	{
+		player->isSansMap = false;
+	}
+	else if(player->GetPosition().y >= maxY)
+	{
+		player->isSansMap = true;
+		player->SetPosition({ player->GetPosition().x,maxY });
+	}
+
+	// í…ŒìŠ¤íŠ¸ ì½”ë“œ
 	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad5))
 	{
-		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
 		player->SetPosition({ 500.f, player->GetPosition().y });
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad6))
@@ -242,32 +329,28 @@ void MapSans::Update(float dt)
 		SceneBattle::monsterJsonID = "jsons/sans.json";
 		player->StartBattle();
 	}
-		
-	// ³ªÁß¿¡ Áö¿ì±â
-	uiView.setCenter(uiView.getCenter() + sf::Vector2f(136.f, 0.f));
-	textWindow.setPosition(uiView.getCenter() + sf::Vector2f(0.f, -93.f));
-	sansFace.setPosition(uiView.getCenter() + sf::Vector2f(-100.f, -78.f));
-
-	text.setPosition(uiView.getCenter() + sf::Vector2f(-58.f, -87.f));
-	sf::Vector2f textPos = text.getPosition();
-	textPos.x = std::round(textPos.x);
-	textPos.y = std::round(textPos.y);
-	text.setPosition(textPos);
-	isSansTalking = true;
-	//
+	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad7))
+	{
+		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad8))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::Ending);
+	}
 }
 
 void MapSans::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
-	window.draw(sans);
+	if(!IsSansDie)
+		window.draw(sans);
 	window.setView(worldView);
 
 	if (Variables::isDrawHitBox)
 	{
 		for (auto& hit : hitboxes)
 		{
-			window.draw(*hit.shape); // worldView ±âÁØÀ¸·Î ±×·ÁÁü
+			window.draw(*hit.shape); // worldView ê¸°ì¤€ìœ¼ë¡œ ê·¸ë ¤ì§
 		}
 	}
 
@@ -287,6 +370,8 @@ void MapSans::Draw(sf::RenderWindow& window)
 
 void MapSans::SetColumn()
 {
+	column.clear();
+
 	for (int i = 0; i < columnCount - 3; ++i)
 	{
 		sf::Sprite bg;
