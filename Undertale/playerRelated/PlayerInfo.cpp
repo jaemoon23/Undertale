@@ -6,7 +6,7 @@ int PlayerInfo::maxHp = 20;
 int PlayerInfo::ATK = 50;
 int PlayerInfo::lv = 1;
 int PlayerInfo::exp = 0;
-int PlayerInfo::gold = 0;
+int PlayerInfo::gold = 1000;
 int PlayerInfo::Moral = 0;
 
 void PlayerInfo::PlusExp(int e)
