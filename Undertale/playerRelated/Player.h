@@ -81,6 +81,7 @@ public:
 	void SansSecondsInteract();
 	void PapyrusInteract();
 	void PapyrusBattleEndInteract();
+	void PapyrusMercyInteract();
 
 	void SetSans(Sans* s) { sans = s; }
 	void SetBox(DialogueBox* dbox) { dialoguebox = dbox; }
