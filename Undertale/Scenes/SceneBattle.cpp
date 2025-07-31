@@ -182,7 +182,8 @@ void SceneBattle::Enter()
 	gameOver.setColor(gameOverColor);
 
 	gameOverText.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
-	gameOverText.setCharacterSize(30.f);
+	gameOverText.setCharacterSize(60.f);
+	gameOverText.setScale(0.5f, 0.5f);
 	gameOverText.setPosition({ size.x * 0.25f, size.y * 0.55f });
 	gameOverText.setString(L"지금 끝낼 수는 없어!");
 

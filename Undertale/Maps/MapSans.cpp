@@ -8,7 +8,17 @@ MapSans::MapSans() : Scene(SceneIds::MapSans)
 }
 
 void MapSans::Init()
-{	
+{
+	texIds.push_back("graphics/spr_sans_bface_0.png");
+	texIds.push_back("graphics/spr_sans_bface_1.png");
+	texIds.push_back("graphics/spr_sans_bface_2.png");
+	texIds.push_back("graphics/spr_sans_bface_3.png");
+	texIds.push_back("graphics/spr_sans_bface_4.png");
+	texIds.push_back("graphics/spr_sans_bface_5.png");
+	texIds.push_back("graphics/spr_sans_bface_7.png");
+	texIds.push_back("graphics/spr_sans_bface_8.png");
+	texIds.push_back("graphics/spr_sans_bface_9.png");
+	texIds.push_back("Sprites/TextWindow.png");
 	texIds.push_back("graphics/spr_sans_l_dark_0.png");
 	texIds.push_back("graphics/column.png");
 	texIds.push_back("Sprites/idle.png");
@@ -17,6 +27,7 @@ void MapSans::Init()
 	texIds.push_back("Sprites/upwalking.png");
 	texIds.push_back("Sprites/leftwalking.png");
 	texIds.push_back("Sprites/rightwalking.png");
+	fontIds.push_back("fonts/DungGeunMo.ttf");
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
@@ -128,6 +139,7 @@ void MapSans::Enter()
 	//
 	player->SetColorBlack();
 	player->isSansMap = true;
+	player->SetPosition(player->GetPosition() + sf::Vector2f(0.f, 8.f));
 	SetColumn();
 
 	sans.setTexture(TEXTURE_MGR.Get("graphics/spr_sans_l_dark_0.png"));
@@ -136,10 +148,21 @@ void MapSans::Enter()
 
 	isSansEvent = false;
 	isSansTalking = false;
+
+	textWindow.setTexture(TEXTURE_MGR.Get("Sprites/TextWindow.png"));
+	textWindow.setScale(0.395f, 0.4f);
+	Utils::SetOrigin(textWindow, Origins::TC);
+
+	text.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
+	text.setCharacterSize(100); 
+	text.setScale(0.12f, 0.12f); 
+	//
+	sansFace.setTexture(TEXTURE_MGR.Get("graphics/spr_sans_bface_0.png"));
+	text.setString(L"* 꽤 바빴었지");
 }
 
 void MapSans::Update(float dt)
-{	
+{
 	if (isSansEvent)
 	{
 		timer += dt;
@@ -155,6 +178,7 @@ void MapSans::Update(float dt)
 		else if (timer > waitingTime + screenMoveTime)
 		{
 			isSansTalking = true;
+			textWindow.setPosition(uiView.getCenter() + sf::Vector2f(0.f, -93.f));
 		}
 
 		if (isSansTalking)
@@ -164,7 +188,7 @@ void MapSans::Update(float dt)
 	}
 	else
 	{
-		worldView.setCenter(player->GetPosition());
+		worldView.setCenter(player->GetPosition() + sf::Vector2f(0.f,-25.f));
 		uiView.setCenter(player->GetPosition());
 		battleCheckTimer += dt;
 		if (InputMgr::GetKeyDown(sf::Keyboard::Return))
@@ -218,6 +242,19 @@ void MapSans::Update(float dt)
 		SceneBattle::monsterJsonID = "jsons/sans.json";
 		player->StartBattle();
 	}
+		
+	// 나중에 지우기
+	uiView.setCenter(uiView.getCenter() + sf::Vector2f(136.f, 0.f));
+	textWindow.setPosition(uiView.getCenter() + sf::Vector2f(0.f, -93.f));
+	sansFace.setPosition(uiView.getCenter() + sf::Vector2f(-100.f, -78.f));
+
+	text.setPosition(uiView.getCenter() + sf::Vector2f(-58.f, -87.f));
+	sf::Vector2f textPos = text.getPosition();
+	textPos.x = std::round(textPos.x);
+	textPos.y = std::round(textPos.y);
+	text.setPosition(textPos);
+	isSansTalking = true;
+	//
 }
 
 void MapSans::Draw(sf::RenderWindow& window)
@@ -239,6 +276,13 @@ void MapSans::Draw(sf::RenderWindow& window)
 	{
 		window.draw(column[i]);
 	}
+
+	if (isSansTalking)
+	{
+		window.draw(textWindow);
+		window.draw(sansFace);
+		window.draw(text);
+	}
 }
 
 void MapSans::SetColumn()
@@ -251,7 +295,7 @@ void MapSans::SetColumn()
 		sf::Vector2f pos = player->GetPosition();
 		pos.x += 70.f;
 		pos.x += i * 180.f;
-		pos.y += 53.5f;
+		pos.y += 67.0f;
 		bg.setPosition(pos);
 		column.push_back(bg);
 	}

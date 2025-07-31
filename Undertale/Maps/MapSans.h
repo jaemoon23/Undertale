@@ -29,6 +29,9 @@ protected:
 	float screenMoveTime = 3.5f;
 
 	bool isSansTalking = false;
+	sf::Sprite textWindow;
+	sf::Sprite sansFace;
+	sf::Text text;
 
 public:
 	MapSans();
