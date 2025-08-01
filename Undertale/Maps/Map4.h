@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Scene.h"
 #include "SpriteGo.h"
 #include "TextGo.h"
@@ -39,9 +39,7 @@ protected:
 	bool puzzleSuccess = false;
 	bool showText = false;
 
-	
-
-
+	sf::Vector2f startPos = { -16.f,300.f };
 
 public:
 	Map4();

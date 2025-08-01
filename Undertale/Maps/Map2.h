@@ -74,6 +74,7 @@ protected:
     bool sansImageChange = false;
     bool deactivationDone = false;
 
+    sf::Vector2f startPos = { -711.f,287.f };
 public:
 
     Map2();

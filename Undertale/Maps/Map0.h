@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Scene.h"
 #include "SpriteGo.h"
 
@@ -40,6 +40,8 @@ protected:
     DialogueBox* dialoguebox;
     PlayerInfoUi* playerinfoui;
     HealItem* healitem;
+
+    sf::Vector2f startPos = { 126.f,253.f };
 public:
     Map0();
     ~Map0() override = default;

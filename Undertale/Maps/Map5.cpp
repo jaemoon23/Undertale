@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Map5.h"
 #include "Player.h"
 #include "TextGo.h"
@@ -82,7 +82,7 @@ void Map5::Enter()
 	std::ifstream in("map5.json");
 	if (!in)
 	{
-		std::cerr << "map5.json ÆÄÀÏÀ» ¿­ ¼ö ¾ø½À´Ï´Ù!" << std::endl;
+		std::cerr << "map5.json íŒŒì¼ì„ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!" << std::endl;
 		return;
 	}
 
@@ -90,7 +90,7 @@ void Map5::Enter()
 	in >> j;
 	auto& mapData = j["map5"];
 
-	// ¹è°æ
+	// ë°°ê²½
 	std::string bgTex = mapData["background"]["textureId"];
 	sf::Vector2f bgPos(mapData["background"]["position"][0], mapData["background"]["position"][1]);
 	sf::Vector2f scale(mapData["background"]["scale"][0], mapData["background"]["scale"][1]);
@@ -107,7 +107,7 @@ void Map5::Enter()
 	uiView.setSize(size);
 	uiView.setCenter(center);
 
-	// ¿ÀºêÁ§Æ®
+	// ì˜¤ë¸Œì íŠ¸
 	bool playerPlaced = false;
 	for (auto& obj : mapData["objects"])
 	{
@@ -136,7 +136,7 @@ void Map5::Enter()
 		}
 	}
 
-	//  È÷Æ®¹Ú½º ·Îµå
+	//  ížˆíŠ¸ë°•ìŠ¤ ë¡œë“œ
 	for (auto& box : mapData["hitboxes"])
 	{
 		sf::Vector2f pos(box["position"][0], box["position"][1]);
@@ -190,10 +190,22 @@ void Map5::Enter()
 	textR->SetPosition({ player->GetPosition().x - 5.f, player->GetPosition().y - 40.f });
 	textR->SetActive(false);
 
+	// startPos ë‹¤ì‹œ ì„¸íŒ… í›„ ì‚¬ìš©
+	//player->SetPosition(startPos);
 }
 
 void Map5::Update(float dt)
 {
+	// í…ŒìŠ¤íŠ¸ ì½”ë“œ
+	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad5))
+	{
+		SceneBattle::nextSceneId = SceneIds::Map5;
+		SceneBattle::monsterJsonID = "jsons/icecap.json";
+		startPos = player->GetPosition();
+		player->StartBattle();
+	}
+	//
+
 	if (InputMgr::GetKeyDown(sf::Keyboard::C))
 	{
 		if ((inventoryui && inventoryui->GetActive()) ||
@@ -250,7 +262,7 @@ void Map5::Update(float dt)
 		if (maxTime < currentTime)
 		{
 			SOUND_MGR.PlaySfx("sounds/Map5/sw.wav");
-			std::cout << "½Ã°£ ÃÊ°ú!" << std::endl;
+			std::cout << "ì‹œê°„ ì´ˆê³¼!" << std::endl;
 			currentTime = 0.f;
 			currentTime2 = 0.f;
 			player->SetMove(true);
@@ -261,7 +273,7 @@ void Map5::Update(float dt)
 		if (InputMgr::GetKeyDown(targetKeys[r]))
 		{
 			SOUND_MGR.PlaySfx("sounds/Map5/bell.wav");
-			std::cout << "Á¤´ä ÀÔ·Â" << std::endl;
+			std::cout << "ì •ë‹µ ìž…ë ¥" << std::endl;
 			currentTime = 0.f;
 			currentTime2 = 0.f;
 			player->SetMove(true);
@@ -275,7 +287,7 @@ void Map5::Update(float dt)
 			InputMgr::GetKeyDown(sf::Keyboard::R))
 		{
 			SOUND_MGR.PlaySfx("sounds/Map5/sw.wav");
-			std::cout << "ÀÔ·Â ½ÇÆÐ" << std::endl;
+			std::cout << "ìž…ë ¥ ì‹¤íŒ¨" << std::endl;
 			player->SetMove(true);
 			player->SetPosition({ -134.f, 273.f });
 			currentTime2 = 0.f;
@@ -310,21 +322,21 @@ void Map5::Update(float dt)
 				{
 					if (battleCheckTimer >= battleCheckInterval)
 					{
-						std::cout << "¹èÆ² È®·ü Ã¼Å©" << std::endl;
+						std::cout << "ë°°í‹€ í™•ë¥  ì²´í¬" << std::endl;
 						battleCheckTimer = 0.f;
 
-						// 1% È®·ü
-						if (Utils::RandomRange(0.f, 1.f) < 0.1f)
+						// 1% í™•ë¥ 
+						if (Utils::RandomRange(0.f, 1.f) < 0.01f)
 						{
-							std::cout << "·£´ý ÀüÅõ ¹ß»ý!" << std::endl;
+							std::cout << "ëžœë¤ ì „íˆ¬ ë°œìƒ!" << std::endl;
 							SceneBattle::nextSceneId = SceneIds::Map5;
 							SceneBattle::monsterJsonID = "jsons/frog.json";
-							//SceneBattle::monsterJsonID = "jsons/sans.json";
-							SCENE_MGR.ChangeScene(SceneIds::Battle);
+							startPos = player->GetPosition();
+							player->StartBattle();
 						}
 						else
 						{
-							std::cout << "¹èÆ² ¾Æ´Ô" << std::endl;
+							std::cout << "ë°°í‹€ ì•„ë‹˜" << std::endl;
 						}
 					}
 				}
@@ -332,11 +344,13 @@ void Map5::Update(float dt)
 			else if (hit.type == "NextScene")
 			{
 				std::cout << "NextScene" << std::endl;
+				startPos = player->GetPosition() + sf::Vector2f(0.f, -40.f);
 				SCENE_MGR.ChangeScene(SceneIds::MapPapyrus);
 			}
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
+				startPos = { -134.f,273.f };
 				SCENE_MGR.ChangeScene(SceneIds::Map4);
 			}
 			else if (hit.type == "Signs")
@@ -357,7 +371,7 @@ void Map5::Draw(sf::RenderWindow& window)
 	{
 		for (auto& hit : hitboxes)
 		{
-			window.draw(*hit.shape); // worldView ±âÁØÀ¸·Î ±×·ÁÁü
+			window.draw(*hit.shape); // worldView ê¸°ì¤€ìœ¼ë¡œ ê·¸ë ¤ì§
 		}
 	}
 }
