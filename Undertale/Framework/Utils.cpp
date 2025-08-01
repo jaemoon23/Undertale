@@ -1,5 +1,7 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Utils.h"
+
+
 
 std::random_device Utils::rd;
 std::mt19937 Utils::gen;
@@ -360,3 +362,4 @@ bool Utils::PolygonsIntersect(const std::vector<sf::Vector2f>& polygonA, const s
     }
     return true;
 }
+

@@ -16,7 +16,7 @@ protected:
 	float battleCheckTimer = 0.f;
 	const float battleCheckInterval = 1.f;
 
-	std::vector<SpriteGo*> testObjects;
+	std::vector<SpriteGo*> objects;
 	std::vector<HitBoxInfo1> hitboxes;
 
 	SpriteGo* background = nullptr;

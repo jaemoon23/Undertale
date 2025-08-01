@@ -1,9 +1,11 @@
-#pragma once
+﻿#pragma once
 #include <random>
 #include <string>
 #include <locale>
 #include <codecvt>
 #include "WrappedText.h"
+
+
 
 inline std::wstring utf8_to_wstring(const std::string& str)
 {
@@ -18,6 +20,7 @@ private:
 	static std::mt19937 gen;
 	static const float PI;
 
+	
 public:
 	static void Init();
 
@@ -75,6 +78,8 @@ public:
 	static std::vector<sf::Vector2f> GetRectanglePointsFromBounds(const sf::FloatRect& localBounds);
 	static bool PolygonsIntersect(const std::vector<sf::Vector2f>& polygonA, const sf::Transform& transformA,
 		const std::vector<sf::Vector2f>& polygonB, const sf::Transform& transformB);
+
+	
 
 	
 };

@@ -1,4 +1,7 @@
-#pragma once
+﻿#pragma once
+
+class SpriteGo;
+class Player;
 
 class Scene
 {
@@ -11,6 +14,7 @@ protected:
 	std::vector<std::string> texIds;
 	std::vector<std::string> fontIds;
 	std::vector<std::string> soundIds;
+	std::vector<sf::RectangleShape*> rec;
 
 	sf::View uiView;
 	sf::View worldView;
@@ -44,6 +48,8 @@ public:
 	sf::Vector2i WorldToScreen(sf::Vector2f worldPos);
 	sf::Vector2f ScreenToUi(sf::Vector2i screePos);
 	sf::Vector2i UiToScreen(sf::Vector2f worldPos);
+
+	void LoadMapFromJson(const std::string& filename, const std::string& mapName, Player* player, SpriteGo* background, std::vector<SpriteGo*>& objects, std::vector<HitBoxInfo1>& hitboxes);
 };
 
 struct DrawOrderComparer

@@ -1,5 +1,9 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Scene.h"
+#include <fstream>
+#include "json.hpp"
+#include "Player.h"
+#include "SpriteGo.h"
 
 Scene::Scene(SceneIds id)
 	: Id(id)
@@ -51,7 +55,14 @@ void Scene::Enter()
 void Scene::Exit()
 {
 	ApplyPendingChanges();
-	
+	for (auto rect : rec)
+	{
+		if (rect != nullptr)
+		{
+			delete rect;
+		}
+	}
+	rec.clear();
 	TEXTURE_MGR.Unload(texIds);
 	FONT_MGR.Unload(fontIds);
 	SOUNDBUFFER_MGR.Unload(soundIds);
@@ -113,6 +124,7 @@ void Scene::ApplyPendingChanges()
 		}
 	}
 	objectsToRemove.clear();
+
 }
 
 GameObject* Scene::AddGameObject(GameObject* go)
@@ -208,4 +220,119 @@ sf::Vector2f Scene::ScreenToUi(sf::Vector2i screenPos)
 sf::Vector2i Scene::UiToScreen(sf::Vector2f uiPos)
 {
 	return FRAMEWORK.GetWindow().mapCoordsToPixel(uiPos, uiView);
+}
+void Scene::LoadMapFromJson(const std::string& filename, const std::string& mapName, Player* player, SpriteGo* background, std::vector<SpriteGo*>& objects, std::vector<HitBoxInfo1>& hitboxes)
+{
+	std::ifstream in(filename);
+	if (!in)
+	{
+		std::cerr << filename << " 파일을 열 수 없습니다!" << std::endl;
+		return;
+	}
+
+	nlohmann::json j;
+	in >> j;
+
+	if (!j.contains(mapName))
+	{
+		std::cerr << "맵 키 '" << mapName << "' 가 JSON 파일에 존재하지 않습니다!" << std::endl;
+		return;
+	}
+
+	auto& mapData = j[mapName]; // 이제 외부에서 키를 전달받음
+
+	// 배경
+	std::string bgTex = mapData["background"]["textureId"];
+	sf::Vector2f bgPos(mapData["background"]["position"][0], mapData["background"]["position"][1]);
+	sf::Vector2f bgScale(mapData["background"]["scale"][0], mapData["background"]["scale"][1]);
+
+	background->SetTextureId(bgTex);
+	background->SetOrigin(Origins::MC);
+	background->SetPosition(bgPos);
+	background->SetScale(bgScale);
+
+	// 오브젝트
+	bool playerPlaced = false;
+	for (auto& obj : mapData["objects"])
+	{
+		std::string texId = obj["textureId"];
+		sf::Vector2f pos(obj["position"][0], obj["position"][1]);
+		sf::Vector2f scale(1.f, 1.f);
+		if (obj.contains("scale"))
+			scale = { obj["scale"][0], obj["scale"][1] };
+
+		if (!playerPlaced)
+		{
+			player->SetOrigin(Origins::MC);
+			player->SetPosition(pos);
+			player->sortingLayer = SortingLayers::Foreground;
+			player->sortingOrder = 4;
+			playerPlaced = true;
+		}
+		else
+		{
+			auto sprite = (SpriteGo*)AddGameObject(new SpriteGo(texId));
+			sprite->SetTextureId(texId);
+			sprite->SetOrigin(Origins::MC);
+			sprite->SetPosition(pos);
+			sprite->SetScale(scale);
+			sprite->sortingLayer = SortingLayers::Foreground;
+			sprite->sortingOrder = 0;
+			objects.push_back(sprite);
+		}
+	}
+
+	// 히트박스
+	for (auto& box : mapData["hitboxes"])
+	{
+		sf::Vector2f pos(box["position"][0], box["position"][1]);
+		sf::Vector2f size(box["size"][0], box["size"][1]);
+		std::string typeStr = box["type"];
+
+		auto rect = new sf::RectangleShape(size);
+		rec.push_back(rect);
+		rect->setPosition(pos);
+		rect->setFillColor(sf::Color::Transparent);
+
+		if (typeStr == "Wall")
+		{
+			rect->setOutlineColor(sf::Color::Green);
+		}
+		else if (typeStr == "SceneChanege")
+		{
+			rect->setOutlineColor(sf::Color(128, 0, 128));
+		}
+		else if (typeStr == "NextScene")
+		{
+			rect->setOutlineColor(sf::Color(255, 165, 0));
+		}
+		else if (typeStr == "PrevScene")
+		{
+			rect->setOutlineColor(sf::Color(135, 206, 250));
+		}
+		else if (typeStr == "Battle")
+		{
+			rect->setOutlineColor(sf::Color::Red);
+		}
+		else if (typeStr == "Event")
+		{
+			rect->setOutlineColor(sf::Color::Blue);
+		}
+		else if (typeStr == "Door")
+		{
+			rect->setOutlineColor(sf::Color::Yellow);
+		}
+		else if (typeStr == "swicth")
+		{
+			rect->setOutlineColor(sf::Color(170, 255, 195)); // ��Ʈ��
+		}
+		else if (typeStr == "Signs")
+		{
+			rect->setOutlineColor(sf::Color::White);
+		}
+
+
+		rect->setOutlineThickness(1.f);
+		hitboxes.push_back({ rect, typeStr });
+	}
 }

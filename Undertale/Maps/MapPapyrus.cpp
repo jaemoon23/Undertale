@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 #include "MapPapyrus.h"
 #include "Player.h"
 #include "Papyrus.h"
@@ -55,7 +55,7 @@ void MapPapyrus::Init()
 
 	exclamationmark = (SpriteGo*)AddGameObject(new SpriteGo("spr_rainbowtarget_0"));
 	exclamationmark->SetTextureId("Sprites/spr_rainbowtarget_0.png");
-	exclamationmark->sortingLayer = SortingLayers::Foreground; // ø¯«œ¥¬ layer∑Œ ∫Ø∞Ê
+	exclamationmark->sortingLayer = SortingLayers::Foreground; // ÏõêÌïòÎäî layerÎ°ú Î≥ÄÍ≤Ω
 	exclamationmark->sortingOrder = 1;
 	
 
@@ -94,27 +94,8 @@ void MapPapyrus::Enter()
 	doorwall.setOutlineColor(sf::Color::Transparent);
 	doorwall.setOutlineThickness(1.f);
 	doorwall.setPosition({ 470.f, 403.f });
-
-	std::ifstream in("map6.json");
-	if (!in)
-	{
-		std::cerr << "map6.json ∆ƒ¿œ¿ª ø≠ ºˆ æ¯Ω¿¥œ¥Ÿ!" << std::endl;
-		return;
-	}
-
-	nlohmann::json j;
-	in >> j;
-	auto& mapData = j["map6"];
-
-	// πË∞Ê
-	std::string bgTex = mapData["background"]["textureId"];
-	sf::Vector2f bgPos(mapData["background"]["position"][0], mapData["background"]["position"][1]);
-	sf::Vector2f scale(mapData["background"]["scale"][0], mapData["background"]["scale"][1]);
-
-	background->SetTextureId(bgTex);
-	background->SetOrigin(Origins::MC);
-	background->SetPosition(bgPos);
-	background->SetScale(scale);
+	Scene::LoadMapFromJson("map6.json", "map6", player, background, objects, hitboxes);
+	
 	Scene::Enter();
 
 	sf::Vector2f size = { 640.f, 480.f };
@@ -122,75 +103,6 @@ void MapPapyrus::Enter()
 	worldView.setSize(size * 0.5f);
 	uiView.setSize(size);
 	uiView.setCenter(center);
-
-	// ø¿∫Í¡ß∆Æ
-	if (!BattleEnd)
-	{
-		bool playerPlaced = false;
-		for (auto& obj : mapData["objects"])
-		{
-			std::string texId = obj["textureId"];
-			sf::Vector2f pos(obj["position"][0], obj["position"][1]);
-			sf::Vector2f scale(1.f, 1.f);
-			if (obj.contains("scale"))
-				scale = { obj["scale"][0], obj["scale"][1] };
-
-			if (!playerPlaced)
-			{
-				player->SetOrigin(Origins::MC);
-				player->SetPosition(pos);
-				playerPlaced = true;
-			}
-			else
-			{
-				auto sprite = new SpriteGo(texId);
-				sprite->SetTextureId(texId);
-				sprite->SetOrigin(Origins::MC);
-				sprite->SetPosition(pos);
-				sprite->SetScale(scale);
-				sprite->Reset();
-				AddGameObject(sprite);
-				testObjects.push_back(sprite);
-			}
-		}
-	}
-	
-
-	//  »˜∆Æπ⁄Ω∫ ∑ŒµÂ
-	for (auto& box : mapData["hitboxes"])
-	{
-		sf::Vector2f pos(box["position"][0], box["position"][1]);
-		sf::Vector2f size(box["size"][0], box["size"][1]);
-		std::string typeStr = box["type"];
-
-		auto rect = new sf::RectangleShape(size);
-		rect->setPosition(pos);
-		rect->setFillColor(sf::Color::Transparent);
-
-		if (typeStr == "Wall")
-		{
-			rect->setOutlineColor(sf::Color::Green);
-		}
-		else if (typeStr == "SceneChanege")
-		{
-			rect->setOutlineColor(sf::Color(128, 0, 128));
-		}
-		else if (typeStr == "NextScene")
-		{
-			rect->setOutlineColor(sf::Color(255, 165, 0));
-		}
-		else if (typeStr == "PrevScene")
-		{
-			rect->setOutlineColor(sf::Color(135, 206, 250));
-		}
-		else if (typeStr == "Battle")
-		{
-			rect->setOutlineColor(sf::Color::Red);
-		}
-
-		rect->setOutlineThickness(1.f);
-		hitboxes.push_back({ rect, typeStr });
-	}
 
 	papyrus->SetPosition({ 430, 350 });
 
@@ -231,7 +143,7 @@ void MapPapyrus::Update(float dt)
 			}
 			else if (hit.type == "SceneChange")
 			{
-				std::cout << "æ¿ ¿¸»Ø ∆Æ∏Æ∞≈µ !" << std::endl;
+				std::cout << "Ïî¨ Ï†ÑÌôò Ìä∏Î¶¨Í±∞Îê®!" << std::endl;
 				SCENE_MGR.ChangeScene(SceneIds::Dev1);
 			}
 			else if (hit.type == "NextScene")
@@ -262,7 +174,7 @@ void MapPapyrus::Update(float dt)
 			player->SetMove(false);
 			player->animator.Stop();
 
-			exclamationmarkTimer = 0.f; // ≈∏¿Ã∏” √ ±‚»≠ 
+			exclamationmarkTimer = 0.f; // ÌÉÄÏù¥Î®∏ Ï¥àÍ∏∞Ìôî 
 		}
 	}
 
@@ -390,7 +302,7 @@ void MapPapyrus::Draw(sf::RenderWindow& window)
 	{
 		for (auto& hit : hitboxes)
 		{
-			window.draw(*hit.shape); // worldView ±‚¡ÿ¿∏∑Œ ±◊∑¡¡¸
+			window.draw(*hit.shape); // worldView Í∏∞Ï§ÄÏúºÎ°ú Í∑∏Î†§Ïßê
 		}
 	}
 	window.draw(doorwall);

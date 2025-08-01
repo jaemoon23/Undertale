@@ -19,7 +19,7 @@ protected:
 	float battleCheckTimer = 0.f;
 	const float battleCheckInterval = 1.f;
 
-	std::vector<SpriteGo*> testObjects;
+	std::vector<SpriteGo*> objects;
 	std::vector<HitBoxInfo1> hitboxes;
 	sf::RectangleShape wall;
 
@@ -47,6 +47,7 @@ public:
 
 	void Init() override;
 	void Enter() override;
+	void Exit() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 

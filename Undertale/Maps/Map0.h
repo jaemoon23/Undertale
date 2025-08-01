@@ -2,12 +2,6 @@
 #include "Scene.h"
 #include "SpriteGo.h"
 
-struct HitBoxInfos
-{
-    sf::RectangleShape* shape;
-    std::string type;
-};
-
 class TextGo;
 class Player;
 class Sans;
@@ -27,8 +21,8 @@ protected:
     TextGo* text;
     SpriteGo* background = nullptr;
     Player* player;
-    std::vector<SpriteGo*> testObjects;
-    std::vector<HitBoxInfos> hitboxes;
+    std::vector<SpriteGo*> objects;
+    std::vector<HitBoxInfo1> hitboxes;
 
     sf::Vector2f playerPos = { 0.f, 0.f };
     sf::Vector2f windowSize = { 640.f,480.f };

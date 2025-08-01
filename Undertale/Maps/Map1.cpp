@@ -37,8 +37,8 @@ void Map1::Init()
 	ANI_CLIP_MGR.Load("Animation/rightwalking.csv");
 
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
-	background1 = (SpriteGo*)AddGameObject(new SpriteGo());
-	background1->sortingLayer = SortingLayers::Background;
+	background = (SpriteGo*)AddGameObject(new SpriteGo());
+	background->sortingLayer = SortingLayers::Background;
 	textWindow = (SpriteGo*)AddGameObject(new SpriteGo("Sprites/TextWindow.png"));
 	text = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
 
@@ -90,28 +90,8 @@ void Map1::Enter()
 {
 	SOUND_MGR.PlayBgm("sounds/Map1/05 Ruins.flac");
 	direction = { 0.f,1.f };
-	
 
-	std::ifstream in("map1.json");
-	if (!in)
-	{
-		std::cerr << "map1.json 파일을 열 수 없습니다!" << std::endl;
-		return;
-	}
-
-	nlohmann::json j;
-	in >> j;
-	auto& mapData = j["map1"];
-
-	// 배경
-	std::string bgTex = mapData["background"]["textureId"];
-	sf::Vector2f bgPos(mapData["background"]["position"][0], mapData["background"]["position"][1]);
-	sf::Vector2f scale(mapData["background"]["scale"][0], mapData["background"]["scale"][1]);
-
-	background1->SetTextureId(bgTex);
-	background1->SetOrigin(Origins::MC);
-	background1->SetPosition(bgPos);
-	background1->SetScale(scale);
+	Scene::LoadMapFromJson("map1.json", "map1", player, background, objects, hitboxes);
 	Scene::Enter();
 
 	sf::Vector2f size = { 640.f, 480.f };
@@ -119,91 +99,6 @@ void Map1::Enter()
 	worldView.setSize(size * 0.5f);
 	uiView.setSize(size);
 	uiView.setCenter(center);
-
-	// 오브젝트
-	bool playerPlaced = false;
-	for (auto& obj : mapData["objects"])
-	{
-		std::string texId = obj["textureId"];
-		sf::Vector2f pos(obj["position"][0], obj["position"][1]);
-		sf::Vector2f scale(1.f, 1.f);
-		if (obj.contains("scale"))
-			scale = { obj["scale"][0], obj["scale"][1] };
-
-		if (!playerPlaced)
-		{
-			player->SetOrigin(Origins::MC);
-			player->SetPosition(pos);
-			playerPlaced = true;
-		}
-		else
-		{
-			auto sprite = new SpriteGo(texId);
-			sprite->SetTextureId(texId);
-			sprite->SetOrigin(Origins::MC);
-			sprite->SetPosition(pos);
-			sprite->SetScale(scale);
-			sprite->Reset();
-			AddGameObject(sprite);
-			testObjects.push_back(sprite);
-		}
-	}
-
-	//  히트박스 로드
-	for (auto& box : mapData["hitboxes"])
-	{
-		sf::Vector2f pos(box["position"][0], box["position"][1]);
-		sf::Vector2f size(box["size"][0], box["size"][1]);
-		std::string typeStr = box["type"];
-
-		auto rect = new sf::RectangleShape(size);
-		rect->setPosition(pos);
-		rect->setFillColor(sf::Color::Transparent);
-
-		if (typeStr == "Wall")
-		{
-			rect->setOutlineColor(sf::Color::Green);
-		}
-		else if (typeStr == "SceneChanege")
-		{
-			rect->setOutlineColor(sf::Color(128, 0, 128));
-		}
-		else if (typeStr == "NextScene")
-		{
-			rect->setOutlineColor(sf::Color(255, 165, 0));
-		}
-		else if (typeStr == "PrevScene")
-		{
-			rect->setOutlineColor(sf::Color(135, 206, 250));
-		}
-		else if (typeStr == "Battle")
-		{
-			rect->setOutlineColor(sf::Color::Red);
-		}
-		else if (typeStr == "Event")
-		{
-			rect->setOutlineColor(sf::Color::Blue);
-		}
-		else if (typeStr == "Door")
-		{
-			rect->setOutlineColor(sf::Color::Yellow);
-		}
-		else if (typeStr == "Switch")
-		{
-			rect->setOutlineColor(sf::Color(170, 255, 195));
-		}
-		else if (typeStr == "Signs")
-		{
-			rect->setOutlineColor(sf::Color::White);
-		}
-		else
-		{
-			rect->setOutlineColor(sf::Color::Green);
-		}
-
-		rect->setOutlineThickness(1.f);
-		hitboxes.push_back({ rect, typeStr });
-	}
 
 	player->SetPosition(startPos);
 }

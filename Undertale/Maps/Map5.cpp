@@ -78,27 +78,8 @@ void Map5::Enter()
 	SOUND_MGR.PlayBgm("sounds/Map5/47 Ooo.flac");
 	std::srand(time(0));
 	targetKeys = { sf::Keyboard::Q, sf::Keyboard::W, sf::Keyboard::E, sf::Keyboard::R };
-	
-	std::ifstream in("map5.json");
-	if (!in)
-	{
-		std::cerr << "map5.json 파일을 열 수 없습니다!" << std::endl;
-		return;
-	}
+	Scene::LoadMapFromJson("map5.json", "map5", player, background, objects, hitboxes);
 
-	nlohmann::json j;
-	in >> j;
-	auto& mapData = j["map5"];
-
-	// 배경
-	std::string bgTex = mapData["background"]["textureId"];
-	sf::Vector2f bgPos(mapData["background"]["position"][0], mapData["background"]["position"][1]);
-	sf::Vector2f scale(mapData["background"]["scale"][0], mapData["background"]["scale"][1]);
-
-	background->SetTextureId(bgTex);
-	background->SetOrigin(Origins::MC);
-	background->SetPosition(bgPos);
-	background->SetScale(scale);
 	Scene::Enter();
 
 	sf::Vector2f size = { 640.f, 480.f };
@@ -106,69 +87,6 @@ void Map5::Enter()
 	worldView.setSize(size * 0.5f);
 	uiView.setSize(size);
 	uiView.setCenter(center);
-
-	// 오브젝트
-	bool playerPlaced = false;
-	for (auto& obj : mapData["objects"])
-	{
-		std::string texId = obj["textureId"];
-		sf::Vector2f pos(obj["position"][0], obj["position"][1]);
-		sf::Vector2f scale(1.f, 1.f);
-		if (obj.contains("scale"))
-			scale = { obj["scale"][0], obj["scale"][1] };
-
-		if (!playerPlaced)
-		{
-			player->SetOrigin(Origins::MC);
-			player->SetPosition(pos);
-			playerPlaced = true;
-		}
-		else
-		{
-			auto sprite = new SpriteGo(texId);
-			sprite->SetTextureId(texId);
-			sprite->SetOrigin(Origins::MC);
-			sprite->SetPosition(pos);
-			sprite->SetScale(scale);
-			sprite->Reset();
-			AddGameObject(sprite);
-			testObjects.push_back(sprite);
-		}
-	}
-
-	//  히트박스 로드
-	for (auto& box : mapData["hitboxes"])
-	{
-		sf::Vector2f pos(box["position"][0], box["position"][1]);
-		sf::Vector2f size(box["size"][0], box["size"][1]);
-		std::string typeStr = box["type"];
-
-		auto rect = new sf::RectangleShape(size);
-		rect->setPosition(pos);
-		rect->setFillColor(sf::Color::Transparent);
-
-		if (typeStr == "Wall")
-		{
-			rect->setOutlineColor(sf::Color::Green);
-		}
-		else if (typeStr == "NextScene")
-		{
-			rect->setOutlineColor(sf::Color(255, 165, 0));
-		}
-		else if (typeStr == "PrevScene")
-		{
-			rect->setOutlineColor(sf::Color(135, 206, 250));
-		}
-		else if (typeStr == "Battle")
-		{
-			rect->setOutlineColor(sf::Color::Red);
-		}
-		
-		
-
-		rect->setOutlineThickness(1.f);
-		hitboxes.push_back({ rect, typeStr });
-	}
 
 	textQ->SetString("Q");
 	textQ->SetCharacterSize(20.f);
@@ -191,6 +109,12 @@ void Map5::Enter()
 	textR->SetActive(false);
 
 	player->SetPosition(startPos);
+}
+
+void Map5::Exit()
+{
+	Scene::Exit();
+	hitboxes.clear();
 }
 
 void Map5::Update(float dt)
