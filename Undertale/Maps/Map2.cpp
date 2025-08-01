@@ -60,6 +60,7 @@ void Map2::Init()
 	ANI_CLIP_MGR.Load("Animation/sansdarkwalking.csv");
 
 	SOUNDBUFFER_MGR.Load("sounds/Map2/17 Snowy.flac");
+	SOUNDBUFFER_MGR.Load("sounds/Map2/15 sans..flac");
 
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
 	sans = (Sans*)AddGameObject(new Sans("Sprites/spr_sans_r_dark_2.png"));
@@ -233,7 +234,6 @@ void Map2::Update(float dt)
 
 	if (Utils::CheckCollision(player->GetHitBox(), doorwall))
 	{
-		SOUND_MGR.StopBgm();
     // 처음 충돌 시 설정
     if (!animationPlay)
     {
@@ -244,7 +244,7 @@ void Map2::Update(float dt)
         sans->SetActive(true);
         sans->animator.Play("Animation/sansdarkwalking.csv");
         animationPlay = true;
-		//SOUND_MGR.PlayBgm("sounds/Map2/17 Snowy.flac");
+		SOUND_MGR.StopBgm();
     }
 
     // Sans 이동
@@ -255,6 +255,7 @@ void Map2::Update(float dt)
     float sansSpeed = 100.f;
     sansPos += direction * sansSpeed * dt;
     sans->SetPosition(sansPos);
+	
 
     // 플레이어와 Sans 간 충돌 시 대화 처리
     if (Utils::CheckCollision(player->GetHitBox(), sans->GetHitBox()))
