@@ -50,6 +50,7 @@ void InventoryUi::Init()
 	sortingLayer = SortingLayers::UI;
 	sortingOrder = 1;
 	SetActive(false);
+	SOUNDBUFFER_MGR.Load("sounds/snd_select.wav");
 }
 
 void InventoryUi::Release()
@@ -170,6 +171,7 @@ void InventoryUi::Update(float dt)
 	// 2. 이제부터만 엔터 입력 처리
 	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
 	{
+		SOUND_MGR.PlaySfx("sounds/snd_select.wav");
 		HealItem* selectedItem = nullptr;
 		switch (selectIndex)
 		{

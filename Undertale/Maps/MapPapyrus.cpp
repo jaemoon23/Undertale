@@ -32,10 +32,14 @@ void MapPapyrus::Init()
 	texIds.push_back("Sprites/spr_papyrus_cape_0.png");	
 	texIds.push_back("Sprites/spr_rainbowtarget_0.png");
 	texIds.push_back("Sprites/sprite_sheet_papyrus_toasted.png");
+
 	texIds.push_back("Sprites/sprite_sheet_papyrus_run.png");
 
 	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
 	texIds.push_back("Sprites/backgroundui.png");
+
+	soundIds.push_back("sounds/16 Nyeh Heh Heh!.flac");
+	soundIds.push_back("sounds/snd_select.wav");
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
@@ -97,8 +101,6 @@ void MapPapyrus::Enter()
 	doorwall.setPosition({ 470.f, 403.f });
 	Scene::LoadMapFromJson("map6.json", "map6", player, background, objects, hitboxes);
 	
-	Scene::Enter();
-
 	sf::Vector2f size = { 640.f, 480.f };
 	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
 	worldView.setSize(size * 0.5f);
@@ -107,9 +109,11 @@ void MapPapyrus::Enter()
 
 	papyrus->SetPosition({ 430, 350 });
 
+	
+	Scene::Enter();
 	if (BattleEnd && !papyrusImageChange)
 	{
-		if (PlayerInfo::lv >= 15) 
+		if (PlayerInfo::lv >= 15)
 		{
 			papyrus->animator.Play("Animation/papyrustoasted.csv");
 			papyrusImageChange = true;
@@ -124,6 +128,7 @@ void MapPapyrus::Enter()
 		papyrusMercy = true;
 	}
 
+	SOUND_MGR.PlayBgm("sounds/16 Nyeh Heh Heh!.flac");
 }
 
 void MapPapyrus::Update(float dt)

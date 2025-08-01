@@ -48,6 +48,8 @@ void UiChanger::Init()
 	sortingLayer = SortingLayers::UI;
 	sortingOrder = 0;
 	SetActive(false);
+	SOUNDBUFFER_MGR.Load("sounds/snd_select.wav");
+
 }
 
 void UiChanger::Release()
@@ -128,6 +130,7 @@ void UiChanger::Update(float dt)
 		{
 			playerinfoui->SetActive(true);
 		}
+		SOUND_MGR.PlaySfx("sounds/snd_select.wav");
 	}
 }
 

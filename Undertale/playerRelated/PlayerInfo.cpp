@@ -2,7 +2,7 @@
 #include "PlayerInfo.h"
 #include "PlayerInfoUi.h"
 
-int PlayerInfo::hp = 10;
+int PlayerInfo::hp = 20;
 int PlayerInfo::maxHp = 20;
 int PlayerInfo::ATK = 50;
 int PlayerInfo::lv = 1;
@@ -10,6 +10,9 @@ int PlayerInfo::exp = 0;
 int PlayerInfo::gold = 100;
 int PlayerInfo::Moral = 0;
 int PlayerInfo::slot = 0;
+
+
+
 
 void PlayerInfo::PlusExp(int e)
 {
@@ -106,10 +109,12 @@ void PlayerInfo::PlusExp(int e)
 
 void PlayerInfo::Heal(int h)
 {
+	SOUNDBUFFER_MGR.Load("sounds/snd_heal_c.wav");
 	hp += h;
 	if (hp > maxHp)
 	{
 		hp = maxHp;
+		SOUND_MGR.PlaySfx("sounds/snd_heal_c.wav");
 	}
 }
 

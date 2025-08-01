@@ -171,6 +171,7 @@ void Map2::Update(float dt)
 			return;
 		}
 		uichanger->SetActive(!uichanger->GetActive());
+		SOUND_MGR.PlaySfx("sounds/snd_select.wav");
 	}
 
 	if (dialoguebox && dialoguebox->GetActive())
