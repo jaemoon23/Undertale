@@ -14,9 +14,9 @@ Map3::Map3() : Scene(SceneIds::Map3)
 }
 
 void Map3::Init()
-{
-	
+{	
 	fontIds.push_back("fonts/DungGeunMo.ttf");
+	texIds.push_back("graphics/spr_savepoint_0.png");
 	texIds.push_back("graphics/spr_notepaper_0.png");
 	texIds.push_back("graphics/spr_mousehole_0.png");
 	texIds.push_back("graphics/spr_microwave_0.png");
@@ -30,6 +30,7 @@ void Map3::Init()
 	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
 	texIds.push_back("Sprites/backgroundui.png");
 	
+	soundIds.push_back("sounds/snd_heal_c.wav");
 	soundIds.push_back("sounds/SND_TXT1.wav");
 	soundIds.push_back("sounds/17 Snowy.flac");
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
@@ -96,6 +97,12 @@ void Map3::Init()
 	mousehole->SetTexId("graphics/spr_mousehole_0.png");
 	mousehole->SetPosition({ 310.f,178.f });
 	mousehole->lines.push_back(L"* 쥐 구멍이다.");
+
+	savepoint = (TalkObject*)AddGameObject(new TalkObject("savepoint"));
+	savepoint->SetTexId("graphics/spr_savepoint_0.png");
+	savepoint->SetPosition({ 320.f,310.f });
+	savepoint->lines.push_back(L"* (쥐가 언젠가는 스파게티를\n  데울 방법을 찾으리라는\n  걸 알고 있기에...)");
+	savepoint->lines.push_back(L"* (당신의 의지가 충만해진다.)");
 
 	texIds.push_back("graphics/TextWindow.png");
 	textWindow = (TextWindow*)AddGameObject(new TextWindow("textWindow"));

@@ -36,6 +36,7 @@ protected:
 	TalkObject* microwave;
 	TalkObject* notepaper;
 	TalkObject* mousehole;
+	TalkObject* savepoint;
 	TextWindow* textWindow;
 
 public:

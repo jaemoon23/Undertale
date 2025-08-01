@@ -72,6 +72,11 @@ void TalkObject::Update(float dt)
 		{
 			if (lineIndex == lineCount)
 			{
+				if (name == "savepoint")
+				{
+					PlayerInfo::Heal(PlayerInfo::maxHp);
+					SOUND_MGR.PlaySfx("sounds/snd_heal_c.wav");
+				}
 				player->SetMove(true);
 				textWindow->isDraw = false;
 				lineIndex = 0;
