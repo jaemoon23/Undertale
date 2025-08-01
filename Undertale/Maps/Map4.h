@@ -39,7 +39,7 @@ protected:
 	bool puzzleSuccess = false;
 	bool showText = false;
 
-	sf::Vector2f startPos = { -16.f,300.f };
+	sf::Vector2f startPos = { -53.f,263.f };
 
 public:
 	Map4();

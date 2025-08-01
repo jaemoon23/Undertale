@@ -197,8 +197,7 @@ void Map4::Enter()
 		hitboxes.push_back({ rect, typeStr });
 	}
 
-	// startPos 다시 세팅 후 사용
-	//player->SetPosition(startPos);
+	player->SetPosition(startPos);
 }
 
 void Map4::Update(float dt)
@@ -277,7 +276,7 @@ void Map4::Update(float dt)
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
-				startPos = { -16.f,300.f };
+				startPos = { -53.f,263.f };
 				SCENE_MGR.ChangeScene(SceneIds::Map3);
 			}
 			else if (hit.type == "Signs")
