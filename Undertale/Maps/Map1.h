@@ -57,7 +57,7 @@ protected:
 
 	bool showText = false;
 
-	sf::Vector2f startPos = { -9.f,-61.f };
+	sf::Vector2f startPos = { 41.f,-4.f };
 public:
 	Map1();
 	~Map1() override = default;

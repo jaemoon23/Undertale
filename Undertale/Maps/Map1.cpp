@@ -198,7 +198,7 @@ void Map1::Update(float dt)
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
-				startPos = { -9.f,-61.f };
+				startPos = { 41.f,-4.f };
 				SCENE_MGR.ChangeScene(SceneIds::Map0);
 			}
 			else if (hit.type == "Signs")
@@ -212,7 +212,7 @@ void Map1::Update(float dt)
 			else if (hit.type == "Door")
 			{
 				std::cout << "Door" << std::endl;
-				player->SetPosition({ -2.0f, -50.f });
+				player->SetPosition({ 41.f,-4.f });
 			}
 			if (!moveEvent)
 			{
@@ -220,7 +220,7 @@ void Map1::Update(float dt)
 				{
 					SOUND_MGR.PlaySfx("sounds/Map1/Fall2.wav");
 					std::cout << "Event" << std::endl;
-					eventMoveRemaining = 420.f;
+					eventMoveRemaining = 390.f;
 					event = true;
 					moveEvent = true;
 					player->SetMove(false);
