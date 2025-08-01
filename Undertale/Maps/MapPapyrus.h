@@ -45,6 +45,8 @@ protected:
 	bool papyrusMercy = false;
 	bool mercyDialogEnd = false;
 	float exclamationmarkTimer = 0.f;
+
+	bool playerRun = false;
 public:
 	MapPapyrus();
 	~MapPapyrus() override = default;

@@ -95,8 +95,6 @@ void MapPapyrus::Enter()
 	doorwall.setOutlineThickness(1.f);
 	doorwall.setPosition({ 470.f, 403.f });
 
-
-
 	std::ifstream in("map6.json");
 	if (!in)
 	{
@@ -301,9 +299,6 @@ void MapPapyrus::Update(float dt)
 		BattleEnd = true;
 	}
 
-
-
-
 	if (BattleEnd && papyrusImageChange && !papyrusLastInteract)
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
@@ -315,8 +310,6 @@ void MapPapyrus::Update(float dt)
 		}
 	}
 
-
-
 	if (BattleEnd && !papyrusImageChange && papyrusMercy && !mercyDialogEnd)
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
@@ -327,8 +320,6 @@ void MapPapyrus::Update(float dt)
 			mercyDialogEnd = true;
 		}
 	}
-
-
 
 	if (!dialoguebox->GetActive() && papyrusLastInteract)
 	{
@@ -354,6 +345,8 @@ void MapPapyrus::Update(float dt)
 		float sansSpeed = 150.f;
 		papyrusPos += direction * sansSpeed * dt;
 		papyrus->SetPosition(papyrusPos);
+		doorwall.setSize({ 0,0 });
+		doorwall.setPosition({ 1000,1000 });
 	}
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::C))
@@ -379,7 +372,6 @@ void MapPapyrus::Update(float dt)
 	{
 		player->SetPosition(player->getPos());
 	}
-
 
 	Scene::Update(dt);
 }
