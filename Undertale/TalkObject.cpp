@@ -56,14 +56,51 @@ void TalkObject::Reset()
 
 	player = ((Player*)SCENE_MGR.GetCurrentScene()->FindGameObject("Sprites/idle.png"));
 	textWindow = ((TextWindow*)SCENE_MGR.GetCurrentScene()->FindGameObject("textWindow"));
+
+	lineIndex = 0;
+	lineCount = lines.size();
+
+	typeTimer = 0.f;
+	isDrawingText = false;
 }
 
 void TalkObject::Update(float dt)
 {
-	if (InputMgr::GetKeyDown(sf::Keyboard::Z) && player->GetGlobalBounds().intersects(sprite.getGlobalBounds()))
-	{
+	if (player->GetGlobalBounds().intersects(sprite.getGlobalBounds()))
+	{		
+		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+		{
+			if (lineIndex == lineCount)
+			{
+				player->SetMove(true);
+				textWindow->isDraw = false;
+				lineIndex = 0;
+			}
+			else
+			{
+				player->SetMove(false);
+				textWindow->isDraw = true;
+				isDrawingText = true;
+				tempLine = lines[lineIndex++];
+				charIndex = 0;
+			}
+		}
 
-		textWindow->isDraw = true;
+		if (isDrawingText)
+		{
+			typeTimer += dt;
+			if (charIndex < tempLine.size() && typeTimer > typeTime)
+			{
+				typeTimer = 0.f;
+				charIndex++;
+				currentLine = tempLine.substr(0, charIndex);
+				textWindow->line = currentLine;
+				textWindow->UpdateText();
+
+				if (tempLine[charIndex - 1] != L' ')
+					SOUND_MGR.PlaySfx("sounds/SND_TXT1.wav");
+			}
+		}
 	}
 }
 

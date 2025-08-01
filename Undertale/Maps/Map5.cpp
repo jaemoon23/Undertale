@@ -183,7 +183,7 @@ void Map5::Update(float dt)
 			currentTime = 0.f;
 			currentTime2 = 0.f;
 			player->SetMove(true);
-			player->SetPosition({ -134.f, 273.f });
+			player->SetPosition({ 78.f, 248.f });
 			battle = true;
 			ran = true;
 		}
@@ -206,7 +206,7 @@ void Map5::Update(float dt)
 			SOUND_MGR.PlaySfx("sounds/Map5/sw.wav");
 			std::cout << "입력 실패" << std::endl;
 			player->SetMove(true);
-			player->SetPosition({ -134.f, 273.f });
+			player->SetPosition({ 78.f, 248.f });
 			currentTime2 = 0.f;
 			battle = true;
 			ran = true;

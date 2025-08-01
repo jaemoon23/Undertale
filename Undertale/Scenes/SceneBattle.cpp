@@ -7,7 +7,7 @@
 #include "InventoryUi.h"
 #include "HealItem.h"
 
-std::string SceneBattle::monsterJsonID = "jsons/sans.json";
+std::string SceneBattle::monsterJsonID = "jsons/frog.json";
 SceneIds SceneBattle::nextSceneId = SceneIds::Map0;
 
 SceneBattle::SceneBattle()
@@ -333,7 +333,7 @@ void SceneBattle::Update(float dt)
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
 					isFadeIn = false;
-					PlayerInfo::Heal(20);
+					PlayerInfo::Heal(10);
 					SCENE_MGR.ChangeScene(SceneIds::Battle);
 				}
 				fadeIntervalTimer = 0.f;

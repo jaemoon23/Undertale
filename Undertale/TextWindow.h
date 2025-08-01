@@ -8,6 +8,8 @@ protected:
 	sf::Text text;
 
 public:
+	std::wstring line;
+
 	bool isDraw = false;
 
 	TextWindow(const std::string& name = "");
@@ -24,5 +26,7 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void UpdateText();
 };
 
