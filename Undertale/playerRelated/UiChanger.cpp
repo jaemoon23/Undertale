@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "UiChanger.h"
 #include "Player.h"
 #include "InventoryUi.h"
@@ -89,7 +89,7 @@ void UiChanger::Update(float dt)
 {
 	if (!GetActive()) return;
 
-	// ÇÏÀ§ UI°¡ ÄÑÁ® ÀÖÀ¸¸é UiChanger ÀÔ·Â ¹«½Ã
+	// í•˜ìœ„ UIê°€ ì¼œì ¸ ìžˆìœ¼ë©´ UiChanger ìž…ë ¥ ë¬´ì‹œ
 	if ((inventoryui && inventoryui->GetActive()) || 
 		(playerinfoui && playerinfoui->GetActive()) ||
 		(dialogueBox && dialogueBox -> GetActive()))

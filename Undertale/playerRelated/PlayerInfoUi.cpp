@@ -105,12 +105,16 @@ void PlayerInfoUi::Reset()
 
 void PlayerInfoUi::Update(float dt)
 {
-	//level.setString(L"")
+	level.setString(L"LV " + std::to_wstring(PlayerInfo::lv));
+	hp.setString(L"HP : " + std::to_wstring(PlayerInfo::hp) + L" / " + std::to_wstring(PlayerInfo::maxHp));
+	att.setString(L"AT : " + std::to_wstring(PlayerInfo::ATK));
+	exp.setString(L"EXP : " + std::to_wstring(PlayerInfo::exp));
+	gold.setString(L"GOLD : " + std::to_wstring(PlayerInfo::gold));
 }
 
 void PlayerInfoUi::Draw(sf::RenderWindow& window)
 {
-	if (!GetActive()) return;
+	if (GetActive()) 
 	{
 		window.draw(playerInfo);
 		window.draw(line);

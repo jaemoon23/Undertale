@@ -79,7 +79,7 @@ void Map2::Init()
 	inventoryui->SetPlayer(player);
 	player->SetSans(sans);
 	inventoryui->SetBox(dialoguebox);
-
+	//inventoryui->SetPlayerInfoUi(playerinfoui);
 
 	AddGameObject(inventoryui);
 	AddGameObject(dialoguebox);
@@ -92,6 +92,12 @@ void Map2::Init()
 
 	background2 = (SpriteGo*)AddGameObject(new SpriteGo());
 	background2->sortingLayer = SortingLayers::Background;
+
+
+
+	InventoryUi::healItem[0].SetInfo(L"아이스", 15);
+	PlayerInfo::slot++;
+	
 
 	Scene::Init();
 }
@@ -123,7 +129,7 @@ void Map2::Enter()
 
 	doorwall.setSize({ 14.f,100.f });
 	doorwall.setFillColor(sf::Color::Transparent);
-	doorwall.setOutlineColor(sf::Color::Green);
+	doorwall.setOutlineColor(sf::Color::Transparent);
 	doorwall.setOutlineThickness(1.f);
 	doorwall.setPosition({ 445.f, 240.f });
 
@@ -232,6 +238,8 @@ void Map2::Enter()
 
 void Map2::Update(float dt)
 {
+
+
 	if (InputMgr::GetKeyDown(sf::Keyboard::C))
 	{
 		if ((inventoryui && inventoryui->GetActive()) ||
@@ -271,17 +279,17 @@ void Map2::Update(float dt)
 						battleCheckTimer = 0.f;
 
 						// 1% 확률
-						if (Utils::RandomRange(0.f, 1.f) < 0.01f)
-						{
-							std::cout << "랜덤 전투 발생!" << std::endl;
-							SceneBattle::nextSceneId = SceneIds::Map2;
-							SceneBattle::monsterJsonID = "jsons/whimsun.json";
-							player->StartBattle();
-						}
-						else
-						{
-							std::cout << "배틀 아님" << std::endl;
-						}
+						//if (Utils::RandomRange(0.f, 1.f) < 0.05f)
+						//{
+						//	std::cout << "랜덤 전투 발생!" << std::endl;
+						//	SceneBattle::nextSceneId = SceneIds::Map2;
+						//	SceneBattle::monsterJsonID = "jsons/whimsun.json";
+						//	player->StartBattle();
+						//}
+						//else
+						//{
+						//	std::cout << "배틀 아님" << std::endl;
+						//}
 					}
 				}
 

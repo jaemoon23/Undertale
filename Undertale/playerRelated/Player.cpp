@@ -232,6 +232,7 @@ void Player::SansSecondsInteract()
 	L"* 인벤토리를 확인해봐.\n* C키를 누르면 인벤토리를\n* 확인할 수 있을거야.",
 	L"* 행운을 빌어.\n* 다시 만나지는 않기를 바랄게."};
 	InventoryUi::healItem[0].SetInfo(L"아이스", 15);
+	PlayerInfo::slot++;
 	dialoguebox->StartDialogue(testDialogues);
 }
 

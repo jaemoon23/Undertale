@@ -2,7 +2,7 @@
 #include "PlayerInfo.h"
 #include "PlayerInfoUi.h"
 
-int PlayerInfo::hp = 20;
+int PlayerInfo::hp = 10;
 int PlayerInfo::maxHp = 20;
 int PlayerInfo::ATK = 50;
 int PlayerInfo::lv = 1;

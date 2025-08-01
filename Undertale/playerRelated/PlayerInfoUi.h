@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 
 class PlayerInfoUi : public GameObject
@@ -12,15 +12,14 @@ protected:
 
 	sf::Text name;
 	sf::Text att;
-	sf::Text hp;
+
 	sf::Text maxhp;
 	sf::Text gold;
 	sf::Text exp;
 	sf::Text level;
 
-	//bool isActive = true;
-
 public:
+	sf::Text hp;
 	PlayerInfoUi(const std::string& name = "");
 	virtual ~PlayerInfoUi() = default;
 
@@ -29,7 +28,6 @@ public:
 	void SetScale(const sf::Vector2f& s) override;
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
-
 	void Init() override;
 	void Release() override;
 	void Reset() override;

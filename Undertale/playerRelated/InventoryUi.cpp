@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "HealItem.h"
 #include "DialogueBox.h"
+#include "PlayerInfoUi.h"
 
 HealItem InventoryUi::healItem[4];
 
@@ -181,10 +182,10 @@ void InventoryUi::Update(float dt)
 		{
 			if (player)
 			{
+				std::cout << PlayerInfo::slot << std::endl;
 				for (int i = 0; i<4; ++i)
 				{
-					
-					if (PlayerInfo::slot == 0)
+					if (PlayerInfo::slot <= 0)
 					{
 						std::cout << "아이템 없음" << std::endl;
 					}
