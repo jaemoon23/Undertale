@@ -56,7 +56,7 @@ void UiChanger::Release()
 
 void UiChanger::Reset()
 {
-	font.loadFromFile(fonttexIds);
+	//font.loadFromFile(fonttexIds);
 
 	uiChanger.setTexture(TEXTURE_MGR.Get(uiChangertexIds));
 	uiChanger.setPosition(50.f, 170.f);
@@ -70,13 +70,13 @@ void UiChanger::Reset()
 	line.setPosition(50.f, 170.f);
 	line.setOutlineThickness(5.f);
 
-	invenText.setFont(font);
+	invenText.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	invenText.setString("Inventory");
 	invenText.setCharacterSize(20);
 	invenText.setFillColor(sf::Color(130, 130, 130));
 	invenText.setPosition(95.f, 200.f);
 
-	statText.setFont(font);
+	statText.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	statText.setString("Stat");
 	statText.setCharacterSize(20);
 	statText.setFillColor(sf::Color(130, 130, 130));

@@ -24,6 +24,7 @@ Map2::Map2() : Scene(SceneIds::Map2)
 void Map2::Init()
 {
 	font.loadFromFile("fonts/DungGeunMo.ttf");
+	fontIds.push_back("fonts/DungGeunMo.ttf");
 
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("Sprites/spr_f_maincharar_0.png");

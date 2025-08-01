@@ -21,6 +21,7 @@ MapPapyrus::MapPapyrus() : Scene(SceneIds::MapPapyrus)
 
 void MapPapyrus::Init()
 {
+	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("graphics/PapyrusBack.png");
 	texIds.push_back("Sprites/downwalking.png");

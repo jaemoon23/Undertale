@@ -14,7 +14,8 @@ Map3::Map3() : Scene(SceneIds::Map3)
 }
 
 void Map3::Init()
-{	
+{
+	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("graphics/TextWindow.png");
 	texIds.push_back("graphics/spr_spaghetti_0.png");
 	texIds.push_back("Sprites/idle.png");

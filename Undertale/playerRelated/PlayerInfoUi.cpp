@@ -53,7 +53,7 @@ void PlayerInfoUi::Release()
 
 void PlayerInfoUi::Reset()
 {
-	font.loadFromFile(fonttexIds);
+	//font.loadFromFile(fonttexIds);
 
 	playerInfo.setTexture(TEXTURE_MGR.Get("Sprites/backgroundui.png"));
 	playerInfo.setPosition(350.f, 100.f);
@@ -65,37 +65,37 @@ void PlayerInfoUi::Reset()
 	line.setOutlineColor(sf::Color::White);
 	line.setOutlineThickness(5.f);
 
-	name.setFont(font);
+	name.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	name.setCharacterSize(20);
 	name.setFillColor(sf::Color::White);
 	name.setPosition(390.f, 113.f);
 	name.setString("Frisk");
 
-	level.setFont(font);
+	level.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	level.setCharacterSize(18);
 	level.setFillColor(sf::Color::White);
 	level.setPosition(390.f, 157.f);
 	level.setString(L"LV " + std::to_wstring(PlayerInfo::lv));
 
-	hp.setFont(font);
+	hp.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	hp.setCharacterSize(18);
 	hp.setFillColor(sf::Color::White);
 	hp.setPosition(390.f, 200.f);
 	hp.setString(L"HP " + std::to_wstring(PlayerInfo::hp)+ L" / "+std::to_wstring(PlayerInfo::maxHp));
 
-	att.setFont(font);
+	att.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	att.setCharacterSize(18);
 	att.setFillColor(sf::Color::White);
 	att.setPosition(390.f, 243.f);
 	att.setString(L"AT : " + std::to_wstring(PlayerInfo::ATK));
 
-	exp.setFont(font);
+	exp.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	exp.setCharacterSize(18);
 	exp.setFillColor(sf::Color::White);
 	exp.setPosition(390.f, 286.f);
 	exp.setString(L"EXP : " + std::to_wstring(PlayerInfo::exp));
 
-	gold.setFont(font);
+	gold.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	gold.setCharacterSize(18);
 	gold.setFillColor(sf::Color::White);
 	gold.setPosition(390.f, 329.f);

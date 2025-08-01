@@ -74,37 +74,37 @@ void InventoryUi::Reset()
 
 	sf::FloatRect invBounds = inventory.getGlobalBounds();
 
-	fonts.loadFromFile(fonttexIds);
+	//fonts.loadFromFile(fonttexIds);
 
-	inventext.setFont(fonts);
+	inventext.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	inventext.setFillColor(sf::Color::White);
 	inventext.setString("Inventory");
 	inventext.setCharacterSize(22.f);
 	inventext.setPosition({invBounds.getPosition().x + 95.f ,invBounds.getPosition().y + 14.f});
 	
-	text.setFont(fonts);
+	text.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	text.setFillColor(sf::Color::White);
 	text.setString("Press [X] to Finish ");
 	text.setCharacterSize(18.f);
 	text.setPosition({ (invBounds.left + invBounds.width) *0.5f + 56.f ,invBounds.top + invBounds.height - 35.f});
 
 	//healItem = nullptr;
-	itemText1.setFont(fonts);
+	itemText1.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	itemText1.setFillColor(sf::Color::White);
 	itemText1.setCharacterSize(20.f);
 	itemText1.setPosition({ inventory.getPosition().x - 45.f, inventory.getPosition().y - 85.f });
 
-	itemText2.setFont(fonts);
+	itemText2.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	itemText2.setFillColor(sf::Color::White);
 	itemText2.setCharacterSize(20.f);
 	itemText2.setPosition({ inventory.getPosition().x - 45.f, inventory.getPosition().y  -30.f});
 
-	itemText3.setFont(fonts);
+	itemText3.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	itemText3.setFillColor(sf::Color::White);
 	itemText3.setCharacterSize(20.f);
 	itemText3.setPosition({ inventory.getPosition().x - 45.f, inventory.getPosition().y + 25.f });
 
-	itemText4.setFont(fonts);
+	itemText4.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	itemText4.setFillColor(sf::Color::White);
 	itemText4.setCharacterSize(20.f);
 	itemText4.setPosition({ inventory.getPosition().x - 45.f, inventory.getPosition().y + 80.f });

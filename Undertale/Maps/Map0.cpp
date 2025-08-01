@@ -18,6 +18,7 @@ Map0::Map0() : Scene(SceneIds::Map0)
 }
 void Map0::Init()
 {
+	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("Sprites/downwalking.png");
 	texIds.push_back("Sprites/upwalking.png");
