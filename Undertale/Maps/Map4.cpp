@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Map4.h"
 #include "Player.h"
 #include "SceneBattle.h"
@@ -26,6 +26,7 @@ void Map4::Init()
 	texIds.push_back("Sprites/Temmie_sheet.png");
 	texIds.push_back("Sprites/backgroundui.png");
 	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
+	texIds.push_back("graphics/spr_switch_0.png");
 
 	SOUNDBUFFER_MGR.Load("sounds/Map4/31 Waterfall.flac");
 	SOUNDBUFFER_MGR.Load("sounds/Map4/sw.wav");
@@ -76,7 +77,7 @@ void Map4::Init()
 	textWindow->SetActive(false);
 
 	text->sortingLayer = SortingLayers::UI;
-	text->SetString(L"¾Ë ¼ö ¾ø´Â Èû¿¡ ÀÇÇØ ¸·Èû");
+	text->SetString(L"ì•Œ ìˆ˜ ì—†ëŠ” íž˜ì— ì˜í•´ ë§‰íž˜");
 	text->SetCharacterSize(35.f);
 	text->SetPosition({ textWindow->GetPosition().x + 10, textWindow->GetPosition().y + 5 });
 	text->SetActive(false);
@@ -99,7 +100,7 @@ void Map4::Enter()
 	std::ifstream in("map4.json");
 	if (!in)
 	{
-		std::cerr << "map4.json ÆÄÀÏÀ» ¿­ ¼ö ¾ø½À´Ï´Ù!" << std::endl;
+		std::cerr << "map4.json íŒŒì¼ì„ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!" << std::endl;
 		return;
 	}
 
@@ -107,7 +108,7 @@ void Map4::Enter()
 	in >> j;
 	auto& mapData = j["map4"];
 
-	// ¹è°æ
+	// ë°°ê²½
 	std::string bgTex = mapData["background"]["textureId"];
 	sf::Vector2f bgPos(mapData["background"]["position"][0], mapData["background"]["position"][1]);
 	sf::Vector2f scale(mapData["background"]["scale"][0], mapData["background"]["scale"][1]);
@@ -124,7 +125,7 @@ void Map4::Enter()
 	uiView.setSize(size);
 	uiView.setCenter(center);
 
-	// ¿ÀºêÁ§Æ®
+	// ì˜¤ë¸Œì íŠ¸
 	bool playerPlaced = false;
 	for (auto& obj : mapData["objects"])
 	{
@@ -138,7 +139,7 @@ void Map4::Enter()
 		{
 			player->SetOrigin(Origins::MC);
 			player->SetPosition(pos);
-			player->sortingOrder = 1;
+			player->sortingOrder = 4;
 			playerPlaced = true;
 		}
 		else
@@ -148,13 +149,15 @@ void Map4::Enter()
 			sprite->SetOrigin(Origins::MC);
 			sprite->SetPosition(pos);
 			sprite->SetScale(scale);
+			sprite->sortingLayer = SortingLayers::Foreground;
+			sprite->sortingOrder = 0;
 			sprite->Reset();
 			AddGameObject(sprite);
 			testObjects.push_back(sprite);
 		}
 	}
 
-	//  È÷Æ®¹Ú½º ·Îµå
+	//  ížˆíŠ¸ë°•ìŠ¤ ë¡œë“œ
 	for (auto& box : mapData["hitboxes"])
 	{
 		sf::Vector2f pos(box["position"][0], box["position"][1]);
@@ -225,13 +228,13 @@ void Map4::Update(float dt)
 			{
 				if (battleCheckTimer >= battleCheckInterval)
 				{
-					std::cout << "¹èÆ² È®·ü Ã¼Å©" << std::endl;
+					std::cout << "ë°°í‹€ í™•ë¥  ì²´í¬" << std::endl;
 					battleCheckTimer = 0.f;
 
-					// 1% È®·ü
+					// 1% í™•ë¥ 
 					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
 					{
-						std::cout << "·£´ý ÀüÅõ ¹ß»ý!" << std::endl;
+						std::cout << "ëžœë¤ ì „íˆ¬ ë°œìƒ!" << std::endl;
 						SceneBattle::nextSceneId = SceneIds::Map4;
 						SceneBattle::monsterJsonID = "jsons/frog.json";
 						//SceneBattle::monsterJsonID = "jsons/sans.json";
@@ -239,7 +242,7 @@ void Map4::Update(float dt)
 					}
 					else
 					{
-						std::cout << "¹èÆ² ¾Æ´Ô" << std::endl;
+						std::cout << "ë°°í‹€ ì•„ë‹˜" << std::endl;
 					}
 				}
 			}
@@ -249,7 +252,7 @@ void Map4::Update(float dt)
 				{
 					SOUND_MGR.PlaySfx("sounds/Map4/sw.wav");
 					puzzleSuccess = true;
-					std::cout << "½ºÀ§Ä¡ ´©¸§" << std::endl;
+					std::cout << "ìŠ¤ìœ„ì¹˜ ëˆ„ë¦„" << std::endl;
 				}
 			}
 			else if (hit.type == "NextScene")
@@ -273,7 +276,7 @@ void Map4::Update(float dt)
 			{
 				player->SetPosition(player->getPos());
 				showText = true;
-				std::cout << "¾Ë ¼ö ¾ø´Â Èû¿¡ ÀÇÇØ ¸·Èû" << std::endl;
+				std::cout << "ì•Œ ìˆ˜ ì—†ëŠ” íž˜ì— ì˜í•´ ë§‰íž˜" << std::endl;
 			}
 			else
 			{
@@ -298,7 +301,7 @@ void Map4::Update(float dt)
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 		{
-			std::cout << "Å×¹Ì zÅ° ÀÔ·Â" << std::endl;
+			std::cout << "í…Œë¯¸ zí‚¤ ìž…ë ¥" << std::endl;
 			SCENE_MGR.ChangeScene(SceneIds::TemMieShop);
 		}
 	}
@@ -314,7 +317,7 @@ void Map4::Draw(sf::RenderWindow& window)
 	{
 		for (auto& hit : hitboxes)
 		{
-			window.draw(*hit.shape); // worldView ±âÁØÀ¸·Î ±×·ÁÁü
+			window.draw(*hit.shape); // worldView ê¸°ì¤€ìœ¼ë¡œ ê·¸ë ¤ì§
 		}
 		window.draw(wall);
 	}

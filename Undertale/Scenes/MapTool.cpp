@@ -13,6 +13,23 @@ MapTool::MapTool() : Scene(SceneIds::MapTool), grid(sf::Lines), gridOffset(0.f, 
 void MapTool::Init()
 {
 	fontIds.push_back("fonts/DungGeunMo.ttf");
+	objectTexturePaths = {
+	   "graphics/spr_f_maincharad_0.png",
+	   "graphics/spr_cutetable_0.png",
+	   "graphics/spr_darkelevator_l_0.png",
+	   "graphics/spr_darknesstotem_0.png",
+	   "graphics/spr_switch_0.png"
+	};
+	backgroundTexturePaths = {
+	   "graphics/bg_firstroom.png",
+	   "graphics/back2.png",
+	   "graphics/back3.png",
+	   "graphics/back4.png",
+	   "graphics/back5.png",
+	   "graphics/back6.png",
+	   "graphics/SansBack.png",
+	   "graphics/PapyrusBack.png"
+	};
 	for (int i = 0; i < objectTexturePaths.size(); ++i)
 	{
 		texIds.push_back(objectTexturePaths[i]);
@@ -29,6 +46,7 @@ void MapTool::Init()
 	objectButtons.push_back((Button*)(AddGameObject(new Button("button2"))));
 	objectButtons.push_back((Button*)(AddGameObject(new Button("button3"))));
 	objectButtons.push_back((Button*)(AddGameObject(new Button("button4"))));
+	objectButtons.push_back((Button*)(AddGameObject(new Button("button5"))));
 
 	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton1"))));
 	backgroundButtons.push_back((Button*)(AddGameObject(new Button("backButton2"))));
@@ -68,22 +86,7 @@ void MapTool::Enter()
 		grid.append(sf::Vertex(sf::Vector2f(gridOffset.x + x, gridOffset.y), sf::Color::Red));
 		grid.append(sf::Vertex(sf::Vector2f(gridOffset.x + x, gridOffset.y + gridHeight), sf::Color::Red));
 	}
-	objectTexturePaths = {
-	   "graphics/spr_f_maincharad_0.png",
-	   "graphics/spr_cutetable_0.png",
-	   "graphics/spr_darkelevator_l_0.png",
-	   "graphics/spr_darknesstotem_0.png"
-	};
-	backgroundTexturePaths = {
-	   "graphics/bg_firstroom.png",
-	   "graphics/back2.png",
-	   "graphics/back3.png",
-	   "graphics/back4.png",
-	   "graphics/back5.png",
-	   "graphics/back6.png",
-	   "graphics/SansBack.png",
-	   "graphics/PapyrusBack.png"
-	};
+	
 
 	const int maxColumns = 5;
 	for (int y = 0; y < 5; ++y)
