@@ -110,7 +110,7 @@ void Map0::Update(float dt)
 			{
 				player->SetPosition(player->getPos());
 			}
-			else if (hit.type == "SceneChange")
+			else if (hit.type == "SceneChanege")
 			{
 				std::cout << "씬 전환 트리거됨!" << std::endl;
 				startPos = player->GetPosition() + sf::Vector2f(0.f,10.f);
@@ -119,11 +119,7 @@ void Map0::Update(float dt)
 		}
 	}
 	
-	//Scene::Update(dt);
-	player->Update(dt);
-	playerinfoui->Update(dt);
-	inventoryui->Update(dt);
-	uichanger->Update(dt);
+	Scene::Update(dt);
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
 	{

@@ -563,8 +563,6 @@ void TemMieShop::Update(float dt)
 	}
 #pragma endregion
 
-
-	
 	Scene::Update(dt);
 }
 

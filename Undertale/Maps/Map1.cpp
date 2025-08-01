@@ -25,6 +25,8 @@ void Map1::Init()
 	texIds.push_back("Sprites/TextWindow.png");
 	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
 	texIds.push_back("Sprites/backgroundui.png");
+	texIds.push_back("Sprites/spin_sheet.png");
+	texIds.push_back("Sprites/TextWindow.png");
 
 	SOUNDBUFFER_MGR.Load("sounds/Map1/05 Ruins.flac");
 	SOUNDBUFFER_MGR.Load("sounds/Map1/Fall2.wav");
@@ -35,12 +37,15 @@ void Map1::Init()
 	ANI_CLIP_MGR.Load("Animation/upwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/leftwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/rightwalking.csv");
+	ANI_CLIP_MGR.Load("Animation/Player_Spin.csv");
 
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
 	background = (SpriteGo*)AddGameObject(new SpriteGo());
 	background->sortingLayer = SortingLayers::Background;
 	textWindow = (SpriteGo*)AddGameObject(new SpriteGo("Sprites/TextWindow.png"));
+	textWindow2 = (SpriteGo*)AddGameObject(new SpriteGo("Sprites/TextWindow.png"));
 	text = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
+	text2 = (TextGo*)AddGameObject(new TextGo("fonts/DungGeunMo.ttf"));
 
 	inventoryui = new InventoryUi("InventoryUi");
 	dialoguebox = new DialogueBox("dialoguebox");
@@ -66,8 +71,6 @@ void Map1::Init()
 	AddGameObject(uichanger);
 	AddGameObject(playerinfoui);
 
-
-
 	wall.setSize({ 10.f,70.f });
 	wall.setFillColor(sf::Color::Transparent);
 	wall.setOutlineColor(sf::Color::Green);
@@ -78,11 +81,20 @@ void Map1::Init()
 	textWindow->SetPosition({ 35.f, 300.f });
 	textWindow->SetActive(false);
 
+	textWindow2->sortingLayer = SortingLayers::UI;
+	textWindow2->SetPosition({ 35.f, 300.f });
+	textWindow2->SetActive(false);
+
 	text->sortingLayer = SortingLayers::UI;
-	text->SetString(L"알 수 없는 힘에 의해 막힘");
+	text->SetString(L"* 알 수 없는 힘에 의해 막힘");
 	text->SetCharacterSize(35.f);
 	text->SetPosition({ textWindow->GetPosition().x + 10, textWindow->GetPosition().y + 5 });
 	text->SetActive(false);
+
+	text2->SetString("");
+	text2->SetCharacterSize(35.f);
+	text2->sortingLayer = SortingLayers::UI;
+	text2->sortingOrder = 1;
 	Scene::Init();
 }
 
@@ -113,7 +125,6 @@ void Map1::Update(float dt)
 		startPos = player->GetPosition();
 		player->StartBattle();
 	}
-	//
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::C))
 	{
@@ -147,22 +158,25 @@ void Map1::Update(float dt)
 			}
 			else if (hit.type == "Battle")
 			{
-				if (battleCheckTimer >= battleCheckInterval)
+				if (!event)
 				{
-					std::cout << "배틀 확률 체크" << std::endl;
-					battleCheckTimer = 0.f;
+					if (battleCheckTimer >= battleCheckInterval)
+					{
+						//std::cout << "배틀 확률 체크" << std::endl;
+						//battleCheckTimer = 0.f;
 
-					// 1% 확률
-					if (Utils::RandomRange(0.f, 1.f) < 0.05f)
-					{
-						SceneBattle::nextSceneId = SceneIds::Map1;
-						SceneBattle::monsterJsonID = "jsons/frog.json";
-						startPos = player->GetPosition();
-						player->StartBattle();
-					}
-					else
-					{
-						std::cout << "배틀 아님" << std::endl;
+						//// 5% 확률
+						//if (Utils::RandomRange(0.f, 1.f) < 0.05f)
+						//{
+						//	SceneBattle::nextSceneId = SceneIds::Map1;
+						//	SceneBattle::monsterJsonID = "jsons/frog.json";
+						//	startPos = player->GetPosition();
+						//	player->StartBattle();
+						//}
+						//else
+						//{
+						//	std::cout << "배틀 아님" << std::endl;
+						//}
 					}
 				}
 			}
@@ -189,7 +203,11 @@ void Map1::Update(float dt)
 			}
 			else if (hit.type == "Signs")
 			{
-				std::cout << "Signs" << std::endl;
+				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+				{
+					isText = true;
+					std::cout << "Signs" << std::endl;
+				}
 			}
 			else if (hit.type == "Door")
 			{
@@ -206,6 +224,7 @@ void Map1::Update(float dt)
 					event = true;
 					moveEvent = true;
 					player->SetMove(false);
+					player->SetSpin(true);
 				}
 			}
 		}
@@ -224,6 +243,7 @@ void Map1::Update(float dt)
 			event = false;
 			moveEvent = false;
 			player->SetMove(true);
+			player->SetEvent(true);
 		}
 		else
 		{
@@ -240,7 +260,7 @@ void Map1::Update(float dt)
 		{
 			player->SetPosition(player->getPos());
 			showText = true;
-			std::cout << "알 수 없는 힘에 의해 막힘" << std::endl;
+			std::cout << "* 알 수 없는 힘에 의해 막힘" << std::endl;
 		}
 		else
 		{
@@ -255,10 +275,41 @@ void Map1::Update(float dt)
 		textWindow->SetActive(true);
 		text->SetActive(true);
 	}
-	else
+	else if (!showText)
 	{
 		textWindow->SetActive(false);
 		text->SetActive(false);
+	}
+	textTimer += dt;
+
+	if (isText)
+	{
+		if (currentIndex >= fullText.size())
+		{
+			time += dt;
+			if (time > 1.5f)
+			{
+				isText = false;
+				time = 0.f;
+				currentIndex = 0;
+				currentText = L"";
+				textWindow2->SetActive(false);
+				text2->SetActive(false);
+			}
+
+		}
+		else if (textTimer >= textSpeed) // 글자 출력 간격
+		{
+			textWindow2->SetActive(true);
+			text2->SetActive(true);
+
+			textTimer = 0.f;
+			currentText += fullText[currentIndex];
+			currentIndex++;
+
+			text2->SetString(currentText); // 실제 텍스트 객체에 반영
+			text2->SetPosition({ textWindow2->GetPosition().x + 30.f, textWindow2->GetPosition().y + 25.f });
+		}
 	}
 
 	Scene::Update(dt);

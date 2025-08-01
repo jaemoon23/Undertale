@@ -54,6 +54,9 @@ protected:
 	bool isDrawSymbol = false;
 	bool isDrawSoul = false;
 	bool isSoulMove = false;
+
+	bool spin = false;
+	bool event = false;
 public:
 	bool isSansMap = false;
 	Player(const std::string& name = "");
@@ -101,5 +104,7 @@ public:
 	void StartBattle();
 
 	void SetAnimatorStop() { animator.Stop(); }
+	void SetSpin(bool spin) { this->spin = spin; }
+	void SetEvent(bool e) { event = e; }
 };
 

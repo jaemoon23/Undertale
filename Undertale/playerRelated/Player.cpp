@@ -97,6 +97,18 @@ void Player::Reset()
 
 void Player::Update(float dt)
 {
+
+	if (spin)
+	{
+		animator.Play("Animation/Player_Spin.csv");
+		spin = false;
+	}
+	else if (event)
+	{
+		animator.Play("Animation/idle.csv");
+		event = false;
+	}
+
 	// 배틀 입장 연출
 	if (isBattleEnter)
 	{

@@ -19,9 +19,9 @@ class Map1 : public Scene
 protected:
 	float battleCheckTimer = 0.f;
 	const float battleCheckInterval = 1.f;
-	Map0 Map0;
+
 	SpriteGo* background = nullptr;
-	Player* player;
+	Player* player = nullptr;
 	std::vector<SpriteGo*> objects;
 	std::vector<HitBoxInfo1> hitboxes;
 
@@ -31,13 +31,24 @@ protected:
 	float eventMoveSpeed = 200.f; // 초당 이동 속도
 	float moveStep;
 
+
+	std::wstring fullText = L"* 스위치는 하나 뿐이다.";
+	std::wstring currentText = L"";
+	bool isText = false;
+	float textTimer = 0.f;
+	float textSpeed = 0.05f; // 글자당 시간 (초)
+	int currentIndex = 0;
+	float time = 0.f;
+
 	bool wallHitBox = true;
 	bool event = false;
 	bool moveEvent = false;
 	bool puzzleSuccess = false;
 
 	SpriteGo* textWindow = nullptr;
+	SpriteGo* textWindow2 = nullptr;
 	TextGo* text = nullptr;
+	TextGo* text2 = nullptr;
 
 	UiChanger* uichanger;
 	InventoryUi* inventoryui;
