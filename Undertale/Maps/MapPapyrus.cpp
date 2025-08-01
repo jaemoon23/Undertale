@@ -89,6 +89,12 @@ void MapPapyrus::Init()
 
 void MapPapyrus::Enter()
 {
+	doorwall.setSize({ 1200.f,20.f });
+	doorwall.setFillColor(sf::Color::Transparent);
+	doorwall.setOutlineColor(sf::Color::Transparent);
+	doorwall.setOutlineThickness(1.f);
+	doorwall.setPosition({ 470.f, 403.f });
+
 	std::ifstream in("map6.json");
 	if (!in)
 	{
@@ -190,9 +196,21 @@ void MapPapyrus::Enter()
 
 	if (BattleEnd && !papyrusImageChange)
 	{
-		papyrus->animator.Play("Animation/papyrustoasted.csv");
-		papyrusImageChange = true;
+		if (PlayerInfo::lv >= 15) 
+		{
+			papyrus->animator.Play("Animation/papyrustoasted.csv");
+			papyrusImageChange = true;
+			doorwall.setSize({ 0,0 });
+			doorwall.setPosition({ 1000,1000 });
+		}
 	}
+
+	if (BattleEnd && !papyrusImageChange && !papyrusMercy)
+	{
+		papyrus->animator.Play("Animation/papyrusidle.csv");
+		papyrusMercy = true;
+	}
+
 }
 
 void MapPapyrus::Update(float dt)
@@ -291,6 +309,18 @@ void MapPapyrus::Update(float dt)
 			papyrusLastInteract = true;
 		}
 	}
+
+	if (BattleEnd && !papyrusImageChange && papyrusMercy && !mercyDialogEnd)
+	{
+		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+		{
+			player->PapyrusMercyInteract();
+			player->SetMove(false);
+			player->animator.Stop();
+			mercyDialogEnd = true;
+		}
+	}
+
 	if (!dialoguebox->GetActive() && papyrusLastInteract)
 	{
 		player->SetMove(true);
@@ -302,6 +332,21 @@ void MapPapyrus::Update(float dt)
 		float sansSpeed = 150.f;
 		papyrusPos += direction * sansSpeed * dt;
 		papyrus->SetPosition(papyrusPos);
+	}
+
+	if (!dialoguebox->GetActive() && papyrusMercy && mercyDialogEnd)
+	{
+		player->SetMove(true);
+		papyrus->animator.Play("Animation/papyrusrun.csv");
+
+		sf::Vector2f papyrusPos = papyrus->GetPosition();
+		sf::Vector2f direction = { 1.f,0.f };
+		Utils::Normalize(direction);
+		float sansSpeed = 150.f;
+		papyrusPos += direction * sansSpeed * dt;
+		papyrus->SetPosition(papyrusPos);
+		doorwall.setSize({ 0,0 });
+		doorwall.setPosition({ 1000,1000 });
 	}
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::C))
@@ -321,6 +366,11 @@ void MapPapyrus::Update(float dt)
 		{
 			dialoguebox->NextLine();
 		}
+	}
+
+	if (Utils::CheckCollision(player->GetHitBox(), doorwall))
+	{
+		player->SetPosition(player->getPos());
 	}
 
 	Scene::Update(dt);
@@ -343,5 +393,6 @@ void MapPapyrus::Draw(sf::RenderWindow& window)
 			window.draw(*hit.shape); // worldView 기준으로 그려짐
 		}
 	}
+	window.draw(doorwall);
 }
 

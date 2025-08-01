@@ -32,6 +32,8 @@ protected:
 
 	SpriteGo* exclamationmark;
 
+	sf::RectangleShape doorwall;
+
 	bool puzzleSuccess = false;
 	bool dialogueTriggered = false;
 	bool dialogueEnd = false; // 파피루스 대화 종료 시 움직일 수 있게 
@@ -40,10 +42,11 @@ protected:
 	bool papyrusImageChange = false;
 	bool papyrusLastInteract = false;
 
-	bool papyrusFight = false;
 	bool papyrusMercy = false;
-
+	bool mercyDialogEnd = false;
 	float exclamationmarkTimer = 0.f;
+
+	bool playerRun = false;
 public:
 	MapPapyrus();
 	~MapPapyrus() override = default;

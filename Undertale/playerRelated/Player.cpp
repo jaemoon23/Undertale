@@ -277,6 +277,28 @@ void Player::PapyrusBattleEndInteract()
 	dialoguebox->StartDialogue(testDialogues);
 }
 
+void Player::PapyrusMercyInteract()
+{
+	std::vector<std::wstring> testDialogues =
+	{
+		L"* ...뭐지?",
+		L"* 왜 공격하지 않았지?",
+		L"* 분명히 이길 수 있었을 텐데...",
+		L"* 인간.",
+		L"* 네가 보여준 건...",
+		L"* 진짜 강함이었어.",
+		L"* 나를 쓰러뜨리는 대신...",
+		L"* 나를 이해하려고 했구나.",
+		L"* 감동이야... 정말로.",
+		L"* 이런 기분은 처음이야.",
+		L"* 내 마음이...\n* 스파게티처럼 따뜻해지고 있어!",
+		L"* 이제 난 너를...",
+		L"* 친구라고 부를 수 있을 것 같아!",
+		L"* 고마워 친구!",
+	};
+	dialoguebox->StartDialogue(testDialogues);
+}
+
 
 
 const sf::RectangleShape& Player::GetHitBox() const
