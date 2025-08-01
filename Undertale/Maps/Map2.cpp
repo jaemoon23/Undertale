@@ -228,10 +228,27 @@ void Map2::Enter()
 
 	uiView.setSize(size);
 	uiView.setCenter(center);
+
+	// startPos 다시 세팅 후 사용
+	//player->SetPosition(startPos);
 }
 
 void Map2::Update(float dt)
 {
+	// 테스트 코드
+	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad5))
+	{
+		SceneBattle::nextSceneId = SceneIds::Map2;
+		SceneBattle::monsterJsonID = "jsons/whimsun.json";
+		startPos = player->GetPosition();
+		player->StartBattle();
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
+	{
+		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
+	}
+	//
+
 	if (InputMgr::GetKeyDown(sf::Keyboard::C))
 	{
 		if ((inventoryui && inventoryui->GetActive()) ||
@@ -276,6 +293,7 @@ void Map2::Update(float dt)
 							std::cout << "랜덤 전투 발생!" << std::endl;
 							SceneBattle::nextSceneId = SceneIds::Map2;
 							SceneBattle::monsterJsonID = "jsons/whimsun.json";
+							startPos = player->GetPosition();
 							player->StartBattle();
 						}
 						else
@@ -289,11 +307,13 @@ void Map2::Update(float dt)
 			else if (hit.type == "NextScene")
 			{
 				std::cout << "NextScene" << std::endl;
+				startPos = player->GetPosition() + sf::Vector2f(-40.f, 0.f);
 				SCENE_MGR.ChangeScene(SceneIds::Map3);
 			}
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
+				startPos = { -711.f,287.f };
 				SCENE_MGR.ChangeScene(SceneIds::Map1);
 			}
 		}

@@ -156,6 +156,8 @@ void Map0::Enter()
 		rect->setOutlineThickness(1.f);
 		hitboxes.push_back({ rect, typeStr });
 	}
+
+	player->SetPosition(startPos);
 }
 void Map0::Update(float dt)
 {
@@ -184,6 +186,7 @@ void Map0::Update(float dt)
 			else if (hit.type == "SceneChange")
 			{
 				std::cout << "씬 전환 트리거됨!" << std::endl;
+				startPos = player->GetPosition() + sf::Vector2f(0.f,10.f);
 				SCENE_MGR.ChangeScene(SceneIds::Map1);
 			}			
 		}
@@ -194,6 +197,11 @@ void Map0::Update(float dt)
 	playerinfoui->Update(dt);
 	inventoryui->Update(dt);
 	uichanger->Update(dt);
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
+	{
+		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
+	}
 }
 
 void Map0::Draw(sf::RenderWindow& window)

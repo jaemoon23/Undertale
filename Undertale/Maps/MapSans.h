@@ -72,6 +72,8 @@ protected:
 	sf::Vector2f uiViewCenter;
 	//
 
+	sf::Vector2f startPos = { -328.f,295.934f };
+
 public:
 	bool IsSansDie = false;
 	MapSans();

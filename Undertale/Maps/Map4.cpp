@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 #include "Map4.h"
 #include "Player.h"
 #include "SceneBattle.h"
@@ -76,7 +76,7 @@ void Map4::Init()
 	textWindow->SetActive(false);
 
 	text->sortingLayer = SortingLayers::UI;
-	text->SetString(L"æÀ ºˆ æ¯¥¬ »˚ø° ¿««ÿ ∏∑»˚");
+	text->SetString(L"Ïïå Ïàò ÏóÜÎäî ÌûòÏóê ÏùòÌï¥ ÎßâÌûò");
 	text->SetCharacterSize(35.f);
 	text->SetPosition({ textWindow->GetPosition().x + 10, textWindow->GetPosition().y + 5 });
 	text->SetActive(false);
@@ -99,7 +99,7 @@ void Map4::Enter()
 	std::ifstream in("map4.json");
 	if (!in)
 	{
-		std::cerr << "map4.json ∆ƒ¿œ¿ª ø≠ ºˆ æ¯Ω¿¥œ¥Ÿ!" << std::endl;
+		std::cerr << "map4.json ÌååÏùºÏùÑ Ïó¥ Ïàò ÏóÜÏäµÎãàÎã§!" << std::endl;
 		return;
 	}
 
@@ -107,7 +107,7 @@ void Map4::Enter()
 	in >> j;
 	auto& mapData = j["map4"];
 
-	// πË∞Ê
+	// Î∞∞Í≤Ω
 	std::string bgTex = mapData["background"]["textureId"];
 	sf::Vector2f bgPos(mapData["background"]["position"][0], mapData["background"]["position"][1]);
 	sf::Vector2f scale(mapData["background"]["scale"][0], mapData["background"]["scale"][1]);
@@ -124,7 +124,7 @@ void Map4::Enter()
 	uiView.setSize(size);
 	uiView.setCenter(center);
 
-	// ø¿∫Í¡ß∆Æ
+	// Ïò§Î∏åÏ†ùÌä∏
 	bool playerPlaced = false;
 	for (auto& obj : mapData["objects"])
 	{
@@ -154,7 +154,7 @@ void Map4::Enter()
 		}
 	}
 
-	//  »˜∆Æπ⁄Ω∫ ∑ŒµÂ
+	//  ÌûàÌä∏Î∞ïÏä§ Î°úÎìú
 	for (auto& box : mapData["hitboxes"])
 	{
 		sf::Vector2f pos(box["position"][0], box["position"][1]);
@@ -193,10 +193,23 @@ void Map4::Enter()
 		rect->setOutlineThickness(1.f);
 		hitboxes.push_back({ rect, typeStr });
 	}
+
+	// startPos Îã§Ïãú ÏÑ∏ÌåÖ ÌõÑ ÏÇ¨Ïö©
+	//player->SetPosition(startPos);
 }
 
 void Map4::Update(float dt)
 {
+	// ÌÖåÏä§Ìä∏ ÏΩîÎìú
+	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad5))
+	{
+		SceneBattle::nextSceneId = SceneIds::Map4;
+		SceneBattle::monsterJsonID = "jsons/icecap.json";
+		startPos = player->GetPosition();
+		player->StartBattle();
+	}
+	//
+
 	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
 	if (InputMgr::GetKeyDown(sf::Keyboard::C))
@@ -225,21 +238,21 @@ void Map4::Update(float dt)
 			{
 				if (battleCheckTimer >= battleCheckInterval)
 				{
-					std::cout << "πË∆≤ »Æ∑¸ √º≈©" << std::endl;
+					std::cout << "Î∞∞ÌãÄ ÌôïÎ•† Ï≤¥ÌÅ¨" << std::endl;
 					battleCheckTimer = 0.f;
 
-					// 1% »Æ∑¸
+					// 1% ÌôïÎ•†
 					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
 					{
-						std::cout << "∑£¥˝ ¿¸≈ı πﬂª˝!" << std::endl;
+						std::cout << "ÎûúÎç§ Ï†ÑÌà¨ Î∞úÏÉù!" << std::endl;
 						SceneBattle::nextSceneId = SceneIds::Map4;
-						SceneBattle::monsterJsonID = "jsons/frog.json";
-						//SceneBattle::monsterJsonID = "jsons/sans.json";
+						SceneBattle::monsterJsonID = "jsons/icecap.json";
+						startPos = player->GetPosition();
 						player->StartBattle();
 					}
 					else
 					{
-						std::cout << "πË∆≤ æ∆¥‘" << std::endl;
+						std::cout << "Î∞∞ÌãÄ ÏïÑÎãò" << std::endl;
 					}
 				}
 			}
@@ -249,17 +262,19 @@ void Map4::Update(float dt)
 				{
 					SOUND_MGR.PlaySfx("sounds/Map4/sw.wav");
 					puzzleSuccess = true;
-					std::cout << "Ω∫¿ßƒ° ¥©∏ß" << std::endl;
+					std::cout << "Ïä§ÏúÑÏπò ÎàÑÎ¶Ñ" << std::endl;
 				}
 			}
 			else if (hit.type == "NextScene")
 			{
 				std::cout << "NextScene" << std::endl;
+				startPos = player->GetPosition() + sf::Vector2f(-30.f, 0.f);
 				SCENE_MGR.ChangeScene(SceneIds::Map5);
 			}
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
+				startPos = { -16.f,300.f };
 				SCENE_MGR.ChangeScene(SceneIds::Map3);
 			}
 			else if (hit.type == "Signs")
@@ -273,7 +288,7 @@ void Map4::Update(float dt)
 			{
 				player->SetPosition(player->getPos());
 				showText = true;
-				std::cout << "æÀ ºˆ æ¯¥¬ »˚ø° ¿««ÿ ∏∑»˚" << std::endl;
+				std::cout << "Ïïå Ïàò ÏóÜÎäî ÌûòÏóê ÏùòÌï¥ ÎßâÌûò" << std::endl;
 			}
 			else
 			{
@@ -298,7 +313,8 @@ void Map4::Update(float dt)
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 		{
-			std::cout << "≈◊πÃ z≈∞ ¿‘∑¬" << std::endl;
+			std::cout << "ÌÖåÎØ∏ zÌÇ§ ÏûÖÎ†•" << std::endl;
+			startPos = player->GetPosition();
 			SCENE_MGR.ChangeScene(SceneIds::TemMieShop);
 		}
 	}
@@ -314,7 +330,7 @@ void Map4::Draw(sf::RenderWindow& window)
 	{
 		for (auto& hit : hitboxes)
 		{
-			window.draw(*hit.shape); // worldView ±‚¡ÿ¿∏∑Œ ±◊∑¡¡¸
+			window.draw(*hit.shape); // worldView Í∏∞Ï§ÄÏúºÎ°ú Í∑∏Î†§Ïßê
 		}
 		window.draw(wall);
 	}

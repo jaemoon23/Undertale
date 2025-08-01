@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Scene.h"
 #include <fstream>
 #include "json.hpp"
@@ -28,7 +28,7 @@ protected:
 	sf::RectangleShape wall;
 	sf::Vector2f direction;
 	float eventMoveRemaining = 0.f;
-	float eventMoveSpeed = 200.f; // ÃÊ´ç ÀÌµ¿ ¼Óµµ
+	float eventMoveSpeed = 200.f; // ì´ˆë‹¹ ì´ë™ ì†ë„
 	float moveStep;
 
 	bool wallHitBox = true;
@@ -45,6 +45,8 @@ protected:
 	PlayerInfoUi* playerinfoui;
 
 	bool showText = false;
+
+	sf::Vector2f startPos = { -9.f,-61.f };
 public:
 	Map1();
 	~Map1() override = default;

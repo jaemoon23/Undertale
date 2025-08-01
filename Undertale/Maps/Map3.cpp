@@ -170,7 +170,7 @@ void Map3::Enter()
 void Map3::Update(float dt)
 {
 	// 테스트 코드
-	if (InputMgr::GetKeyDown(sf::Keyboard::Num5))
+	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad5))
 	{
 		SceneBattle::nextSceneId = SceneIds::Map3;
 		SceneBattle::monsterJsonID = "jsons/migosp.json";

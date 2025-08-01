@@ -220,12 +220,9 @@ void MapSans::Enter()
 	if (PlayerInfo::lv == 20)
 		IsSansDie = true;
 
-	if (IsSansDie)
-	{
-		player->SetPosition({ 500.f, player->GetPosition().y });
-	}
-
 	SOUND_MGR.PlayBgm("sounds/73 The Choice.flac");
+
+	player->SetPosition(startPos);
 }
 
 void MapSans::Update(float dt)
@@ -277,6 +274,7 @@ void MapSans::Update(float dt)
 						SceneBattle::monsterJsonID = "jsons/sans.json";
 						isBattleEnter = true;
 						player->StartBattle();
+						startPos = player->GetPosition() + sf::Vector2f(-20.f, 0.f);
 						return;
 					}
 					isDrawingText = true;
@@ -384,6 +382,7 @@ void MapSans::Update(float dt)
 				else if (hit.type == "PrevScene")
 				{
 					std::cout << "PrevScene" << std::endl;
+					startPos = { -328.f,295.934f };
 					SCENE_MGR.ChangeScene(SceneIds::MapPapyrus);
 				}
 			}

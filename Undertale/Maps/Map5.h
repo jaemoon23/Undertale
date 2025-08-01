@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Scene.h"
 #include "SpriteGo.h"
 class Player;
@@ -45,6 +45,8 @@ protected:
 
 	float maxTime2 = 1.f;
 	float currentTime2 = 0.f;
+
+	sf::Vector2f startPos = { -134.f,273.f };
 public:
 	Map5();
 	~Map5() override = default;

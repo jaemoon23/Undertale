@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Map1.h"
 #include "SceneBattle.h"
 #include "Player.h"
@@ -79,7 +79,7 @@ void Map1::Init()
 	textWindow->SetActive(false);
 
 	text->sortingLayer = SortingLayers::UI;
-	text->SetString(L"¾Ë ¼ö ¾ø´Â Èû¿¡ ÀÇÇØ ¸·Èû");
+	text->SetString(L"ì•Œ ìˆ˜ ì—†ëŠ” íž˜ì— ì˜í•´ ë§‰íž˜");
 	text->SetCharacterSize(35.f);
 	text->SetPosition({ textWindow->GetPosition().x + 10, textWindow->GetPosition().y + 5 });
 	text->SetActive(false);
@@ -95,7 +95,7 @@ void Map1::Enter()
 	std::ifstream in("map1.json");
 	if (!in)
 	{
-		std::cerr << "map1.json ÆÄÀÏÀ» ¿­ ¼ö ¾ø½À´Ï´Ù!" << std::endl;
+		std::cerr << "map1.json íŒŒì¼ì„ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!" << std::endl;
 		return;
 	}
 
@@ -103,7 +103,7 @@ void Map1::Enter()
 	in >> j;
 	auto& mapData = j["map1"];
 
-	// ¹è°æ
+	// ë°°ê²½
 	std::string bgTex = mapData["background"]["textureId"];
 	sf::Vector2f bgPos(mapData["background"]["position"][0], mapData["background"]["position"][1]);
 	sf::Vector2f scale(mapData["background"]["scale"][0], mapData["background"]["scale"][1]);
@@ -120,7 +120,7 @@ void Map1::Enter()
 	uiView.setSize(size);
 	uiView.setCenter(center);
 
-	// ¿ÀºêÁ§Æ®
+	// ì˜¤ë¸Œì íŠ¸
 	bool playerPlaced = false;
 	for (auto& obj : mapData["objects"])
 	{
@@ -149,7 +149,7 @@ void Map1::Enter()
 		}
 	}
 
-	//  È÷Æ®¹Ú½º ·Îµå
+	//  ížˆíŠ¸ë°•ìŠ¤ ë¡œë“œ
 	for (auto& box : mapData["hitboxes"])
 	{
 		sf::Vector2f pos(box["position"][0], box["position"][1]);
@@ -204,10 +204,22 @@ void Map1::Enter()
 		rect->setOutlineThickness(1.f);
 		hitboxes.push_back({ rect, typeStr });
 	}
+
+	player->SetPosition(startPos);
 }
 
 void Map1::Update(float dt)
 {
+	// í…ŒìŠ¤íŠ¸ ì½”ë“œ
+	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad5))
+	{
+		SceneBattle::nextSceneId = SceneIds::Map1;
+		SceneBattle::monsterJsonID = "jsons/frog.json";
+		startPos = player->GetPosition();
+		player->StartBattle();
+	}
+	//
+
 	if (InputMgr::GetKeyDown(sf::Keyboard::C))
 	{
 		if ((inventoryui && inventoryui->GetActive()) ||
@@ -235,26 +247,27 @@ void Map1::Update(float dt)
 			}
 			else if (hit.type == "SceneChange")
 			{
-				std::cout << "¾À ÀüÈ¯ Æ®¸®°ÅµÊ!" << std::endl;
+				std::cout << "ì”¬ ì „í™˜ íŠ¸ë¦¬ê±°ë¨!" << std::endl;
 				SCENE_MGR.ChangeScene(SceneIds::Dev1);
 			}
 			else if (hit.type == "Battle")
 			{
 				if (battleCheckTimer >= battleCheckInterval)
 				{
-					std::cout << "¹èÆ² È®·ü Ã¼Å©" << std::endl;
+					std::cout << "ë°°í‹€ í™•ë¥  ì²´í¬" << std::endl;
 					battleCheckTimer = 0.f;
 
-					// 1% È®·ü
-					if (Utils::RandomRange(0.f, 1.f) < 0.5f)
+					// 1% í™•ë¥ 
+					if (Utils::RandomRange(0.f, 1.f) < 0.05f)
 					{
 						SceneBattle::nextSceneId = SceneIds::Map1;
-						SceneBattle::monsterJsonID = "jsons/Sans.json";
+						SceneBattle::monsterJsonID = "jsons/frog.json";
+						startPos = player->GetPosition();
 						player->StartBattle();
 					}
 					else
 					{
-						std::cout << "¹èÆ² ¾Æ´Ô" << std::endl;
+						std::cout << "ë°°í‹€ ì•„ë‹˜" << std::endl;
 					}
 				}
 			}
@@ -270,11 +283,13 @@ void Map1::Update(float dt)
 			else if (hit.type == "NextScene")
 			{
 				std::cout << "NextScene" << std::endl;
+				startPos = player->GetPosition() + sf::Vector2f(-40.f, 0.f);
 				SCENE_MGR.ChangeScene(SceneIds::Map2);
 			}
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
+				startPos = { -9.f,-61.f };
 				SCENE_MGR.ChangeScene(SceneIds::Map0);
 			}
 			else if (hit.type == "Signs")
@@ -309,7 +324,7 @@ void Map1::Update(float dt)
 
 		if (eventMoveRemaining <= 0.f)
 		{
-			std::cout << "Event ÀÌµ¿ ¿Ï·á" << std::endl;
+			std::cout << "Event ì´ë™ ì™„ë£Œ" << std::endl;
 			wallHitBox = true;
 			event = false;
 			moveEvent = false;
@@ -317,11 +332,11 @@ void Map1::Update(float dt)
 		}
 		else
 		{
-			// ÀÌµ¿ÇÒ °Å¸® vs ³²Àº °Å¸® Áß ´õ ÀÛÀº °ª¸¸Å­ ÀÌµ¿
+			// ì´ë™í•  ê±°ë¦¬ vs ë‚¨ì€ ê±°ë¦¬ ì¤‘ ë” ìž‘ì€ ê°’ë§Œí¼ ì´ë™
 			float actualStep = std::min(moveStep, eventMoveRemaining);
 			player->SetPosition(player->GetPosition() + direction * actualStep);
 			eventMoveRemaining -= actualStep;
-			std::cout << "³²Àº °Å¸®: " << eventMoveRemaining << ", ÀÌ¹ø ÀÌµ¿: " << actualStep << std::endl;
+			std::cout << "ë‚¨ì€ ê±°ë¦¬: " << eventMoveRemaining << ", ì´ë²ˆ ì´ë™: " << actualStep << std::endl;
 		}
 	}
 	if (!puzzleSuccess)
@@ -330,7 +345,7 @@ void Map1::Update(float dt)
 		{
 			player->SetPosition(player->getPos());
 			showText = true;
-			std::cout << "¾Ë ¼ö ¾ø´Â Èû¿¡ ÀÇÇØ ¸·Èû" << std::endl;
+			std::cout << "ì•Œ ìˆ˜ ì—†ëŠ” íž˜ì— ì˜í•´ ë§‰íž˜" << std::endl;
 		}
 		else
 		{
@@ -363,7 +378,7 @@ void Map1::Draw(sf::RenderWindow& window)
 	{
 		for (auto& hit : hitboxes)
 		{
-			window.draw(*hit.shape); // worldView ±âÁØÀ¸·Î ±×·ÁÁü
+			window.draw(*hit.shape); // worldView ê¸°ì¤€ìœ¼ë¡œ ê·¸ë ¤ì§
 		}
 		window.draw(wall);
 	}
