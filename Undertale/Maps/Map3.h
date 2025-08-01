@@ -33,6 +33,10 @@ protected:
 	sf::Vector2f startPos = { 214.f,267.f };
 
 	TalkObject* spaghetti;
+	TalkObject* microwave;
+	TalkObject* notepaper;
+	TalkObject* mousehole;
+	TalkObject* savepoint;
 	TextWindow* textWindow;
 
 public:

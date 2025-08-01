@@ -12,6 +12,16 @@ protected:
 	Player* player;
 	TextWindow* textWindow;
 
+	int lineIndex = 0;
+	int lineCount;
+	int charIndex = 0;
+	float typeTimer = 0.f;
+	float typeTime = 0.07f;
+	bool isDrawingText = false;
+
+	std::wstring tempLine;
+	std::wstring currentLine;
+
 public:
 	std::vector<std::wstring> lines;
 

@@ -44,6 +44,9 @@ void TextWindow::Init()
 	sortingLayer = SortingLayers::UI;
 	sortingOrder = 0;
 	sprite.setPosition({ 320.f, 395.f });
+
+	text.setCharacterSize(32);
+	text.setPosition({ 60.f,335.f });
 }
 
 void TextWindow::Release()
@@ -53,17 +56,26 @@ void TextWindow::Release()
 void TextWindow::Reset()
 {
 	sprite.setTexture(TEXTURE_MGR.Get("graphics/TextWindow.png"));
+	text.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	SetOrigin(Origins::MC);
 
 	isDraw = false;
 }
 
 void TextWindow::Update(float dt)
-{
+{	
 }
 
 void TextWindow::Draw(sf::RenderWindow& window)
 {
-	if(isDraw)
+	if (isDraw)
+	{
 		window.draw(sprite);
+		window.draw(text);
+	}
+}
+
+void TextWindow::UpdateText()
+{
+	text.setString(line);
 }

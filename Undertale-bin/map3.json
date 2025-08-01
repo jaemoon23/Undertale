@@ -14,6 +14,28 @@
         "hitboxes": [
             {
                 "position": [
+                    315,
+                    305
+                ],
+                "size": [
+                    9,
+                    9
+                ],
+                "type": "Wall"
+            },
+            {
+                "position": [
+                    352,
+                    223
+                ],
+                "size": [
+                    36,
+                    7
+                ],
+                "type": "Wall"
+            },
+            {
+                "position": [
                     302,
                     223
                 ],
