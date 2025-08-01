@@ -80,6 +80,8 @@ void TalkObject::Update(float dt)
 				player->SetMove(true);
 				textWindow->isDraw = false;
 				lineIndex = 0;
+				textWindow->line = L"";
+				textWindow->UpdateText();
 			}
 			else
 			{
