@@ -37,14 +37,14 @@ void MapSans::Init()
 	soundIds.push_back("sounds/snd_escaped.wav");
 	soundIds.push_back("sounds/snd_txtsans.wav");
 	soundIds.push_back("sounds/73 The Choice.flac");
-	
+	soundIds.push_back("sounds/snd_select.wav");
+
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/upwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/leftwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/rightwalking.csv");
 
-	SOUNDBUFFER_MGR.Load("sounds/snd_select.wav");
 
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
 	background = (SpriteGo*)AddGameObject(new SpriteGo());
@@ -278,6 +278,7 @@ void MapSans::Update(float dt)
 				return;
 			}
 			uichanger->SetActive(!uichanger->GetActive());
+			SOUND_MGR.PlaySfx("sounds/snd_select.wav");
 		}
 		for (auto& hit : hitboxes)
 		{

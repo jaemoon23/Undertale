@@ -27,6 +27,7 @@ void Map4::Init()
 	texIds.push_back("Sprites/backgroundui.png");
 	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
 	texIds.push_back("graphics/spr_switch_0.png");
+	soundIds.push_back("sounds/snd_select.wav");
 
 	SOUNDBUFFER_MGR.Load("sounds/Map4/31 Waterfall.flac");
 	SOUNDBUFFER_MGR.Load("sounds/Map4/sw.wav");
@@ -133,6 +134,7 @@ void Map4::Update(float dt)
 			return;
 		}
 		uichanger->SetActive(!uichanger->GetActive());
+		SOUND_MGR.PlaySfx("sounds/snd_select.wav");
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
 	{

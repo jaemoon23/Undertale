@@ -91,13 +91,25 @@ void UiChanger::Update(float dt)
 {
 	if (!GetActive()) return;
 
-	// 하위 UI가 켜져 있으면 UiChanger 입력 무시
+	 //하위 UI가 켜져 있으면 UiChanger 입력 무시
 	if ((inventoryui && inventoryui->GetActive()) || 
 		(playerinfoui && playerinfoui->GetActive()) ||
 		(dialogueBox && dialogueBox -> GetActive()))
 	{
 		return;
 	}
+
+	//if (InputMgr::GetKeyDown(sf::Keyboard::C))
+	//{
+	//	if ((inventoryui && inventoryui->GetActive()) ||
+	//		(playerinfoui && playerinfoui->GetActive()) ||
+	//		(dialogueBox && dialogueBox->GetActive()))
+	//	{
+	//		return;
+	//	}
+	//	this->SetActive(!this->GetActive());
+	//	SOUND_MGR.PlaySfx("sounds/snd_select.wav");
+	//}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
