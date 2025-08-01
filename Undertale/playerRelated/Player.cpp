@@ -66,6 +66,7 @@ void Player::Reset()
 	SOUNDBUFFER_MGR.Load("sounds/snd_b.wav");
 	SOUNDBUFFER_MGR.Load("sounds/snd_noise.wav");
 	SOUNDBUFFER_MGR.Load("sounds/snd_battlefall.wav");
+	SOUNDBUFFER_MGR.Load("sounds/Map2/15 sans..flac");
 	TEXTURE_MGR.Load("graphics/spr_word!.png");
 	TEXTURE_MGR.Load("graphics/spr_heartsmall_0.png");
 	battleSymbol.setTexture(TEXTURE_MGR.Get("graphics/spr_word!.png"));

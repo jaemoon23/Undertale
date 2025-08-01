@@ -58,6 +58,7 @@ void Map2::Init()
 	ANI_CLIP_MGR.Load("Animation/rightwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/sansdarkwalking.csv");
 
+	SOUNDBUFFER_MGR.Load("sounds/Map2/17 Snowy.flac");
 
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
 	sans = (Sans*)AddGameObject(new Sans("Sprites/spr_sans_r_dark_2.png"));
@@ -93,17 +94,12 @@ void Map2::Init()
 	background2 = (SpriteGo*)AddGameObject(new SpriteGo());
 	background2->sortingLayer = SortingLayers::Background;
 
-
-
-	InventoryUi::healItem[0].SetInfo(L"아이스", 15);
-	PlayerInfo::slot++;
-	
-
 	Scene::Init();
 }
 
 void Map2::Enter()
 {
+	SOUND_MGR.PlayBgm("sounds/Map2/17 Snowy.flac");
 	float imageChangeTimer = 0.f;
 	int currentImageIndex = 0;
 
@@ -308,7 +304,8 @@ void Map2::Update(float dt)
 	}
 
 	if (Utils::CheckCollision(player->GetHitBox(), doorwall))
-{
+	{
+		SOUND_MGR.StopBgm();
     // 처음 충돌 시 설정
     if (!animationPlay)
     {
@@ -319,6 +316,7 @@ void Map2::Update(float dt)
         sans->SetActive(true);
         sans->animator.Play("Animation/sansdarkwalking.csv");
         animationPlay = true;
+		//SOUND_MGR.PlayBgm("sounds/Map2/17 Snowy.flac");
     }
 
     // Sans 이동
@@ -333,14 +331,14 @@ void Map2::Update(float dt)
     // 플레이어와 Sans 간 충돌 시 대화 처리
     if (Utils::CheckCollision(player->GetHitBox(), sans->GetHitBox()))
     {
-       
+		
         if (!InteractedSans)
         {
             InteractedSans = true;
 			sans->SetMove(false);
 			sans->animator.Stop();
             player->SansInteract();
-
+		
         }
 
         if (InputMgr::GetKeyDown(sf::Keyboard::Z))
@@ -417,6 +415,8 @@ void Map2::Update(float dt)
             player->SansSecondsInteract();
             isWaitingSansSecondInteract = false;
             isCheck = true;
+			
+			SOUND_MGR.PlayBgm("sounds/Map2/15 sans..flac");
         }
     }
 
@@ -437,6 +437,8 @@ void Map2::Update(float dt)
         doorwall.setSize({ 0.f, 0.f });
         doorwall.setPosition({ -1000.f, -1000.f });
         wallDisabled = false;
+		SOUND_MGR.StopBgm();
+		SOUND_MGR.PlayBgm("sounds/Map2/17 Snowy.flac");
     }
 }
 else
