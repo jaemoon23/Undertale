@@ -7,7 +7,7 @@
 #include "InventoryUi.h"
 #include "HealItem.h"
 
-std::string SceneBattle::monsterJsonID = "jsons/frog.json";
+std::string SceneBattle::monsterJsonID = "jsons/sans.json";
 SceneIds SceneBattle::nextSceneId = SceneIds::Map0;
 
 SceneBattle::SceneBattle()
@@ -186,7 +186,7 @@ void SceneBattle::Enter()
 	gameOverText.setCharacterSize(60.f);
 	gameOverText.setScale(0.5f, 0.5f);
 	gameOverText.setPosition({ size.x * 0.25f, size.y * 0.55f });
-	gameOverText.setString(L"지금 끝낼 수는 없어!");
+	gameOverText.setString(L"이렇게 끝낼 수는 없어!");
 
 	monster.setTexture(TEXTURE_MGR.Get(monsterTexId));
 	animator.SetTarget(&monster);
@@ -333,6 +333,7 @@ void SceneBattle::Update(float dt)
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
 					isFadeIn = false;
+					PlayerInfo::Heal(20);
 					SCENE_MGR.ChangeScene(SceneIds::Battle);
 				}
 				fadeIntervalTimer = 0.f;
@@ -447,10 +448,18 @@ void SceneBattle::TryMercy()
 	}
 	else if (mercyChooseIndex == 1)
 	{		
-		isPlaying = false;
-		std::cout << "도망가기 실행" << std::endl;
-		SOUND_MGR.PlaySfx("sounds/snd_escaped.wav");
-		SOUND_MGR.StopBgm();
+		if (data["name"] == "papyrus" || data["name"] == "sans")
+		{
+			btBox->describeStr[2] = L"* 도망불가";
+			btBox->UpdateBox();
+			SOUND_MGR.PlaySfx("sounds/snd_hurt1.wav");
+		}
+		else
+		{
+			isPlaying = false;
+			SOUND_MGR.PlaySfx("sounds/snd_escaped.wav");
+			SOUND_MGR.StopBgm();
+		}
 	}
 	else
 	{

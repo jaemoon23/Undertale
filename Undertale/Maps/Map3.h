@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Scene.h"
 #include "SpriteGo.h"
 
@@ -29,6 +29,8 @@ protected:
 	PlayerInfoUi* playerinfoui;
 
 	bool puzzleSuccess = false;
+
+	sf::Vector2f startPos = { -316.f,312.f };
 public:
 	Map3();
 	~Map3() override = default;

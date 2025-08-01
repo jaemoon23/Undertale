@@ -59,6 +59,7 @@ protected:
 	float endTime = 2.5f;
 
 	bool isTalkEnd = false;
+	bool isBattleEnter = false;
 
 	// Moral이 point보다 작으면 전투 돌입
 	const int JudgeMentPoint = 3;
