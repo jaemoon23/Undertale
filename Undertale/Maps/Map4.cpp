@@ -110,12 +110,6 @@ void Map4::Enter()
 	player->SetPosition(startPos);
 }
 
-void Map4::Exit()
-{
-	Scene::Exit();
-	hitboxes.clear();
-}
-
 void Map4::Update(float dt)
 {
 	// 테스트 코드

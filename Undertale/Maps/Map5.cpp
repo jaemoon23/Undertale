@@ -111,12 +111,6 @@ void Map5::Enter()
 	player->SetPosition(startPos);
 }
 
-void Map5::Exit()
-{
-	Scene::Exit();
-	hitboxes.clear();
-}
-
 void Map5::Update(float dt)
 {
 	// 테스트 코드

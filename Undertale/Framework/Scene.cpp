@@ -55,14 +55,7 @@ void Scene::Enter()
 void Scene::Exit()
 {
 	ApplyPendingChanges();
-	for (auto rect : rec)
-	{
-		if (rect != nullptr)
-		{
-			delete rect;
-		}
-	}
-	rec.clear();
+
 	TEXTURE_MGR.Unload(texIds);
 	FONT_MGR.Unload(fontIds);
 	SOUNDBUFFER_MGR.Unload(soundIds);

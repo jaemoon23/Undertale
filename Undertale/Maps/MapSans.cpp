@@ -142,12 +142,6 @@ void MapSans::Enter()
 	player->SetPosition(startPos);
 }
 
-void MapSans::Exit()
-{
-	Scene::Exit();
-	hitboxes.clear();
-}
-
 void MapSans::Update(float dt)
 {
 	if (isBattleEnter)
