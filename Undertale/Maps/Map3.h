@@ -1,7 +1,8 @@
 ﻿#pragma once
 #include "Scene.h"
 #include "SpriteGo.h"
-
+#include "TalkObject.h"
+#include "TextWindow.h"
 
 class Player;
 class InventoryUi;
@@ -10,7 +11,6 @@ class UiChanger;
 class PlayerInfoUi;
 class HealItem;
 class PlayerInfo;
-
 
 class Map3 : public Scene
 {
@@ -30,7 +30,11 @@ protected:
 
 	bool puzzleSuccess = false;
 
-	sf::Vector2f startPos = { -316.f,312.f };
+	sf::Vector2f startPos = { 214.f,267.f };
+
+	TalkObject* spaghetti;
+	TextWindow* textWindow;
+
 public:
 	Map3();
 	~Map3() override = default;

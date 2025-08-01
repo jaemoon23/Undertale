@@ -200,7 +200,7 @@ void Map5::Update(float dt)
 	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad5))
 	{
 		SceneBattle::nextSceneId = SceneIds::Map5;
-		SceneBattle::monsterJsonID = "jsons/icecap.json";
+		SceneBattle::monsterJsonID = "jsons/aaron.json";
 		startPos = player->GetPosition();
 		player->StartBattle();
 	}
@@ -330,7 +330,7 @@ void Map5::Update(float dt)
 						{
 							std::cout << "랜덤 전투 발생!" << std::endl;
 							SceneBattle::nextSceneId = SceneIds::Map5;
-							SceneBattle::monsterJsonID = "jsons/frog.json";
+							SceneBattle::monsterJsonID = "jsons/aaron.json";
 							startPos = player->GetPosition();
 							player->StartBattle();
 						}
@@ -344,7 +344,7 @@ void Map5::Update(float dt)
 			else if (hit.type == "NextScene")
 			{
 				std::cout << "NextScene" << std::endl;
-				startPos = player->GetPosition() + sf::Vector2f(0.f, -40.f);
+				startPos = player->GetPosition() + sf::Vector2f(-20.f, 0.f);
 				SCENE_MGR.ChangeScene(SceneIds::MapPapyrus);
 			}
 			else if (hit.type == "PrevScene")
