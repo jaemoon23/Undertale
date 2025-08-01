@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Papyrus.h"
 Papyrus::Papyrus(const std::string& name)
 	: GameObject(name)
