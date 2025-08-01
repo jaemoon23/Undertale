@@ -190,8 +190,7 @@ void Map5::Enter()
 	textR->SetPosition({ player->GetPosition().x - 5.f, player->GetPosition().y - 40.f });
 	textR->SetActive(false);
 
-	// startPos 다시 세팅 후 사용
-	//player->SetPosition(startPos);
+	player->SetPosition(startPos);
 }
 
 void Map5::Update(float dt)
@@ -330,7 +329,7 @@ void Map5::Update(float dt)
 						{
 							std::cout << "랜덤 전투 발생!" << std::endl;
 							SceneBattle::nextSceneId = SceneIds::Map5;
-							SceneBattle::monsterJsonID = "jsons/frog.json";
+							SceneBattle::monsterJsonID = "jsons/aaron.json";
 							startPos = player->GetPosition();
 							player->StartBattle();
 						}
@@ -350,7 +349,7 @@ void Map5::Update(float dt)
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
-				startPos = { -134.f,273.f };
+				startPos = { 78.f,248.f };
 				SCENE_MGR.ChangeScene(SceneIds::Map4);
 			}
 			else if (hit.type == "Signs")
