@@ -198,6 +198,7 @@ void InventoryUi::Update(float dt)
 				}
 
 				std::cout << "Player HP: " << player->GetHp() << " / " << player->GetMaxHp()<< std::endl;
+				
 			}
 			selectedItem->SetInfo(L"", 0);			
 		}

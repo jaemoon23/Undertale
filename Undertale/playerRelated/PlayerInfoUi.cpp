@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "PlayerInfoUi.h"
 
 
@@ -89,7 +89,6 @@ void PlayerInfoUi::Reset()
 	att.setPosition(390.f, 243.f);
 	att.setString(L"AT : " + std::to_wstring(PlayerInfo::ATK));
 
-
 	exp.setFont(font);
 	exp.setCharacterSize(18);
 	exp.setFillColor(sf::Color::White);
@@ -106,6 +105,7 @@ void PlayerInfoUi::Reset()
 
 void PlayerInfoUi::Update(float dt)
 {
+	//level.setString(L"")
 }
 
 void PlayerInfoUi::Draw(sf::RenderWindow& window)

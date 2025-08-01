@@ -123,9 +123,9 @@ void Map2::Enter()
 
 	doorwall.setSize({ 14.f,100.f });
 	doorwall.setFillColor(sf::Color::Transparent);
-	doorwall.setOutlineColor(sf::Color::Transparent);
+	doorwall.setOutlineColor(sf::Color::Green);
 	doorwall.setOutlineThickness(1.f);
-	doorwall.setPosition({ 470.f, 305.f });
+	doorwall.setPosition({ 445.f, 240.f });
 
 	std::ifstream in("map2.json");
 	if (!in)
@@ -223,7 +223,7 @@ void Map2::Enter()
 		hitboxes.push_back({ rect, typeStr });
 
 	}
-	sans->SetPosition({ 220.f, 355.f });
+	sans->SetPosition({ 220.f, 305.f });
 	sans->SetActive(false);
 
 	uiView.setSize(size);

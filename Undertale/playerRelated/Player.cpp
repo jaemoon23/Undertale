@@ -228,10 +228,10 @@ void Player::SansSecondsInteract()
 		L"* 내 동생인 파피루스에게 맡겨놨어.",
 		L"* 나가고 싶다면 저 밖의 파피루스와\n* 싸워서 이겨야 할거야.",
 		L"* 자 이걸 받아.\n* 파피루스와 싸울 때 도움이 될거야",
-	L"* 회복아이템: 아이스크림을 받았습니다!",
+	L"* 회복아이템: \"아이스\"를 받았습니다!",
 	L"* 인벤토리를 확인해봐.\n* C키를 누르면 인벤토리를\n* 확인할 수 있을거야.",
 	L"* 행운을 빌어.\n* 다시 만나지는 않기를 바랄게."};
-	InventoryUi::healItem[0].SetInfo(L"아이스크림", 15);
+	InventoryUi::healItem[0].SetInfo(L"아이스", 15);
 	dialoguebox->StartDialogue(testDialogues);
 }
 

@@ -1,5 +1,7 @@
-
+﻿#include "PlayerInfoUi.h"
 #pragma once
+
+class PlayerInfoUi;
 class PlayerInfo
 {
 public:
@@ -13,5 +15,7 @@ public:
 	static int slot;
 	static void PlusExp(int e);
 	static void Heal(int h);
+
+	PlayerInfoUi playerinfoui;
 };
 

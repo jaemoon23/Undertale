@@ -1,5 +1,6 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "PlayerInfo.h"
+#include "PlayerInfoUi.h"
 
 int PlayerInfo::hp = 20;
 int PlayerInfo::maxHp = 20;
@@ -110,7 +111,6 @@ void PlayerInfo::Heal(int h)
 	{
 		hp = maxHp;
 	}
-
 }
 
 
