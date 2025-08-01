@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Scene.h"
 #include "SpriteGo.h"
 
@@ -17,7 +17,7 @@ protected:
 	float battleCheckTimer = 0.f;
 	const float battleCheckInterval = 1.f;
 
-	std::vector<SpriteGo*> testObjects;
+	std::vector<SpriteGo*> objects;
 	std::vector<HitBoxInfo1> hitboxes;
 	sf::Font font;
 
@@ -36,7 +36,7 @@ protected:
 
 	bool puzzleSuccess = false;
 	bool dialogueTriggered = false;
-	bool dialogueEnd = false; // ÆÄÇÇ·ç½º ´ëÈ­ Á¾·á ½Ã ¿òÁ÷ÀÏ ¼ö ÀÖ°Ô 
+	bool dialogueEnd = false; // íŒŒí”¼ë£¨ìŠ¤ ëŒ€í™” ì¢…ë£Œ ì‹œ ì›€ì§ì¼ ìˆ˜ ìˆê²Œ 
 	bool isexclamationmarkActive = false;
 	bool BattleEnd = false;
 	bool papyrusImageChange = false;

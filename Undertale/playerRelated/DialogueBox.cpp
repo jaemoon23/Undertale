@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "DialogueBox.h"
 #include "Player.h"
 #include "InventoryUi.h"
@@ -66,8 +66,8 @@ void DialogueBox::Reset()
 	line.setPosition({dialogueBox.getPosition().x - 252.f, dialogueBox.getPosition().y - 51.f});
 	line.setOutlineThickness(5.f);
 
-	font.loadFromFile("fonts/DungGeunMo.ttf");
-	dialogueText.setFont(font);
+	//font.loadFromFile("fonts/DungGeunMo.ttf");
+	dialogueText.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
 	dialogueText.setCharacterSize(24);
 	dialogueText.setFillColor(sf::Color::White);
 	dialogueText.setPosition({ dialogueBox.getPosition().x - 240.f, dialogueBox.getPosition().y - 40.f });

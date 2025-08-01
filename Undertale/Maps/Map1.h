@@ -20,9 +20,9 @@ protected:
 	float battleCheckTimer = 0.f;
 	const float battleCheckInterval = 1.f;
 	Map0 Map0;
-	SpriteGo* background1 = nullptr;
+	SpriteGo* background = nullptr;
 	Player* player;
-	std::vector<SpriteGo*> testObjects;
+	std::vector<SpriteGo*> objects;
 	std::vector<HitBoxInfo1> hitboxes;
 
 	sf::RectangleShape wall;

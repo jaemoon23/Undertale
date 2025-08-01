@@ -24,12 +24,12 @@ class Map2 :
     public Scene
 {
 protected:
-    SpriteGo* background2 = nullptr;
+    SpriteGo* background = nullptr;
     Player* player;
 
     sf::Font font;
     
-    std::vector<SpriteGo*> testObjects;
+    std::vector<SpriteGo*> objects;
     std::vector<HitBoxInfo1> hitboxes;
 
     sf::RectangleShape doorwall;
