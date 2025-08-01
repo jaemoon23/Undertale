@@ -229,8 +229,7 @@ void Map2::Enter()
 	uiView.setSize(size);
 	uiView.setCenter(center);
 
-	// startPos 다시 세팅 후 사용
-	//player->SetPosition(startPos);
+	player->SetPosition(startPos);
 }
 
 void Map2::Update(float dt)
@@ -313,7 +312,7 @@ void Map2::Update(float dt)
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
-				startPos = { -711.f,287.f };
+				startPos = { -299.f,290.f };
 				SCENE_MGR.ChangeScene(SceneIds::Map1);
 			}
 		}
