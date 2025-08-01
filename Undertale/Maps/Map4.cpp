@@ -26,6 +26,7 @@ void Map4::Init()
 	texIds.push_back("Sprites/Temmie_sheet.png");
 	texIds.push_back("Sprites/backgroundui.png");
 	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
+	texIds.push_back("graphics/spr_switch_0.png");
 
 	SOUNDBUFFER_MGR.Load("sounds/Map4/31 Waterfall.flac");
 	SOUNDBUFFER_MGR.Load("sounds/Map4/sw.wav");
@@ -138,7 +139,7 @@ void Map4::Enter()
 		{
 			player->SetOrigin(Origins::MC);
 			player->SetPosition(pos);
-			player->sortingOrder = 1;
+			player->sortingOrder = 4;
 			playerPlaced = true;
 		}
 		else
@@ -148,6 +149,8 @@ void Map4::Enter()
 			sprite->SetOrigin(Origins::MC);
 			sprite->SetPosition(pos);
 			sprite->SetScale(scale);
+			sprite->sortingLayer = SortingLayers::Foreground;
+			sprite->sortingOrder = 0;
 			sprite->Reset();
 			AddGameObject(sprite);
 			testObjects.push_back(sprite);

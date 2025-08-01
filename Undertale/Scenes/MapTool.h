@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Scene.h"
 #include "Button.h"
 #include "HitBox.h"
@@ -6,7 +6,7 @@
 class TextGo;
 class SpriteGo;
 
-// »èÁ¦ °¡´ÉÇÑ ¿ÀºêÁ§Æ®¸¦ ÇÏ³ª·Î ´Ù·ç±â À§ÇÑ ±¸Á¶Ã¼
+// ì‚­ì œ ê°€ëŠ¥í•œ ì˜¤ë¸Œì íŠ¸ë¥¼ í•˜ë‚˜ë¡œ ë‹¤ë£¨ê¸° ìœ„í•œ êµ¬ì¡°ì²´
 struct UndoAction
 {
     enum class Type 
@@ -45,7 +45,7 @@ class MapTool :
     public Scene
 {
 protected:
-    // ±×¸®µå
+    // ê·¸ë¦¬ë“œ
     sf::VertexArray grid;
     sf::Vector2f gridOffset;
 
@@ -80,7 +80,8 @@ protected:
        "graphics/spr_f_maincharad_0.png",
        "graphics/spr_cutetable_0.png",
        "graphics/spr_darkelevator_l_0.png",
-       "graphics/spr_darknesstotem_0.png"
+       "graphics/spr_darknesstotem_0.png",
+       "graphics/spr_switch_0.png"
     };
     std::vector<std::string> backgroundTexturePaths = {
        "graphics/bg_firstroom.png",
