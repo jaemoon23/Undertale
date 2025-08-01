@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "HealItem.h"
 
 HealItem::HealItem()
@@ -11,7 +11,7 @@ HealItem::HealItem(const std::string& name, int healAmount)
 }
 void HealItem::Init()
 {
-	healAmount = 10;
+	healAmount = 15;
 }
 void HealItem::Release()
 {

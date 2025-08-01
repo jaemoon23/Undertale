@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 
 enum class SelectedItem
@@ -13,6 +13,7 @@ class Player;
 class HealItem;
 class DialogueBox;
 class PlayerInfo;
+class PlayerInfoUi;
 class InventoryUi : public GameObject
 {
 protected:
@@ -42,6 +43,7 @@ protected:
 	Player* player;
 	DialogueBox* dialoguebox;
 	PlayerInfo* playerinfo;
+	PlayerInfoUi* playerInfoUi;
 
 public:
 	static HealItem healItem[4];
@@ -55,8 +57,8 @@ public:
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
 	void SetPlayer(Player* p) { player = p; }
+
 	Player* GetPlayer() const { return player; }
-	//void SetHealItem1(HealItem* item) { healItem1 = item; }
 	void SetBox(DialogueBox* db) { dialoguebox = db; }
 
 	void Init() override;

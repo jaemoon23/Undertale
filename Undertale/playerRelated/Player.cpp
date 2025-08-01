@@ -66,6 +66,7 @@ void Player::Reset()
 	SOUNDBUFFER_MGR.Load("sounds/snd_b.wav");
 	SOUNDBUFFER_MGR.Load("sounds/snd_noise.wav");
 	SOUNDBUFFER_MGR.Load("sounds/snd_battlefall.wav");
+	SOUNDBUFFER_MGR.Load("sounds/Map2/15 sans..flac");
 	TEXTURE_MGR.Load("graphics/spr_word!.png");
 	TEXTURE_MGR.Load("graphics/spr_heartsmall_0.png");
 	battleSymbol.setTexture(TEXTURE_MGR.Get("graphics/spr_word!.png"));
@@ -232,6 +233,7 @@ void Player::SansSecondsInteract()
 	L"* 인벤토리를 확인해봐.\n* C키를 누르면 인벤토리를\n* 확인할 수 있을거야.",
 	L"* 행운을 빌어.\n* 다시 만나지는 않기를 바랄게."};
 	InventoryUi::healItem[0].SetInfo(L"아이스", 15);
+	PlayerInfo::slot++;
 	dialoguebox->StartDialogue(testDialogues);
 }
 
