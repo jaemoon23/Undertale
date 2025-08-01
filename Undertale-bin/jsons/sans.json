@@ -3,7 +3,7 @@
   "texId" : "graphics/spr_sans_battle.png",
   "animationId" : "animations/sans_idle.csv",
   "bgmId" : "sounds/100 MEGALOVANIA.flac",
-  "hp": 28,
+  "hp": 280,
   "exp": 99999,
   "gold" : 100,
   "lines" : [

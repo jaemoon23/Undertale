@@ -14,7 +14,9 @@ Map3::Map3() : Scene(SceneIds::Map3)
 }
 
 void Map3::Init()
-{
+{	
+	texIds.push_back("graphics/TextWindow.png");
+	texIds.push_back("graphics/spr_spaghetti_0.png");
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("graphics/back4.png");
 	texIds.push_back("Sprites/downwalking.png");
@@ -59,6 +61,15 @@ void Map3::Init()
 
 	player->SetBox(dialoguebox);
 	dialoguebox->SetPlayer(player);
+
+	//
+	spaghetti = (TalkObject*)AddGameObject(new TalkObject("spaghetti"));
+	spaghetti->SetTexId("graphics/spr_spaghetti_0.png");
+	spaghetti->SetPosition({ 320.f,235.f });
+
+	textWindow = (TextWindow*)AddGameObject(new TextWindow("textWindow"));
+
+	//
 
 	Scene::Init();
 }
@@ -165,6 +176,7 @@ void Map3::Enter()
 	SOUND_MGR.PlayBgm("sounds/17 Snowy.flac");
 
 	player->SetPosition(startPos);
+	worldView.setCenter(size * 0.5f);
 }
 
 void Map3::Update(float dt)
@@ -177,11 +189,13 @@ void Map3::Update(float dt)
 		startPos = player->GetPosition();
 		player->StartBattle();
 	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
+	{
+		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
+	}
 	//
 
-	worldView.setCenter(player->GetPosition());
 	battleCheckTimer += dt;
-
 	if (InputMgr::GetKeyDown(sf::Keyboard::C))
 	{
 		if ((inventoryui && inventoryui->GetActive()) ||
@@ -193,10 +207,6 @@ void Map3::Update(float dt)
 		uichanger->SetActive(!uichanger->GetActive());
 	}
 
-	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
-	{
-		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
-	}
 	for (auto& hit : hitboxes)
 	{
 		if (Utils::CheckCollision(player->GetHitBox(), *hit.shape))
@@ -212,7 +222,7 @@ void Map3::Update(float dt)
 					battleCheckTimer = 0.f;
 
 					// 1% 확률
-					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
+					if (Utils::RandomRange(0.f, 1.f) < 0.00f)
 					{
 						SceneBattle::nextSceneId = SceneIds::Map3;
 						SceneBattle::monsterJsonID = "jsons/migosp.json";
@@ -232,11 +242,13 @@ void Map3::Update(float dt)
 			else if (hit.type == "NextScene")
 			{
 				std::cout << "NextScene" << std::endl;
+				startPos = player->GetPosition() + sf::Vector2f(-15.f, 0.f);
 				SCENE_MGR.ChangeScene(SceneIds::Map4);
 			}
 			else if (hit.type == "PrevScene")
 			{
 				std::cout << "PrevScene" << std::endl;
+				startPos = { 214.f,267.f };
 				SCENE_MGR.ChangeScene(SceneIds::Map2);
 			}
 			else if (hit.type == "Signs")

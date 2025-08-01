@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 #include "Animator.h"
 #include "HitBox.h"
@@ -40,7 +40,6 @@ protected:
 	HealItem* healItem;
 	PlayerInfo playerInfo;
 	
-
 	bool move = true;
 
 	sf::RectangleShape blackBackground;
@@ -65,6 +64,8 @@ public:
 	void SetScale(const sf::Vector2f& s) override;
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
+
+	sf::FloatRect GetGlobalBounds() const override { return body.getGlobalBounds(); }
 
 	void Init() override;
 	void Release() override;
