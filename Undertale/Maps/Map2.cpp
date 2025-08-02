@@ -167,11 +167,6 @@ void Map2::Update(float dt)
 		startPos = player->GetPosition();
 		player->StartBattle();
 	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
-	{
-		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
-		player->SetPosition({ 837.f,205.f });
-	}
 	//
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::C))
@@ -210,21 +205,15 @@ void Map2::Update(float dt)
 				{
 					if (battleCheckTimer >= battleCheckInterval)
 					{
-						std::cout << "배틀 확률 체크" << std::endl;
 						battleCheckTimer = 0.f;
 
 						// 1% 확률
-						if (Utils::RandomRange(0.f, 1.f) < 0.01f)
+						if (player->GetMove() && Utils::RandomRange(0.f, 1.f) < 0.01f)
 						{
-							std::cout << "랜덤 전투 발생!" << std::endl;
 							SceneBattle::nextSceneId = SceneIds::Map2;
 							SceneBattle::monsterJsonID = "jsons/whimsun.json";
 							startPos = player->GetPosition();
 							player->StartBattle();
-						}
-						else
-						{
-							std::cout << "배틀 아님" << std::endl;
 						}
 					}
 				}
@@ -232,13 +221,11 @@ void Map2::Update(float dt)
 			}
 			else if (hit.type == "NextScene")
 			{
-				std::cout << "NextScene" << std::endl;
 				startPos = player->GetPosition() + sf::Vector2f(-40.f, 0.f);
 				SCENE_MGR.ChangeScene(SceneIds::Map3);
 			}
 			else if (hit.type == "PrevScene")
 			{
-				std::cout << "PrevScene" << std::endl;
 				startPos = { -299.f,290.f };
 				SCENE_MGR.ChangeScene(SceneIds::Map1);
 			}

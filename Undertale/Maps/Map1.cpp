@@ -134,7 +134,7 @@ void Map1::Init()
 
 void Map1::Enter()
 {
-	SOUND_MGR.PlayBgm("sounds/Map1/Ruins.wav");
+	//SOUND_MGR.PlayBgm("sounds/Map1/Ruins.wav");
 	direction = { 0.f,1.f };
 
 	Scene::LoadMapFromJson("map1.json", "map1", player, background, objects, hitboxes);
@@ -197,8 +197,8 @@ void Map1::Update(float dt)
 					{
 						battleCheckTimer = 0.f;
 
-						// 5% 확률
-						if (Utils::RandomRange(0.f, 1.f) < 0.01f)
+						// 3% 확률
+						if (player->GetMove() && Utils::RandomRange(0.f, 1.f) < 0.02f)
 						{
 							SceneBattle::nextSceneId = SceneIds::Map1;
 							SceneBattle::monsterJsonID = "jsons/frog.json";

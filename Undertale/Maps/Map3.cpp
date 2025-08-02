@@ -122,7 +122,7 @@ void Map3::Enter()
 	uiView.setSize(size);
 	uiView.setCenter(center);
 
-	SOUND_MGR.PlayBgm("sounds/17 Snowy.flac");
+	//SOUND_MGR.PlayBgm("sounds/17 Snowy.flac");
 
 	player->SetPosition(startPos);
 	worldView.setCenter(size * 0.5f);
@@ -171,7 +171,7 @@ void Map3::Update(float dt)
 					battleCheckTimer = 0.f;
 
 					// 1% 확률
-					if (Utils::RandomRange(0.f, 1.f) < 0.00f)
+					if (player->GetMove() && Utils::RandomRange(0.f, 1.f) < 0.01f)
 					{
 						SceneBattle::nextSceneId = SceneIds::Map3;
 						SceneBattle::monsterJsonID = "jsons/migosp.json";

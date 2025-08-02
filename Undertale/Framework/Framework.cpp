@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Framework.h"
 
 
@@ -8,6 +8,7 @@ void Framework::Init(int width, int height, std::string name)
 	 //window.create(sf::VideoMode(w, h), t);
 
     fontIds.push_back("fonts/DungGeunMo.ttf");
+    soundIds.push_back("sounds/05 Ruins.flac");
 
 	TEXTURE_MGR.Load(texIds);
 	FONT_MGR.Load(fontIds);

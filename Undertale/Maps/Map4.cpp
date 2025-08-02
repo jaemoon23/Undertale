@@ -154,7 +154,7 @@ void Map4::Update(float dt)
 					battleCheckTimer = 0.f;
 
 					// 1% 확률
-					if (Utils::RandomRange(0.f, 1.f) < 0.01f)
+					if (player->GetMove() && Utils::RandomRange(0.f, 1.f) < 0.01f)
 					{
 						std::cout << "랜덤 전투 발생!" << std::endl;
 						SceneBattle::nextSceneId = SceneIds::Map4;

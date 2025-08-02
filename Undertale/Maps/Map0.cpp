@@ -32,7 +32,6 @@ void Map0::Init()
 	texIds.push_back("graphics/bg_firstroom.png");
 	texIds.push_back("graphics/spr_cutetable_0.png");
 	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
-	soundIds.push_back("sounds/05 Ruins.flac");
 
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
