@@ -4,7 +4,8 @@
 #include "json.hpp"
 #include "SpriteGo.h"
 #include "GameObject.h"
-
+#include "TalkObject.h"
+#include "TextWindow.h"
 
 class Player;
 class Sans;
@@ -46,6 +47,9 @@ protected:
     float imageChangeTimer = 0.f;
     int currentImageIndex = 0;
     std::vector<sf::Texture*> images; // 교체할 이미지들
+
+    TalkObject* lamp;
+    TextWindow* textWindow;
 
 
     int playerImageIndex = 0;

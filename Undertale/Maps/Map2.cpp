@@ -25,7 +25,8 @@ void Map2::Init()
 {
 	font.loadFromFile("fonts/DungGeunMo.ttf");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
-
+	
+	texIds.push_back("graphics/spr_convenientlamp_0.png");
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("Sprites/spr_f_maincharar_0.png");
 	texIds.push_back("graphics/back3.png");
@@ -96,6 +97,16 @@ void Map2::Init()
 	background = (SpriteGo*)AddGameObject(new SpriteGo());
 	background->sortingLayer = SortingLayers::Background;
 
+	//
+	lamp = (TalkObject*)AddGameObject(new TalkObject("lamp"));
+	lamp->SetTexId("graphics/spr_convenientlamp_0.png");
+	lamp->SetPosition({ 812.4f,260.9f });
+	lamp->lines.push_back(L"* 묘하게 생긴 램프이다.");
+
+	texIds.push_back("graphics/TextWindow.png");
+	soundIds.push_back("sounds/SND_TXT1.wav");
+	textWindow = (TextWindow*)AddGameObject(new TextWindow("textWindow"));
+	//
 	Scene::Init();
 }
 
@@ -159,6 +170,7 @@ void Map2::Update(float dt)
 	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
 	{
 		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
+		player->SetPosition({ 837.f,205.f });
 	}
 	//
 

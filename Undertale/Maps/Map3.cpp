@@ -122,7 +122,7 @@ void Map3::Enter()
 	uiView.setSize(size);
 	uiView.setCenter(center);
 
-	//SOUND_MGR.PlayBgm("sounds/17 Snowy.flac");
+	SOUND_MGR.PlayBgm("sounds/17 Snowy.flac");
 
 	player->SetPosition(startPos);
 	worldView.setCenter(size * 0.5f);
