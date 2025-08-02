@@ -26,6 +26,7 @@ void Map2::Init()
 	font.loadFromFile("fonts/DungGeunMo.ttf");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	
+	texIds.push_back("graphics/spr_npc_sign_0.png");
 	texIds.push_back("graphics/spr_convenientlamp_0.png");
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("Sprites/spr_f_maincharar_0.png");
@@ -102,6 +103,11 @@ void Map2::Init()
 	lamp->SetTexId("graphics/spr_convenientlamp_0.png");
 	lamp->SetPosition({ 812.4f,260.9f });
 	lamp->lines.push_back(L"* 묘하게 생긴 램프이다.");
+
+	sign = (TalkObject*)AddGameObject(new TalkObject("sign"));
+	sign->SetTexId("graphics/spr_npc_sign_0.png");
+	sign->SetPosition({ 705.f,257.f });
+	sign->lines.push_back(L"* 인벤토리는 C키로 열 수 있다.");
 
 	texIds.push_back("graphics/TextWindow.png");
 	soundIds.push_back("sounds/SND_TXT1.wav");
