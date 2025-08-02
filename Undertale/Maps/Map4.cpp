@@ -150,21 +150,15 @@ void Map4::Update(float dt)
 			{
 				if (battleCheckTimer >= battleCheckInterval)
 				{
-					std::cout << "배틀 확률 체크" << std::endl;
 					battleCheckTimer = 0.f;
 
 					// 1% 확률
 					if (player->GetMove() && Utils::RandomRange(0.f, 1.f) < 0.01f)
 					{
-						std::cout << "랜덤 전투 발생!" << std::endl;
 						SceneBattle::nextSceneId = SceneIds::Map4;
 						SceneBattle::monsterJsonID = "jsons/icecap.json";
 						startPos = player->GetPosition();
 						player->StartBattle();
-					}
-					else
-					{
-						std::cout << "배틀 아님" << std::endl;
 					}
 				}
 			}
@@ -174,18 +168,15 @@ void Map4::Update(float dt)
 				{
 					SOUND_MGR.PlaySfx("sounds/Map4/sw.wav");
 					puzzleSuccess = true;
-					std::cout << "스위치 누름" << std::endl;
 				}
 			}
 			else if (hit.type == "NextScene")
 			{
-				std::cout << "NextScene" << std::endl;
 				startPos = player->GetPosition() + sf::Vector2f(-30.f, 0.f);
 				SCENE_MGR.ChangeScene(SceneIds::Map5);
 			}
 			else if (hit.type == "PrevScene")
 			{
-				std::cout << "PrevScene" << std::endl;
 				startPos = { -53.f,263.f };
 				SCENE_MGR.ChangeScene(SceneIds::Map3);
 			}
@@ -200,7 +191,6 @@ void Map4::Update(float dt)
 			{
 				player->SetPosition(player->getPos());
 				showText = true;
-				std::cout << "알 수 없는 힘에 의해 막힘" << std::endl;
 			}
 			else
 			{

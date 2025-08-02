@@ -109,6 +109,7 @@ void Map5::Enter()
 	textR->SetActive(false);
 
 	player->SetPosition(startPos);
+	isCheck = false;
 }
 
 void Map5::Update(float dt)
@@ -120,6 +121,7 @@ void Map5::Update(float dt)
 		SceneBattle::monsterJsonID = "jsons/aaron.json";
 		startPos = player->GetPosition();
 		player->StartBattle();
+		isCheck = true;
 	}
 	//
 
@@ -145,7 +147,7 @@ void Map5::Update(float dt)
 
 	currentTime2 += dt;
 	
-	if (maxTime2 < currentTime2)
+	if (!isCheck && maxTime2 < currentTime2)
 	{
 		battle = false;
 		if (ran)
@@ -239,34 +241,27 @@ void Map5::Update(float dt)
 				{
 					if (battleCheckTimer >= battleCheckInterval)
 					{
-						std::cout << "배틀 확률 체크" << std::endl;
 						battleCheckTimer = 0.f;
 
 						// 1% 확률
 						if (player->GetMove() && Utils::RandomRange(0.f, 1.f) < 0.01f)
 						{
-							std::cout << "랜덤 전투 발생!" << std::endl;
 							SceneBattle::nextSceneId = SceneIds::Map5;
 							SceneBattle::monsterJsonID = "jsons/aaron.json";
 							startPos = player->GetPosition();
 							player->StartBattle();
-						}
-						else
-						{
-							std::cout << "배틀 아님" << std::endl;
+							isCheck = true;
 						}
 					}
 				}
 			}
 			else if (hit.type == "NextScene")
 			{
-				std::cout << "NextScene" << std::endl;
 				startPos = player->GetPosition() + sf::Vector2f(-20.f, 0.f);
 				SCENE_MGR.ChangeScene(SceneIds::MapPapyrus);
 			}
 			else if (hit.type == "PrevScene")
 			{
-				std::cout << "PrevScene" << std::endl;
 				startPos = { 78.f,248.f };
 				SCENE_MGR.ChangeScene(SceneIds::Map4);
 			}
