@@ -26,6 +26,8 @@ void Map2::Init()
 	font.loadFromFile("fonts/DungGeunMo.ttf");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	
+	texIds.push_back("graphics/spr_sadsnowman_0.png");
+	texIds.push_back("graphics/spr_stick_1.png");
 	texIds.push_back("graphics/spr_npc_sign_0.png");
 	texIds.push_back("graphics/spr_convenientlamp_0.png");
 	texIds.push_back("Sprites/idle.png");
@@ -45,7 +47,7 @@ void Map2::Init()
 	texIds.push_back("Sprites/spr_sans_r_0.png");
 	texIds.push_back("Sprites/spr_sans_r_darkhand_2.png");
 	texIds.push_back("Sprites/spr_sans_r_dark_0.png");
-
+	soundIds.push_back("sounds/snd_select.wav");
 
 	images.clear();
 	tex1.loadFromFile("Sprites/spr_f_maincharad_0.png");
@@ -103,6 +105,20 @@ void Map2::Init()
 	lamp->SetTexId("graphics/spr_convenientlamp_0.png");
 	lamp->SetPosition({ 812.4f,260.9f });
 	lamp->lines.push_back(L"* 묘하게 생긴 램프이다.");
+
+	snowman = (TalkObject*)AddGameObject(new TalkObject("snowman"));
+	snowman->SetTexId("graphics/spr_sadsnowman_0.png");
+	snowman->SetPosition({ 929.f,230.f });
+	snowman->lines.push_back(L"* 안녕.\n* 난 눈사람이야.");
+	snowman->lines.push_back(L"* 세상을 보고 싶은데....\n* 움직일 수가 없어.");
+	snowman->lines.push_back(L"* 네게 부탁이 하나 있는데...");
+	snowman->lines.push_back(L"* 내 조각을 떼어다\n  저 멀리까지 가져다 줘.");
+	snowman->lines.push_back(L"* 부탁할게.");
+
+	stick = (TalkObject*)AddGameObject(new TalkObject("stick"));
+	stick->SetTexId("graphics/spr_stick_1.png");
+	stick->SetPosition({ 100.f,305.f });
+	stick->lines.push_back(L"* 누군가 밟은 듯하다.");
 
 	sign = (TalkObject*)AddGameObject(new TalkObject("sign"));
 	sign->SetTexId("graphics/spr_npc_sign_0.png");
@@ -172,6 +188,11 @@ void Map2::Update(float dt)
 		SceneBattle::monsterJsonID = "jsons/whimsun.json";
 		startPos = player->GetPosition();
 		player->StartBattle();
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	{
+		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
+		player->SetPosition({ 900.f,250.f });
 	}
 	//
 
