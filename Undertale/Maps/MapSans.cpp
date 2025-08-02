@@ -75,7 +75,7 @@ void MapSans::Init()
 		L"* 싸움은 좋아하지\n  않는데..",
 		L"* 헤 헤 헤 헤...",
 		L"* 너라면 좀 더 자비를\n  베풀 수 있었을 텐데.",
-		L"* 뭐, 더 이상 네가\n  괴물들을 죽이는 걸\n  보고만 있을 순 없다 이거야.",
+		L"* 뭐, 나도 더 이상\n  보고만 있을 순 없다 이거야.",
 		L"* 간다."
 	};
 	sansFaceIds = {
@@ -128,7 +128,7 @@ void MapSans::Enter()
 	player->SetPosition(player->GetPosition() + sf::Vector2f(0.f, 8.f));
 	SetColumn();
 
-	sans.setTexture(TEXTURE_MGR.Get("graphics/spr_notepaper_0.png"));
+	sans.setTexture(TEXTURE_MGR.Get("graphics/spr_sans_l_dark_0.png"));
 	Utils::SetOrigin(sans, Origins::MC);
 	sans.setPosition({ 702.f,295.934f });
 
@@ -148,7 +148,6 @@ void MapSans::Enter()
 
 	maxY = player->GetPosition().y;
 
-	PlayerInfo::PlusExp(99999);
 	if (PlayerInfo::lv == 20)
 		IsSansDie = true;
 
@@ -159,12 +158,6 @@ void MapSans::Enter()
 
 void MapSans::Update(float dt)
 {
-	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
-	{
-		std::cout << player->GetPosition().x << ", " << std::endl;
-		player->SetPosition({ 950.f,295.f });
-	}
-
 	if (isBattleEnter)
 	{
 		player->Update(dt);
