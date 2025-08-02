@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "Scene.h"
 #include "SpriteGo.h"
+#include "TalkObject.h"
+#include "TextWindow.h"
 
 class Player;
 class UiChanger;
@@ -73,6 +75,9 @@ protected:
 	//
 
 	sf::Vector2f startPos = { -328.f,295.934f };
+
+	TalkObject* sign;
+	TextWindow* textWindow_;
 
 public:
 	bool IsSansDie = false;

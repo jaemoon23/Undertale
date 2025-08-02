@@ -13,6 +13,7 @@ MapSans::MapSans() : Scene(SceneIds::MapSans)
 
 void MapSans::Init()
 {
+	texIds.push_back("graphics/spr_notepaper_0.png");
 	texIds.push_back("graphics/spr_sans_bface_0.png");
 	texIds.push_back("graphics/spr_sans_bface_1.png");
 	texIds.push_back("graphics/spr_sans_bface_2.png");
@@ -51,6 +52,17 @@ void MapSans::Init()
 	background->sortingLayer = SortingLayers::Background;
 
 	InventoryInit();
+
+	//
+	sign = (TalkObject*)AddGameObject(new TalkObject("sign"));
+	sign->SetTexId("graphics/spr_notepaper_0.png");
+	sign->SetPosition({ 995.f,297.f });
+	sign->lines.push_back(L"* 당신의 여정은 끝이 났다.\n  안녕히...");
+
+	texIds.push_back("graphics/TextWindow.png");
+	soundIds.push_back("sounds/SND_TXT1.wav");
+	textWindow_ = (TextWindow*)AddGameObject(new TextWindow("textWindow"));
+	//
 
 	Scene::Init();
 
@@ -116,7 +128,7 @@ void MapSans::Enter()
 	player->SetPosition(player->GetPosition() + sf::Vector2f(0.f, 8.f));
 	SetColumn();
 
-	sans.setTexture(TEXTURE_MGR.Get("graphics/spr_sans_l_dark_0.png"));
+	sans.setTexture(TEXTURE_MGR.Get("graphics/spr_notepaper_0.png"));
 	Utils::SetOrigin(sans, Origins::MC);
 	sans.setPosition({ 702.f,295.934f });
 
@@ -136,6 +148,7 @@ void MapSans::Enter()
 
 	maxY = player->GetPosition().y;
 
+	PlayerInfo::PlusExp(99999);
 	if (PlayerInfo::lv == 20)
 		IsSansDie = true;
 
@@ -146,6 +159,12 @@ void MapSans::Enter()
 
 void MapSans::Update(float dt)
 {
+	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
+	{
+		std::cout << player->GetPosition().x << ", " << std::endl;
+		player->SetPosition({ 950.f,295.f });
+	}
+
 	if (isBattleEnter)
 	{
 		player->Update(dt);

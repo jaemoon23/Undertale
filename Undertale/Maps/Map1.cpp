@@ -134,7 +134,7 @@ void Map1::Init()
 
 void Map1::Enter()
 {
-	//SOUND_MGR.PlayBgm("sounds/Map1/Ruins.wav");
+	SOUND_MGR.PlayBgm("sounds/Map1/Ruins.wav");
 	direction = { 0.f,1.f };
 
 	Scene::LoadMapFromJson("map1.json", "map1", player, background, objects, hitboxes);
