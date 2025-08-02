@@ -189,11 +189,6 @@ void Map2::Update(float dt)
 		startPos = player->GetPosition();
 		player->StartBattle();
 	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
-	{
-		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
-		player->SetPosition({ 900.f,250.f });
-	}
 	//
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::C))
