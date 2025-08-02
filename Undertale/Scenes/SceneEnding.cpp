@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "SceneEnding.h"
 
 SceneEnding::SceneEnding()
@@ -58,11 +58,6 @@ void SceneEnding::Exit()
 void SceneEnding::Update(float dt)
 {
 	Scene::Update(dt);
-
-	if (InputMgr::GetKeyDown(sf::Keyboard::Z))
-	{
-		SCENE_MGR.ChangeScene(SceneIds::Title);
-	}
 
 	if (lastIntro)
 	{
