@@ -116,7 +116,7 @@ void InventoryUi::Reset()
 
 void InventoryUi::Update(float dt)
 {
-	if (!GetActive()) return; // 인벤토리가 활성화되지 않은 경우 업데이트 중지
+	if (!GetActive()) return;
 
 	static bool prevDown = false; // 이전 프레임에서 Up,Down 키가 눌렸는지 여부
 	static bool prevUp = false;
