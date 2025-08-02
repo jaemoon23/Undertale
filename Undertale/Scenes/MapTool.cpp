@@ -133,7 +133,7 @@ void MapTool::Enter()
 
 			btn->SetSize({ 300.f, 200.f });
 			btn->SetColor(sf::Color::Transparent, sf::Color::Red);
-			btn->SetPosition({ 1700.f + (x * 325), 170.f + (y * 220.f) });
+			btn->SetPosition({ 1020.f + (x * 325), 170.f + (y * 220.f) });
 			btn->SetOrigin({ btn->GetLocalBounds().width * 0.5f, btn->GetLocalBounds().height * 0.5f });
 			btn->setCallback([&, index]() {
 				std::cout << "버튼 " << index + 1 << " 누름" << std::endl;
@@ -221,18 +221,16 @@ void MapTool::Enter()
 	backText->SetString("BackGround");
 	backText->SetCharacterSize(50.f);
 	backText->SetFillColor(sf::Color::White);
-	backText->SetPosition({ 1700.f, 100.f});
+	backText->SetPosition({ 1020.f, 100.f});
 
 	objectText->SetString("Object");
 	objectText->SetCharacterSize(50.f);
 	objectText->SetFillColor(sf::Color::White);
-	objectText->SetPosition({ 1200.f, 600.f});
+	objectText->SetPosition({ 1020.f, 600.f});
 }
 
 void MapTool::Exit()
 {
-	/*objectButtons.clear();*/
-
 	if (activeSprite)
 	{
 		delete activeSprite;

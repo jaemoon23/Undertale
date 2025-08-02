@@ -28,7 +28,7 @@ void Map1::Init()
 	texIds.push_back("Sprites/spin_sheet.png");
 	texIds.push_back("Sprites/TextWindow.png");
 
-	SOUNDBUFFER_MGR.Load("sounds/Map1/05 Ruins.flac");
+	SOUNDBUFFER_MGR.Load("sounds/Map1/Ruins.wav");
 	SOUNDBUFFER_MGR.Load("sounds/Map1/Fall2.wav");
 	SOUNDBUFFER_MGR.Load("sounds/Map1/sw.wav");
 
@@ -100,7 +100,7 @@ void Map1::Init()
 
 void Map1::Enter()
 {
-	SOUND_MGR.PlayBgm("sounds/Map1/05 Ruins.flac");
+	SOUND_MGR.PlayBgm("sounds/Map1/Ruins.wav");
 	direction = { 0.f,1.f };
 
 	Scene::LoadMapFromJson("map1.json", "map1", player, background, objects, hitboxes);
@@ -162,21 +162,21 @@ void Map1::Update(float dt)
 				{
 					if (battleCheckTimer >= battleCheckInterval)
 					{
-						//std::cout << "배틀 확률 체크" << std::endl;
-						//battleCheckTimer = 0.f;
+						std::cout << "배틀 확률 체크" << std::endl;
+						battleCheckTimer = 0.f;
 
-						//// 5% 확률
-						//if (Utils::RandomRange(0.f, 1.f) < 0.05f)
-						//{
-						//	SceneBattle::nextSceneId = SceneIds::Map1;
-						//	SceneBattle::monsterJsonID = "jsons/frog.json";
-						//	startPos = player->GetPosition();
-						//	player->StartBattle();
-						//}
-						//else
-						//{
-						//	std::cout << "배틀 아님" << std::endl;
-						//}
+						// 5% 확률
+						if (Utils::RandomRange(0.f, 1.f) < 0.05f)
+						{
+							SceneBattle::nextSceneId = SceneIds::Map1;
+							SceneBattle::monsterJsonID = "jsons/frog.json";
+							startPos = player->GetPosition();
+							player->StartBattle();
+						}
+						else
+						{
+							std::cout << "배틀 아님" << std::endl;
+						}
 					}
 				}
 			}
