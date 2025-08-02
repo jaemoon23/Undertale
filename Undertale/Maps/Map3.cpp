@@ -31,7 +31,6 @@ void Map3::Init()
 	texIds.push_back("Sprites/backgroundui.png");
 	
 	soundIds.push_back("sounds/snd_heal_c.wav");
-	soundIds.push_back("sounds/SND_TXT1.wav");
 	soundIds.push_back("sounds/17 Snowy.flac");
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
@@ -104,6 +103,7 @@ void Map3::Init()
 	savepoint->lines.push_back(L"* (쥐가 언젠가는 스파게티를\n  데울 방법을 찾으리라는\n  걸 알고 있기에...)");
 	savepoint->lines.push_back(L"* (당신의 의지가 충만해진다.)");
 
+	soundIds.push_back("sounds/SND_TXT1.wav");
 	texIds.push_back("graphics/TextWindow.png");
 	textWindow = (TextWindow*)AddGameObject(new TextWindow("textWindow"));
 	//

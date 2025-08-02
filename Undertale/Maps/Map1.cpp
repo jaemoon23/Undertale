@@ -15,9 +15,13 @@ Map1::Map1() : Scene(SceneIds::Map1)
 
 void Map1::Init()
 {
+	
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("Sprites/idle.png");
+	texIds.push_back("graphics/spr_notepaper_0.png");
 	texIds.push_back("graphics/back2.png");
+	texIds.push_back("graphics/spr_rock_0.png");
+	texIds.push_back("graphics/spr_candydish_0.png");
 	texIds.push_back("Sprites/downwalking.png");
 	texIds.push_back("Sprites/upwalking.png");
 	texIds.push_back("Sprites/leftwalking.png");
@@ -27,6 +31,7 @@ void Map1::Init()
 	texIds.push_back("Sprites/backgroundui.png");
 	texIds.push_back("Sprites/spin_sheet.png");
 	texIds.push_back("Sprites/TextWindow.png");
+	soundIds.push_back("sounds/05 Ruins.flac");
 
 	SOUNDBUFFER_MGR.Load("sounds/Map1/Ruins.wav");
 	SOUNDBUFFER_MGR.Load("sounds/Map1/Fall2.wav");
@@ -95,6 +100,35 @@ void Map1::Init()
 	text2->SetCharacterSize(35.f);
 	text2->sortingLayer = SortingLayers::UI;
 	text2->sortingOrder = 1;
+
+	//
+	candydish = (TalkObject*)AddGameObject(new TalkObject("savepoint"));
+	candydish->SetTexId("graphics/spr_candydish_0.png");
+	candydish->SetPosition({ 586.f,422.f });
+	candydish->lines.push_back(L"* 사탕이 놓여져 있고\n  그 아래에 안내문이 적혀있다.");
+	candydish->lines.push_back(L"* 마음껏 드세요.");
+	candydish->lines.push_back(L"* 이곳에 사탕을 놓아둔\n  누군가의 마음씨를 느끼며\n  당신의 마음이 따뜻해진다.");
+
+	rock = (TalkObject*)AddGameObject(new TalkObject("rock"));
+	rock->SetTexId("graphics/spr_rock_0.png");
+	rock->SetPosition({ 445.f,-13.f });
+	rock->lines.push_back(L"* 어허, 이보쇼!\n* 너무 가까이 붙은 거 아니오.");
+	rock->lines.push_back(L"* 말하는 돌멩이\n  처음 보쇼?");
+	rock->lines.push_back(L"* 뭐 좀 앉았다 가든가\n  귀염둥이.");
+
+	note = (TalkObject*)AddGameObject(new TalkObject("note"));
+	note->SetTexId("graphics/spr_notepaper_0.png");
+	note->SetPosition({ 285.f,504.f });
+	note->lines.push_back(L"* A4 한 장이 떨어져 있다.");
+	note->lines.push_back(L"* 당신은 A4에 적힌\n  내용을 보았다.");
+	note->lines.push_back(L"* \"왜 해골에게\n  친구가 필요할까?\"");
+	note->lines.push_back(L"* \"뼈에 사무치게 외로워서...\"");
+	note->lines.push_back(L"* 나머지 내용들도\n  뼈와 관련된 농담들로\n  채워져 있다.");
+	
+	soundIds.push_back("sounds/SND_TXT1.wav");
+	texIds.push_back("graphics/TextWindow.png");
+	textWindow_ = (TextWindow*)AddGameObject(new TextWindow("textWindow"));
+	//
 	Scene::Init();
 }
 
@@ -153,7 +187,6 @@ void Map1::Update(float dt)
 			}
 			else if (hit.type == "SceneChange")
 			{
-				std::cout << "씬 전환 트리거됨!" << std::endl;
 				SCENE_MGR.ChangeScene(SceneIds::Dev1);
 			}
 			else if (hit.type == "Battle")
@@ -162,11 +195,10 @@ void Map1::Update(float dt)
 				{
 					if (battleCheckTimer >= battleCheckInterval)
 					{
-						std::cout << "배틀 확률 체크" << std::endl;
 						battleCheckTimer = 0.f;
 
 						// 5% 확률
-						if (Utils::RandomRange(0.f, 1.f) < 0.05f)
+						if (Utils::RandomRange(0.f, 1.f) < 0.01f)
 						{
 							SceneBattle::nextSceneId = SceneIds::Map1;
 							SceneBattle::monsterJsonID = "jsons/frog.json";
@@ -175,14 +207,14 @@ void Map1::Update(float dt)
 						}
 						else
 						{
-							std::cout << "배틀 아님" << std::endl;
+							//std::cout << "배틀 아님" << std::endl;
 						}
 					}
 				}
 			}
 			else if (hit.type == "Switch")
 			{
-				std::cout << "Switch" << std::endl;
+				//std::cout << "Switch" << std::endl;
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
 					SOUND_MGR.PlaySfx("sounds/Map1/sw.wav");
@@ -191,13 +223,13 @@ void Map1::Update(float dt)
 			}
 			else if (hit.type == "NextScene")
 			{
-				std::cout << "NextScene" << std::endl;
+				//std::cout << "NextScene" << std::endl;
 				startPos = player->GetPosition() + sf::Vector2f(-40.f, 0.f);
 				SCENE_MGR.ChangeScene(SceneIds::Map2);
 			}
 			else if (hit.type == "PrevScene")
 			{
-				std::cout << "PrevScene" << std::endl;
+				//std::cout << "PrevScene" << std::endl;
 				startPos = { 41.f,-4.f };
 				SCENE_MGR.ChangeScene(SceneIds::Map0);
 			}
@@ -206,12 +238,12 @@ void Map1::Update(float dt)
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
 					isText = true;
-					std::cout << "Signs" << std::endl;
+					//std::cout << "Signs" << std::endl;
 				}
 			}
 			else if (hit.type == "Door")
 			{
-				std::cout << "Door" << std::endl;
+				//std::cout << "Door" << std::endl;
 				player->SetPosition({ 41.f,-4.f });
 			}
 			if (!moveEvent)
@@ -219,7 +251,7 @@ void Map1::Update(float dt)
 				if (hit.type == "Event")
 				{
 					SOUND_MGR.PlaySfx("sounds/Map1/Fall2.wav");
-					std::cout << "Event" << std::endl;
+					//std::cout << "Event" << std::endl;
 					eventMoveRemaining = 390.f;
 					event = true;
 					moveEvent = true;
@@ -238,7 +270,7 @@ void Map1::Update(float dt)
 
 		if (eventMoveRemaining <= 0.f)
 		{
-			std::cout << "Event 이동 완료" << std::endl;
+			//std::cout << "Event 이동 완료" << std::endl;
 			wallHitBox = true;
 			event = false;
 			moveEvent = false;
@@ -251,7 +283,7 @@ void Map1::Update(float dt)
 			float actualStep = std::min(moveStep, eventMoveRemaining);
 			player->SetPosition(player->GetPosition() + direction * actualStep);
 			eventMoveRemaining -= actualStep;
-			std::cout << "남은 거리: " << eventMoveRemaining << ", 이번 이동: " << actualStep << std::endl;
+			//std::cout << "남은 거리: " << eventMoveRemaining << ", 이번 이동: " << actualStep << std::endl;
 		}
 	}
 	if (!puzzleSuccess)
@@ -260,7 +292,7 @@ void Map1::Update(float dt)
 		{
 			player->SetPosition(player->getPos());
 			showText = true;
-			std::cout << "* 알 수 없는 힘에 의해 막힘" << std::endl;
+			//std::cout << "* 알 수 없는 힘에 의해 막힘" << std::endl;
 		}
 		else
 		{
