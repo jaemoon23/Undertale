@@ -281,7 +281,6 @@ void TemMieShop::Update(float dt)
 		{
 			if (Utils::CheckCollision(Selection_Icon_HitBox, buyText_HitBox))
 			{
-				std::cout << "산다" << std::endl;
 				// 인트로 오브젝트
 				introText->SetActive(false);
 				buyText->SetActive(false);
@@ -303,7 +302,6 @@ void TemMieShop::Update(float dt)
 			}
 			else if (Utils::CheckCollision(Selection_Icon_HitBox, sellText_HitBox))
 			{
-				std::cout << "판다" << std::endl;
 				introText->SetActive(false);
 				buyText->SetActive(false);
 				sellText->SetActive(false);
@@ -322,7 +320,6 @@ void TemMieShop::Update(float dt)
 			else if (Utils::CheckCollision(Selection_Icon_HitBox, exitText_HitBox))
 			{
 				isMenuSelect = false;
-				std::cout << "나가기" << std::endl;
 				SCENE_MGR.ChangeScene(SceneIds::Map4);
 				
 			}
@@ -398,7 +395,6 @@ void TemMieShop::Update(float dt)
 					{
 						if (InventoryUi::healItem[i].GetName() == L"")
 						{
-							std::cout << i << std::endl;
 							InventoryUi::healItem[i].SetInfo(L"눈사람", 5);
 							std::cout << "눈사람 구매" << std::endl;
 							PlayerInfo::slot++;
@@ -413,7 +409,6 @@ void TemMieShop::Update(float dt)
 				}
 				else if (PlayerInfo::gold < snowManPrice)
 				{
-					std::cout << "골드가 모자랍니다" << std::endl;
 				}
 
 				// 쿠키
@@ -423,9 +418,7 @@ void TemMieShop::Update(float dt)
 					{
 						if (InventoryUi::healItem[i].GetName() == L"")
 						{
-							std::cout << i << std::endl;
 							InventoryUi::healItem[i].SetInfo(L"쿠키", 10);
-							std::cout << "쿠키 구매" << std::endl;
 							PlayerInfo::slot++;
 							PlayerInfo::gold -= cookiePrice;
 							goldText->SetString("(" + std::to_string(PlayerInfo::gold) + "G)");
@@ -437,7 +430,6 @@ void TemMieShop::Update(float dt)
 				}
 				else if (PlayerInfo::gold < cookiePrice)
 				{
-					std::cout << "골드가 모자랍니다" << std::endl;
 				}
 
 				// 아이스
@@ -447,9 +439,7 @@ void TemMieShop::Update(float dt)
 					{
 						if (InventoryUi::healItem[i].GetName() == L"")
 						{
-							std::cout << i << std::endl;
 							InventoryUi::healItem[i].SetInfo(L"아이스", 15);
-							std::cout << "아이스 구매" << std::endl;
 							PlayerInfo::slot++;
 							PlayerInfo::gold -= icePrice;
 							goldText->SetString("(" + std::to_string(PlayerInfo::gold) + "G)");
@@ -461,13 +451,11 @@ void TemMieShop::Update(float dt)
 				}
 				else if (PlayerInfo::gold < icePrice)
 				{
-					std::cout << "골드가 모자랍니다" << std::endl;
 				}
 				slotText->SetString(std::to_string(PlayerInfo::slot) + "/4");
 			}
 			else
 			{
-				std::cout << "아이템 슬롯이 부족합니다." << std::endl;
 			}
 		}
 	}
@@ -557,7 +545,6 @@ void TemMieShop::Update(float dt)
 			}
 			else
 			{
-				std::cout << "판매할 아이템이 없습니다." << std::endl;
 			}
 		}
 	}

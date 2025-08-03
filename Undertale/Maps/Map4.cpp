@@ -184,7 +184,6 @@ void Map4::Update(float dt)
 			}
 			else if (hit.type == "Signs")
 			{
-				std::cout << "Signs" << std::endl;
 			}
 		}
 		if (!puzzleSuccess)
@@ -217,7 +216,6 @@ void Map4::Update(float dt)
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 		{
-			std::cout << "테미 z키 입력" << std::endl;
 			startPos = player->GetPosition();
 			SCENE_MGR.ChangeScene(SceneIds::TemMieShop);
 		}

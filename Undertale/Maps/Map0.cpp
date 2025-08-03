@@ -137,7 +137,6 @@ void Map0::Update(float dt)
 			}
 			else if (hit.type == "SceneChanege")
 			{
-				std::cout << "씬 전환 트리거됨!" << std::endl;
 				startPos = player->GetPosition() + sf::Vector2f(0.f,10.f);
 				SCENE_MGR.ChangeScene(SceneIds::Map1);
 			}			

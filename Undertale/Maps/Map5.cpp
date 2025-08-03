@@ -183,7 +183,6 @@ void Map5::Update(float dt)
 		if (maxTime < currentTime)
 		{
 			SOUND_MGR.PlaySfx("sounds/Map5/sw.wav");
-			std::cout << "시간 초과!" << std::endl;
 			currentTime = 0.f;
 			currentTime2 = 0.f;
 			player->SetMove(true);
@@ -194,7 +193,6 @@ void Map5::Update(float dt)
 		if (InputMgr::GetKeyDown(targetKeys[r]))
 		{
 			SOUND_MGR.PlaySfx("sounds/Map5/bell.wav");
-			std::cout << "정답 입력" << std::endl;
 			currentTime = 0.f;
 			currentTime2 = 0.f;
 			player->SetMove(true);
@@ -208,7 +206,6 @@ void Map5::Update(float dt)
 			InputMgr::GetKeyDown(sf::Keyboard::R))
 		{
 			SOUND_MGR.PlaySfx("sounds/Map5/sw.wav");
-			std::cout << "입력 실패" << std::endl;
 			player->SetMove(true);
 			player->SetPosition({ 78.f, 248.f });
 			currentTime2 = 0.f;
@@ -269,7 +266,6 @@ void Map5::Update(float dt)
 			}
 			else if (hit.type == "Signs")
 			{
-				std::cout << "Signs" << std::endl;
 			}
 		}
 	}

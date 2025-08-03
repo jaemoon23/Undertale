@@ -303,7 +303,6 @@ void MapSans::Update(float dt)
 				}
 				else if (hit.type == "SceneChange")
 				{
-					std::cout << "씬 전환 트리거됨!" << std::endl;
 					SCENE_MGR.ChangeScene(SceneIds::Dev1);
 				}
 				else if (hit.type == "NextScene")
@@ -314,7 +313,6 @@ void MapSans::Update(float dt)
 				}
 				else if (hit.type == "PrevScene")
 				{
-					std::cout << "PrevScene" << std::endl;
 					startPos = { -328.f,295.934f };
 					SCENE_MGR.ChangeScene(SceneIds::MapPapyrus);
 				}

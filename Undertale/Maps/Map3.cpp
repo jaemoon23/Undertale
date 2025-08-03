@@ -182,7 +182,6 @@ void Map3::Update(float dt)
 			}
 			else if (hit.type == "Switch")
 			{
-				std::cout << "Switch" << std::endl;
 				if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 				{
 					puzzleSuccess = true;
@@ -190,19 +189,16 @@ void Map3::Update(float dt)
 			}
 			else if (hit.type == "NextScene")
 			{
-				std::cout << "NextScene" << std::endl;
 				startPos = player->GetPosition() + sf::Vector2f(-15.f, 0.f);
 				SCENE_MGR.ChangeScene(SceneIds::Map4);
 			}
 			else if (hit.type == "PrevScene")
 			{
-				std::cout << "PrevScene" << std::endl;
 				startPos = { 214.f,267.f };
 				SCENE_MGR.ChangeScene(SceneIds::Map2);
 			}
 			else if (hit.type == "Signs")
 			{
-				std::cout << "Signs" << std::endl;
 			}
 		}
 	}
