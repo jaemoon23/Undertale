@@ -134,7 +134,7 @@ void Map2::Init()
 
 void Map2::Enter()
 {
-	SOUND_MGR.PlayBgm("sounds/Map2/17 Snowy.flac");
+	
 	float imageChangeTimer = 0.f;
 	int currentImageIndex = 0;
 
@@ -166,7 +166,7 @@ void Map2::Enter()
 
 	Scene::LoadMapFromJson("map2.json", "map2", player, background, objects, hitboxes);
 	Scene::Enter();
-
+	SOUND_MGR.PlayBgm("sounds/Map2/17 Snowy.flac");
 	sf::Vector2f size = { 640.f, 480.f };
 	sf::Vector2f center{ size.x * 0.5f, size.y * 0.5f };
 	worldView.setSize(size * 0.5f);
