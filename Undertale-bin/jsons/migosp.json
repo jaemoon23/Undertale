@@ -154,6 +154,64 @@
           "speed" : 100.0, "delay" : 6.0, "damage" : 4
         }
       ]
+    },
+    {
+      "name": "Rotate",
+      "duration": 8.0,
+      "bullets": [
+        {
+          "texId": "graphics/spr_clawbullet_1.png", "PosX": 180.0, "PosY": 230.0, "DirX": 1.0, "DirY": 0.0,
+          "speed": 110.0, "delay": 1.0, "damage": 4
+        },
+        {
+          "texId": "graphics/spr_clawbullet_1.png", "PosX": 180.0, "PosY": 370.0, "DirX": 1.0, "DirY": 0.0,
+          "speed": 110.0, "delay": 1.3, "damage": 4
+        },
+        {
+          "texId": "graphics/spr_clawbullet_1.png", "PosX": 180.0, "PosY": 290.0, "DirX": 1.0, "DirY": 0.0,
+          "speed": 110.0, "delay": 1.6, "damage": 4
+        },
+
+        {
+          "texId": "graphics/spr_clawbullet_1.png", "PosX": 460.0, "PosY": 230.0, "DirX": -1.0, "DirY": 0.0,
+          "speed": 110.0, "delay": 2.0, "damage": 4
+        },
+        {
+          "texId": "graphics/spr_clawbullet_1.png", "PosX": 460.0, "PosY": 370.0, "DirX": -1.0, "DirY": 0.0,
+          "speed": 110.0, "delay": 2.3, "damage": 4
+        },
+        {
+          "texId": "graphics/spr_clawbullet_1.png", "PosX": 460.0, "PosY": 310.0, "DirX": -1.0, "DirY": 0.0,
+          "speed": 110.0, "delay": 2.6, "damage": 4
+        },
+
+        {
+          "texId": "graphics/spr_clawbullet_1.png", "PosX": 320.0, "PosY": 220.0, "DirX": 0.0, "DirY": 1.0,
+          "speed": 90.0, "delay": 3.0, "damage": 4
+        },
+        {
+          "texId": "graphics/spr_clawbullet_1.png", "PosX": 320.0, "PosY": 370.0, "DirX": 0.0, "DirY": -1.0,
+          "speed": 90.0, "delay": 3.5, "damage": 4
+        },
+
+        {
+          "texId": "graphics/spr_clawbullet_1.png", "PosX": 180.0, "PosY": 250.0, "DirX": 0.866, "DirY": 0.5,
+          "speed": 120.0, "delay": 4.0, "damage": 4
+        },
+        {
+          "texId": "graphics/spr_clawbullet_1.png", "PosX": 460.0, "PosY": 350.0, "DirX": -0.866, "DirY": -0.5,
+          "speed": 120.0, "delay": 4.3, "damage": 4
+        },
+
+        {
+          "texId": "graphics/spr_clawbullet_1.png", "PosX": 180.0, "PosY": 330.0, "DirX": 0.866, "DirY": -0.5,
+          "speed": 120.0, "delay": 5.0, "damage": 4
+        },
+        {
+          "texId": "graphics/spr_clawbullet_1.png", "PosX": 460.0, "PosY": 260.0, "DirX": -0.866, "DirY": 0.5,
+          "speed": 120.0, "delay": 5.3, "damage": 4
+        }
+      ]
     }
   ],
 

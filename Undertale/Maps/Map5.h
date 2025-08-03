@@ -47,6 +47,7 @@ protected:
 	float currentTime2 = 0.f;
 
 	sf::Vector2f startPos = { 78.f,248.f };
+	bool isCheck = false;
 public:
 	Map5();
 	~Map5() override = default;

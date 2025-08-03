@@ -5,7 +5,7 @@
   "bgmId" : "sounds/09 Enemy Approaching.flac",
   "hp": 140,
   "exp": 100,
-  "gold" : 17,
+  "gold" : 100,
   "lines" : [
     "네 모자는 어딨어",
     "저기? 내 모자 여기 있어.",
@@ -104,6 +104,114 @@
         {
           "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : 16.0, "DirX" : 0.0, "DirY" : 1.0,
           "speed" : 600.0, "delay" : 3.2, "damage" : 6
+        }                
+      ]
+    },
+    {
+      "name" : "Arrow",
+      "duration" : 6.0,
+      "bullets" : [
+        {
+          "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : 16.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 600.0, "delay" : 1.2, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : 16.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 600.0, "delay" : 1.3, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : 16.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 600.0, "delay" : 1.4, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_left.png", "PosX" : 621.0, "PosY" : 316.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 400.0, "delay" : 2.0, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_right.png", "PosX" : 21.0, "PosY" : 316.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 400.0, "delay" : 2.3, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : 16.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 400.0, "delay" : 2.6, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_left.png", "PosX" : 621.0, "PosY" : 316.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 400.0, "delay" : 2.9, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_up.png", "PosX" : 321.0, "PosY" : 616.0, "DirX" : 0.0, "DirY" : -1.0,
+          "speed" : 400.0, "delay" : 3.2, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_right.png", "PosX" : 21.0, "PosY" : 316.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 400.0, "delay" : 3.5, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_up.png", "PosX" : 321.0, "PosY" : 616.0, "DirX" : 0.0, "DirY" : -1.0,
+          "speed" : 400.0, "delay" : 3.8, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_left.png", "PosX" : 621.0, "PosY" : 316.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 400.0, "delay" : 4.1, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : 16.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 400.0, "delay" : 4.4, "damage" : 6
+        }           
+      ]
+    },
+    {
+      "name" : "Arrow",
+      "duration" : 6.0,
+      "bullets" : [
+        {
+          "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : 16.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 500.0, "delay" : 0.2, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_up.png", "PosX" : 321.0, "PosY" : 616.0, "DirX" : 0.0, "DirY" : -1.0,
+          "speed" : 300.0, "delay" : 0.6, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_right.png", "PosX" : 21.0, "PosY" : 316.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 450.0, "delay" : 1.0, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_left.png", "PosX" : 621.0, "PosY" : 316.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 450.0, "delay" : 1.2, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : 16.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 700.0, "delay" : 1.5, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : 16.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 700.0, "delay" : 1.55, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : 16.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 700.0, "delay" : 1.6, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_left.png", "PosX" : 621.0, "PosY" : 316.0, "DirX" : -1.0, "DirY" : 0.0,
+          "speed" : 300.0, "delay" : 2.3, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_up.png", "PosX" : 321.0, "PosY" : 616.0, "DirX" : 0.0, "DirY" : -1.0,
+          "speed" : 400.0, "delay" : 2.6, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_right.png", "PosX" : 21.0, "PosY" : 316.0, "DirX" : 1.0, "DirY" : 0.0,
+          "speed" : 300.0, "delay" : 2.9, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_down.png", "PosX" : 321.0, "PosY" : 16.0, "DirX" : 0.0, "DirY" : 1.0,
+          "speed" : 600.0, "delay" : 3.2, "damage" : 6
+        },
+        {
+          "texId" : "graphics/spr_arrow_up.png", "PosX" : 321.0, "PosY" : 616.0, "DirX" : 0.0, "DirY" : -1.0,
+          "speed" : 600.0, "delay" : 3.8, "damage" : 6
         }
       ]
     }

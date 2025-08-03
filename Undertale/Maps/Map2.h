@@ -49,8 +49,10 @@ protected:
     std::vector<sf::Texture*> images; // 교체할 이미지들
 
     TalkObject* lamp;
+    TalkObject* stick;
+    TalkObject* snowman;
+    TalkObject* sign;
     TextWindow* textWindow;
-
 
     int playerImageIndex = 0;
     int sansImageIndex = 0;

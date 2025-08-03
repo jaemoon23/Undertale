@@ -110,6 +110,36 @@
           "speed" : 100.0, "delay" : 7.0, "damage" : 4
         }
       ]
+    },
+    {
+      "name": "Homing",
+      "duration": 8.0,
+      "bullets": [
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 100.0, "PosY": 250.0, "DirX": 0, "DirY": 1.0, "speed": 100.0, "delay": 0.5, "damage": 4 },
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 550.0, "PosY": 280.0, "DirX": 0, "DirY": 1.0, "speed": 100.0, "delay": 1.0, "damage": 4 },
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 300.0, "PosY": 150.0, "DirX": 0, "DirY": 1.0, "speed": 120.0, "delay": 1.5, "damage": 4 },
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 200.0, "PosY": 400.0, "DirX": 0, "DirY": -1.0, "speed": 120.0, "delay": 2.0, "damage": 4 },
+
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 150.0, "PosY": 200.0, "DirX": 0, "DirY": 1.0, "speed": 130.0, "delay": 3.0, "damage": 4 },
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 300.0, "PosY": 420.0, "DirX": 0, "DirY": -1.0, "speed": 130.0, "delay": 3.0, "damage": 4 },
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 480.0, "PosY": 300.0, "DirX": -1.0, "DirY": 0, "speed": 130.0, "delay": 3.0, "damage": 4 },
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 120.0, "PosY": 320.0, "DirX": 1.0, "DirY": 0, "speed": 130.0, "delay": 3.0, "damage": 4 },
+
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 220.0, "PosY": 140.0, "DirX": 0, "DirY": 1.0, "speed": 150.0, "delay": 4.0, "damage": 4 },
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 420.0, "PosY": 460.0, "DirX": 0, "DirY": -1.0, "speed": 150.0, "delay": 4.2, "damage": 4 },
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 160.0, "PosY": 350.0, "DirX": 1.0, "DirY": 0, "speed": 150.0, "delay": 4.4, "damage": 4 },
+
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 300.0, "PosY": 240.0, "DirX": 0, "DirY": 1.0, "speed": 180.0, "delay": 5.5, "damage": 4 },
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 300.0, "PosY": 240.0, "DirX": 0, "DirY": 1.0, "speed": 180.0, "delay": 5.6, "damage": 4 },
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 300.0, "PosY": 240.0, "DirX": 0, "DirY": 1.0, "speed": 180.0, "delay": 5.7, "damage": 4 },
+
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 220.0, "PosY": 140.0, "DirX": 0, "DirY": 1.0, "speed": 160.0, "delay": 6.0, "damage": 4 },
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 240.0, "PosY": 140.0, "DirX": 0, "DirY": 1.0, "speed": 160.0, "delay": 6.2, "damage": 4 },
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 260.0, "PosY": 140.0, "DirX": 0, "DirY": 1.0, "speed": 160.0, "delay": 6.4, "damage": 4 },
+
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 200.0, "PosY": 420.0, "DirX": 0, "DirY": -1.0, "speed": 140.0, "delay": 7.0, "damage": 4 },
+        { "texId": "graphics/spr_bulletsm_0.png", "PosX": 400.0, "PosY": 420.0, "DirX": 0, "DirY": -1.0, "speed": 140.0, "delay": 7.2, "damage": 4 }
+      ]
     }
   ],
 

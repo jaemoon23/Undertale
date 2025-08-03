@@ -18,6 +18,7 @@ Map0::Map0() : Scene(SceneIds::Map0)
 }
 void Map0::Init()
 {
+	texIds.push_back("graphics/spr_smallfrog_0.png");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("Sprites/downwalking.png");
@@ -65,6 +66,26 @@ void Map0::Init()
 	AddGameObject(dialoguebox);
 	AddGameObject(uichanger);
 	AddGameObject(playerinfoui);
+
+	//
+	frog = (TalkObject*)AddGameObject(new TalkObject("frog"));
+	frog->SetTexId("graphics/spr_smallfrog_0.png");
+	frog->SetPosition({ 630.f,288.f });
+	frog->lines.push_back(L"* 개굴, 개굴.\n* (넌 꽤 자비롭게\n  보이네, 인간치고는...)");
+	frog->lines.push_back(L"* (괴물들을 살려줄 수\n  있을때, 노란색 글자로\n  보여.)");
+	frog->lines.push_back(L"* (어떻게 생각해?\n  유용하지?)");
+
+	frog2 = (TalkObject*)AddGameObject(new TalkObject("frog2"));
+	frog2->SetTexId("graphics/spr_smallfrog_0.png");
+	frog2->SetPosition({ 242.f,216.f });
+	frog2->lines.push_back(L"* 개굴, 개굴.\n* (오랜 만에 떨어진 인간이네.)");
+	frog2->lines.push_back(L"* (이 앞으로 가면 괴물들과\n  싸우게 될 수 도 있어. 조심해.)");
+	frog2->lines.push_back(L"* (모두 나처럼 순한건 아니니까.)");
+
+	soundIds.push_back("sounds/SND_TXT1.wav");
+	texIds.push_back("graphics/TextWindow.png");
+	textWindow = (TextWindow*)AddGameObject(new TextWindow("textWindow"));
+	//
 	Scene::Init();
 }
 
@@ -75,7 +96,6 @@ void Map0::Enter()
 	InventoryUi::healItem[2].SetInfo(L"", 0);
 	InventoryUi::healItem[3].SetInfo(L"", 0);
 
-	SOUND_MGR.StopBgm();
 
 	Scene::LoadMapFromJson("map0.json", "map0", player, background, objects, hitboxes);
 
@@ -87,6 +107,8 @@ void Map0::Enter()
 	uiView.setCenter(center);
 
 	player->SetPosition(startPos);
+
+	SOUND_MGR.PlayBgm("sounds/05 Ruins.flac");
 }
 void Map0::Update(float dt)
 {
@@ -123,11 +145,6 @@ void Map0::Update(float dt)
 	}
 	
 	Scene::Update(dt);
-
-	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
-	{
-		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
-	}
 }
 
 void Map0::Draw(sf::RenderWindow& window)

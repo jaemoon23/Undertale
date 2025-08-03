@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include "TalkObject.h"
+#include "TextWindow.h"
 #include "Scene.h"
 #include <fstream>
 #include "json.hpp"
@@ -13,6 +15,8 @@ class UiChanger;
 class PlayerInfoUi;
 class HealItem;
 class PlayerInfo;
+class TalkObject;
+class TextWindow;
 
 class Map1 : public Scene
 {
@@ -31,6 +35,10 @@ protected:
 	float eventMoveSpeed = 200.f; // 초당 이동 속도
 	float moveStep;
 
+	TalkObject* note;	
+	TalkObject* rock;
+	TalkObject* candydish;
+	TextWindow* textWindow_;
 
 	std::wstring fullText = L"* 스위치는 하나 뿐이다.";
 	std::wstring currentText = L"";

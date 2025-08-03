@@ -26,6 +26,9 @@ void Map2::Init()
 	font.loadFromFile("fonts/DungGeunMo.ttf");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	
+	texIds.push_back("graphics/spr_sadsnowman_0.png");
+	texIds.push_back("graphics/spr_stick_1.png");
+	texIds.push_back("graphics/spr_npc_sign_0.png");
 	texIds.push_back("graphics/spr_convenientlamp_0.png");
 	texIds.push_back("Sprites/idle.png");
 	texIds.push_back("Sprites/spr_f_maincharar_0.png");
@@ -44,6 +47,7 @@ void Map2::Init()
 	texIds.push_back("Sprites/spr_sans_r_0.png");
 	texIds.push_back("Sprites/spr_sans_r_darkhand_2.png");
 	texIds.push_back("Sprites/spr_sans_r_dark_0.png");
+	soundIds.push_back("sounds/snd_select.wav");
 
 	soundIds.push_back("sounds/Map2/17 Snowy.flac");
 	soundIds.push_back("sounds/Map2/15 sans..flac");
@@ -101,6 +105,25 @@ void Map2::Init()
 	lamp->SetTexId("graphics/spr_convenientlamp_0.png");
 	lamp->SetPosition({ 812.4f,260.9f });
 	lamp->lines.push_back(L"* 묘하게 생긴 램프이다.");
+
+	snowman = (TalkObject*)AddGameObject(new TalkObject("snowman"));
+	snowman->SetTexId("graphics/spr_sadsnowman_0.png");
+	snowman->SetPosition({ 929.f,230.f });
+	snowman->lines.push_back(L"* 안녕.\n* 난 눈사람이야.");
+	snowman->lines.push_back(L"* 세상을 보고 싶은데....\n* 움직일 수가 없어.");
+	snowman->lines.push_back(L"* 네게 부탁이 하나 있는데...");
+	snowman->lines.push_back(L"* 내 조각을 떼어다\n  저 멀리까지 가져다 줘.");
+	snowman->lines.push_back(L"* 부탁할게.");
+
+	stick = (TalkObject*)AddGameObject(new TalkObject("stick"));
+	stick->SetTexId("graphics/spr_stick_1.png");
+	stick->SetPosition({ 100.f,305.f });
+	stick->lines.push_back(L"* 누군가 밟은 듯하다.");
+
+	sign = (TalkObject*)AddGameObject(new TalkObject("sign"));
+	sign->SetTexId("graphics/spr_npc_sign_0.png");
+	sign->SetPosition({ 705.f,257.f });
+	sign->lines.push_back(L"* 인벤토리는 C키로 열 수 있다.");
 
 	texIds.push_back("graphics/TextWindow.png");
 	soundIds.push_back("sounds/SND_TXT1.wav");
@@ -166,11 +189,6 @@ void Map2::Update(float dt)
 		startPos = player->GetPosition();
 		player->StartBattle();
 	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
-	{
-		std::cout << player->GetPosition().x << ", " << player->GetPosition().y << std::endl;
-		player->SetPosition({ 837.f,205.f });
-	}
 	//
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::C))
@@ -209,21 +227,15 @@ void Map2::Update(float dt)
 				{
 					if (battleCheckTimer >= battleCheckInterval)
 					{
-						std::cout << "배틀 확률 체크" << std::endl;
 						battleCheckTimer = 0.f;
 
 						// 1% 확률
-						if (Utils::RandomRange(0.f, 1.f) < 0.01f)
+						if (player->GetMove() && Utils::RandomRange(0.f, 1.f) < 0.01f)
 						{
-							std::cout << "랜덤 전투 발생!" << std::endl;
 							SceneBattle::nextSceneId = SceneIds::Map2;
 							SceneBattle::monsterJsonID = "jsons/whimsun.json";
 							startPos = player->GetPosition();
 							player->StartBattle();
-						}
-						else
-						{
-							std::cout << "배틀 아님" << std::endl;
 						}
 					}
 				}
@@ -231,13 +243,11 @@ void Map2::Update(float dt)
 			}
 			else if (hit.type == "NextScene")
 			{
-				std::cout << "NextScene" << std::endl;
 				startPos = player->GetPosition() + sf::Vector2f(-40.f, 0.f);
 				SCENE_MGR.ChangeScene(SceneIds::Map3);
 			}
 			else if (hit.type == "PrevScene")
 			{
-				std::cout << "PrevScene" << std::endl;
 				startPos = { -299.f,290.f };
 				SCENE_MGR.ChangeScene(SceneIds::Map1);
 			}

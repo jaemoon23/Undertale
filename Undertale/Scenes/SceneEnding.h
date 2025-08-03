@@ -1,10 +1,11 @@
-#pragma once
+﻿#pragma once
 #include "Scene.h"
 class SceneEnding : public Scene
 {
 protected:
 	sf::Sprite image;
 	sf::Text text;
+	sf::Text EndMessage;
 
 	std::vector<std::string> imageTexIds;
 	std::vector<std::wstring> texts;
@@ -14,10 +15,10 @@ protected:
 	sf::Vector2f size = { 640.f,480.f };
 
 	int introIndex = 0;
-	const int INTRO_IMAGE_COUNT = 11;
+	const int INTRO_IMAGE_COUNT = 15;
 
 	float timer = 0.f;
-	float introInterval = 2.0f;
+	float introInterval = 3.0f;
 
 	float fadeTimer = 0.f;
 	float fadeTime = 0.5f;
@@ -32,6 +33,7 @@ protected:
 	float lastIntroTime = 6.0f;
 	float moveSpeed = 40.f;
 	bool lastIntro = false;
+	bool isDrawEndText = false;
 public:
 	SceneEnding();
 	~SceneEnding() = default;

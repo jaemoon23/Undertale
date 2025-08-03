@@ -13,6 +13,7 @@ MapSans::MapSans() : Scene(SceneIds::MapSans)
 
 void MapSans::Init()
 {
+	texIds.push_back("graphics/spr_notepaper_0.png");
 	texIds.push_back("graphics/spr_sans_bface_0.png");
 	texIds.push_back("graphics/spr_sans_bface_1.png");
 	texIds.push_back("graphics/spr_sans_bface_2.png");
@@ -52,6 +53,17 @@ void MapSans::Init()
 
 	InventoryInit();
 
+	//
+	sign = (TalkObject*)AddGameObject(new TalkObject("sign"));
+	sign->SetTexId("graphics/spr_notepaper_0.png");
+	sign->SetPosition({ 995.f,297.f });
+	sign->lines.push_back(L"* 당신의 여정은 끝이 났다.\n  안녕히...");
+
+	texIds.push_back("graphics/TextWindow.png");
+	soundIds.push_back("sounds/SND_TXT1.wav");
+	textWindow_ = (TextWindow*)AddGameObject(new TextWindow("textWindow"));
+	//
+
 	Scene::Init();
 
 	sansLines = {
@@ -59,12 +71,12 @@ void MapSans::Init()
 		L"* 꽤 바빴었지, 응?",
 		L"* ...",
 		L"* 그래, 물어볼 게\n  하나 있어",
-		L"* 가장 나쁜 사람이라도\n  바뀔 수 있을까...?",
-		L"* 노력만 한다면,\n  모두가 착한 사람이\n  될 수 있을까?",
+		L"* 인간과 괴물은 꼭\n  싸워야만 하는걸까?",
+		L"* 싸움은 좋아하지\n  않는데..",
 		L"* 헤 헤 헤 헤...",
-		L"* 좋아.",
-		L"* 뭐, 여기 더 괜찮은\n  질문이 있어.",
-		L"* 끔찍한 시간을\n  보내고 싶어?"
+		L"* 너라면 좀 더 자비를\n  베풀 수 있었을 텐데.",
+		L"* 뭐, 나도 더 이상\n  보고만 있을 순 없다 이거야.",
+		L"* 간다."
 	};
 	sansFaceIds = {
 		"graphics/spr_sans_bface_0.png",
@@ -194,6 +206,7 @@ void MapSans::Update(float dt)
 						isBattleEnter = true;
 						player->StartBattle();
 						startPos = player->GetPosition() + sf::Vector2f(-20.f, 0.f);
+						SOUND_MGR.StopBgm();
 						return;
 					}
 					isDrawingText = true;

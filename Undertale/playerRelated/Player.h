@@ -100,6 +100,7 @@ public:
 
 	sf::Sprite& GetSprite() { return body; }
 	void SetMove(bool a);
+	bool GetMove() { return move; }
 	void SetColorBlack() { body.setColor(sf::Color::Black); }
 	void StartBattle();
 

@@ -1,5 +1,7 @@
 ﻿#include "stdafx.h"
 #include "TalkObject.h"
+#include "InventoryUi.h"
+#include "HealItem.h"
 
 TalkObject::TalkObject(const std::string& name)
 	: GameObject(name)
@@ -76,6 +78,10 @@ void TalkObject::Update(float dt)
 				{
 					PlayerInfo::Heal(PlayerInfo::maxHp);
 					SOUND_MGR.PlaySfx("sounds/snd_heal_c.wav");
+				}
+				if (name == "snowman")
+				{
+					InventoryUi::healItem[1].SetInfo(L"눈사람 조각", 40);
 				}
 				player->SetMove(true);
 				textWindow->isDraw = false;

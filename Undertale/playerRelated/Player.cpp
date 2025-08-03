@@ -232,21 +232,27 @@ void Player::Draw(sf::RenderWindow& window)
 void Player::SansInteract()
 {
 	std::vector<std::wstring> testDialogues =
-	{ L"* 인간.  ", L"* 새로운 친구와 사귀는 법을 모르는건가?", L"* 돌아서서 나와 악수해."};
+	{ 
+		L"* 인 간.  ",
+		L"* 오랜만에 새로 들어왔군.", 
+		L"* 돌아서서 나와 악수해."
+	};
 	dialoguebox->StartDialogue(testDialogues);
 }
 
 void Player::SansSecondsInteract()
 {
 	std::vector<std::wstring> testDialogues =
-	{ L"* 난 샌즈야.\n* 뼈다귀 샌즈.",
-		L"* 원래 인간들을 감시하는\n* 일을 해야 하는데.",
-		L"* 내 동생인 파피루스에게 맡겨놨어.",
-		L"* 나가고 싶다면 저 밖의 파피루스와\n* 싸워서 이겨야 할거야.",
-		L"* 자 이걸 받아.\n* 파피루스와 싸울 때 도움이 될거야",
-	L"* 회복아이템: \"아이스\"를 받았습니다!",
-	L"* 인벤토리를 확인해봐.\n* C키를 누르면 인벤토리를\n* 확인할 수 있을거야.",
-	L"* 행운을 빌어.\n* 다시 만나지는 않기를 바랄게."};
+	{
+		L"* 난 샌즈야.\n* 뼈다귀 샌즈.",
+		L"* 원래 인간들을 감시하는\n  일을 해야 하는데.",
+		L"* 누구 잡는 일은 딱히\n  신경 안써서.",
+		L"* 근데 내 동생인, 파피루스는...",
+		L"* 걔는 인간 사냥에\n  미친놈이야.",
+		L"* 보안관이 되는게 꿈이거든.",
+		L"* 그래도 너무 걱정하지마.\n  말만 그렇게 하거든.",
+		L"* 혹시 마주치면 좀 봐줘.\n  아이스크림 줄게."
+	};
 	InventoryUi::healItem[0].SetInfo(L"아이스", 15);
 	PlayerInfo::slot++;
 	dialoguebox->StartDialogue(testDialogues);

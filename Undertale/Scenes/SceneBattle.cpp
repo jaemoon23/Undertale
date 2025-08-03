@@ -7,7 +7,7 @@
 #include "InventoryUi.h"
 #include "HealItem.h"
 
-std::string SceneBattle::monsterJsonID = "jsons/frog.json";
+std::string SceneBattle::monsterJsonID = "jsons/papyrus.json";
 SceneIds SceneBattle::nextSceneId = SceneIds::Map0;
 
 SceneBattle::SceneBattle()

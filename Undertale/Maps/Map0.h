@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "Scene.h"
 #include "SpriteGo.h"
+#include "TalkObject.h"
+#include "TextWindow.h"
 
 class TextGo;
 class Player;
@@ -10,6 +12,8 @@ class DialogueBox;
 class UiChanger;
 class PlayerInfoUi;
 class HealItem;
+class TalkObject;
+class TextWindow;
 
 class Map0 :
     public Scene
@@ -36,6 +40,10 @@ protected:
     HealItem* healitem;
 
     sf::Vector2f startPos = { 126.f,253.f };
+
+    TalkObject* frog;
+    TalkObject* frog2;
+    TextWindow* textWindow;
 public:
     Map0();
     ~Map0() override = default;

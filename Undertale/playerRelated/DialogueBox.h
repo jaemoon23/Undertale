@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 class Player;
 class InventoryUi;
@@ -19,7 +19,7 @@ protected:
 
 	std::wstring fullText;
 	std::wstring currentText;
-	float typingSpeed = 0.05f;
+	float typingSpeed = 0.07f;
 	float typingTimer = 0.f;
 	size_t charIndex = 0;
 

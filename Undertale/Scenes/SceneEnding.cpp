@@ -13,7 +13,10 @@ void SceneEnding::Init()
 		std::string texId = "graphics/end_" + std::to_string(i) + ".png";
 		texIds.push_back(texId);
 		imageTexIds.push_back(texId);
-		texts.push_back(L"       The End");
+		if (i == 0)
+			texts.push_back(L"       The End");
+		else
+			texts.push_back(L"");
 	}
 
 	fontIds.push_back("fonts/DungGeunMo.ttf");
@@ -42,8 +45,14 @@ void SceneEnding::Enter()
 	text.setString(texts[introIndex]);
 	text.setPosition({ -120.0f,0.f });
 
+	EndMessage.setFont(FONT_MGR.Get("fonts/DungGeunMo.ttf"));
+	EndMessage.setCharacterSize(50);
+	EndMessage.setString(L"Thank you!");
+	EndMessage.setPosition({ 190.0f,30.f });
+
 	isFadeOut = false;
 	lastIntro = false;
+	isDrawEndText = false;
 	timer = 0.f;
 	fadeTimer = 0.f;
 	waitingTimer = 0.f;
@@ -69,10 +78,8 @@ void SceneEnding::Update(float dt)
 			pos.y = Utils::Clamp(pos.y, -220.f, 28.f);
 			image.setPosition(pos);
 
-			if (pos.y == 28.f)
-			{
-				lastIntro = false;
-			}
+			if(pos.y == 28.f)
+				isDrawEndText = true;
 		}
 	}
 	else if (isFadeOut)
@@ -135,5 +142,7 @@ void SceneEnding::Draw(sf::RenderWindow& window)
 {
 	window.draw(image);
 	window.draw(text);
+	if (isDrawEndText)
+		window.draw(EndMessage);
 	Scene::Draw(window);
 }
