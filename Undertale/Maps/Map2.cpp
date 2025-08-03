@@ -401,7 +401,7 @@ void Map2::Draw(sf::RenderWindow& window)
 	{
 		for (auto& hit : hitboxes)
 		{
-			window.draw(*hit.shape); // worldView 기준으로 그려짐
+			window.draw(*hit.shape);
 		}
 	}
 }
