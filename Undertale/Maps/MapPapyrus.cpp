@@ -94,11 +94,11 @@ void MapPapyrus::Init()
 
 void MapPapyrus::Enter()
 {
-	doorwall.setSize({ 1200.f,20.f });
+	doorwall.setSize({ 20.f,200.f });
 	doorwall.setFillColor(sf::Color::Transparent);
 	doorwall.setOutlineColor(sf::Color::Transparent);
 	doorwall.setOutlineThickness(1.f);
-	doorwall.setPosition({ 470.f, 403.f });
+	doorwall.setPosition({ 420.f, 300.f });
 	Scene::LoadMapFromJson("map6.json", "map6", player, background, objects, hitboxes);
 	
 	sf::Vector2f size = { 640.f, 480.f };
@@ -276,6 +276,7 @@ void MapPapyrus::Update(float dt)
 			return;
 		}
 		uichanger->SetActive(!uichanger->GetActive());
+		SOUND_MGR.PlaySfx("sounds/snd_select.wav");
 	}
 
 	if (dialoguebox && dialoguebox->GetActive())

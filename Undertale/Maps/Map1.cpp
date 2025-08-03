@@ -29,6 +29,9 @@ void Map1::Init()
 	texIds.push_back("Sprites/TextWindow.png");
 
 	SOUNDBUFFER_MGR.Load("sounds/Map1/Ruins.wav");
+	soundIds.push_back("sounds/snd_select.wav");
+
+	SOUNDBUFFER_MGR.Load("sounds/Map1/05 Ruins.flac");
 	SOUNDBUFFER_MGR.Load("sounds/Map1/Fall2.wav");
 	SOUNDBUFFER_MGR.Load("sounds/Map1/sw.wav");
 
@@ -135,6 +138,7 @@ void Map1::Update(float dt)
 			return;
 		}
 		uichanger->SetActive(!uichanger->GetActive());
+		SOUND_MGR.PlaySfx("sounds/snd_select.wav");
 	}
 
 	worldView.setCenter(player->GetPosition());

@@ -45,6 +45,8 @@ void Map2::Init()
 	texIds.push_back("Sprites/spr_sans_r_darkhand_2.png");
 	texIds.push_back("Sprites/spr_sans_r_dark_0.png");
 
+	soundIds.push_back("sounds/Map2/17 Snowy.flac");
+	soundIds.push_back("sounds/Map2/15 sans..flac");
 
 	images.clear();
 	tex1.loadFromFile("Sprites/spr_f_maincharad_0.png");
@@ -59,9 +61,6 @@ void Map2::Init()
 	ANI_CLIP_MGR.Load("Animation/leftwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/rightwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/sansdarkwalking.csv");
-
-	SOUNDBUFFER_MGR.Load("sounds/Map2/17 Snowy.flac");
-	SOUNDBUFFER_MGR.Load("sounds/Map2/15 sans..flac");
 
 	player = (Player*)AddGameObject(new Player("Sprites/idle.png"));
 	sans = (Sans*)AddGameObject(new Sans("Sprites/spr_sans_r_dark_2.png"));

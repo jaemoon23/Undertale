@@ -55,6 +55,7 @@ void Player::Init()
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = 1;
 	animator.SetTarget(&body);
+
 }
 
 void Player::Release()
@@ -67,6 +68,7 @@ void Player::Reset()
 	SOUNDBUFFER_MGR.Load("sounds/snd_noise.wav");
 	SOUNDBUFFER_MGR.Load("sounds/snd_battlefall.wav");
 	SOUNDBUFFER_MGR.Load("sounds/Map2/15 sans..flac");
+	SOUNDBUFFER_MGR.Load("sounds/snd_select.wav");
 	TEXTURE_MGR.Load("graphics/spr_word!.png");
 	TEXTURE_MGR.Load("graphics/spr_heartsmall_0.png");
 	battleSymbol.setTexture(TEXTURE_MGR.Get("graphics/spr_word!.png"));
@@ -166,6 +168,7 @@ void Player::Update(float dt)
 				playerInfoUi->SetActive(false);
 			else if (uichanger && uichanger->GetActive())
 				uichanger->SetActive(false);
+			SOUND_MGR.PlaySfx("sounds/snd_select.wav");
 		}
 
 		if (uichanger && uichanger->GetActive()) return; // UI 변경 중에는 플레이어 이동 불가

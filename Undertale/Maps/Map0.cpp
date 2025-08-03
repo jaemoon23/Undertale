@@ -32,6 +32,8 @@ void Map0::Init()
 	texIds.push_back("graphics/spr_cutetable_0.png");
 	texIds.push_back("Sprites/spr_heart_battle_pl_0.png");
 
+	soundIds.push_back("sounds/snd_select.wav");
+
 	ANI_CLIP_MGR.Load("Animation/idle.csv");
 	ANI_CLIP_MGR.Load("Animation/downwalking.csv");
 	ANI_CLIP_MGR.Load("Animation/upwalking.csv");
@@ -100,6 +102,7 @@ void Map0::Update(float dt)
 			return;
 		}
 		uichanger->SetActive(!uichanger->GetActive());
+		SOUND_MGR.PlaySfx("sounds/snd_select.wav");
 	}
 
 	for (auto& hit : hitboxes)
