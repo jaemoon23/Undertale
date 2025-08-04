@@ -47,6 +47,7 @@ protected:
 	float exclamationmarkTimer = 0.f;
 
 	bool playerRun = false;
+	bool isDoor = true;
 public:
 	MapPapyrus();
 	~MapPapyrus() override = default;

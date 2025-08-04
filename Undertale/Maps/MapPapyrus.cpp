@@ -117,6 +117,7 @@ void MapPapyrus::Enter()
 		{
 			papyrus->animator.Play("Animation/papyrustoasted.csv");
 			papyrusImageChange = true;
+			isDoor = false;
 			doorwall.setSize({ 0,0 });
 			doorwall.setPosition({ 1000,1000 });
 		}
@@ -260,8 +261,8 @@ void MapPapyrus::Update(float dt)
 		float sansSpeed = 150.f;
 		papyrusPos += direction * sansSpeed * dt;
 		papyrus->SetPosition(papyrusPos);
-		doorwall.setSize({ 0,0 });
-		doorwall.setPosition({ 1000,1000 });
+		/*doorwall.setSize({ 0,0 });
+		doorwall.setPosition({ 1000,1000 });*/
 	}
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::C))
@@ -283,10 +284,12 @@ void MapPapyrus::Update(float dt)
 			dialoguebox->NextLine();
 		}
 	}
-
-	if (Utils::CheckCollision(player->GetHitBox(), doorwall))
+	if (isDoor)
 	{
-		player->SetPosition(player->getPos());
+		if (Utils::CheckCollision(player->GetHitBox(), doorwall))
+		{
+			player->SetPosition(player->getPos());
+		}
 	}
 
 	Scene::Update(dt);
